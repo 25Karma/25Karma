@@ -1,0 +1,13 @@
+.banner-error {
+	background-color: rgba(200,50,50,0.5);
+}
+.banner-success {
+	background-color: rgba(100,200,100,0.4);
+}
+.banner-invis {
+	opacity: 0;
+}
+.banner-vis {
+	opacity: 1;
+	transition: opacity 1s;
+}

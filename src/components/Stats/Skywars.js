@@ -1,8 +1,10 @@
 import React from 'react';
 
-export function Bedwars(props) {
-	const stats = props.player.stats.Bedwars;
-	const level = props.player.achievements.bedwars_level;
+export function Skywars(props) {
+	const stats = props.player.stats.SkyWars;
+	console.log(props.player);
+	console.log(stats);
+	const level = props.player.achievements.skywars_level;
 	const finalKills = stats.final_kills_bedwars;
 	const finalDeaths = stats.final_deaths_bedwars;
 	const kills = stats.kills_bedwars;
@@ -13,7 +15,7 @@ export function Bedwars(props) {
 	const bedsLost = stats.beds_lost_bedwars;
 	return (
 		<div className="font-minecraft">
-			Bedwars level {level}<br/>
+			Skywars level {level}<br/>
 			KDR: {(kills/deaths).toFixed(4)}<br/>
 			FKDR: {(finalKills/finalDeaths).toFixed(4)}<br/>
 			WL: {(wins/losses).toFixed(4)}<br/>

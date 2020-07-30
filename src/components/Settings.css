@@ -1,0 +1,33 @@
+.settings {
+	background-color: #222;
+}
+.settings-hidden {
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 1s;
+}
+.settings-shown {
+	overflow: hidden;
+	max-height: 10rem;
+	transition: max-height 1s;
+}
+.settings-button {
+	transition: transform 0.2s;
+}
+.settings-button:hover {
+	transform: scale(1.4);
+}
+.settings input {
+	width: 15rem;
+	border: 0px;
+	padding: 0.5rem;
+	background: #555;
+	font-size: 1rem;
+	border-radius: 0.5rem;
+}
+.settings input::placeholder {
+	color: #999;
+}
+.settings input:focus {
+	outline-width: 0;
+}

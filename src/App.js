@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import ReactLoading from 'react-loading';
+import Cookies from 'js-cookie';
 import './App.css';
-import { HypixelAPI, Navbar, PlayerStatsPage } from './components';
+import { Banner, Link, FrontPage, LoadingPage, PlayerStatsPage } from './components';
+import * as Utils from './utils';
+import p from './properties.js';
 import key from './key.js';
 
 function App() {
 
-	const hypixelAPI = new HypixelAPI(key);
+	const hypixelAPI = new Utils.HypixelAPI(key);
+	const params = Utils.getURLParams();
 
 	const [playerData, setPlayerData] = useState(null);
 	const [pageState, setPageState] = useState("idle");
 
 	useEffect(() => {
-		// Get params from URL
-		var params = {};
-		var vars = window.location.search.substr(1).split('&');
-		for (var i = 0; i < vars.length; i++) {
-			var pair = vars[i].split('=');
-			params[pair[0]] = decodeURIComponent(pair[1]);
-		}
 		if (params.player) {
 			asyncSetPlayerData(params.player);
 		}
@@ -30,7 +26,6 @@ function App() {
 		try {
 			data = await hypixelAPI.getDataOfPlayer(player);
 		} catch(e) {
-			console.log(e);
 			setPageState("failed");
 			return;
 		}
@@ -38,40 +33,55 @@ function App() {
 		setPageState("received");
 	}
 
-	function renderBody() {
+	function render() {
+		if (params.redirect === "false") {
+			return <FrontPage />;
+		}
+		if (!params.player && Cookies.get('pinnedPlayer')) {
+			Utils.searchForPlayer(Cookies.get('pinnedPlayer'));
+			return;
+		}
 		if (pageState === "idle") {
-			return (
-				<div className="h-flex justify-content-center my-4">
-					Enter a player name.
-				</div>
-				);
+			return <FrontPage />;
 		}
-		else if (pageState === "requested") {
-			return (
-				<div className="h-flex justify-content-center my-4">
-					<ReactLoading type="spin" height="5rem" width="5rem"/>
-				</div>
+		if (pageState === "requested") {
+			return <LoadingPage player={params.player} />;
+		} 
+		if (pageState === "failed") {
+			const banner = (
+				<Banner type="error"
+					title='API call failed. '
+					description='The site failed to fetch from the Hypixel API.'/>
 				);
+			return <FrontPage banner={banner} />
 		}
-		else if (pageState === "failed") {
-			return (
-				<div className="h-flex justify-content-center my-4">
-					API call failed.
-				</div>
-				);
-		}
-		else if (pageState === "received") {
-			return (
-				<PlayerStatsPage playerData={playerData} />
-				);
+		if (pageState === "received") {
+			if (playerData === null) {
+				const banner = <Banner type="error"
+					title='Player not found. '
+					description={`Could not find a player with the name "${params.player}".`}/>
+				return <FrontPage banner={banner} />
+			}
+			return <PlayerStatsPage playerData={playerData} />;
 		}
 	}
 
 	return (
-		<div>
-			<Navbar />
-			<div className="container">
-				{renderBody()}
+		<div className="h-100 v-flex">
+			<div className="flex-1">
+				{render()}
+			</div>
+			<div className="p-1 footer">
+				<small>
+					Powered by the&nbsp;
+					<Link href={p.hypixelAPIURL}>{p.hypixelAPI}</Link>. 
+					Hosted on&nbsp;
+					<Link href={p.gitHubURL}>{p.gitHubName}</Link>.
+				</small>
+				<small>
+					Made with ❤️ by&nbsp;
+					<Link href={p.authorURL}>{p.author}</Link>.
+				</small>
 			</div>
 		</div>
 		);
