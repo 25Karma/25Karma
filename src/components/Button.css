@@ -1,11 +1,18 @@
 .btn25 {
-	background-color: transparent;
 	border-radius: 0.5rem;
-	box-shadow: inset 0 0 0.5rem #0009;
+	box-shadow: inset 0 0 0.25rem #0009;
 	font-size: 1rem;
 	font-weight: bold;
 	transition: all 0.2s;
 }
 .btn25:hover {
-	box-shadow: inset 0 0 2rem #0009;
+	box-shadow: inset 0 0 1rem #0009;
+	text-shadow: 0 0.25rem 0.25rem #0009; 
+	color: #ccc;
+}
+.btn25-default {
+	background-color: #222;
+}
+.btn25-error {
+	background-color: rgba(200,50,50,0.5);
 }

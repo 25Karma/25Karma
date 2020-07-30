@@ -8,17 +8,10 @@
 }
 .settings-shown {
 	overflow: hidden;
-	max-height: 10rem;
+	max-height: 20rem;
 	transition: max-height 1s;
 }
-.settings-button {
-	transition: transform 0.2s;
-}
-.settings-button:hover {
-	transform: scale(1.4);
-}
 .settings input {
-	width: 15rem;
 	border: 0px;
 	padding: 0.5rem;
 	background: #555;

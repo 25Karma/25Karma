@@ -38,22 +38,11 @@ export class HypixelAPI {
 	}
 }
 
-export function getURLParams() {
-	// Get params from URL
-	var params = {};
-	var vars = window.location.search.substr(1).split('&');
-	for (var i = 0; i < vars.length; i++) {
-		var pair = vars[i].split('=');
-		params[pair[0]] = decodeURIComponent(pair[1]);
-	}
-	return params;
-}
-
 export function searchForPlayer(playerName) {
-	const player = encodeURIComponent(playerName);
-	if (player === "") {
+	if (!playerName) {
 		return;
 	}
+	const player = encodeURIComponent(playerName);
 	const origin = window.location.origin;
 	window.location.href = `${origin}/?player=${player}`;
 }
@@ -63,6 +52,11 @@ export function set1If0(number) {
 		return 1;
 	}
 	return number;
+}
+
+export function default0(val) {
+	if (!val || val === undefined || isNaN(val)) return 0;
+	return val;
 }
 
 export function inheritClassName(props) {

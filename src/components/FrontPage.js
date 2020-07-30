@@ -14,14 +14,12 @@ export function FrontPage(props) {
 				<p className="w-100 font-md font-minecraft pb-2 pl-2">
 					Search for the stats of a Hypixel player
 				</p>
-				<div className="w-100 pb-3">
-					<div className="pb-2">
-						<Searchbar />
-					</div>
-					{props.banner ? props.banner : null}
+				<div className="w-100 pb-2">
+					<Searchbar />
 				</div>
-				<p className="w-50 pb-2 text-center">
-					Pro tip: Customize this site by clicking on the settings button 
+				{props.banner ? props.banner : null}
+				<p className="w-50 pt-4 pb-2 text-center">
+					Pro tip: Customize this site by clicking on the gear button 
 					in the top-right corner. 
 				</p>
 			</div>

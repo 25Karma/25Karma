@@ -9,14 +9,14 @@ import key from './key.js';
 function App() {
 
 	const hypixelAPI = new Utils.HypixelAPI(key);
-	const params = Utils.getURLParams();
+	const params = new URL(window.location.href).searchParams;
 
 	const [playerData, setPlayerData] = useState(null);
 	const [pageState, setPageState] = useState("idle");
 
 	useEffect(() => {
-		if (params.player) {
-			asyncSetPlayerData(params.player);
+		if (params.get('player')) {
+			asyncSetPlayerData(params.get('player'));
 		}
 	}, []);
 
@@ -34,18 +34,19 @@ function App() {
 	}
 
 	function render() {
-		if (params.redirect === "false") {
+		if (params.get('player')) {
+			return renderPlayerStats();
+		}
+		if (params.get('redirect') === "false") {
 			return <FrontPage />;
 		}
-		if (!params.player && Cookies.get('pinnedPlayer')) {
-			Utils.searchForPlayer(Cookies.get('pinnedPlayer'));
-			return;
-		}
-		if (pageState === "idle") {
-			return <FrontPage />;
-		}
+		Utils.searchForPlayer(Cookies.get('pinnedPlayer'));
+		return <FrontPage />;		
+	}
+
+	function renderPlayerStats() {
 		if (pageState === "requested") {
-			return <LoadingPage player={params.player} />;
+			return <LoadingPage player={params.get('player')} />;
 		} 
 		if (pageState === "failed") {
 			const banner = (
@@ -59,7 +60,7 @@ function App() {
 			if (playerData === null) {
 				const banner = <Banner type="error"
 					title='Player not found. '
-					description={`Could not find a player with the name "${params.player}".`}/>
+					description={`Could not find a player with the name "${params.get('player')}".`}/>
 				return <FrontPage banner={banner} />
 			}
 			return <PlayerStatsPage playerData={playerData} />;
