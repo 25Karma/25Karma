@@ -4,13 +4,13 @@ import { Box, Stats } from '../../components';
 import * as Utils from '../../utils';
 
 export function Bedwars(props) {
-	let json = props.player.stats.Bedwars;
+	let json = Utils.traverse(props.player,'stats.Bedwars');
 	if (json === undefined) {
-		json = {}
+		json = {};
 	}
 	const decimal = Cookies.get('decimal') || 2;
 	const stats = {
-		level : Utils.default0(props.player.achievements.bedwars_level),
+		level : Utils.default0(Utils.traverse(props.player,'achievements.bedwars_level')),
 		finalKills : Utils.default0(json.final_kills_bedwars),
 		finalDeaths : Utils.default0(json.final_deaths_bedwars),
 		kills : Utils.default0(json.kills_bedwars),
@@ -27,40 +27,39 @@ export function Bedwars(props) {
 		bbl : (stats.bedsBroken/Utils.set1If0(stats.bedsLost)).toFixed(decimal)
 	}
 
-	function prestige(num) {
+	function getPrestige(num) {
 		const prestigeColors = [
-			[0, 'gray'],
-			[100, 'white'],
-			[200, 'gold'],
-			[300, 'aqua'],
-			[400, 'darkgreen'],
-			[500, 'darkaqua'],
-			[600, 'darkred'],
-			[700, 'pink'],
-			[800, 'blue'],
-			[900, 'purple'],
-			[1000, 'rainbow'],
-			[2000, 'rainbow']
+			[0, '7'], // gray
+			[100, 'f'], // white
+			[200, '6'], // gold
+			[300, 'b'], // aqua
+			[400, '2'], // darkgreen
+			[500, '3'], // darkaqua
+			[600, '4'], // darkred
+			[700, 'd'], // pink
+			[800, '9'], // blue
+			[900, '5'], // purple
+			[1000, 'R'], // rainbow
+			[2000, 'R'] // rainbow
 		];
 		for (const [k, v] of prestigeColors.reverse()) {
 			if (k <= parseInt(num)) return v
 		}
 	}
 
-	function getHeader() {
-		return (
-			<React.Fragment>
-				<Box title="Level" color={prestige(stats.level)}>[{stats.level}☆]</Box>
-				<Box title="KD">{ratios.kd}</Box>
-				<Box title="FKD">{ratios.fkd}</Box>
-				<Box title="WL">{ratios.wl}</Box>
-				<Box title="BBL">{ratios.bbl}</Box>
-			</React.Fragment>
-			);
-	}
+	const header = (
+		<React.Fragment>
+			<Box title="Level">{`§${getPrestige(stats.level)}[${stats.level}☆]`}</Box>
+			<Box title="KD">{ratios.kd}</Box>
+			<Box title="FKD">{ratios.fkd}</Box>
+			<Box title="WL">{ratios.wl}</Box>
+			<Box title="BBL">{ratios.bbl}</Box>
+		</React.Fragment>
+		);
+
 
 	return (
-		<Stats.Stats title="Bedwars" header={getHeader()}>
+		<Stats.Stats title="Bedwars" header={header}>
 			
 		</Stats.Stats>
 		);

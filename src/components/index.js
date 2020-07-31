@@ -5,6 +5,7 @@ export * from './Banner.js';
 export * from './Box.js';
 export * from './Button.js';
 export * from './Link.js';
+export * from './MinecraftText.js';
 export * from './Navbar.js';
 export * from './Searchbar.js';
 export * from './Settings.js';

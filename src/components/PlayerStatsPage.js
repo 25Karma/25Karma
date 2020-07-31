@@ -9,8 +9,10 @@ export function PlayerStatsPage(props) {
 		<div>
 			<Navbar><Searchbar /></Navbar>
 			<div className="container v-flex align-items-center my-4">
-				<div className="font-md font-minecraft">{player.displayname}</div>
+				<Stats.Player player={player} />
 				<Stats.Bedwars player={player} />
+				<Stats.Duels player={player} />
+				<Stats.Skywars player={player} />
 			</div>
 		</div>
 		);

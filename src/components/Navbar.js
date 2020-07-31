@@ -4,7 +4,7 @@ import { MdSettings } from 'react-icons/md';
 import { GoPin } from 'react-icons/go';
 import Cookies from 'js-cookie';
 import p from '../properties.js';
-import { Settings } from '../components';
+import { MinecraftText, Settings } from '../components';
 import * as Utils from '../utils';
 
 export function Navbar(props) {
@@ -35,8 +35,10 @@ export function Navbar(props) {
 		<React.Fragment>
 			<div className="h-flex">
 					<div className="flex-1 p-1 h-flex">
-						<a className="font-md p-1 font-minecraft c-pink text-shadow" href={getFrontPageURL()}>
-							{p.appNickname}
+						<a className="p-1 text-shadow" href={getFrontPageURL()}>
+							<MinecraftText font="md">
+								{"§d"+p.appNickname}
+							</MinecraftText>
 						</a>
 					</div>
 					<div className="flex-1 py-1 flex-grow-3">

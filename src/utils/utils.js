@@ -64,3 +64,17 @@ export function inheritClassName(props) {
 	if (className === undefined) return ''
 	return className
 }
+
+export function formatNum(num) {
+	if (isNaN(num)) return NaN;
+	return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}
+
+export function traverse(json, path) {
+	const paths = path.split('.');
+	for (const p of paths) {
+		json = json[p];
+		if (json === undefined) return {};
+	}
+	return json;
+}

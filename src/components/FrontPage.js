@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Searchbar } from '../components';
+import { MinecraftText, Navbar, Searchbar } from '../components';
 import properties from '../properties.js';
 
 export function FrontPage(props) {
@@ -8,11 +8,16 @@ export function FrontPage(props) {
 		<div>
 			<Navbar></Navbar>
 			<div className="container v-flex align-items-center my-4">
-				<p className="pb-4 font-xl font-minecraft c-pink text-shadow">
-					{properties.appName}
+				<p className="pb-4 text-shadow">
+					<MinecraftText font="xl">
+						{"§d"+properties.appName}
+					</MinecraftText>
+					
 				</p>
-				<p className="w-100 font-md font-minecraft pb-2 pl-2">
-					Search for the stats of a Hypixel player
+				<p className="w-100 pb-2 pl-2">
+					<MinecraftText font="md">
+						Search for the stats of a Hypixel player
+					</MinecraftText>
 				</p>
 				<div className="w-100 pb-2">
 					<Searchbar />

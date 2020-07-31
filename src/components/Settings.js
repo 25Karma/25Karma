@@ -18,8 +18,8 @@ export function Settings(props) {
 			return;
 		}
 		// If all is well, set the cookies
-		Cookies.set('pinnedPlayer', pinnedPlayerInput.current.value);
-		Cookies.set('decimal', decimalString);
+		Cookies.set('pinnedPlayer', pinnedPlayerInput.current.value, {expires:365});
+		Cookies.set('decimal', decimalString, {expires:365});
 		props.toggle();
 	}
 
@@ -100,7 +100,7 @@ export function Settings(props) {
 						max="8"
 						step="1"/>
 				</div>
-				<div className="v-flex align-items-center pb-3">
+				<div className="v-flex align-items-center pb-2">
 					<div className="pb-2">
 						<Button onClick={setCookies}>Save Settings</Button>
 					</div>
