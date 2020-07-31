@@ -1,4 +1,5 @@
 import properties from '../properties.js';
+import Cookies from 'js-cookie';
 
 export class HypixelAPI {
 
@@ -38,6 +39,49 @@ export class HypixelAPI {
 	}
 }
 
+export class RecentSearches {
+
+	constructor() {
+		let cookie = Cookies.get('recentSearches');
+		if (cookie === undefined) {
+			cookie = "[]";
+		}
+		this.array = JSON.parse(cookie);
+		this.maxLength = 5;
+	}
+
+	toString() {
+		return JSON.stringify(this.array);
+	}
+
+	toArray() {
+		return this.array;
+	}
+
+	add(ele) {
+		const str = String(ele)
+		const array = this.array;
+
+		let newArray = [str];
+		for (const a of array) {
+			if (!newArray.includes(a)) {
+				newArray.push(a);
+			}
+		}
+		this._set(newArray.slice(0,this.maxLength));
+	}
+
+	_set(array) {
+		this.array = array;
+		Cookies.set('recentSearches', this.toString(), {expires:365});
+	}
+
+	clear() {
+		this._set([]);
+		Cookies.remove('recentSearches');
+	}
+}
+
 export function searchForPlayer(playerName) {
 	if (!playerName) {
 		return;
@@ -63,11 +107,6 @@ export function inheritClassName(props) {
 	const className = props.className;
 	if (className === undefined) return ''
 	return className
-}
-
-export function formatNum(num) {
-	if (isNaN(num)) return NaN;
-	return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 }
 
 export function traverse(json, path) {

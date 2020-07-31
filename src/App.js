@@ -63,6 +63,9 @@ function App() {
 					description={`Could not find a player with the name "${params.get('player')}".`}/>
 				return <FrontPage banner={banner} />
 			}
+			// tracking recent searches
+			let recentSearches = new Utils.RecentSearches();
+			recentSearches.add(playerData.displayname);
 			return <PlayerStatsPage playerData={playerData} />;
 		}
 	}

@@ -1,6 +1,5 @@
 import React from 'react';
 import './MinecraftText.css';
-import * as Utils from '../utils';
 
 export function MinecraftText(props) {
 
@@ -32,7 +31,10 @@ export function MinecraftText(props) {
 			let text = section.substr(1);
 			if (!text) continue;
 			const num = Number(text);
-			if (!isNaN(num)) text = Utils.formatNum(num);
+			if (!isNaN(num)) text = num.toLocaleString('en', {   
+					minimumFractionDigits: 0,
+					maximumFractionDigits: 8,
+				});
 			const colorClass = colorClasses[colorCode];
 			spans.push(<span key={key++} className={`font-minecraft c-${colorClass}`}>
 				{text}</span>);

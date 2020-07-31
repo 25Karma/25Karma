@@ -2,6 +2,7 @@ import React from 'react';
 import * as Stats from './Stats';
 import { Navbar, Searchbar } from '../components';
 
+// should only be called if player is not null (handling by app.js)
 export function PlayerStatsPage(props) {
 	const player = props.playerData;
 

@@ -3,6 +3,7 @@ import ReactTooltip from 'react-tooltip';
 import Cookies from 'js-cookie';
 import './Settings.css';
 import { Link, Banner, Button } from '../components';
+import * as Utils from '../utils';
 
 export function Settings(props) {
 
@@ -26,6 +27,8 @@ export function Settings(props) {
 	function clearCookies() {
 		Cookies.remove('pinnedPlayer');
 		Cookies.remove('decimal');
+		let recentSearches = new Utils.RecentSearches();
+		recentSearches.clear();
 		setBanner("ClearCookiesInfo");
 	}
 
