@@ -3,21 +3,23 @@ import Cookies from 'js-cookie';
 import { Box, Stats } from '../../components';
 import * as Utils from '../../utils';
 
+/*
+* Stats row for Duels
+*
+* @param {Object} props.player Player data in JSON object
+*/
 export function Duels(props) {
-	let json = Utils.traverse(props.player,'stats.Duels');
-	if (json === undefined) {
-		json = {};
-	}
+	const json = Utils.traverse(props.player,'stats.Duels');
 	const decimal = Cookies.get('decimal') || 2;
-	const stats = calculateDuelsDeaths(json);
+	const stats = calculateDuelsStats(json);
 	const ratios = {
 		kd : (stats.kills/Utils.set1If0(stats.deaths)).toFixed(decimal),
 		wl : (stats.wins/Utils.set1If0(stats.losses)).toFixed(decimal),
 	}
 	
-	// Ignores Bridge deaths
-	function calculateDuelsDeaths(data) {
+	function calculateDuelsStats(data) {
 		let totalDeaths = 0, totalKills = 0;
+		// Ignores Bridge deaths and kills
 		for (const [k,v] of Object.entries(data)) {
 			if (k.includes('deaths') && k!=='deaths' && !k.includes('bridge')) {
 				totalDeaths += v;
@@ -37,14 +39,14 @@ export function Duels(props) {
 
 	function getDuelsRank(data) {
 		const ranks = [
-			['Rookie', '8'],
-			['Iron', 'f'],
-			['Gold', '6'],
-			['Diamond', 'b'],
-			['Master', '2'],
-			['Legend', '4'],
-			['Grandmaster', 'e'],
-			['Godlike', '5'],
+			['Rookie', '8'], // dark gray
+			['Iron', 'f'], // white
+			['Gold', '6'], // gold
+			['Diamond', 'b'], // aqua
+			['Master', '2'], // dark green
+			['Legend', '4'], // dark red
+			['Grandmaster', 'e'], // yellow
+			['Godlike', '5'], // purple
 		];
 		const roman = {
 			'1':'','2':'II','3':'III','4':'IV','5':'V',
@@ -55,6 +57,7 @@ export function Duels(props) {
 				return `§${v}${k} ${roman[dat]}`
 			}
 		}
+		// If the player has no rank
 		return '-'
 	}
 

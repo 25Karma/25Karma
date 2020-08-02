@@ -7,8 +7,18 @@ import p from '../properties.js';
 import { MinecraftText, Settings } from '../components';
 import * as Utils from '../utils';
 
+/*
+* Navbar that appears at the top of the page
+*
+* @param {JSX} props.children JSX Object to display in the center of the navbar
+*/
 export function Navbar(props) {
-
+	
+	/*
+	* Returns the site root URI with the 'redirect' param as false
+	*
+	* @return {string} The URI of the frontpage
+	*/
 	function getFrontPageURL() {
 		const origin = window.location.origin;
 		return `${origin}/?redirect=false`;
@@ -18,7 +28,12 @@ export function Navbar(props) {
 	function toggleSettings() {
 		setSettingsShown(!settingsShown)
 	}
-
+	
+	/*
+	* Returns a clickable pin icon if the 'pinnedPlayer' cookie exists
+	*
+	* @return {JSX} A clickable pin icon that redirects to the pinned player's stats on click
+	*/
 	function renderPinnedPlayerButton() {
 		const p = Cookies.get('pinnedPlayer');
 		if (p) {
@@ -55,6 +70,10 @@ export function Navbar(props) {
 						</IconContext.Provider>
 					</div>
 			</div>
+			{/* 
+				Settings JSX is placed under the Navbar
+				Its height is handled by the Navbar
+			 */}
 			<div className={settingsShown ? 'settings-shown' : 'settings-hidden'}>
 				<Settings toggle={toggleSettings}/>
 			</div>

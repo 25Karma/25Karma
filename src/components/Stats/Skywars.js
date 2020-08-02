@@ -3,11 +3,13 @@ import Cookies from 'js-cookie';
 import { Box, Stats } from '../../components';
 import * as Utils from '../../utils';
 
+/*
+* Stats row for Skywars
+*
+* @param {Object} props.player Player data in JSON object
+*/
 export function Skywars(props) {
-	let json = Utils.traverse(props.player,'stats.SkyWars');
-	if (json === undefined) {
-		json = {};
-	}
+	const json = Utils.traverse(props.player,'stats.SkyWars');
 	const decimal = Cookies.get('decimal') || 2;
 	const stats = {
 		level: getSkywarsLevel(Utils.default0(json.skywars_experience)).toFixed(decimal),

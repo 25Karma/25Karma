@@ -1,8 +1,12 @@
 import React from 'react';
-import * as Stats from './Stats';
-import { Navbar, Searchbar } from '../components';
+import { Navbar, Searchbar, Stats } from '../components';
 
-// should only be called if player is not null (handling by app.js)
+/*
+* Page that displays the stats for an individual player
+* The assumption being that it is only called by App.js if player is not null
+*
+* @param {Object} props.player Player data JSON object
+*/
 export function PlayerStatsPage(props) {
 	const player = props.playerData;
 

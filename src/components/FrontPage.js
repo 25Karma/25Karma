@@ -3,28 +3,39 @@ import { Button, MinecraftText, Navbar, Searchbar } from '../components';
 import * as Utils from '../utils';
 import properties from '../properties.js';
 
+/*
+* The frontpage of the site
+*
+* @param {JSX} props.banner The banner that will appear when the page loads
+*/
 export function FrontPage(props) {
 
+	/*
+	* Renders JSX containing recent searches if there are any
+	*
+	* @return {JSX} A div containing buttons to search for recent players
+	*/
 	function renderRecentSearches() {
 		const recentSearches = new Utils.RecentSearches();
 		const array = recentSearches.toArray();
+		// If the cookie is empty or doesn't exist, do not render anything
 		if (array === undefined || array.length === 0) {
 			return;
 		}
 		return (
 			<React.Fragment>
-				<p className="w-100 pb-2 pl-2 h-flex align-items-center">
+				<div className="w-100 pb-2 pl-2 h-flex align-items-center">
 					<MinecraftText>
 						Recent searches
 					</MinecraftText>
 					{array.map((a) => (
-						<div className="pl-2">
-							<Button key={a} onClick={()=>{Utils.searchForPlayer(a)}}>
+						<div key={a} className="pl-2">
+							<Button onClick={()=>{Utils.searchForPlayer(a)}}>
 								<small className="c-gray">{a}</small>
 							</Button>
 						</div>
 					))}
-				</p>
+				</div>
 			</React.Fragment>
 			);
 	}

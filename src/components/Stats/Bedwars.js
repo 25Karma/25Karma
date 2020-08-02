@@ -3,11 +3,13 @@ import Cookies from 'js-cookie';
 import { Box, Stats } from '../../components';
 import * as Utils from '../../utils';
 
+/*
+* Stats row for Bedwars
+*
+* @param {Object} props.player Player data in JSON object
+*/
 export function Bedwars(props) {
-	let json = Utils.traverse(props.player,'stats.Bedwars');
-	if (json === undefined) {
-		json = {};
-	}
+	const json = Utils.traverse(props.player,'stats.Bedwars');
 	const decimal = Cookies.get('decimal') || 2;
 	const stats = {
 		level : Utils.default0(Utils.traverse(props.player,'achievements.bedwars_level')),
@@ -26,7 +28,7 @@ export function Bedwars(props) {
 		wl : (stats.wins/Utils.set1If0(stats.losses)).toFixed(decimal),
 		bbl : (stats.bedsBroken/Utils.set1If0(stats.bedsLost)).toFixed(decimal)
 	}
-
+	
 	function getPrestige(num) {
 		const prestigeColors = [
 			[0, '7'], // gray

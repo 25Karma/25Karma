@@ -1,96 +1,25 @@
-import properties from '../properties.js';
-import Cookies from 'js-cookie';
-
-export class HypixelAPI {
-
-	constructor(key) {
-		this.url = properties.hypixelAPIURL;
-		this.key = key;
-	}
-
-	getDataOfPlayer(name) {
-		const params = {
-			key : this.key,
-			name : name
-		}
-		return fetch(this._playerDataURL(params), {'mode': 'cors', 'Access-Control-Allow-Origin': "*"})
-			.then((response) => response.json())
-			.then((json) => {
-				if (json['success']) {
-					return json['player'];
-				}
-				return null;
-			});
-	}
-
-	_playerDataURL(params) {
-		let url = this.url + "player?";
-
-		let first = true;
-		for (const [key, val] of Object.entries(params)) {
-			if (!first) {
-				url += "&";
-			}
-			url += `${key}=${encodeURIComponent(val)}`;
-			first = false;
-		}
-
-		return url;
-	}
-}
-
-export class RecentSearches {
-
-	constructor() {
-		let cookie = Cookies.get('recentSearches');
-		if (cookie === undefined) {
-			cookie = "[]";
-		}
-		this.array = JSON.parse(cookie);
-		this.maxLength = 5;
-	}
-
-	toString() {
-		return JSON.stringify(this.array);
-	}
-
-	toArray() {
-		return this.array;
-	}
-
-	add(ele) {
-		const str = String(ele)
-		const array = this.array;
-
-		let newArray = [str];
-		for (const a of array) {
-			if (!newArray.includes(a)) {
-				newArray.push(a);
-			}
-		}
-		this._set(newArray.slice(0,this.maxLength));
-	}
-
-	_set(array) {
-		this.array = array;
-		Cookies.set('recentSearches', this.toString(), {expires:365});
-	}
-
-	clear() {
-		this._set([]);
-		Cookies.remove('recentSearches');
-	}
-}
-
+/*
+* Reloads the web page to search for a player
+*
+* @param {string} playerName The username of the player
+*/
 export function searchForPlayer(playerName) {
+	// Safeguard - does nothing if nothing is passed
 	if (!playerName) {
 		return;
 	}
 	const player = encodeURIComponent(playerName);
 	const origin = window.location.origin;
+	// Reloads the page
 	window.location.href = `${origin}/?player=${player}`;
 }
 
+/*
+* Returns 1 if the number is zero
+*
+* @param {number} number
+* @return {number} 1 if number is 0, otherwise the number itself
+*/
 export function set1If0(number) {
 	if (number === 0) {
 		return 1;
@@ -98,17 +27,25 @@ export function set1If0(number) {
 	return number;
 }
 
+/*
+* Returns 0 if the value passed is falsy
+*
+* @param {any} val
+* @return {any} 0 if val is falsy, otherwise val itself
+*/
 export function default0(val) {
 	if (!val || val === undefined || isNaN(val)) return 0;
 	return val;
 }
 
-export function inheritClassName(props) {
-	const className = props.className;
-	if (className === undefined) return ''
-	return className
-}
-
+/*
+* Traverses down an object path safely
+*
+* @param {Object} json The Object to traverse
+* @param {string} path The path to follow (period-separated)
+* @return {any} Returns the value at the path, or an 
+*	empty Object if the path does not exist at any point
+*/
 export function traverse(json, path) {
 	const paths = path.split('.');
 	for (const p of paths) {

@@ -3,9 +3,19 @@ import { IconContext } from 'react-icons';
 import { MdReport, MdInfoOutline } from 'react-icons/md';
 import './Banner.css';
 
+/*
+* A popup banner to display a message
+*
+* @param {string} props.type The theme of the banner to display
+* @param {string} props.title Text to show in bold in the banner
+* @param {string} props.description Text to show after the title 
+* @param {boolean} props.expire Have the banner fade out after 5 seconds
+* @param {function} props.onExpiry Parent's function that runs once the banner has fully faded out
+*/
 export function Banner(props) {
 	
 	const bannerRef = useRef('banner');
+	const expire = props.expire;
 	const styleHidden = {
 		opacity: '0',
 		maxHeight: '0px',
@@ -17,7 +27,11 @@ export function Banner(props) {
 		transition: 'opacity 0.5s 0.5s, max-height 0.5s'
 	}
 	const [style, setStyle] = useState(styleHidden);
-
+	
+	/*
+	* Returns a symbol based on the banner type
+	* Currently supports types 'error' and 'info' only
+	*/
 	function getSymbol() {
 		if (props.type === "error") {
 			return <MdReport />;
@@ -28,9 +42,11 @@ export function Banner(props) {
 	}
 
 	useEffect(() => {
+		// Must dynamically calculate the full banner height and add it to the style
+		// since we cannot transition from height:0; to height:auto;
 		styleShown.maxHeight = bannerRef.current.scrollHeight+'px';
 		setStyle(styleShown)
-		if (props.expire) {
+		if (expire) {
 			setTimeout(function () {
 				setStyle(styleHidden)
 			}, 5000);
