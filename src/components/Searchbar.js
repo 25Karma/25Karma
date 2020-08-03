@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import { MdSearch } from 'react-icons/md';
 import './Searchbar.css';
-import * as Utils from '../utils';
 
 /*
 * Styled input with search button
@@ -10,6 +10,7 @@ import * as Utils from '../utils';
 export function Searchbar(props) {
 
 	const refInput = useRef("input")
+	const history = useHistory();
 	
 	/*
 	* Checks if the key that was pressed was the Enter key
@@ -27,7 +28,9 @@ export function Searchbar(props) {
 	*/
 	function search() {
 		const player = refInput.current.value;
-		Utils.searchForPlayer(player);
+		if (player !== '') {
+			history.push(`/player/${player}`);
+		}
 	}
 
 	return (

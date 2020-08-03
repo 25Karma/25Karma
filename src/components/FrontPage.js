@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button, MinecraftText, Navbar, Searchbar } from '../components';
 import * as Utils from '../utils';
 import properties from '../properties.js';
@@ -30,9 +31,11 @@ export function FrontPage(props) {
 					</MinecraftText>
 					{array.map((a) => (
 						<div key={a} className="pl-2">
-							<Button onClick={()=>{Utils.searchForPlayer(a)}}>
-								<small className="c-gray">{a}</small>
-							</Button>
+							<Link to={`/player/${a}`}>
+								<Button>
+										<small className="c-gray">{a}</small>
+								</Button>
+							</Link>
 						</div>
 					))}
 				</div>

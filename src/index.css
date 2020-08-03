@@ -56,11 +56,11 @@ button:focus {
 .flex-wrap { flex-wrap: wrap; }
 .flex-nowrap { flex-wrap: nowrap; }
 .font-bold { font-weight: bold; }
-.font-lg { font-size: 2.75rem; }
-.font-md { font-size: 1.5rem; }
+.font-lg { font-size: 2.5rem; }
+.font-md { font-size: 1.25rem; }
 .font-minecraft { font-family: Minecraft;}
 .font-sm { font-size: 1rem; }
-.font-xl { font-size: 4rem; }
+.font-xl { font-size: 3.5rem; }
 .font-xs { font-size: 0.75rem; }
 .h-100 { height: 100%; }
 .h-flex { display: flex; flex-direction: row; }

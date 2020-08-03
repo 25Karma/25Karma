@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import ReactTooltip from 'react-tooltip';
 import Cookies from 'js-cookie';
 import './Settings.css';
-import { Link, Banner, Button } from '../components';
+import { ExternalLink, Banner, Button } from '../components';
 import * as Utils from '../utils';
 
 /*
@@ -138,8 +138,9 @@ export function Settings(props) {
 					{renderBanner()}
 				</div>
 				<p>Your preferences are stored as&nbsp;
-					<Link href="http://www.whatarecookies.com/">cookies</Link> on your computer.&nbsp;
-					They are accessible to you and to you only. You can clear the cookies used by&nbsp;
+					<ExternalLink href="http://www.whatarecookies.com/">cookies</ExternalLink>&nbsp;
+					on your computer. They are accessible to you and to you only.&nbsp;
+					You can clear the cookies used by&nbsp;
 					this site at any time by clicking the Clear Cookies button.
 				</p>
 			</div>

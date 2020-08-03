@@ -1,20 +1,4 @@
 /*
-* Reloads the web page to search for a player
-*
-* @param {string} playerName The username of the player
-*/
-export function searchForPlayer(playerName) {
-	// Safeguard - does nothing if nothing is passed
-	if (!playerName) {
-		return;
-	}
-	const player = encodeURIComponent(playerName);
-	const origin = window.location.origin;
-	// Reloads the page
-	window.location.href = `${origin}/?player=${player}`;
-}
-
-/*
 * Returns 1 if the number is zero
 *
 * @param {number} number

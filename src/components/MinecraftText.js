@@ -56,7 +56,7 @@ export function MinecraftText(props) {
 				{text}</span>);
 		}
 		return (
-			<span className={`h-flex font-${props.font}`}>
+			<span className={`font-${props.font}`}>
 				{spans.map(span => span)}
 			</span>
 			);

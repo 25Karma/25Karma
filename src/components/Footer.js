@@ -1,7 +1,7 @@
 import React from 'react';
 import './Footer.css';
 import p from '../properties.js';
-import { Link } from '../components';
+import { ExternalLink } from '../components';
 
 /*
 * Footer that appears at the bottom of the page
@@ -9,17 +9,17 @@ import { Link } from '../components';
 */
 export function Footer(props) {
 	return (
-		<div className="p-1 footer">
-			<small>
+		<div className="p-1 footer font-xs">
+			<span>
 				Powered by the&nbsp;
-				<Link href={p.hypixelAPIURL}>{p.hypixelAPI}</Link>. 
+				<ExternalLink href={p.hypixelAPIURL}>{p.hypixelAPI}</ExternalLink>. 
 				Hosted on&nbsp;
-				<Link href={p.gitHubURL}>{p.gitHubName}</Link>.
-			</small>
-			<small className="text-right">
+				<ExternalLink href={p.gitHubURL}>{p.gitHubName}</ExternalLink>.
+			</span>
+			<span className="text-right">
 				Made with ❤️ by&nbsp;
-				<Link href={p.authorURL}>{p.author}</Link>.
-			</small>
+				<ExternalLink href={p.authorURL}>{p.author}</ExternalLink>.
+			</span>
 		</div>
 		);
 }

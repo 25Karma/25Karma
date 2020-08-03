@@ -6,7 +6,7 @@ import React from 'react';
 * @param {string} props.href The URI to open on click
 * @param {string} props.children Text of the link
 */
-export function Link(props) {
+export function ExternalLink(props) {
 	return <a className="link" target="_blank" rel="noopener noreferrer" href={props.href}>
 			{props.children}
 		</a>;
