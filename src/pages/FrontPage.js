@@ -13,32 +13,43 @@ export function FrontPage(props) {
 
 	/*
 	* Renders JSX containing recent searches if there are any
+	* If there are none, renders a suggestion
 	*
 	* @return {JSX} A div containing buttons to search for recent players
 	*/
 	function renderRecentSearches() {
 		const recentSearches = new RecentSearches();
 		const array = recentSearches.toArray();
-		// If the cookie is empty or doesn't exist, do not render anything
+		// If the cookie is empty or doesn't exist, render a suggestion
 		if (array === undefined || array.length === 0) {
-			return;
+			const suggestedPlayer = "gamerboy80"
+			return (
+				<React.Fragment>
+					<MinecraftText>First time? Try searching</MinecraftText>
+					<div className="pl-1">
+						<Link to={`/player/${suggestedPlayer}`}>
+							<Button>
+									<small className="c-gray">{suggestedPlayer}</small>
+							</Button>
+						</Link>
+					</div>
+				</React.Fragment>
+			);
 		}
 		return (
 			<React.Fragment>
-				<div className="w-100 pb-2 pl-2 h-flex align-items-center">
-					<MinecraftText>
-						Recent searches
-					</MinecraftText>
-					{array.map((a) => (
-						<div key={a} className="pl-2">
-							<Link to={`/player/${a}`}>
-								<Button>
-										<small className="c-gray">{a}</small>
-								</Button>
-							</Link>
-						</div>
-					))}
-				</div>
+				<MinecraftText>
+					Recent searches
+				</MinecraftText>
+				{array.map((a) => (
+					<div key={a} className="pl-2">
+						<Link to={`/player/${a}`}>
+							<Button>
+									<small className="c-gray">{a}</small>
+							</Button>
+						</Link>
+					</div>
+				))}
 			</React.Fragment>
 			);
 	}
@@ -61,7 +72,9 @@ export function FrontPage(props) {
 				<div className="w-100 pb-2">
 					<Searchbar />
 				</div>
-				{renderRecentSearches()}
+				<div className="w-100 pb-2 pl-2 h-flex align-items-center">
+					{renderRecentSearches()}
+				</div>
 				{props.banner ? props.banner : null}
 				<p className="w-50 pt-4 pb-2 text-center">
 					Pro tip: Customize this site by clicking on the gear button 

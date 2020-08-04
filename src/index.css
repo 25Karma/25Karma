@@ -106,6 +106,7 @@ button:focus {
 .pb-2 { padding-bottom: 1rem; }
 .pb-3 { padding-bottom: 2rem; }
 .pb-4 { padding-bottom: 4rem; }
+.pl-1 { padding-left: 0.5rem; }
 .pl-2 { padding-left: 1rem; }
 .pr-1 { padding-right: 0.5rem; }
 .pr-2 { padding-right: 1rem; }
