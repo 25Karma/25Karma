@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
+    <Router hashType="noslash">
       <App/>	
     </Router>
   </React.StrictMode>,

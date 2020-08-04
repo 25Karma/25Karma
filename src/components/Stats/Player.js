@@ -1,7 +1,9 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-import { Box, MinecraftText } from '../../components';
-import * as Utils from '../../utils';
+import { IconContext } from 'react-icons';
+import { FaSignal } from 'react-icons/fa';
+import { Box, Crafatar, MinecraftText } from 'components';
+import * as Utils from 'utils';
 
 export function Player(props) {
 	const player = props.player;
@@ -15,6 +17,7 @@ export function Player(props) {
 		networkLevel: Utils.default0(
 			calculateNetworkLevel(player.networkExp).toFixed(decimal)),
 	}
+	console.log(player)
 
 	function calculateNetworkLevel(exp) {
 		return ((Math.sqrt(exp + 15312.5) - 125/Math.sqrt(2))/(25*Math.sqrt(2)))
@@ -74,10 +77,18 @@ export function Player(props) {
 	}
 
 	return (
-		<div className="v-flex align-items-center text-shadow">
-			<MinecraftText font="lg">
-				{getNameWithRank(stats)}
-			</MinecraftText>
+		<div className="v-flex align-items-center">
+			<div className="h-flex text-shadow">
+				<Crafatar uuid={player.uuid} />
+				<MinecraftText font="lg" className="px-2">
+					{getNameWithRank(stats)}
+				</MinecraftText>
+				<IconContext.Provider value={{ className: 'react-icons-lg' }}>
+					<span className={player.lastLogin > player.lastLogout ? 'c-green' : 'c-darkgray'}>
+						<FaSignal />
+					</span>
+				</IconContext.Provider>
+			</div>
 			<div className="h-flex">
 				<Box title="Hypixel Level">
 					{'§f'+stats.networkLevel}

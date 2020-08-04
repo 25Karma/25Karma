@@ -1,12 +1,14 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-import { Box, Stats } from '../../components';
-import * as Utils from '../../utils';
+import { Box } from 'components';
+import { Stats } from './Stats.js';
+import * as Utils from 'utils';
 
 /*
 * Stats row for Duels
 *
 * @param {Object} props.player Player data in JSON object
+* @param {number} props.index The order in which to display the row (used by react-beautiful-dnd)
 */
 export function Duels(props) {
 	const json = Utils.traverse(props.player,'stats.Duels');
@@ -71,8 +73,8 @@ export function Duels(props) {
 		);
 
 	return (
-		<Stats.Stats title="Duels" header={header}>
+		<Stats title="Duels" header={header} index={props.index}>
 			
-		</Stats.Stats>
+		</Stats>
 		);
 }

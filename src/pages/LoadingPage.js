@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactLoading from 'react-loading';
-import { Navbar } from '../components';
+import { Navbar } from 'components';
 
 /*
 * Page that displays when waiting for API response

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Footer.css';
-import p from '../properties.js';
-import { ExternalLink } from '../components';
+import p from 'properties.js';
+import { ExternalLink } from 'components';
 
 /*
 * Footer that appears at the bottom of the page

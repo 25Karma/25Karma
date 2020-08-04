@@ -1,3 +1,7 @@
+export const CALL_STATUS_REQUESTED = 'requested';
+export const CALL_STATUS_FAILED = 'failed';
+export const CALL_STATUS_RECEIVED = 'received';
+
 /*
 * Returns 1 if the number is zero
 *

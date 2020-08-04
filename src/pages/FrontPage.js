@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, MinecraftText, Navbar, Searchbar } from '../components';
-import * as Utils from '../utils';
-import properties from '../properties.js';
+import { Button, MinecraftText, Navbar, Searchbar } from 'components';
+import { RecentSearches } from 'utils';
+import properties from 'properties.js';
 
 /*
 * The frontpage of the site
@@ -17,7 +17,7 @@ export function FrontPage(props) {
 	* @return {JSX} A div containing buttons to search for recent players
 	*/
 	function renderRecentSearches() {
-		const recentSearches = new Utils.RecentSearches();
+		const recentSearches = new RecentSearches();
 		const array = recentSearches.toArray();
 		// If the cookie is empty or doesn't exist, do not render anything
 		if (array === undefined || array.length === 0) {

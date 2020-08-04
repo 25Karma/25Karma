@@ -1,12 +1,14 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-import { Box, Stats } from '../../components';
-import * as Utils from '../../utils';
+import { Box } from 'components';
+import { Stats } from './Stats.js';
+import * as Utils from 'utils';
 
 /*
 * Stats row for Bedwars
 *
 * @param {Object} props.player Player data in JSON object
+* @param {number} props.index The order in which to display the row (used by react-beautiful-dnd)
 */
 export function Bedwars(props) {
 	const json = Utils.traverse(props.player,'stats.Bedwars');
@@ -61,8 +63,8 @@ export function Bedwars(props) {
 
 
 	return (
-		<Stats.Stats title="Bedwars" header={header}>
+		<Stats title="Bedwars" header={header} index={props.index}>
 			
-		</Stats.Stats>
+		</Stats>
 		);
 }

@@ -5,6 +5,7 @@ import './MinecraftText.css';
 * Parses minecraft-formatted text and displays it in a minecraft font
 *
 * @param {string} props.font Font size
+* @param {string} props.className Classes to apply - intended for padding/margin use only
 * @param {string} props.children Minecraft color-formatted text to display
 */
 export function MinecraftText(props) {
@@ -56,7 +57,7 @@ export function MinecraftText(props) {
 				{text}</span>);
 		}
 		return (
-			<span className={`font-${props.font}`}>
+			<span className={`font-${props.font} ${props.className}`}>
 				{spans.map(span => span)}
 			</span>
 			);

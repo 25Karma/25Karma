@@ -1,4 +1,4 @@
-import p from '../properties.js';
+import p from 'properties.js';
 
 /*
 * @class Handles all communication with the Hypixel API

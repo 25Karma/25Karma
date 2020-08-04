@@ -42,7 +42,7 @@ export function Searchbar(props) {
 			autoFocus
 			/>
 			<IconContext.Provider value={{ className: 'react-icons' }}>
-				<button className="font-md" onClick={search}>
+				<button onClick={search}>
 					<MdSearch />
 				</button>
 			</IconContext.Provider>

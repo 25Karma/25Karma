@@ -1,16 +1,6 @@
 .settings {
 	background-color: #222;
 }
-.settings-hidden {
-	max-height: 0;
-	overflow: hidden;
-	transition: max-height 1s;
-}
-.settings-shown {
-	overflow: hidden;
-	max-height: 20rem;
-	transition: max-height 1s;
-}
 .settings input {
 	border: 0px;
 	padding: 0.5rem;

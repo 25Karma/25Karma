@@ -1,7 +1,12 @@
-.stats-box {
+.stats-header {
 	display: flex;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	align-items: center;
 	width: 100%;
 	background: #222;
+}
+
+.stats-body {
+	padding: 1rem;
+	background: #111;
 }

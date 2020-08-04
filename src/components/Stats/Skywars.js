@@ -1,12 +1,14 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-import { Box, Stats } from '../../components';
-import * as Utils from '../../utils';
+import { Box } from 'components';
+import { Stats } from './Stats.js';
+import * as Utils from 'utils';
 
 /*
 * Stats row for Skywars
 *
 * @param {Object} props.player Player data in JSON object
+* @param {number} props.index The order in which to display the row (used by react-beautiful-dnd)
 */
 export function Skywars(props) {
 	const json = Utils.traverse(props.player,'stats.SkyWars');
@@ -112,8 +114,8 @@ export function Skywars(props) {
 		);
 
 	return (
-		<Stats.Stats title="Skywars" header={header}>
-			
-		</Stats.Stats>
+		<Stats title="Skywars" header={header} index={props.index}>
+
+		</Stats>
 		);
 }

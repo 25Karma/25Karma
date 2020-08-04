@@ -1,5 +1,5 @@
 import React from 'react';
-import { MinecraftText } from '../components';
+import { MinecraftText } from 'components';
 
 /*
 * Displays data in minecraft font with a small title
@@ -9,11 +9,11 @@ import { MinecraftText } from '../components';
 */
 export function Box(props) {
 	return (
-		<div className="v-flex align-items-center py-1 px-2">
+		<span className="v-flex align-items-center py-1 px-2">
 			<small>{props.title}</small>
 			<MinecraftText font="md">
 				{`§7${props.children}` /* Text is gray by default */}
 			</MinecraftText>
-		</div>
+		</span>
 		);
 }

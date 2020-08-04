@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
 import ReactTooltip from 'react-tooltip';
+import Switch from 'react-switch';
 import Cookies from 'js-cookie';
 import './Settings.css';
-import { ExternalLink, Banner, Button } from '../components';
-import * as Utils from '../utils';
+import { ExternalLink, Banner, Button } from 'components';
+import { RecentSearches } from 'utils';
 
 /*
 * Gets/sets cookies based on user's site preferences
@@ -15,6 +16,7 @@ export function Settings(props) {
 	// Refs used by setCookies() to locate inputs
 	const pinnedPlayerInput = useRef('pinnedPlayer');
 	const decimalInput = useRef('decimal');
+	const [theme, setTheme] = useState(Cookies.get('theme') || 'dark');
 	const [banner, setBanner] = useState(null);
 
 	/*
@@ -30,6 +32,7 @@ export function Settings(props) {
 		// If all is well, set the cookies
 		Cookies.set('pinnedPlayer', pinnedPlayerInput.current.value, {expires:365});
 		Cookies.set('decimal', decimalString, {expires:365});
+		Cookies.set('theme', theme, {expires:365});
 		props.toggle();
 	}
 	
@@ -39,7 +42,8 @@ export function Settings(props) {
 	function clearCookies() {
 		Cookies.remove('pinnedPlayer');
 		Cookies.remove('decimal');
-		let recentSearches = new Utils.RecentSearches();
+		Cookies.remove('theme');
+		let recentSearches = new RecentSearches();
 		recentSearches.clear();
 		setBanner("ClearCookiesInfo");
 	}
@@ -61,6 +65,10 @@ export function Settings(props) {
 		const num = parseInt(str);
 		if (isNaN(num) || num < 0 || num > 8) return false;
 		return num;
+	}
+
+	function handleThemeSwitch(state) {
+		console.log(state)
 	}
 	
 	/*
@@ -131,17 +139,31 @@ export function Settings(props) {
 						max="8"
 						step="1"/>
 				</div>
+				{/* 'Theme' row */}
+				{/*
+				<div className="pb-2">
+					<label htmlFor="material-switch" className="h-flex align-items-center">
+						<span className="font-bold pr-3">Theme</span>
+						<span className="pr-2">Light</span>
+						<Switch
+							checked={theme === 'dark'}
+							onChange={handleThemeSwitch}
+							className="react-switch"
+    						id="material-switch"/>
+						<span className="pl-2">Dark</span>
+					</label>
+				</div>
+				*/}
 				<div className="v-flex align-items-center pb-2">
 					<div className="pb-2">
 						<Button onClick={setCookies}>Save Settings</Button>
 					</div>
 					{renderBanner()}
 				</div>
-				<p>Your preferences are stored as&nbsp;
-					<ExternalLink href="http://www.whatarecookies.com/">cookies</ExternalLink>&nbsp;
-					on your computer. They are accessible to you and to you only.&nbsp;
-					You can clear the cookies used by&nbsp;
-					this site at any time by clicking the Clear Cookies button.
+				<p>
+					Your preferences are stored as <ExternalLink href="http://www.whatarecookies.com/">
+					cookies</ExternalLink> on your computer. They are accessible to you and to you only. 
+					You can clear the cookies used by this site at any time by clicking the Clear Cookies button.
 				</p>
 			</div>
 			<ReactTooltip />
