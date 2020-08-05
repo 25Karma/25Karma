@@ -1,5 +1,5 @@
 .footer {
-	background: #222;
+	background: var(--theme-secondary);
 	width: 100%;
 	display: flex;
 	justify-content: space-between;

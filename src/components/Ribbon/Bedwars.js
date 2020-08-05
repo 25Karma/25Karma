@@ -1,11 +1,11 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 import { Box } from 'components';
-import { Stats } from './Stats.js';
+import { Ribbon } from 'components/Ribbon';
 import * as Utils from 'utils';
 
 /*
-* Stats row for Bedwars
+* Stats ribbon for Bedwars
 *
 * @param {Object} props.player Player data in JSON object
 * @param {number} props.index The order in which to display the row (used by react-beautiful-dnd)
@@ -63,8 +63,8 @@ export function Bedwars(props) {
 
 
 	return (
-		<Stats title="Bedwars" header={header} index={props.index}>
+		<Ribbon title="Bedwars" header={header} index={props.index}>
 			
-		</Stats>
+		</Ribbon>
 		);
 }

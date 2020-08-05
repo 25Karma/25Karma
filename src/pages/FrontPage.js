@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, MinecraftText, Navbar, Searchbar } from 'components';
-import { RecentSearches } from 'utils';
+import { RecentSearchesList } from 'utils';
 import properties from 'properties.js';
 
 /*
@@ -18,8 +18,8 @@ export function FrontPage(props) {
 	* @return {JSX} A div containing buttons to search for recent players
 	*/
 	function renderRecentSearches() {
-		const recentSearches = new RecentSearches();
-		const array = recentSearches.toArray();
+		const recentSearchesList = new RecentSearchesList();
+		const array = recentSearchesList.toArray();
 		// If the cookie is empty or doesn't exist, render a suggestion
 		if (array === undefined || array.length === 0) {
 			const suggestedPlayer = "gamerboy80"

@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 /*
 * @class Deals with getting/setting the cookies for recent searches
 */
-export class RecentSearches {
+export class RecentSearchesList {
 	
 	/*
 	* @constructor

@@ -1,0 +1,33 @@
+.toggleswitch {
+	position: relative;
+	display: inline-block;
+	height: 2rem;
+	width: 3.5rem;
+	border-radius: 1rem;
+	transition: background 0.2s;
+	cursor: pointer;
+}
+
+.toggleswitch input {
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.toggleswitch-handle {
+	background: white;
+	border-radius: 50%;
+	height: 1.5rem;
+	width: 1.5rem;
+	margin-top: 0.25rem;
+	transition: margin-left 0.2s;
+}
+
+.toggleswitch-handle-off {
+	margin-left: 0.25rem;
+}
+
+.toggleswitch-handle-on {
+	margin-left: 1.75rem;
+}

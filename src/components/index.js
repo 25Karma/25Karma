@@ -1,4 +1,4 @@
-import * as Stats from './Stats';
+import * as Ribbon from './Ribbon';
 
 export * from './Banner.js';
 export * from './Box.js';
@@ -9,6 +9,8 @@ export * from './Footer.js';
 export * from './ExternalLink.js';
 export * from './MinecraftText.js';
 export * from './Navbar.js';
+export * from './Playername.js';
 export * from './Searchbar.js';
 export * from './Settings.js';
-export {Stats};
+export * from './ToggleSwitch.js';
+export {Ribbon};

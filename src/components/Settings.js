@@ -1,10 +1,9 @@
 import React, { useState, useRef } from 'react';
 import ReactTooltip from 'react-tooltip';
-import Switch from 'react-switch';
 import Cookies from 'js-cookie';
 import './Settings.css';
-import { ExternalLink, Banner, Button } from 'components';
-import { RecentSearches } from 'utils';
+import { Banner, Button, ExternalLink } from 'components';
+import { RecentSearchesList } from 'utils';
 
 /*
 * Gets/sets cookies based on user's site preferences
@@ -16,7 +15,6 @@ export function Settings(props) {
 	// Refs used by setCookies() to locate inputs
 	const pinnedPlayerInput = useRef('pinnedPlayer');
 	const decimalInput = useRef('decimal');
-	const [theme, setTheme] = useState(Cookies.get('theme') || 'dark');
 	const [banner, setBanner] = useState(null);
 
 	/*
@@ -32,7 +30,6 @@ export function Settings(props) {
 		// If all is well, set the cookies
 		Cookies.set('pinnedPlayer', pinnedPlayerInput.current.value, {expires:365});
 		Cookies.set('decimal', decimalString, {expires:365});
-		Cookies.set('theme', theme, {expires:365});
 		props.toggle();
 	}
 	
@@ -42,9 +39,8 @@ export function Settings(props) {
 	function clearCookies() {
 		Cookies.remove('pinnedPlayer');
 		Cookies.remove('decimal');
-		Cookies.remove('theme');
-		let recentSearches = new RecentSearches();
-		recentSearches.clear();
+		let recentSearchesList = new RecentSearchesList();
+		recentSearchesList.clear();
 		setBanner("ClearCookiesInfo");
 	}
 	
@@ -65,10 +61,6 @@ export function Settings(props) {
 		const num = parseInt(str);
 		if (isNaN(num) || num < 0 || num > 8) return false;
 		return num;
-	}
-
-	function handleThemeSwitch(state) {
-		console.log(state)
 	}
 	
 	/*
@@ -107,7 +99,7 @@ export function Settings(props) {
 				{/* 'Pinned Player' row */}
 				<div className="h-flex align-items-center pb-2">
 					<div 
-						data-tip="The player you would like to load by default when you visit this page." 
+						data-tip="The player you would like to load by default when you visit this site." 
 						className="font-bold cursor-help pr-2">
 						Pinned Player
 					</div>
@@ -139,21 +131,6 @@ export function Settings(props) {
 						max="8"
 						step="1"/>
 				</div>
-				{/* 'Theme' row */}
-				{/*
-				<div className="pb-2">
-					<label htmlFor="material-switch" className="h-flex align-items-center">
-						<span className="font-bold pr-3">Theme</span>
-						<span className="pr-2">Light</span>
-						<Switch
-							checked={theme === 'dark'}
-							onChange={handleThemeSwitch}
-							className="react-switch"
-    						id="material-switch"/>
-						<span className="pl-2">Dark</span>
-					</label>
-				</div>
-				*/}
 				<div className="v-flex align-items-center pb-2">
 					<div className="pb-2">
 						<Button onClick={setCookies}>Save Settings</Button>

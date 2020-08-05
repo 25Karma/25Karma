@@ -14,17 +14,14 @@ export class HypixelAPI {
 	}
 	
 	/*
-	* Requests data from the API
+	* Requests player data from the API
 	*
 	* @param {string} name Username of the player (UUID not supported)
 	* @return {Promise} Should be deconstructed inside an async/await function
 	*/
-	getDataOfPlayer(name) {
-		const params = {
-			key : this.key,
-			name : name
-		}
-		return fetch(this._playerDataURL(params), {'mode': 'cors', 'Access-Control-Allow-Origin': "*"})
+	getPlayerByUUID(uuid) {
+		const url = `${this.url}player?key=${this.key}&uuid=${uuid}`
+		return fetch(url, {'mode': 'cors', 'Access-Control-Allow-Origin': "*"})
 			.then((response) => response.json())
 			.then((json) => {
 				if (json['success']) {
@@ -33,25 +30,22 @@ export class HypixelAPI {
 				return null;
 			});
 	}
-	
+
 	/*
-	* Generates URI for the Hypixel API call
+	* Requests data about player status from the API
 	*
-	* @param {Object} JSON containing key and player name data
-	* @return {string} The URI for calling the API for a specific player
+	* @param {string} name Username of the player (UUID not supported)
+	* @return {Promise} Should be deconstructed inside an async/await function
 	*/
-	_playerDataURL(params) {
-		let url = this.url + "player?";
-
-		let first = true;
-		for (const [key, val] of Object.entries(params)) {
-			if (!first) {
-				url += "&";
-			}
-			url += `${key}=${encodeURIComponent(val)}`;
-			first = false;
-		}
-
-		return url;
+	getStatusByUUID(uuid) {
+		const url = `${this.url}status?key=${this.key}&uuid=${uuid}`
+		return fetch(url, {'mode': 'cors', 'Access-Control-Allow-Origin': "*"})
+			.then((response) => response.json())
+			.then((json) => {
+				if (json['success']) {
+					return json['session'];
+				}
+				return null;
+			});
 	}
 }

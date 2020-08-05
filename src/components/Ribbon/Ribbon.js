@@ -2,7 +2,7 @@ import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { IconContext } from 'react-icons';
 import { MdDragHandle } from 'react-icons/md';
-import './Stats.css';
+import './Ribbon.css';
 import { Collapsible } from 'components';
 
 /*
@@ -12,7 +12,7 @@ import { Collapsible } from 'components';
 * @param {JSX} props.header JSX objects to place beside the title
 * @param {JSX} props.children The contents of the collapsible area
 */
-export function Stats(props) {
+export function Ribbon(props) {
 	return (
 		<Draggable key={props.title} draggableId={props.title} index={props.index}>
 		{dProvided => (

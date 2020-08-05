@@ -11,7 +11,7 @@
 	color: #ccc;
 }
 .btn25-default {
-	background-color: #222;
+	background-color: var(--theme-secondary);
 }
 .btn25-error {
 	background-color: rgba(200,50,50,0.5);

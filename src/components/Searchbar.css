@@ -3,7 +3,7 @@
 	width: 100%;
 	color: white;
 	border-radius: 0.5rem;
-	background: #222;
+	background: var(--theme-secondary);
 	font-size: 1.5rem;
 }
 .input input {
