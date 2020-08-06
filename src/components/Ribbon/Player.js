@@ -31,6 +31,7 @@ export function Player(props) {
 			GINGERBREAD: 'Turbo Kart Racers',
 			HOUSING: 'Housing',
 			LEGACY: 'Classic Games',
+			MAIN: 'Main',
 			MCGO: 'Cops and Crims',
 			MURDER_MYSTERY: 'Murder Mystery',
 			PAINTBALL: 'Paintball',
@@ -52,12 +53,15 @@ export function Player(props) {
 		if (status.online) {
 			const game = status.gameType
 			if (status.mode === 'LOBBY') {
-				return `Online. In a ${games[game] || game} lobby.`
+				return `Online. In a ${games[game] || game} lobby.`;
 			}
-			return `Online. Playing ${games[status.gameType] || status.gameType}.`
+			return `Online. Playing ${games[status.gameType] || status.gameType}.`;
 		}
 		else {
-			return `Offline. Last seen ${Utils.timeSince(player.lastLogout)} ago.`
+			if (player.lastLogout) {
+				return `Offline. Last seen ${Utils.timeSince(player.lastLogout)} ago.`;
+			}
+			return 'Offline.';
 		}
 	}
 

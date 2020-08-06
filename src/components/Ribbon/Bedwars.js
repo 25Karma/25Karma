@@ -1,5 +1,4 @@
 import React from 'react';
-import Cookies from 'js-cookie';
 import { Box } from 'components';
 import { Ribbon } from 'components/Ribbon';
 import * as Utils from 'utils';
@@ -11,24 +10,15 @@ import * as Utils from 'utils';
 * @param {number} props.index The order in which to display the row (used by react-beautiful-dnd)
 */
 export function Bedwars(props) {
-	const json = Utils.traverse(props.player,'stats.Bedwars');
-	const decimal = Cookies.get('decimal') || 2;
+	const json = Utils.traverse(props.player,'stats.Bedwars') || {};
 	const stats = {
 		level : Utils.default0(Utils.traverse(props.player,'achievements.bedwars_level')),
-		finalKills : Utils.default0(json.final_kills_bedwars),
-		finalDeaths : Utils.default0(json.final_deaths_bedwars),
-		kills : Utils.default0(json.kills_bedwars),
-		deaths : Utils.default0(json.deaths_bedwars),
-		wins : Utils.default0(json.wins_bedwars),
-		losses : Utils.default0(json.losses_bedwars),
-		bedsBroken : Utils.default0(json.beds_broken_bedwars),
-		bedsLost : Utils.default0(json.beds_lost_bedwars)
 	}
 	const ratios = {
-		kd : (stats.kills/Utils.set1If0(stats.deaths)).toFixed(decimal),
-		fkd : (stats.finalKills/Utils.set1If0(stats.finalDeaths)).toFixed(decimal),
-		wl : (stats.wins/Utils.set1If0(stats.losses)).toFixed(decimal),
-		bbl : (stats.bedsBroken/Utils.set1If0(stats.bedsLost)).toFixed(decimal)
+		kd : Utils.ratio(json.kills_bedwars,json.deaths_bedwars),
+		fkd : Utils.ratio(json.final_kills_bedwars,json.final_deaths_bedwars),
+		wl : Utils.ratio(json.wins_bedwars,json.losses_bedwars),
+		bbl : Utils.ratio(json.beds_broken_bedwars,json.beds_lost_bedwars)
 	}
 	
 	function getPrestige(num) {

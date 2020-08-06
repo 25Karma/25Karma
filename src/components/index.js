@@ -12,5 +12,6 @@ export * from './Navbar.js';
 export * from './Playername.js';
 export * from './Searchbar.js';
 export * from './Settings.js';
+export * from './Stat.js';
 export * from './ToggleSwitch.js';
 export {Ribbon};

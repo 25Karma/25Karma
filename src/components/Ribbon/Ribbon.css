@@ -3,10 +3,33 @@
 	flex-wrap: nowrap;
 	align-items: center;
 	width: 100%;
-	background: #222;
+	background: var(--theme-secondary);
 }
 
 .stats-body {
-	padding: 1rem;
-	background: #111;
+	padding: 0 1rem 1rem;
+	background: var(--theme-secondary);
+}
+
+.stats-separator {
+	border-bottom: 2px solid var(--theme-primary);
+}
+
+.stats-body table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.stats-body th,td {
+	padding: 0.25rem;
+	text-align: left;
+}
+
+.stats-body th {
+	background: var(--theme-secondary);
+	padding-bottom: 0.5rem;
+}
+
+.stats-body tr:nth-child(odd) {
+	background: var(--theme-primary);
 }

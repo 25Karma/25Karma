@@ -1,5 +1,6 @@
 import React from 'react';
 import './MinecraftText.css';
+import { formatNum } from 'utils';
 
 /*
 * Parses minecraft-formatted text and displays it in a minecraft font
@@ -47,10 +48,7 @@ export function MinecraftText(props) {
 			const num = Number(text);
 			// If the whole string can be converted to a number, format the number by adding commas
 			// We use toLocaleString instead of parseInt (https://stackoverflow.com/a/9429565)
-			if (!isNaN(num)) text = num.toLocaleString('en', {   
-					minimumFractionDigits: 0,
-					maximumFractionDigits: 8,
-				});
+			if (!isNaN(num)) text = formatNum(num);
 
 			const colorClass = colorClasses[colorCode];
 			spans.push(<span key={key++} className={`font-minecraft c-${colorClass}`}>

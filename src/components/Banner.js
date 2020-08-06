@@ -51,7 +51,9 @@ export function Banner(props) {
 				setStyle(styleHidden)
 			}, 5000);
 			setTimeout(function () {
-				props.onExpiry();
+				if (props.onExpiry) {
+					props.onExpiry();
+				}
 			}, 6000);
 		}
 	},[]);

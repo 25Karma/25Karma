@@ -32,6 +32,24 @@ export class HypixelAPI {
 	}
 
 	/*
+	* Requests player data from the API
+	*
+	* @param {string} name Username of the player (UUID not supported)
+	* @return {Promise} Should be deconstructed inside an async/await function
+	*/
+	getPlayerByName(username) {
+		const url = `${this.url}player?key=${this.key}&name=${username}`
+		return fetch(url, {'mode': 'cors', 'Access-Control-Allow-Origin': "*"})
+			.then((response) => response.json())
+			.then((json) => {
+				if (json['success']) {
+					return json['player'];
+				}
+				return null;
+			});
+	}
+
+	/*
 	* Requests data about player status from the API
 	*
 	* @param {string} name Username of the player (UUID not supported)

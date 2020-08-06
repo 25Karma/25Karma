@@ -5,6 +5,7 @@ import React from 'react';
 *
 * @param {string} props.uuid The UUID of the player
 * @param {string} props.type The type of render (either 'face' or 'head') - default 'face'
+* @param {any} props.key Optional key if you intend to have an array of Crafatars
 * @param {bool} props.shadow Add a drop shadow to the 'face' type
 */
 export function Crafatar(props) {

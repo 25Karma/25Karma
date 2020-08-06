@@ -13,9 +13,12 @@ import * as Utils from 'utils';
 export function PlayerPage(props) {
 
 	const { match: { params } } = props;
+
 	const [player, setPlayer] = useState(null);
 	const [status, setStatus] = useState(null);
 	const [callStatus, setCallStatus] = useState("requested");
+
+	const playerRibbonList = new Utils.PlayerRibbonList(player);
 
 	// Runs once the page loads
 	useEffect(() => {
@@ -28,18 +31,30 @@ export function PlayerPage(props) {
 		async function asyncCallAPIs(username){
 			setCallStatus(Utils.CALL_STATUS_REQUESTED);
 			let uuid = null;
-			try {
-				const mojangAPI = new Utils.MojangAPI();
-				uuid = await mojangAPI.getUUIDofPlayer(username);
-			} catch (e) {
-				setCallStatus(Utils.CALL_STATUS_FAILED_MOJANG);
-				return;
-			}
+			// try {
+			// 	const mojangAPI = new Utils.MojangAPI();
+			// 	uuid = await mojangAPI.getUUIDofPlayer(username);
+			// } catch (e) {
+			// 	setCallStatus(Utils.CALL_STATUS_FAILED_MOJANG);
+			// 	return;
+			// }
 			let playerdata = null;
 			let statusdata = null;
 			try {
 				const hypixelAPI = new Utils.HypixelAPI(process.env.REACT_APP_HYPIXEL_API_KEY);
-				playerdata = await hypixelAPI.getPlayerByUUID(uuid);
+				// First, check if the username passed was a uuid
+				// Regex of a UUID
+				const regex = RegExp('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
+				if (regex.test(username)) {
+					playerdata = await hypixelAPI.getPlayerByUUID(username);
+				} else {
+					playerdata = await hypixelAPI.getPlayerByName(username);
+				}
+				if (!playerdata) {
+					setCallStatus(Utils.CALL_STATUS_RECEIVED_NULL);
+					return;
+				}
+				uuid = playerdata.uuid;
 				statusdata = await hypixelAPI.getStatusByUUID(uuid);
 			} catch (e) {
 				setCallStatus(Utils.CALL_STATUS_FAILED_HYPIXEL);
@@ -47,15 +62,20 @@ export function PlayerPage(props) {
 			}
 			setPlayer(playerdata);
 			setStatus(statusdata);
-			setCallStatus(Utils.CALL_STATUS_RECEIVED);
+			setCallStatus(Utils.CALL_STATUS_RECEIVED_SUCCESS);
 		}
 		
 		asyncCallAPIs(params.username);
 	}, [params]);
 
-	function onDragEnd(source) {
-		console.log(Object.entries(Ribbon))
+	function onDragEnd(result) {
+		// dropped outside the list
+		if (!result.destination) {
+			return;
+		}
+		playerRibbonList.onDragEnd(result);
 	}
+
 	// JSX for when player data is successfully received
 	const playerStatsSection = (
 		<DragDropContext onDragEnd={onDragEnd}>
@@ -64,9 +84,7 @@ export function PlayerPage(props) {
 				<Droppable droppableId="playerStatsDroppable">
 				{provided => (
 					<div {...provided.droppableProps} ref={provided.innerRef}>
-						<Ribbon.Bedwars player={player} index={0}/>
-						<Ribbon.Duels player={player} index={1}/>
-						<Ribbon.Skywars player={player} index={2}/>
+						{playerRibbonList.toJSX()}
 						{provided.placeholder}
 					</div>
 				)}
@@ -78,35 +96,35 @@ export function PlayerPage(props) {
 	/*
 	* Loads different JSX depending on the page state
 	*/
+	let banner = null;
 	switch(callStatus) {
-		// Data has been requested from the API but not received
+		// Data has been requested from the Hypixel API but not received
 		case Utils.CALL_STATUS_FAILED_HYPIXEL:
-			const banner = (
+			banner = (
 				<Banner type="error"
 					title='API call failed. '
 					description='The site failed to fetch from the Hypixel API.'/>
 				);
 			return <FrontPage banner={banner} />
-		// The API responded with data
-		case Utils.CALL_STATUS_RECEIVED:
-			// If the API call was successful but it returned null player data
-			if (player === null) {
-				const banner = <Banner type="error"
-					title='Player not found. '
-					description={`Could not find a player with the name "${params.username}".`}/>
-				return <FrontPage banner={banner} />
-			}
-			else {
-				// Log the player into recentSearches cookie
-				const recentSearchesList = new Utils.RecentSearchesList();
-				recentSearchesList.add(player.displayname);
-				return (
-					<div>
-						<Navbar><Searchbar /></Navbar>
-						{playerStatsSection}
-					</div>
-					);
-			}
+
+		// If the API call was successful but it returned null player data
+		case Utils.CALL_STATUS_RECEIVED_NULL:
+			banner = <Banner type="error"
+				title='Player not found. '
+				description={`Could not find a player with the name "${params.username}".`}/>
+			return <FrontPage banner={banner} />
+		
+		case Utils.CALL_STATUS_RECEIVED_SUCCESS:
+			// Log the player into recentSearches cookie
+			const recentSearchesList = new Utils.RecentSearchesList();
+			recentSearchesList.add(player.displayname);
+			return (
+				<div>
+					<Navbar><Searchbar /></Navbar>
+					{playerStatsSection}
+				</div>
+				);
+
 		default:
 			return <LoadingPage player={params.username} />
 	}

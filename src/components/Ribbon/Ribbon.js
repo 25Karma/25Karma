@@ -3,7 +3,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import { IconContext } from 'react-icons';
 import { MdDragHandle } from 'react-icons/md';
 import './Ribbon.css';
-import { Collapsible } from 'components';
+import { Collapsible, MinecraftText } from 'components';
 
 /*
 * Base container for all player stats components
@@ -26,7 +26,7 @@ export function Ribbon(props) {
 						<div 
 							className="h-flex align-items-center flex-1 cursor-pointer overflow-hidden" 
 							{...cProvided.collapseButtonProps}>
-							<p className="font-md font-minecraft">{props.title}</p>
+							<MinecraftText font="md">{props.title}</MinecraftText>
 							<div className="h-flex mx-auto px-3">
 								{props.header}
 							</div>
@@ -39,6 +39,7 @@ export function Ribbon(props) {
 					</div>
 					<div {...cProvided.collapsibleProps}>
 						<div className="stats-body">
+							<div className="stats-separator mb-3"></div>
 							{props.children}
 						</div>
 					</div>

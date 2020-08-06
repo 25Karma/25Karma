@@ -1,7 +1,11 @@
+import Cookies from 'js-cookie';
+
+const decimal = Cookies.get('decimal') || 2;
 export const CALL_STATUS_REQUESTED = 'requested';
 export const CALL_STATUS_FAILED_HYPIXEL = 'failed-hypixel';
 export const CALL_STATUS_FAILED_MOJANG = 'failed-mojang';
-export const CALL_STATUS_RECEIVED = 'received';
+export const CALL_STATUS_RECEIVED_NULL = 'receivednull';
+export const CALL_STATUS_RECEIVED_SUCCESS = 'receivedsuccess';
 
 /*
 * Returns 1 if the number is zero
@@ -28,6 +32,17 @@ export function default0(val) {
 }
 
 /*
+* Calculates a ratio safely
+*
+* @param {number} num The numerator of the ratio
+* @param {number} denom The denominator of the ratio
+* @return {number} The calculated ratio
+*/
+export function ratio(num, denom) {
+	return default0(num)/set1If0(default0(denom));
+}
+
+/*
 * Traverses down an object path safely
 *
 * @param {Object} json The Object to traverse
@@ -39,9 +54,23 @@ export function traverse(json, path) {
 	const paths = path.split('.');
 	for (const p of paths) {
 		json = json[p];
-		if (json === undefined) return {};
+		if (json === undefined) return undefined;
 	}
 	return json;
+}
+
+/*
+* Adds commas to a large number and strips decimal places to user preference
+*
+* @param {number} num The number to format
+* @return {string} The comma-separated, decimal-stripped number
+*/
+export function formatNum(num) {
+	num = default0(num);
+	return num.toLocaleString('en', {   
+			minimumFractionDigits: 0,
+			maximumFractionDigits: decimal,
+		});
 }
 
 /*
@@ -53,6 +82,10 @@ export function traverse(json, path) {
 export function timeSince(date) {
 
 	var seconds = Math.floor((new Date() - date) / 1000);
+
+	if (seconds < 0) {
+		return '0 seconds';
+	}
 
 	var interval = seconds / 31536000;
 
@@ -75,5 +108,5 @@ export function timeSince(date) {
 	if (interval > 1) {
 		return `${Math.floor(interval)} minute${Math.floor(interval) === 1 ? '' : 's'}`;
 	}
-	return `${Math.floor(seconds)} second${Math.floor(interval) === 1 ? '' : 's'}`;
+	return `${Math.floor(seconds)} second${Math.floor(seconds) === 1 ? '' : 's'}`;
 }

@@ -17,7 +17,7 @@ export function Footer(props) {
 				<ExternalLink href={p.gitHubURL}>{p.gitHubName}</ExternalLink>.
 			</span>
 			<span className="text-right">
-				Made with ❤️ by&nbsp;
+				{`Made with ❤️ by `}
 				<ExternalLink href={p.authorURL}>{p.author}</ExternalLink>.
 			</span>
 		</div>

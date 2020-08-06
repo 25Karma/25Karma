@@ -1,5 +1,4 @@
 import React from 'react';
-import Cookies from 'js-cookie';
 import { Box } from 'components';
 import { Ribbon } from 'components/Ribbon';
 import * as Utils from 'utils';
@@ -11,12 +10,11 @@ import * as Utils from 'utils';
 * @param {number} props.index The order in which to display the row (used by react-beautiful-dnd)
 */
 export function Duels(props) {
-	const json = Utils.traverse(props.player,'stats.Duels');
-	const decimal = Cookies.get('decimal') || 2;
+	const json = Utils.traverse(props.player,'stats.Duels') || {};
 	const stats = calculateDuelsStats(json);
 	const ratios = {
-		kd : (stats.kills/Utils.set1If0(stats.deaths)).toFixed(decimal),
-		wl : (stats.wins/Utils.set1If0(stats.losses)).toFixed(decimal),
+		kd : Utils.ratio(stats.kills,stats.deaths),
+		wl : Utils.ratio(stats.wins,stats.losses),
 	}
 	
 	function calculateDuelsStats(data) {

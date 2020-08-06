@@ -8,7 +8,7 @@ export class MojangAPI {
 	*/
 	constructor() {
 		// https://stackoverflow.com/a/43881141
-		this.proxyurl = 'https://cors-anywhere.herokuapp.com/'
+		this.proxyurl = 'http://allow-any-origin.appspot.com/'
 		this.url = 'https://api.mojang.com/';
 	}
 
