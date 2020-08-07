@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.56dbd3f0.chunk.css",
-    "main.js": "/static/js/main.adab128a.chunk.js",
+    "main.css": "/static/css/main.7e467557.chunk.css",
+    "main.js": "/static/js/main.f82cd303.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.b3ffeb4c.js",
-    "static/js/2.6b97564a.chunk.js": "/static/js/2.6b97564a.chunk.js",
+    "static/js/2.ad5c0c7d.chunk.js": "/static/js/2.ad5c0c7d.chunk.js",
     "index.html": "/index.html",
-    "precache-manifest.0067acc2b519e4422c0675f573c6fd4b.js": "/precache-manifest.0067acc2b519e4422c0675f573c6fd4b.js",
+    "precache-manifest.0de9a543f0325a160eb69d51add465b3.js": "/precache-manifest.0de9a543f0325a160eb69d51add465b3.js",
     "service-worker.js": "/service-worker.js",
-    "static/js/2.6b97564a.chunk.js.LICENSE.txt": "/static/js/2.6b97564a.chunk.js.LICENSE.txt",
+    "static/js/2.ad5c0c7d.chunk.js.LICENSE.txt": "/static/js/2.ad5c0c7d.chunk.js.LICENSE.txt",
     "static/media/index.css": "/static/media/minecraft.ff1f96e3.otf"
   },
   "entrypoints": [
     "static/js/runtime-main.b3ffeb4c.js",
-    "static/js/2.6b97564a.chunk.js",
-    "static/css/main.56dbd3f0.chunk.css",
-    "static/js/main.adab128a.chunk.js"
+    "static/js/2.ad5c0c7d.chunk.js",
+    "static/css/main.7e467557.chunk.css",
+    "static/js/main.f82cd303.chunk.js"
   ]
 }
