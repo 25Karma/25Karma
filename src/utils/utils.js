@@ -74,6 +74,16 @@ export function formatNum(num) {
 }
 
 /*
+* Capitalizes the first character in a string and makes all following characters lowercase
+*
+* @param {string} str The string to format
+* @return {string} The properly capitalized string
+*/
+export function capitalize(str) {
+	return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+/*
 * Returns time since a date integer
 *
 * @param {number} date Date integer

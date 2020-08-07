@@ -3,6 +3,7 @@ import './MinecraftText.css';
 import { formatNum } from 'utils';
 
 /*
+* §§§§§§§§§§§§§§§§§§§§§§§§§§§
 * Parses minecraft-formatted text and displays it in a minecraft font
 *
 * @param {string} props.font Font size

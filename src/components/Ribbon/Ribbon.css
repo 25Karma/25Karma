@@ -2,12 +2,14 @@
 	display: flex;
 	flex-wrap: nowrap;
 	align-items: center;
+	user-select: none;
 	width: 100%;
 	background: var(--theme-secondary);
 }
 
 .stats-body {
 	padding: 0 1rem 1rem;
+	overflow-x: auto;
 	background: var(--theme-secondary);
 }
 

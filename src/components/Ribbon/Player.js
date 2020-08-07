@@ -44,6 +44,7 @@ export function Player(props) {
 			SUPER_SMASH: 'Smash Heroes',
 			SURVIVAL_GAMES: 'Blitz SG',
 			TNTGAMES: 'TNT Games',
+			TOURNAMENT: 'Tournament Hall',
 			UHC: 'UHC Champions',
 			VAMPIREZ: 'VampireZ',
 			WALLS: 'The Walls',
