@@ -45,33 +45,8 @@ export function Duels(props) {
 	};
 
 	const json = Utils.traverse(props.player,'stats.Duels') || {};
-	const stats = calculateDuelsStats();
-	const ratios = {
-		kd : Utils.ratio(stats.kills,stats.deaths),
-		wl : Utils.ratio(json.wins,json.losses),
-		mhm : Utils.ratio(json.melee_hits,json.melee_swings),
-		ahm : Utils.ratio(json.bow_hits,json.bow_shots),
-	}
-	
-	function calculateDuelsStats() {
-		let totalDeaths = 0, totalKills = 0;
-		// Ignores Bridge deaths and kills
-		for (const [k,v] of Object.entries(json)) {
-			if (k.includes('deaths') && k!=='deaths' && !k.includes('bridge')) {
-				totalDeaths += v;
-			}
-			else if (k.includes('kills') && k!=='kills' && !k.includes('bridge')) {
-				totalKills += v;
-			}
-		}
-		return {
-			division : getDuelsDivision(),
-			kills : Utils.default0(totalKills),
-			deaths : Utils.default0(totalDeaths),
-		}
-	}
 
-	function getDuelsDivision() {
+	const division = (() => {
 		const divisions = duelsConstants.DIVISIONS;
 		for (const [k,v] of divisions.reverse()) {
 			const dat = json[`all_modes_${k.toLowerCase()}_title_prestige`];
@@ -84,9 +59,34 @@ export function Duels(props) {
 		}
 		// If the player has no division
 		return {name: '-', color: '7'};
+	})();
+
+	const stats = (() => {
+		let totalDeaths = 0, totalKills = 0;
+		// Ignores Bridge deaths and kills
+		for (const [k,v] of Object.entries(json)) {
+			if (k.includes('deaths') && k!=='deaths' && !k.includes('bridge')) {
+				totalDeaths += v;
+			}
+			else if (k.includes('kills') && k!=='kills' && !k.includes('bridge')) {
+				totalKills += v;
+			}
+		}
+		return {
+			division : division,
+			kills : Utils.default0(totalKills),
+			deaths : Utils.default0(totalDeaths),
+		}
+	})();
+
+	const ratios = {
+		kd : Utils.ratio(stats.kills,stats.deaths),
+		wl : Utils.ratio(json.wins,json.losses),
+		mhm : Utils.ratio(json.melee_hits,json.melee_swings),
+		ahm : Utils.ratio(json.bow_hits,json.bow_shots),
 	}
 
-	function getMostPlayedMode() {
+	const mostPlayedMode = (() => {
 		const modes = duelsConstants.MODES;
 		let mostPlayed = '§7-';
 		let mostPlays = 0;
@@ -99,16 +99,15 @@ export function Duels(props) {
 			}
 		}
 		return mostPlayed;
-	}
+	})();
 
-	function renderTableBody() {
+	const tableBody = (() => {
 		const modes = duelsConstants.MODES;
-		const mostPlayed = getMostPlayedMode();
 
 		return modes.map(mode => {
 			const [id,name] = mode;
 			return (
-				<tr key={id} className={name === mostPlayed ? 'c-pink' : ''}>
+				<tr key={id} className={name === mostPlayedMode ? 'c-pink' : ''}>
 					<td>{name}</td>
 					<td>{Utils.formatNum(json[`${id}_kills`])}</td>
 					<td>{Utils.formatNum(json[`${id}_deaths`])}</td>
@@ -121,14 +120,14 @@ export function Duels(props) {
 				</tr>
 				);
 		})
-	}
+	})();
 
 	const header = (
 		<React.Fragment>
 			<Box title="Division">{`${Utils.toColorCode(stats.division.color)}${stats.division.name}`}</Box>
 			<Box title="Wins">{json.wins}</Box>
 			<Box title="WL">{ratios.wl}</Box>
-			<Box title="Most Played">{`§f${getMostPlayedMode()}`}</Box>
+			<Box title="Most Played">{`§f${mostPlayedMode}`}</Box>
 		</React.Fragment>
 		);
 
@@ -151,7 +150,11 @@ export function Duels(props) {
 				<div className="flex-1">
 					<Stat title="Best Winstreak">{json.best_overall_winstreak}</Stat>
 					<Stat title="Current Winstreak">{json.current_winstreak}</Stat>
-					<Stat title="Overall Division">{stats.division.name}</Stat>
+					<Stat title="Overall Division">
+						<span className={`c-${stats.division.color}`}>
+							{stats.division.name}
+						</span>
+					</Stat>
 					<br/>
 					<Stat title="Wins">{json.wins}</Stat>
 					<Stat title="Losses">{json.losses}</Stat>
@@ -163,24 +166,26 @@ export function Duels(props) {
 				</div>
 			</div>
 			<div className="stats-separator mb-3"></div>
-			<table className="mb-2">
-				<thead>
-					<tr>
-						<th>Mode</th>
-						<th>Kills</th>
-						<th>Deaths</th>
-						<th>KD</th>
-						<th>Wins</th>
-						<th>Losses</th>
-						<th>WL</th>
-						<th>Melee HM</th>
-						<th>Arrow HM</th>
-					</tr>
-				</thead>
-				<tbody>
-					{renderTableBody()}
-				</tbody>
-			</table>
+			<div className="stats-table mb-2">
+				<table>
+					<thead>
+						<tr>
+							<th>Mode</th>
+							<th>Kills</th>
+							<th>Deaths</th>
+							<th>KD</th>
+							<th>Wins</th>
+							<th>Losses</th>
+							<th>WL</th>
+							<th>Melee HM</th>
+							<th>Arrow HM</th>
+						</tr>
+					</thead>
+					<tbody>
+						{tableBody}
+					</tbody>
+				</table>
+			</div>
 		</Ribbon>
 		);
 }

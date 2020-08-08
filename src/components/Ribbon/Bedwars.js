@@ -59,7 +59,7 @@ export function Bedwars(props) {
 	const levelingProgressProps = {
 		proportion: leveling.proportionAboveLevel,
 		color: prestigeColor,
-		dataTip: `${Utils.formatNum(leveling.xpAboveLevel)}/${Utils.formatNum(leveling.levelTotalXP)} XP`
+		dataTip: `${leveling.xpAboveLevel}/${leveling.levelTotalXP} XP`
 	}
 	const ratios = {
 		kd : Utils.ratio(json.kills_bedwars,json.deaths_bedwars),
@@ -163,7 +163,7 @@ export function Bedwars(props) {
 
 
 	return (
-		<Ribbon title="Bedwars" header={header} index={props.index}>
+		<Ribbon title="Bed Wars" header={header} index={props.index}>
 			<div className="mb-1 font-bold">Leveling Progress</div>
 			<div className="h-flex mb-3">
 				<span className={`px-1 c-${getPrestige(leveling.levelFloor).color}`}>
@@ -213,27 +213,29 @@ export function Bedwars(props) {
 				</div>
 			</div>
 			<div className="stats-separator mb-3"></div>
-			<table className="mb-3">
-				<thead>
-					<tr>
-						<th>Mode</th>
-						<th>Kills</th>
-						<th>Deaths</th>
-						<th>KD</th>
-						<th>Kills</th>
-						<th>Deaths</th>
-						<th>KD</th>
-						<th>Wins</th>
-						<th>Losses</th>
-						<th>WL</th>
-						<th>Beds Broken</th>
-						<th>BBL</th>
-					</tr>
-				</thead>
-				<tbody>
-					{tableBody}
-				</tbody>
-			</table>
+			<div className="stats-table mb-3">
+				<table>
+					<thead>
+						<tr>
+							<th>Mode</th>
+							<th>Kills</th>
+							<th>Deaths</th>
+							<th>KD</th>
+							<th>Kills</th>
+							<th>Deaths</th>
+							<th>KD</th>
+							<th>Wins</th>
+							<th>Losses</th>
+							<th>WL</th>
+							<th>Beds Broken</th>
+							<th>BBL</th>
+						</tr>
+					</thead>
+					<tbody>
+						{tableBody}
+					</tbody>
+				</table>
+			</div>
 			<div className="stats-separator mb-3"></div>
 			<div className="h-flex mb-2">
 				<div className="flex-1">

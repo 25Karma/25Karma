@@ -9,7 +9,6 @@
 
 .stats-body {
 	padding: 0 1rem 1rem;
-	overflow-x: auto;
 	background: var(--theme-secondary);
 }
 
@@ -17,6 +16,10 @@
 	border-bottom: 2px solid var(--theme-primary);
 }
 
+
+.stats-table {
+	overflow-x: auto;
+}
 .stats-body table {
 	width: 100%;
 	border-collapse: collapse;

@@ -91,7 +91,7 @@ export function Skywars(props) {
 	const levelingProgressProps = {
 		proportion: leveling.proportionAboveLevel,
 		color: prestigeColor,
-		dataTip: `${Utils.formatNum(leveling.xpAboveLevel)}/${Utils.formatNum(leveling.levelTotalXP)} XP`
+		dataTip: `${leveling.xpAboveLevel}/${leveling.levelTotalXP} XP`
 	}
 	const ratios = {
 		ahm: Utils.ratio(json.arrows_hit, json.arrows_shot),
@@ -241,7 +241,7 @@ export function Skywars(props) {
 		);
 
 	return (
-		<Ribbon title="Skywars" header={header} index={props.index}>
+		<Ribbon title="SkyWars" header={header} index={props.index}>
 			<div className="mb-1 font-bold">Leveling Progress</div>
 			<div className="h-flex mb-3">
 				<span className={`px-1 c-${getPrestige(leveling.levelFloor).color}`}>
@@ -305,22 +305,24 @@ export function Skywars(props) {
 				</div>
 			</div>
 			<div className="stats-separator mb-3"></div>
-			<table className="mb-3">
-				<thead>
-					<tr>
-						<th>Mode</th>
-						<th>Kills</th>
-						<th>Deaths</th>
-						<th>KD</th>
-						<th>Wins</th>
-						<th>Losses</th>
-						<th>WL</th>
-					</tr>
-				</thead>
-				<tbody>
-					{tableBody}
-				</tbody>
-			</table>
+			<div className="stats-table mb-3">
+				<table>
+					<thead>
+						<tr>
+							<th>Mode</th>
+							<th>Kills</th>
+							<th>Deaths</th>
+							<th>KD</th>
+							<th>Wins</th>
+							<th>Losses</th>
+							<th>WL</th>
+						</tr>
+					</thead>
+					<tbody>
+						{tableBody}
+					</tbody>
+				</table>
+			</div>
 			<div className="stats-separator mb-3"></div>
 			<div className="mb-1">
 				<Stat title="Total Heads Gathered">{json.heads}</Stat>

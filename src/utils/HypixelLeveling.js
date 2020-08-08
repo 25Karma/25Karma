@@ -15,8 +15,8 @@ export class HypixelLeveling {
 	*
 	* {number} this.proportionAboveLevel 	How far the player is to the next level - 
 	*										from 0 to 1
-	* {number} this.xpAboveLevel 		The amount of XP above the player's level
-	* {number} this.levelTotalXP 		The change in XP to the next level
+	* {string} this.xpAboveLevel 		The amount of XP above the player's level, string formatted
+	* {string} this.levelTotalXP 		The change in XP to the next level, string formatted
 	*/
 
 	/* 
@@ -39,7 +39,7 @@ export class HypixelLeveling {
 		this.proportionAboveLevel = this.level - this.levelFloor;
 
 		// How far the player is to the next level  - in absolute terms
-		this.xpAboveLevel = this.xp - levelToXP(this.levelFloor);
-		this.levelTotalXP = levelToXP(this.levelCeiling) - levelToXP(this.levelFloor);
+		this.xpAboveLevel = formatNum(this.xp - levelToXP(this.levelFloor));
+		this.levelTotalXP = formatNum(levelToXP(this.levelCeiling) - levelToXP(this.levelFloor));
 	}
 }

@@ -125,17 +125,19 @@ export function BuildBattle(props) {
 				</div>
 			</div>
 			<div className="stats-separator mb-3"></div>
-			<table className="mb-2">
-				<thead>
-					<tr>
-						<th>Mode</th>
-						<th>Wins</th>
-					</tr>
-				</thead>
-				<tbody>
-					{tableBody}
-				</tbody>
-			</table>
+			<div className="stats-table mb-2">
+				<table>
+					<thead>
+						<tr>
+							<th>Mode</th>
+							<th>Wins</th>
+						</tr>
+					</thead>
+					<tbody>
+						{tableBody}
+					</tbody>
+				</table>
+			</div>
 		</Ribbon>
 		);
 }

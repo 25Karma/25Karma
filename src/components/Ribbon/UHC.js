@@ -151,22 +151,24 @@ export function UHC(props) {
 				</div>
 			</div>
 			<div className="stats-separator mb-3"></div>
-			<table className="mb-2">
-				<thead>
-					<tr>
-						<th>Mode</th>
-						<th>Kills</th>
-						<th>Deaths</th>
-						<th>KD</th>
-						<th>Wins</th>
-						<th>KW</th>
-						<th>Heads Eaten</th>
-					</tr>
-				</thead>
-				<tbody>
-					{tableBody}
-				</tbody>
-			</table>
+			<div className="stats-table mb-2">
+				<table>
+					<thead>
+						<tr>
+							<th>Mode</th>
+							<th>Kills</th>
+							<th>Deaths</th>
+							<th>KD</th>
+							<th>Wins</th>
+							<th>KW</th>
+							<th>Heads Eaten</th>
+						</tr>
+					</thead>
+					<tbody>
+						{tableBody}
+					</tbody>
+				</table>
+			</div>
 		</Ribbon>
 		);
 }
