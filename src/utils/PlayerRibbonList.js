@@ -31,6 +31,12 @@ export class PlayerRibbonList {
 		}
 		else {
 			this.array = JSON.parse(cookie);
+			// Add any Ribbons that were not found in the cookie data
+			for (const [name] of Object.entries(Ribbon)) {
+				if (name !== 'Player' && name !== 'Ribbon' && !this.array.includes(name)) {
+					this.array.push(name);
+				}
+			}
 		}
 	}
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { Banner, Navbar, Searchbar, Ribbon } from 'components';
+import { Navbar, Searchbar, Ribbon } from 'components';
 import { FrontPage, LoadingPage } from 'pages';
 import * as Utils from 'utils';
 
@@ -96,23 +96,22 @@ export function PlayerPage(props) {
 	/*
 	* Loads different JSX depending on the page state
 	*/
-	let banner = null;
+	let config = null;
 	switch(callStatus) {
 		// Data has been requested from the Hypixel API but not received
 		case Utils.CALL_STATUS_FAILED_HYPIXEL:
-			banner = (
-				<Banner type="error"
-					title='API call failed. '
-					description='The site failed to fetch from the Hypixel API.'/>
-				);
-			return <FrontPage banner={banner} />
+			config =  {
+				callStatus: Utils.CALL_STATUS_FAILED_HYPIXEL,
+			};
+			return <FrontPage config={config} />
 
 		// If the API call was successful but it returned null player data
 		case Utils.CALL_STATUS_RECEIVED_NULL:
-			banner = <Banner type="error"
-				title='Player not found. '
-				description={`Could not find a player with the name "${params.username}".`}/>
-			return <FrontPage banner={banner} />
+			config =  {
+				callStatus: Utils.CALL_STATUS_RECEIVED_NULL,
+				username: params.username,
+			};
+			return <FrontPage config={config} />
 		
 		case Utils.CALL_STATUS_RECEIVED_SUCCESS:
 			// Log the player into recentSearches cookie

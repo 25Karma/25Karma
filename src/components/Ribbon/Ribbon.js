@@ -19,7 +19,7 @@ export function Ribbon(props) {
 			<Collapsible>
 			{cProvided => (
 				<div 
-					className="py-1"
+					className="my-2 rounded overflow-hidden"
 					ref={dProvided.innerRef}
 					{...dProvided.draggableProps}>
 					<div className="stats-header px-2"> 

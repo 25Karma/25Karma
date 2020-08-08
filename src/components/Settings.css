@@ -6,7 +6,7 @@
 	padding: 0.5rem;
 	background: var(--theme-input);
 	font-size: 1rem;
-	border-radius: 0.5rem;
+	border-radius: 0.25rem;
 }
 .settings input::placeholder {
 	color: var(--theme-input-placeholder);

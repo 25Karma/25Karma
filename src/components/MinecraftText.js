@@ -1,5 +1,4 @@
 import React from 'react';
-import './MinecraftText.css';
 import { formatNum } from 'utils';
 
 /*

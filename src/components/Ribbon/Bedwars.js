@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Stat } from 'components';
+import { Box, Progress, ProgressBar,Stat } from 'components';
 import { Ribbon } from 'components/Ribbon';
 import * as Utils from 'utils';
 
@@ -11,20 +11,22 @@ import * as Utils from 'utils';
 */
 export function Bedwars(props) {
 
-	const bedwarsConstants = {
-		PRESTIGE : [
-			[0, '7', 'None'], // gray
-			[100, 'f', 'Iron'], // white
-			[200, '6', 'Gold'], // gold
-			[300, 'b', 'Diamond'], // aqua
-			[400, '2', 'Emerald'], // darkgreen
-			[500, '3', 'Sapphire'], // darkaqua
-			[600, '4', 'Ruby'], // darkred
-			[700, 'd', 'Crystal'], // pink
-			[800, '9', 'Opal'], // blue
-			[900, '5', 'Amethyst'], // purple
-			[1000, 'R', 'Rainbow'], // rainbow
-			[2000, 'R', 'Rainbow'] // rainbow
+	const consts = {
+		EASY_XP: [500, 1000, 2000, 3500],
+		NORMAL_XP: 5000,
+		PRESTIGES : [
+			[0, 'gray', 'None'],
+			[100, 'white', 'Iron'],
+			[200, 'gold', 'Gold'],
+			[300, 'aqua', 'Diamond'],
+			[400, 'darkgreen', 'Emerald'],
+			[500, 'darkaqua', 'Sapphire'],
+			[600, 'darkred', 'Ruby'],
+			[700, 'pink', 'Crystal'],
+			[800, 'blue', 'Opal'],
+			[900, 'purple', 'Amethyst'],
+			[1000, 'rainbow', 'Rainbow'],
+			[2000, 'rainbow', 'Rainbow']
 		],
 		MODES : [
 			['eight_one', 'Solo'],
@@ -50,25 +52,59 @@ export function Bedwars(props) {
 	
 	// The player's API data for Bed Wars
 	const json = Utils.traverse(props.player,'stats.Bedwars') || {};
-
-	const bedwarsLevel = Utils.default0(Utils.traverse(props.player,'achievements.bedwars_level'));
-
+	const leveling = new Utils.HypixelLeveling(xpToLevel, levelToXP, 
+		Utils.default0(json.Experience) + Utils.default0(json.Experience_new));
+	const prestigeColor = getPrestige(leveling.level).color;
+	const prestigeName = getPrestige(leveling.level).name;
+	const levelingProgressProps = {
+		proportion: leveling.proportionAboveLevel,
+		color: prestigeColor,
+		dataTip: `${Utils.formatNum(leveling.xpAboveLevel)}/${Utils.formatNum(leveling.levelTotalXP)} XP`
+	}
 	const ratios = {
 		kd : Utils.ratio(json.kills_bedwars,json.deaths_bedwars),
 		fkd : Utils.ratio(json.final_kills_bedwars,json.final_deaths_bedwars),
 		wl : Utils.ratio(json.wins_bedwars,json.losses_bedwars),
 		bbl : Utils.ratio(json.beds_broken_bedwars,json.beds_lost_bedwars)
 	}
-	
-	function getPrestige() {
-		const prestige = bedwarsConstants.PRESTIGE;
-		for (const [k, c, n] of prestige.slice().reverse()) {
-			if (k <= parseInt(bedwarsLevel)) return {color: c, name: n}
+
+	function xpToLevel(xp) {
+		let remainingXP = xp;
+		let lvl = 0;
+		let deltaXP = consts.EASY_XP[0];
+		while(remainingXP > 0) {
+			deltaXP = consts.NORMAL_XP;
+			if (lvl % 100 < 4) {
+				deltaXP = consts.EASY_XP[lvl%100];
+			}
+			remainingXP -= deltaXP;
+			lvl++;
+		}
+		return lvl + remainingXP/deltaXP;
+	}
+
+	function levelToXP(lvl) {
+		let xp = 0;
+		for (let i = 0; i < lvl; i++) {
+			if (i % 100 < 4) {
+				xp += consts.EASY_XP[i%100];
+			}
+			else {
+				xp += consts.NORMAL_XP;
+			}
+		}
+		return xp;
+	}
+
+	function getPrestige(level) {
+		const prestiges = consts.PRESTIGES;
+		for (const [l, c, n] of prestiges.slice().reverse()) {
+			if (l <= Math.floor(level)) return {color: c, name: n}
 		}
 	}
 
-	function getMostPlayedMode() {
-		const modes = bedwarsConstants.MODES;
+	const mostPlayedMode = (() => {
+		const modes = consts.MODES;
 		let mostPlayed = null;
 		let mostPlays = 0;
 		for (const mode of modes) {
@@ -80,12 +116,11 @@ export function Bedwars(props) {
 			}
 		}
 		return mostPlayed;
-	}
+	})();
 
-	function renderTableBody() {
-		const modes = bedwarsConstants.MODES;
+	const tableBody = (() => {
+		const modes = consts.MODES;
 		const dreamsStartAt = 'eight_one_rush';
-		const mostPlayed = getMostPlayedMode();
 
 		let rowList = [];
 		for (const mode of modes) {
@@ -96,7 +131,7 @@ export function Bedwars(props) {
 					);
 			}
 			rowList.push(
-				<tr key={id} className={name === mostPlayed ? 'c-pink' : ''}>
+				<tr key={id} className={name === mostPlayedMode ? 'c-pink' : ''}>
 					<td>{name}</td>
 					<td>{Utils.formatNum(json[`${id}_kills_bedwars`])}</td>
 					<td>{Utils.formatNum(json[`${id}_deaths_bedwars`])}</td>
@@ -113,12 +148,12 @@ export function Bedwars(props) {
 				);
 		}
 		return rowList;
-	}
+	})();
 
 	const header = (
 		<React.Fragment>
-			<Box title="Level">{`§${getPrestige().color}[${bedwarsLevel}☆]`}</Box>
-			<Box title="WS">{Utils.default0(json.winstreak)}</Box>
+			<Box title="Level">{`${Utils.toColorCode(prestigeColor)}[${leveling.levelFloor}☆]`}</Box>
+			<Box title="WS">{json.winstreak}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="FKD">{ratios.fkd}</Box>
 			<Box title="WL">{ratios.wl}</Box>
@@ -129,10 +164,28 @@ export function Bedwars(props) {
 
 	return (
 		<Ribbon title="Bedwars" header={header} index={props.index}>
+			<div className="mb-1 font-bold">Leveling Progress</div>
+			<div className="h-flex mb-3">
+				<span className={`px-1 c-${getPrestige(leveling.levelFloor).color}`}>
+					{leveling.levelFloor}
+				</span>
+				<div className="flex-1">
+					<ProgressBar {...levelingProgressProps}>
+						<Progress {...levelingProgressProps} />
+					</ProgressBar>
+				</div>
+				<span className={`px-1 c-${getPrestige(leveling.levelCeiling).color}`}>
+					{leveling.levelCeiling}
+				</span>
+			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
-					<Stat title="Level">{bedwarsLevel}</Stat>
-					<Stat title="Prestige">{`${getPrestige().name}`}</Stat>
+					<Stat title="Level">{leveling.level}</Stat>
+					<Stat title="Prestige">
+						<span className={`c-${prestigeColor}`}>
+							{`${prestigeName}`}
+						</span>
+					</Stat>
 					<Stat title="Coins">{json.coins}</Stat>
 					<br/>
 					<Stat title="Winstreak">{json.winstreak}</Stat>
@@ -178,7 +231,7 @@ export function Bedwars(props) {
 					</tr>
 				</thead>
 				<tbody>
-					{renderTableBody()}
+					{tableBody}
 				</tbody>
 			</table>
 			<div className="stats-separator mb-3"></div>

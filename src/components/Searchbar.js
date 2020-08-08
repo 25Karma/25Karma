@@ -6,6 +6,9 @@ import './Searchbar.css';
 
 /*
 * Styled input with search button
+*
+*
+ @param {string} props.defaultValue The default value of the searchbar
 */
 export function Searchbar(props) {
 
@@ -39,7 +42,10 @@ export function Searchbar(props) {
 			ref={refInput}
 			type="text" 
 			onKeyDown={handleKeyDown} 
+			defaultValue={props.defaultValue}
 			autoFocus
+			onFocus={(event)=>{event.target.select()}}
+			spellCheck={false}
 			/>
 			<IconContext.Provider value={{ className: 'react-icons' }}>
 				<button onClick={search}>

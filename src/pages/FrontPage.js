@@ -1,15 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, MinecraftText, Navbar, Searchbar } from 'components';
-import { RecentSearchesList } from 'utils';
+import { Banner, Button, MinecraftText, Navbar, Searchbar } from 'components';
+import * as Utils from 'utils';
 import properties from 'properties.js';
 
 /*
 * The frontpage of the site
 *
-* @param {JSX} props.banner The banner that will appear when the page loads
+* @param {JSX} props.config The frontpage will load banners and other components differently 
+*	depending on the config. The config must contain a key callStatus. If callStatus is
+*	Utils.CALL_STATUS_RECEIVED_NULL, the config must be accompanied with a key username,
+*	which is the username of the player that does not exist.
 */
 export function FrontPage(props) {
+
+	const config = props.config || {};
+
+	// Set the banner according to the config
+	let banner = null;
+	if (config.callStatus === Utils.CALL_STATUS_FAILED_HYPIXEL) {
+		banner = (
+			<Banner type="error"
+				title='API call failed. '
+				description='The site failed to fetch from the Hypixel API.'/>
+			);
+	}
+	else if (config.callStatus === Utils.CALL_STATUS_RECEIVED_NULL) {
+		banner = (
+			<Banner type="error"
+				title='Player not found. '
+				description={`Could not find a player with the name "${config.username}".`}/>
+			);
+	}
 
 	/*
 	* Renders JSX containing recent searches if there are any
@@ -18,7 +40,7 @@ export function FrontPage(props) {
 	* @return {JSX} A div containing buttons to search for recent players
 	*/
 	function renderRecentSearches() {
-		const recentSearchesList = new RecentSearchesList();
+		const recentSearchesList = new Utils.RecentSearchesList();
 		const array = recentSearchesList.toArray();
 		// If the cookie is empty or doesn't exist, render a suggestion
 		if (array === undefined || array.length === 0) {
@@ -70,12 +92,12 @@ export function FrontPage(props) {
 					</MinecraftText>
 				</p>
 				<div className="w-100 pb-2">
-					<Searchbar />
+					<Searchbar defaultValue={config.username || ''}/>
 				</div>
 				<div className="w-100 pb-2 pl-2 h-flex align-items-center">
 					{renderRecentSearches()}
 				</div>
-				{props.banner ? props.banner : null}
+				{banner}
 				<p className="w-50 pt-4 pb-2 text-center">
 					Pro tip: Customize this site by clicking on the gear button 
 					in the top-right corner. 

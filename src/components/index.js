@@ -10,6 +10,8 @@ export * from './ExternalLink.js';
 export * from './MinecraftText.js';
 export * from './Navbar.js';
 export * from './Playername.js';
+export * from './Progress.js';
+export * from './ProgressBar.js';
 export * from './Searchbar.js';
 export * from './Settings.js';
 export * from './Stat.js';

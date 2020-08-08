@@ -14,14 +14,14 @@ export function Duels(props) {
 	// Constants useful for processing Duels API data
 	const duelsConstants = {
 		DIVISIONS : [
-			['Rookie', '8'], // dark gray
-			['Iron', 'f'], // white
-			['Gold', '6'], // gold
-			['Diamond', 'b'], // aqua
-			['Master', '2'], // dark green
-			['Legend', '4'], // dark red
-			['Grandmaster', 'e'], // yellow
-			['Godlike', '5'], // purple
+			['Rookie', 'darkgray'], // dark gray
+			['Iron', 'white'], // white
+			['Gold', 'gold'], // gold
+			['Diamond', 'aqua'], // aqua
+			['Master', 'darkgreen'], // dark green
+			['Legend', 'darkred'], // dark red
+			['Grandmaster', 'yellow'], // yellow
+			['Godlike', 'purple'], // purple
 		],
 		MODES : [
 			['uhc_duel', 'UHC 1v1'],
@@ -73,14 +73,11 @@ export function Duels(props) {
 
 	function getDuelsDivision() {
 		const divisions = duelsConstants.DIVISIONS;
-		const roman = {
-			'1':'','2':'II','3':'III','4':'IV','5':'V',
-		}
 		for (const [k,v] of divisions.reverse()) {
 			const dat = json[`all_modes_${k.toLowerCase()}_title_prestige`];
 			if (dat !== undefined) {
 				return {
-					name: `${k} ${roman[dat]}`,
+					name: `${k} ${Utils.romanize(dat)}`,
 					color: v,
 				};
 			}
@@ -91,7 +88,7 @@ export function Duels(props) {
 
 	function getMostPlayedMode() {
 		const modes = duelsConstants.MODES;
-		let mostPlayed = '-';
+		let mostPlayed = '§7-';
 		let mostPlays = 0;
 		for (const mode of modes) {
 			const [id, name] = mode;
@@ -128,7 +125,7 @@ export function Duels(props) {
 
 	const header = (
 		<React.Fragment>
-			<Box title="Division">{`§${stats.division.color}${stats.division.name}`}</Box>
+			<Box title="Division">{`${Utils.toColorCode(stats.division.color)}${stats.division.name}`}</Box>
 			<Box title="Wins">{json.wins}</Box>
 			<Box title="WL">{ratios.wl}</Box>
 			<Box title="Most Played">{`§f${getMostPlayedMode()}`}</Box>
@@ -141,8 +138,7 @@ export function Duels(props) {
 				<div className="flex-1">
 					<Stat title="Coins">{json.coins}</Stat>
 					<Stat title="Loot Chests">{json.duels_chests}</Stat>
-					<Stat title="Status">{json.status_field || '-'}</Stat>
-					<Stat title="Cosmetic Title">-</Stat>
+					<br/>
 					<br/>
 					<Stat title="Kills">{stats.kills}</Stat>
 					<Stat title="Deaths">{stats.deaths}</Stat>
@@ -156,7 +152,6 @@ export function Duels(props) {
 					<Stat title="Best Winstreak">{json.best_overall_winstreak}</Stat>
 					<Stat title="Current Winstreak">{json.current_winstreak}</Stat>
 					<Stat title="Overall Division">{stats.division.name}</Stat>
-					<Stat title="Custom Title">-</Stat>
 					<br/>
 					<Stat title="Wins">{json.wins}</Stat>
 					<Stat title="Losses">{json.losses}</Stat>
