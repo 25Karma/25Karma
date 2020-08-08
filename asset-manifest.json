@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.8b297989.chunk.css",
-    "main.js": "/static/js/main.30dcc360.chunk.js",
+    "main.css": "/static/css/main.c1c2ef17.chunk.css",
+    "main.js": "/static/js/main.ff455bda.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.b3ffeb4c.js",
     "static/js/2.d4b3073f.chunk.js": "/static/js/2.d4b3073f.chunk.js",
     "index.html": "/index.html",
-    "precache-manifest.d8d04ba46823462d5892f3b053ad0af1.js": "/precache-manifest.d8d04ba46823462d5892f3b053ad0af1.js",
+    "precache-manifest.d8b19985aafa489fe25b803c14e631a6.js": "/precache-manifest.d8b19985aafa489fe25b803c14e631a6.js",
     "service-worker.js": "/service-worker.js",
     "static/js/2.d4b3073f.chunk.js.LICENSE.txt": "/static/js/2.d4b3073f.chunk.js.LICENSE.txt",
     "static/media/index.css": "/static/media/minecraft.ff1f96e3.otf"
@@ -13,7 +13,7 @@
   "entrypoints": [
     "static/js/runtime-main.b3ffeb4c.js",
     "static/js/2.d4b3073f.chunk.js",
-    "static/css/main.8b297989.chunk.css",
-    "static/js/main.30dcc360.chunk.js"
+    "static/css/main.c1c2ef17.chunk.css",
+    "static/js/main.ff455bda.chunk.js"
   ]
 }
