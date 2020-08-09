@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 
 /*
-* @class Deals with getting/setting the cookies for recent searches
+* @class 	Deals with getting/setting the cookies for recent searches
 */
 export class RecentSearchesList {
 	
@@ -25,7 +25,7 @@ export class RecentSearchesList {
 	* Converts the array into a string
 	*
 	* @override
-	* @return {string} Stringified array
+	* @return {string} 	Stringified array
 	*/
 	toString() {
 		return JSON.stringify(this.array);
@@ -38,7 +38,7 @@ export class RecentSearchesList {
 	/*
 	* Adds an element to the front of the queue
 	*
-	* @param {string} ele The player name to add
+	* @param {string} ele 	The player name to add
 	*/
 	add(ele) {
 		const str = String(ele)

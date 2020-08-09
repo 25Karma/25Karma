@@ -1,12 +1,12 @@
 import p from 'properties.js';
 
 /*
-* @class Handles all communication with the Hypixel API
+* @class 	Handles all communication with the Hypixel API
 */
 export class HypixelAPI {
 	/*
 	* @constructor
-	* @param {string} key API key
+	* @param {string} key 	API key
 	*/
 	constructor(key) {
 		this.url = p.hypixelAPIURL;
@@ -16,8 +16,8 @@ export class HypixelAPI {
 	/*
 	* Requests player data from the API
 	*
-	* @param {string} name Username of the player (UUID not supported)
-	* @return {Promise} Should be deconstructed inside an async/await function
+	* @param {string} name 	Username of the player (UUID not supported)
+	* @return {Promise} 	Should be deconstructed inside an async/await function
 	*/
 	getPlayerByUUID(uuid) {
 		const url = `${this.url}player?key=${this.key}&uuid=${uuid}`
@@ -34,8 +34,8 @@ export class HypixelAPI {
 	/*
 	* Requests player data from the API
 	*
-	* @param {string} name Username of the player (UUID not supported)
-	* @return {Promise} Should be deconstructed inside an async/await function
+	* @param {string} name 	Username of the player (UUID not supported)
+	* @return {Promise} 	Should be deconstructed inside an async/await function
 	*/
 	getPlayerByName(username) {
 		const url = `${this.url}player?key=${this.key}&name=${username}`
@@ -52,8 +52,8 @@ export class HypixelAPI {
 	/*
 	* Requests data about player status from the API
 	*
-	* @param {string} name Username of the player (UUID not supported)
-	* @return {Promise} Should be deconstructed inside an async/await function
+	* @param {string} name 	Username of the player (UUID not supported)
+	* @return {Promise} 	Should be deconstructed inside an async/await function
 	*/
 	getStatusByUUID(uuid) {
 		const url = `${this.url}status?key=${this.key}&uuid=${uuid}`

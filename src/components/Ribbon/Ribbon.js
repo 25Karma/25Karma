@@ -8,9 +8,9 @@ import { Collapsible, MinecraftText } from 'components';
 /*
 * Base container for all player stats components
 *
-* @param {string} props.title The title of the stats row
-* @param {JSX} props.header JSX objects to place beside the title
-* @param {JSX} props.children The contents of the collapsible area
+* @param {string} props.title 	The title of the stats row
+* @param {JSX} props.header 	JSX objects to place beside the title
+* @param {JSX} props.children 	The contents of the collapsible area
 */
 export function Ribbon(props) {
 	return (

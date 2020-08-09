@@ -3,6 +3,12 @@ import { Box, Progress, ProgressBar, Stat } from 'components';
 import { Ribbon } from 'components/Ribbon';
 import * as Utils from 'utils';
 
+/*
+* Stats ribbon for Build Battle
+*
+* @param {Object} props.player 	Player data in JSON object
+* @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
+*/
 export function BuildBattle(props) {
 
 	const consts = {
@@ -48,7 +54,6 @@ export function BuildBattle(props) {
 				dataTip: `${Utils.formatNum(leveling.xp)}/${Utils.formatNum(starToScore(12))} Score`
 			}
 	}
-	console.log(json)
 
 	function scoreToStar(score) {
 		const stars = consts.STARS;

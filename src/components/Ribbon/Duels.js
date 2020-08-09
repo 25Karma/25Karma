@@ -6,8 +6,8 @@ import * as Utils from 'utils';
 /*
 * Stats ribbon for Duels
 *
-* @param {Object} props.player Player data in JSON object
-* @param {number} props.index The order in which to display the row (used by react-beautiful-dnd)
+* @param {Object} props.player 	Player data in JSON object
+* @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
 export function Duels(props) {
 

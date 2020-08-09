@@ -8,7 +8,7 @@ import * as Utils from 'utils';
 * Page that displays the stats for an individual player
 * The assumption being that it is only called by App.js if player is not null
 *
-* @param {Object} props.player Player data JSON object
+* @param {Object} props.player 	Player data JSON object
 */
 export function PlayerPage(props) {
 
@@ -102,6 +102,7 @@ export function PlayerPage(props) {
 		case Utils.CALL_STATUS_FAILED_HYPIXEL:
 			config =  {
 				callStatus: Utils.CALL_STATUS_FAILED_HYPIXEL,
+				username: params.username,
 			};
 			return <FrontPage config={config} />
 

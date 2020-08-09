@@ -3,12 +3,13 @@ import ReactTooltip from 'react-tooltip';
 import Cookies from 'js-cookie';
 import { IconContext } from 'react-icons';
 import { FaSignal } from 'react-icons/fa';
-import { Box, Crafatar, Playername } from 'components';
+import { Box, Crafatar, ExternalLink, Playername } from 'components';
 import * as Utils from 'utils';
 
 export function Player(props) {
 	const player = props.player;
 	const status = props.status;
+	const uuid = player.uuid;
 	const decimal = Cookies.get('decimal') || 2;
 	const stats = {
 		karma: Utils.default0(player.karma),
@@ -69,7 +70,9 @@ export function Player(props) {
 	return (
 		<div className="v-flex align-items-center">
 			<div className="h-flex text-shadow">
-				<Crafatar uuid={player.uuid} shadow />
+				<ExternalLink href={`https://namemc.com/profile/${uuid}`}>
+					<Crafatar uuid={player.uuid} shadow />
+				</ExternalLink>
 				<Playername playerdata={player} font="lg" />
 				<IconContext.Provider value={{ className: 'react-icons-lg' }}>
 					<span className={status.online ? 'c-green' : 'c-darkgray'}>

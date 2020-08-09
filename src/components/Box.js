@@ -5,8 +5,8 @@ import { formatNum } from 'utils';
 /*
 * Displays data in minecraft font with a small title
 *
-* @param {string} props.title Is shown in smaller font at the top of the box
-* @param {string} props.children Main text to display, with minecraft color formatting
+* @param {string} props.title 		Is shown in smaller font at the top of the box
+* @param {string} props.children 	Main text to display, with minecraft color formatting
 */
 export function Box(props) {
 	function renderChildren() {

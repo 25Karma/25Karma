@@ -10,7 +10,7 @@ import { Collapsible, MinecraftText, Settings } from 'components';
 /*
 * Navbar that appears at the top of the page
 *
-* @param {JSX} props.children JSX Object to display in the center of the navbar
+* @param {JSX} props.children 	JSX Object to display in the center of the navbar
 */
 export function Navbar(props) {
 	

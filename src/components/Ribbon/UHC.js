@@ -3,6 +3,12 @@ import { Box, Progress, ProgressBar, Stat } from 'components';
 import { Ribbon } from 'components/Ribbon';
 import * as Utils from 'utils';
 
+/*
+* Stats ribbon for UHC
+*
+* @param {Object} props.player 	Player data in JSON object
+* @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
+*/
 export function UHC(props) {
 
 	const consts = {
@@ -148,6 +154,9 @@ export function UHC(props) {
 					<Stat title="Wins">{wins}</Stat>
 					<Stat title="Kill/Win Ratio">{ratios.kw}</Stat>
 					<Stat title="Heads Eaten">{heads}</Stat>
+					<Stat title="Ultimates Crafted">
+						{Utils.default0(json.ultimates_crafted) + Utils.default0(json.ultimates_crafted_solo)}
+					</Stat>
 				</div>
 			</div>
 			<div className="stats-separator mb-3"></div>

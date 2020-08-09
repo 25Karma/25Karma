@@ -5,7 +5,7 @@ import { ExternalLink } from 'components';
 
 /*
 * Footer that appears at the bottom of the page
-*	Retrieves data from properties.js
+* Retrieves data from properties.js
 */
 export function Footer(props) {
 	return (

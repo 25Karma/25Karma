@@ -6,8 +6,8 @@ import * as Utils from 'utils';
 /*
 * Stats ribbon for Bedwars
 *
-* @param {Object} props.player Player data in JSON object
-* @param {number} props.index The order in which to display the row (used by react-beautiful-dnd)
+* @param {Object} props.player 	Player data in JSON object
+* @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
 export function Bedwars(props) {
 
@@ -152,7 +152,7 @@ export function Bedwars(props) {
 
 	const header = (
 		<React.Fragment>
-			<Box title="Level">{`${Utils.toColorCode(prestigeColor)}[${leveling.levelFloor}☆]`}</Box>
+			<Box title="Level">{`${Utils.toColorCode(prestigeColor)}[${leveling.levelFloor}✫]`}</Box>
 			<Box title="WS">{json.winstreak}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="FKD">{ratios.fkd}</Box>
@@ -216,6 +216,11 @@ export function Bedwars(props) {
 			<div className="stats-table mb-3">
 				<table>
 					<thead>
+						<tr>
+							<th></th>
+							<th colSpan="3">Normal</th>
+							<th colSpan="3">Final</th>
+						</tr>
 						<tr>
 							<th>Mode</th>
 							<th>Kills</th>

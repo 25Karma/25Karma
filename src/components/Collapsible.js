@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from 'react';
 * Spread {...provided.collapseibleProps} into the component that should collapse/open
 * Spread {...provided.collapseButtonProps} into the component/button that should toggle the collapse
 *
-* @param {function} props.children The JSX to render
+* @param {function} props.children 	The JSX to render
 */
 export function Collapsible(props) {
 	const [isCollapsed, setCollapsed] = useState(true);

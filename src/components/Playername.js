@@ -4,8 +4,8 @@ import { MinecraftText } from 'components';
 /*
 * Hypixel player username with rank & colors in Minecraft font
 *
-* @param {Object} props.playerdata Player data JSON object
-* @param {string} props.font Font size
+* @param {Object} props.playerdata 	Player data JSON object
+* @param {string} props.font 		Font size
 */
 export function Playername(props) {
 

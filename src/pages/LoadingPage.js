@@ -5,7 +5,7 @@ import { Navbar } from 'components';
 /*
 * Page that displays when waiting for API response
 *
-* @param {string} props.player The username of the player being searched
+* @param {string} props.player 	The username of the player being searched
 */
 export function LoadingPage(props) {
 	return (

@@ -3,15 +3,15 @@ import Cookies from 'js-cookie';
 import { Ribbon } from 'components';
 
 /*
-* @class Deals with getting/setting the cookies that track
-* 	the user's preference for ribbon order
-*	Used in conjunction with the react-beautiful-dnd library
+* @class 	Deals with getting/setting the cookies that track
+* 			the user's preference for ribbon order
+*			Used in conjunction with the react-beautiful-dnd library
 */
 export class PlayerRibbonList {
 	
 	/*
 	* @constructor
-	* @param {Object} playerdata JSON data of the player (from Hypixel API)
+	* @param {Object} playerdata 	JSON data of the player (from Hypixel API)
 	*/
 	constructor(playerdata) {
 		this.cookieName = 'playerRibbons';
@@ -43,7 +43,7 @@ export class PlayerRibbonList {
 	/*
 	* Moves the dragged component to its new index in the array
 	*
-	* @param {Object} result The event object returned by react-beautiful-dnd
+	* @param {Object} result 	The event object returned by react-beautiful-dnd
 	*/
 	onDragEnd(result) {
 		const startIndex = result.source.index;
@@ -57,7 +57,7 @@ export class PlayerRibbonList {
 	* Converts this.array into an array of JSX components
 	*
 	* @override
-	* @return {array<JSX>} An array of Ribbon components
+	* @return {array<JSX>} 	An array of Ribbon components
 	*/
 	toJSX() {
 		if (!this.playerdata) {
@@ -81,8 +81,8 @@ export class PlayerRibbonList {
 	/*
 	* Finds the Ribbon component that corresponds to a string
 	*
-	* @param {string} str The name of the component
-	* @return {Object} The component object itself
+	* @param {string} str 	The name of the component
+	* @return {Object} 		The component object itself
 	*/
 	_getRibbonFromString(str) {
 		// Finds the matching component from within the Ribbon module
@@ -98,7 +98,7 @@ export class PlayerRibbonList {
 	* Converts this.array into a string
 	*
 	* @override
-	* @return {string} Stringified array
+	* @return {string} 	Stringified array
 	*/
 	_toString() {
 		return JSON.stringify(this.array);

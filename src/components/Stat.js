@@ -4,8 +4,8 @@ import { formatNum } from 'utils';
 /*
 * Shows a title/value pair for stats
 *
-* @param {string} props.title The title of the statistic (will be in bold)
-* @param {string} props.children The value of the statistic 
+* @param {string} props.title 		The title of the statistic (will be in bold)
+* @param {string} props.children 	The value of the statistic 
 */
 export function Stat(props) {
 	function renderChildren() {

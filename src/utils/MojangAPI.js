@@ -15,8 +15,8 @@ export class MojangAPI {
 	/*
 	* Gets UUID of player
 	*
-	* @param {string} username Username of the player
-	* @return {Promise} Should be deconstructed inside an async/await function
+	* @param {string} username 	Username of the player
+	* @return {Promise} 		Should be deconstructed inside an async/await function
 	*/
 	getUUIDofPlayer(username) {
 		const getuuid = this.proxyurl + this.url + 'users/profiles/minecraft/' + username;

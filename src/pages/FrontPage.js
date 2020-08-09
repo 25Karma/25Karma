@@ -7,10 +7,10 @@ import properties from 'properties.js';
 /*
 * The frontpage of the site
 *
-* @param {JSX} props.config The frontpage will load banners and other components differently 
-*	depending on the config. The config must contain a key callStatus. If callStatus is
-*	Utils.CALL_STATUS_RECEIVED_NULL, the config must be accompanied with a key username,
-*	which is the username of the player that does not exist.
+* @param {JSX} props.config 	The frontpage will load banners and other components differently 
+*								depending on the config. The config must contain a key callStatus 
+*								and a key username, which is the username of the player that does 
+*								not exist.
 */
 export function FrontPage(props) {
 
