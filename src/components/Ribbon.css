@@ -1,4 +1,4 @@
-.stats-header {
+.ribbon-header {
 	display: flex;
 	flex-wrap: nowrap;
 	align-items: center;
@@ -7,34 +7,30 @@
 	background: var(--theme-secondary);
 }
 
-.stats-body {
+.ribbon-body {
 	padding: 0 1rem 1rem;
 	background: var(--theme-secondary);
 }
 
-.stats-separator {
+.ribbon-separator {
 	border-bottom: 2px solid var(--theme-primary);
 }
 
-
-.stats-table {
-	overflow-x: auto;
-}
-.stats-body table {
+.ribbon-body table {
 	width: 100%;
 	border-collapse: collapse;
 }
 
-.stats-body th,td {
+.ribbon-body th,td {
 	padding: 0.25rem;
 	text-align: left;
 }
 
-.stats-body th {
+.ribbon-body th {
 	background: var(--theme-secondary);
 	padding-bottom: 0.5rem;
 }
 
-.stats-body tr:nth-child(odd) {
+.ribbon-body tr:nth-child(odd) {
 	background: var(--theme-primary);
 }

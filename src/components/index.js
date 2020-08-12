@@ -9,6 +9,7 @@ export * from './Footer.js';
 export * from './ExternalLink.js';
 export * from './MinecraftText.js';
 export * from './Navbar.js';
+export * from './Player.js';
 export * from './Playername.js';
 export * from './Progress.js';
 export * from './ProgressBar.js';

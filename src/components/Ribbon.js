@@ -19,28 +19,30 @@ export function Ribbon(props) {
 			<Collapsible>
 			{cProvided => (
 				<div 
-					className="my-2 rounded overflow-hidden"
+					className="py-1"
 					ref={dProvided.innerRef}
 					{...dProvided.draggableProps}>
-					<div className="stats-header px-2"> 
-						<div 
-							className="h-flex align-items-center flex-1 cursor-pointer overflow-hidden" 
-							{...cProvided.collapseButtonProps}>
-							<MinecraftText font="md">{props.title}</MinecraftText>
-							<div className="h-flex mx-auto px-3">
-								{props.header}
+					<div className="rounded overflow-hidden">
+						<div className="ribbon-header px-2"> 
+							<div 
+								className="h-flex align-items-center flex-1 cursor-pointer overflow-hidden" 
+								{...cProvided.collapseButtonProps}>
+								<MinecraftText font="md">{props.title}</MinecraftText>
+								<div className="h-flex mx-auto px-3">
+									{props.header}
+								</div>
 							</div>
+							<button className="ml-2" {...dProvided.dragHandleProps}>
+								<IconContext.Provider value={{ className: 'react-icons' }}>
+										<MdDragHandle />
+								</IconContext.Provider>
+							</button>
 						</div>
-						<button className="ml-2" {...dProvided.dragHandleProps}>
-							<IconContext.Provider value={{ className: 'react-icons' }}>
-									<MdDragHandle />
-							</IconContext.Provider>
-						</button>
-					</div>
-					<div {...cProvided.collapsibleProps}>
-						<div className="stats-body">
-							<div className="stats-separator mb-3"></div>
-							{props.children}
+						<div {...cProvided.collapsibleProps}>
+							<div className="ribbon-body">
+								<div className="ribbon-separator mb-3"></div>
+								{props.children}
+							</div>
 						</div>
 					</div>
 				</div>

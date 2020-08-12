@@ -12,53 +12,52 @@ import * as Utils from 'utils';
 export function Duels(props) {
 
 	// Constants useful for processing Duels API data
-	const duelsConstants = {
+	const consts = {
 		DIVISIONS : [
-			['Rookie', 'darkgray'], // dark gray
-			['Iron', 'white'], // white
-			['Gold', 'gold'], // gold
-			['Diamond', 'aqua'], // aqua
-			['Master', 'darkgreen'], // dark green
-			['Legend', 'darkred'], // dark red
-			['Grandmaster', 'yellow'], // yellow
-			['Godlike', 'purple'], // purple
+			{name: 'Rookie', color: 'darkgray'},
+			{name: 'Iron', color: 'white'},
+			{name: 'Gold', color: 'gold'},
+			{name: 'Diamond', color: 'aqua'},
+			{name: 'Master', color: 'darkgreen'},
+			{name: 'Legend', color: 'darkred'},
+			{name: 'Grandmaster', color: 'yellow'},
+			{name: 'Godlike', color: 'purple'},
 		],
 		MODES : [
-			['uhc_duel', 'UHC 1v1'],
-			['uhc_doubles', 'UHC 2v2'],
-			['uhc_meetup', 'UHC Meetup'],
-			['op_duel', 'OP 1v1'],
-			['op_doubles', 'OP 2v2'],
-			['sw_duel', 'SkyWars 1v1'],
-			['sw_doubles', 'SkyWars 2v2'],
-			['bow_duel', 'Bow 1v1'],
-			['blitz_duel', 'Blitz 1v1'],
-			['sumo_duel', 'Sumo 1v1'],
-			['bowspleef_duel', 'Bow Spleef 1v1'],
-			['classic_duel', 'Classic 1v1'],
-			['potion_duel', 'NoDebuff 1v1'],
-			['combo_duel', 'Combo 1v1'],
-			['bridge_duel', 'Bridge 1v1'],
-			['bridge_doubles', 'Bridge 2v2'],
-			['bridge_four', 'Bridge 4v4'],
+			{id: 'uhc_duel', name: 'UHC 1v1'},
+			{id: 'uhc_doubles', name: 'UHC 2v2'},
+			{id: 'uhc_meetup', name: 'UHC Meetup'},
+			{id: 'op_duel', name: 'OP 1v1'},
+			{id: 'op_doubles', name: 'OP 2v2'},
+			{id: 'sw_duel', name: 'SkyWars 1v1'},
+			{id: 'sw_doubles', name: 'SkyWars 2v2'},
+			{id: 'bow_duel', name: 'Bow 1v1'},
+			{id: 'blitz_duel', name: 'Blitz 1v1'},
+			{id: 'sumo_duel', name: 'Sumo 1v1'},
+			{id: 'bowspleef_duel', name: 'Bow Spleef 1v1'},
+			{id: 'classic_duel', name: 'Classic 1v1'},
+			{id: 'potion_duel', name: 'NoDebuff 1v1'},
+			{id: 'combo_duel', name: 'Combo 1v1'},
+			{id: 'bridge_duel', name: 'Bridge 1v1'},
+			{id: 'bridge_doubles', name: 'Bridge 2v2'},
+			{id: 'bridge_four', name: 'Bridge 4v4'},
 		],
 	};
 
 	const json = Utils.traverse(props.player,'stats.Duels') || {};
 
 	const division = (() => {
-		const divisions = duelsConstants.DIVISIONS;
-		for (const [k,v] of divisions.reverse()) {
-			const dat = json[`all_modes_${k.toLowerCase()}_title_prestige`];
+		for (const div of consts.DIVISIONS.slice().reverse()) {
+			const dat = json[`all_modes_${div.name.toLowerCase()}_title_prestige`];
 			if (dat !== undefined) {
 				return {
-					name: `${k} ${Utils.romanize(dat)}`,
-					color: v,
+					name: `${div.name} ${Utils.romanize(dat)}`,
+					color: div.color,
 				};
 			}
 		}
 		// If the player has no division
-		return {name: '-', color: '7'};
+		return {name: '-', color: 'gray'};
 	})();
 
 	const stats = (() => {
@@ -73,7 +72,6 @@ export function Duels(props) {
 			}
 		}
 		return {
-			division : division,
 			kills : Utils.default0(totalKills),
 			deaths : Utils.default0(totalDeaths),
 		}
@@ -87,48 +85,60 @@ export function Duels(props) {
 	}
 
 	const mostPlayedMode = (() => {
-		const modes = duelsConstants.MODES;
 		let mostPlayed = '§7-';
 		let mostPlays = 0;
-		for (const mode of modes) {
-			const [id, name] = mode;
-			const plays = Utils.default0(json[`${id}_wins`]) + Utils.default0(json[`${id}_losses`])
+		for (const mode of consts.MODES) {
+			const plays = Utils.default0(json[`${mode.id}_wins`]) + Utils.default0(json[`${mode.id}_losses`])
 			if (plays > mostPlays) {
 				mostPlays = plays;
-				mostPlayed = name;
+				mostPlayed = mode.name;
 			}
 		}
 		return mostPlayed;
 	})();
 
-	const tableBody = (() => {
-		const modes = duelsConstants.MODES;
-
-		return modes.map(mode => {
-			const [id,name] = mode;
-			return (
-				<tr key={id} className={name === mostPlayedMode ? 'c-pink' : ''}>
-					<td>{name}</td>
-					<td>{Utils.formatNum(json[`${id}_kills`])}</td>
-					<td>{Utils.formatNum(json[`${id}_deaths`])}</td>
-					<td>{Utils.formatNum(Utils.ratio(json[`${id}_kills`],json[`${id}_deaths`]))}</td>
-					<td>{Utils.formatNum(json[`${id}_wins`])}</td>
-					<td>{Utils.formatNum(json[`${id}_losses`])}</td>
-					<td>{Utils.formatNum(Utils.ratio(json[`${id}_wins`],json[`${id}_losses`]))}</td>
-					<td>{Utils.formatNum(Utils.ratio(json[`${id}_melee_hits`],json[`${id}_melee_swings`]))}</td>
-					<td>{Utils.formatNum(Utils.ratio(json[`${id}_bow_hits`],json[`${id}_bow_shots`]))}</td>
-				</tr>
-				);
-		})
-	})();
-
 	const header = (
 		<React.Fragment>
-			<Box title="Division">{`${Utils.toColorCode(stats.division.color)}${stats.division.name}`}</Box>
+			<Box title="Division">{`${Utils.toColorCode(division.color)}${division.name}`}</Box>
 			<Box title="Wins">{json.wins}</Box>
 			<Box title="WL">{ratios.wl}</Box>
 			<Box title="Most Played">{`§f${mostPlayedMode}`}</Box>
 		</React.Fragment>
+		);
+
+	const table = (
+		<table>
+			<thead>
+				<tr>
+					<th>Mode</th>
+					<th>Kills</th>
+					<th>Deaths</th>
+					<th>KD</th>
+					<th>Wins</th>
+					<th>Losses</th>
+					<th>WL</th>
+					<th>Melee HM</th>
+					<th>Arrow HM</th>
+				</tr>
+			</thead>
+			<tbody>
+			{
+				consts.MODES.map(mode => 
+					<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
+						<td>{mode.name}</td>
+						<td>{Utils.formatNum(json[`${mode.id}_kills`])}</td>
+						<td>{Utils.formatNum(json[`${mode.id}_deaths`])}</td>
+						<td>{Utils.formatNum(Utils.ratio(json[`${mode.id}_kills`],json[`${mode.id}_deaths`]))}</td>
+						<td>{Utils.formatNum(json[`${mode.id}_wins`])}</td>
+						<td>{Utils.formatNum(json[`${mode.id}_losses`])}</td>
+						<td>{Utils.formatNum(Utils.ratio(json[`${mode.id}_wins`],json[`${mode.id}_losses`]))}</td>
+						<td>{Utils.formatNum(Utils.ratio(json[`${mode.id}_melee_hits`],json[`${mode.id}_melee_swings`]))}</td>
+						<td>{Utils.formatNum(Utils.ratio(json[`${mode.id}_bow_hits`],json[`${mode.id}_bow_shots`]))}</td>
+					</tr>
+					)
+			}
+			</tbody>
+		</table>
 		);
 
 	return (
@@ -151,8 +161,8 @@ export function Duels(props) {
 					<Stat title="Best Winstreak">{json.best_overall_winstreak}</Stat>
 					<Stat title="Current Winstreak">{json.current_winstreak}</Stat>
 					<Stat title="Overall Division">
-						<span className={`c-${stats.division.color}`}>
-							{stats.division.name}
+						<span className={`c-${division.color}`}>
+							{division.name}
 						</span>
 					</Stat>
 					<br/>
@@ -166,25 +176,8 @@ export function Duels(props) {
 				</div>
 			</div>
 			<div className="stats-separator mb-3"></div>
-			<div className="stats-table mb-2">
-				<table>
-					<thead>
-						<tr>
-							<th>Mode</th>
-							<th>Kills</th>
-							<th>Deaths</th>
-							<th>KD</th>
-							<th>Wins</th>
-							<th>Losses</th>
-							<th>WL</th>
-							<th>Melee HM</th>
-							<th>Arrow HM</th>
-						</tr>
-					</thead>
-					<tbody>
-						{tableBody}
-					</tbody>
-				</table>
+			<div className="overflow-x mb-2">
+				{table}
 			</div>
 		</Ribbon>
 		);

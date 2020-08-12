@@ -1,6 +1,6 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-import { Ribbon } from 'components';
+import * as Ribbon from 'pages/PlayerPage/components';
 
 /*
 * @class 	Deals with getting/setting the cookies that track
@@ -19,15 +19,8 @@ export class PlayerRibbonList {
 		let cookie = Cookies.get(this.cookieName);
 		// If no cookie found, it will be undefined
 		if (cookie === undefined) {
-			// Get the default (alphabetical) order of the ribbons
-			let ribbonArray = [];
-			for (const [name] of Object.entries(Ribbon)) {
-				if (name !== 'Player' && name !== 'Ribbon') {
-					ribbonArray.push(name);
-				}
-			}
-			this.array = ribbonArray;
-			this._set();
+			this.array = null;
+			this.alphabetizeArray();
 		}
 		else {
 			this.array = JSON.parse(cookie);
@@ -76,6 +69,19 @@ export class PlayerRibbonList {
 			ribbons.push(React.createElement(component, props, null));
 		}
 		return ribbons;
+	}
+	
+	/*
+	* Sets the ribbons in the array in alphabetical order
+	*/
+	alphabetizeArray() {
+		// Get the default (alphabetical) order of the ribbons
+		let ribbonArray = [];
+		for (const [name] of Object.entries(Ribbon)) {
+			ribbonArray.push(name);
+		}
+		this.array = ribbonArray;
+		this._set();
 	}
 
 	/*

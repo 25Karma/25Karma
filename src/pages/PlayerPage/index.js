@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { IconContext } from 'react-icons';
+import { FaSortAlphaDown } from 'react-icons/fa';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { Navbar, Searchbar, Ribbon } from 'components';
+import { Navbar, Searchbar, Player } from 'components';
 import { FrontPage, LoadingPage } from 'pages';
+import { useForceUpdate } from 'hooks';
 import * as Utils from 'utils';
 
 /*
@@ -19,6 +22,7 @@ export function PlayerPage(props) {
 	const [callStatus, setCallStatus] = useState("requested");
 
 	const playerRibbonList = new Utils.PlayerRibbonList(player);
+	const forceUpdate = useForceUpdate();
 
 	// Runs once the page loads
 	useEffect(() => {
@@ -76,18 +80,30 @@ export function PlayerPage(props) {
 		playerRibbonList.onDragEnd(result);
 	}
 
+	function alphabetizeRibbons() {
+		playerRibbonList.alphabetizeArray();
+		forceUpdate();
+	}
+
 	// JSX for when player data is successfully received
 	const playerStatsSection = (
 		<DragDropContext onDragEnd={onDragEnd}>
 			<div className="container my-4">
-				<Ribbon.Player player={player} status={status} />
+				<Player player={player} status={status} />
+				<div className="h-flex px-2 py-1">
+					<IconContext.Provider value={{ className: 'react-icons' }}>
+						<button className="ml-auto" onClick={alphabetizeRibbons}>
+							<FaSortAlphaDown />
+						</button>
+					</IconContext.Provider>
+				</div>
 				<Droppable droppableId="playerStatsDroppable">
-				{provided => (
-					<div {...provided.droppableProps} ref={provided.innerRef}>
-						{playerRibbonList.toJSX()}
-						{provided.placeholder}
-					</div>
-				)}
+					{provided => (
+						<div {...provided.droppableProps} ref={provided.innerRef}>
+							{playerRibbonList.toJSX()}
+							{provided.placeholder}
+						</div>
+					)}
 				</Droppable>
 			</div>
 		</DragDropContext>

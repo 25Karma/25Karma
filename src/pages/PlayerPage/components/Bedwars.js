@@ -15,38 +15,38 @@ export function Bedwars(props) {
 		EASY_XP: [500, 1000, 2000, 3500],
 		NORMAL_XP: 5000,
 		PRESTIGES : [
-			[0, 'gray', 'None'],
-			[100, 'white', 'Iron'],
-			[200, 'gold', 'Gold'],
-			[300, 'aqua', 'Diamond'],
-			[400, 'darkgreen', 'Emerald'],
-			[500, 'darkaqua', 'Sapphire'],
-			[600, 'darkred', 'Ruby'],
-			[700, 'pink', 'Crystal'],
-			[800, 'blue', 'Opal'],
-			[900, 'purple', 'Amethyst'],
-			[1000, 'rainbow', 'Rainbow'],
-			[2000, 'rainbow', 'Rainbow']
+			{level: 0, color: 'gray', name: 'None'},
+			{level: 100, color: 'white', name: 'Iron'},
+			{level: 200, color: 'gold', name: 'Gold'},
+			{level: 300, color: 'aqua', name: 'Diamond'},
+			{level: 400, color: 'darkgreen', name: 'Emerald'},
+			{level: 500, color: 'darkaqua', name: 'Sapphire'},
+			{level: 600, color: 'darkred', name: 'Ruby'},
+			{level: 700, color: 'pink', name: 'Crystal'},
+			{level: 800, color: 'blue', name: 'Opal'},
+			{level: 900, color: 'purple', name: 'Amethyst'},
+			{level: 1000, color: 'rainbow', name: 'Rainbow'},
+			{level: 2000, color: 'rainbow', name: 'Rainbow'}
 		],
 		MODES : [
-			['eight_one', 'Solo'],
-			['eight_two', 'Doubles'],
-			['four_three', '3v3v3v3'],
-			['four_four', '4v4v4v4'],
-			['two_four', '4v4'],
-			['eight_one_rush', 'Rush Solo'],
-			['eight_two_rush', 'Rush Doubles'],
-			['four_four_rush', 'Rush 4v4v4v4'],
-			['eight_one_ultimate', 'Ultimate Solo'],
-			['eight_two_ultimate', 'Ultimate Doubles'],
-			['four_four_ultimate', 'Ultimate 4v4v4v4'],
-			['eight_two_lucky', 'Lucky Doubles'],
-			['four_four_lucky', 'Lucky 4v4v4v4'],
-			['eight_two_voidless', 'Voidless Doubles'],
-			['four_four_voidless', 'Voidless 4v4v4v4'],
-			['eight_two_armed', 'Armed Doubles'],
-			['four_four_armed', 'Armed 4v4v4v4'],
-			['castle', 'Castle'],
+			{id: 'eight_one', name: 'Solo'},
+			{id: 'eight_two', name: 'Doubles'},
+			{id: 'four_three', name: '3v3v3v3'},
+			{id: 'four_four', name: '4v4v4v4'},
+			{id: 'two_four', name: '4v4'},
+			{id: 'eight_one_rush', name: 'Rush Solo'},
+			{id: 'eight_two_rush', name: 'Rush Doubles'},
+			{id: 'four_four_rush', name: 'Rush 4v4v4v4'},
+			{id: 'eight_one_ultimate', name: 'Ultimate Solo'},
+			{id: 'eight_two_ultimate', name: 'Ultimate Doubles'},
+			{id: 'four_four_ultimate', name: 'Ultimate 4v4v4v4'},
+			{id: 'eight_two_lucky', name: 'Lucky Doubles'},
+			{id: 'four_four_lucky', name: 'Lucky 4v4v4v4'},
+			{id: 'eight_two_voidless', name: 'Voidless Doubles'},
+			{id: 'four_four_voidless', name: 'Voidless 4v4v4v4'},
+			{id: 'eight_two_armed', name: 'Armed Doubles'},
+			{id: 'four_four_armed', name: 'Armed 4v4v4v4'},
+			{id: 'castle', name: 'Castle'},
 		],
 	};
 	
@@ -56,11 +56,6 @@ export function Bedwars(props) {
 		Utils.default0(json.Experience) + Utils.default0(json.Experience_new));
 	const prestigeColor = getPrestige(leveling.level).color;
 	const prestigeName = getPrestige(leveling.level).name;
-	const levelingProgressProps = {
-		proportion: leveling.proportionAboveLevel,
-		color: prestigeColor,
-		dataTip: `${leveling.xpAboveLevel}/${leveling.levelTotalXP} XP`
-	}
 	const ratios = {
 		kd : Utils.ratio(json.kills_bedwars,json.deaths_bedwars),
 		fkd : Utils.ratio(json.final_kills_bedwars,json.final_deaths_bedwars),
@@ -97,57 +92,22 @@ export function Bedwars(props) {
 	}
 
 	function getPrestige(level) {
-		const prestiges = consts.PRESTIGES;
-		for (const [l, c, n] of prestiges.slice().reverse()) {
-			if (l <= Math.floor(level)) return {color: c, name: n}
+		for (const pres of consts.PRESTIGES.slice().reverse()) {
+			if (pres.level <= Math.floor(level)) return {color: pres.color, name: pres.name}
 		}
 	}
 
 	const mostPlayedMode = (() => {
-		const modes = consts.MODES;
 		let mostPlayed = null;
 		let mostPlays = 0;
-		for (const mode of modes) {
-			const [id, name] = mode;
-			const plays = Utils.default0(json[`${id}_wins_bedwars`]) + Utils.default0(json[`${id}_losses_bedwars`])
+		for (const mode of consts.MODES) {
+			const plays = Utils.default0(json[`${mode.id}_wins_bedwars`]) + Utils.default0(json[`${mode.id}_losses_bedwars`])
 			if (plays > mostPlays) {
 				mostPlays = plays;
-				mostPlayed = name;
+				mostPlayed = mode.name;
 			}
 		}
 		return mostPlayed;
-	})();
-
-	const tableBody = (() => {
-		const modes = consts.MODES;
-		const dreamsStartAt = 'eight_one_rush';
-
-		let rowList = [];
-		for (const mode of modes) {
-			const [id, name] = mode;
-			if (id === dreamsStartAt) {
-				rowList.push(
-					<tr key="dreams"><th><div className="mt-2">Dreams Mode</div></th></tr>
-					);
-			}
-			rowList.push(
-				<tr key={id} className={name === mostPlayedMode ? 'c-pink' : ''}>
-					<td>{name}</td>
-					<td>{Utils.formatNum(json[`${id}_kills_bedwars`])}</td>
-					<td>{Utils.formatNum(json[`${id}_deaths_bedwars`])}</td>
-					<td>{Utils.formatNum(Utils.ratio(json[`${id}_kills_bedwars`],json[`${id}_deaths_bedwars`]))}</td>
-					<td>{Utils.formatNum(json[`${id}_final_kills_bedwars`])}</td>
-					<td>{Utils.formatNum(json[`${id}_final_deaths_bedwars`])}</td>
-					<td>{Utils.formatNum(Utils.ratio(json[`${id}_final_kills_bedwars`],json[`${id}_final_deaths_bedwars`]))}</td>
-					<td>{Utils.formatNum(json[`${id}_wins_bedwars`])}</td>
-					<td>{Utils.formatNum(json[`${id}_losses_bedwars`])}</td>
-					<td>{Utils.formatNum(Utils.ratio(json[`${id}_wins_bedwars`],json[`${id}_losses_bedwars`]))}</td>
-					<td>{Utils.formatNum(json[`${id}_beds_broken_bedwars`])}</td>
-					<td>{Utils.formatNum(Utils.ratio(json[`${id}_beds_broken_bedwars`],json[`${id}_beds_lost_bedwars`]))}</td>
-				</tr>
-				);
-		}
-		return rowList;
 	})();
 
 	const header = (
@@ -161,22 +121,87 @@ export function Bedwars(props) {
 		</React.Fragment>
 		);
 
+	const progressBar = (
+		<React.Fragment>
+			<span className={`px-1 c-${getPrestige(leveling.levelFloor).color}`}>
+				{leveling.levelFloor}
+			</span>
+			<div className="flex-1">
+				<ProgressBar 
+					dataTip={`${leveling.xpAboveLevel}/${leveling.levelTotalXP} XP`}>
+					<Progress 
+						proportion={leveling.proportionAboveLevel}
+						color={prestigeColor}
+						dataTip={`${leveling.xpAboveLevel}/${leveling.levelTotalXP} XP`} />
+				</ProgressBar>
+			</div>
+			<span className={`px-1 c-${getPrestige(leveling.levelCeiling).color}`}>
+				{leveling.levelCeiling}
+			</span>
+		</React.Fragment>
+		)
+
+	const table = (() => {
+		const dreamsStartAt = 'eight_one_rush';
+		let rowList = [];
+		for (const mode of consts.MODES) {
+			if (mode.id === dreamsStartAt) {
+				rowList.push(
+					<tr key="dreams"><th><div className="mt-2">Dreams Mode</div></th></tr>
+					);
+			}
+			rowList.push(
+				<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
+					<td>{mode.name}</td>
+					<td>{Utils.formatNum(json[`${mode.id}_kills_bedwars`])}</td>
+					<td>{Utils.formatNum(json[`${mode.id}_deaths_bedwars`])}</td>
+					<td>{Utils.formatNum(Utils.ratio(json[`${mode.id}_kills_bedwars`],json[`${mode.id}_deaths_bedwars`]))}</td>
+					<td>{Utils.formatNum(json[`${mode.id}_final_kills_bedwars`])}</td>
+					<td>{Utils.formatNum(json[`${mode.id}_final_deaths_bedwars`])}</td>
+					<td>{Utils.formatNum(Utils.ratio(json[`${mode.id}_final_kills_bedwars`],json[`${mode.id}_final_deaths_bedwars`]))}</td>
+					<td>{Utils.formatNum(json[`${mode.id}_wins_bedwars`])}</td>
+					<td>{Utils.formatNum(json[`${mode.id}_losses_bedwars`])}</td>
+					<td>{Utils.formatNum(Utils.ratio(json[`${mode.id}_wins_bedwars`],json[`${mode.id}_losses_bedwars`]))}</td>
+					<td>{Utils.formatNum(json[`${mode.id}_beds_broken_bedwars`])}</td>
+					<td>{Utils.formatNum(Utils.ratio(json[`${mode.id}_beds_broken_bedwars`],json[`${mode.id}_beds_lost_bedwars`]))}</td>
+				</tr>
+				);
+		}
+		return (
+			<table>
+				<thead>
+					<tr>
+						<th></th>
+						<th colSpan="3">Normal</th>
+						<th colSpan="3">Final</th>
+					</tr>
+					<tr>
+						<th>Mode</th>
+						<th>Kills</th>
+						<th>Deaths</th>
+						<th>KD</th>
+						<th>Kills</th>
+						<th>Deaths</th>
+						<th>KD</th>
+						<th>Wins</th>
+						<th>Losses</th>
+						<th>WL</th>
+						<th>Beds Broken</th>
+						<th>BBL</th>
+					</tr>
+				</thead>
+				<tbody>
+					{rowList}
+				</tbody>
+			</table>
+			);
+	})();
 
 	return (
 		<Ribbon title="Bed Wars" header={header} index={props.index}>
 			<div className="mb-1 font-bold">Leveling Progress</div>
 			<div className="h-flex mb-3">
-				<span className={`px-1 c-${getPrestige(leveling.levelFloor).color}`}>
-					{leveling.levelFloor}
-				</span>
-				<div className="flex-1">
-					<ProgressBar {...levelingProgressProps}>
-						<Progress {...levelingProgressProps} />
-					</ProgressBar>
-				</div>
-				<span className={`px-1 c-${getPrestige(leveling.levelCeiling).color}`}>
-					{leveling.levelCeiling}
-				</span>
+				{progressBar}
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
@@ -213,33 +238,8 @@ export function Bedwars(props) {
 				</div>
 			</div>
 			<div className="stats-separator mb-3"></div>
-			<div className="stats-table mb-3">
-				<table>
-					<thead>
-						<tr>
-							<th></th>
-							<th colSpan="3">Normal</th>
-							<th colSpan="3">Final</th>
-						</tr>
-						<tr>
-							<th>Mode</th>
-							<th>Kills</th>
-							<th>Deaths</th>
-							<th>KD</th>
-							<th>Kills</th>
-							<th>Deaths</th>
-							<th>KD</th>
-							<th>Wins</th>
-							<th>Losses</th>
-							<th>WL</th>
-							<th>Beds Broken</th>
-							<th>BBL</th>
-						</tr>
-					</thead>
-					<tbody>
-						{tableBody}
-					</tbody>
-				</table>
+			<div className="overflow-x mb-3">
+				{table}
 			</div>
 			<div className="stats-separator mb-3"></div>
 			<div className="h-flex mb-2">

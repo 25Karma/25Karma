@@ -13,25 +13,25 @@ export function BuildBattle(props) {
 
 	const consts = {
 		MODES : [
-			['solo_normal', 'Solo'],
-			['teams_normal', 'Teams'],
-			['guess_the_build', 'Red vs. Blue'],
-			['solo_pro', 'Pro'],
+			{id: 'solo_normal', name: 'Solo'},
+			{id: 'teams_normal', name: 'Teams'},
+			{id: 'guess_the_build', name: 'Red vs. Blue'},
+			{id: 'solo_pro', name: 'Pro'},
 		],
 		STARS: [
-			[0, 'Rookie', 'white'],
-			[100, 'Untrained', 'gray'],
-			[250, 'Amateur', 'yellow'],
-			[500, 'Apprentice', 'green'],
-			[1000, 'Experienced', 'pink'],
-			[2000, 'Seasoned', 'blue'],
-			[3500, 'Trained', 'darkgreen'],
-			[5000, 'Skilled', 'darkaqua'],
-			[7500, 'Talented', 'red'],
-			[10000, 'Professional', 'purple'],
-			[15000, 'Expert', 'darkblue'],
-			[20000, 'Master', 'darkred'],
-			[Infinity, null, null]
+			{value: 0, name: 'Rookie', color: 'white'},
+			{value: 100, name: 'Untrained', color: 'gray'},
+			{value: 250, name: 'Amateur', color: 'yellow'},
+			{value: 500, name: 'Apprentice', color: 'green'},
+			{value: 1000, name: 'Experienced', color: 'pink'},
+			{value: 2000, name: 'Seasoned', color: 'blue'},
+			{value: 3500, name: 'Trained', color: 'darkgreen'},
+			{value: 5000, name: 'Skilled', color: 'darkaqua'},
+			{value: 7500, name: 'Talented', color: 'red'},
+			{value: 10000, name: 'Professional', color: 'purple'},
+			{value: 15000, name: 'Expert', color: 'darkblue'},
+			{value: 20000, name: 'Master', color: 'darkred'},
+			{value: Infinity, name: null, color: null}
 		],
 	}
 
@@ -42,55 +42,27 @@ export function BuildBattle(props) {
 	if (leveling.levelCeiling > 12) leveling.levelCeiling = 12;
 	const title = getTitle(leveling.levelFloor).name;
 	const titleColor = getTitle(leveling.levelFloor).color;
-	let levelingProgressProps = {
-		proportion: leveling.xp / starToScore(leveling.levelCeiling),
-		color: titleColor,
-		dataTip: `${Utils.formatNum(leveling.xp)}/${Utils.formatNum(starToScore(leveling.levelCeiling))} Score`
-	}
-	if (leveling.levelFloor === 12) {
-		levelingProgressProps = {
-				proportion: 1,
-				color: titleColor,
-				dataTip: `${Utils.formatNum(leveling.xp)}/${Utils.formatNum(starToScore(12))} Score`
-			}
-	}
 
 	function scoreToStar(score) {
 		const stars = consts.STARS;
 		for(let i = 0; i < stars.length; i++) {
-			if(score < stars[i][0]) {
-				return i + (score - stars[i-1][0]) / (stars[i][0] - stars[i-1][0]);
+			if(score < stars[i].value) {
+				return i + (score - stars[i-1].value) / (stars[i].value - stars[i-1].value);
 			}
 		}
 	}
 
 	function starToScore(star) {
-		return consts.STARS[star-1][0];	
+		return consts.STARS[star-1].value;	
 	}
 
 	function getTitle(star) {
 		return {
-			name: consts.STARS[star-1][1],
-			color: consts.STARS[star-1][2]
+			name: consts.STARS[star-1].name,
+			color: consts.STARS[star-1].color
 		}
 	}
 
-	const tableBody = (() => {
-		const modes = consts.MODES;
-
-		const mostPlayed = 'x';//getMostPlayedMode();
-
-		return modes.map(mode => {
-			const [id, name] = mode;
-			return (
-				<tr key={id} className={name === mostPlayed ? 'c-pink' : ''}>
-					<td>{name}</td>
-					<td>{Utils.formatNum(json[`wins_${id}`])}</td>
-				</tr>
-				);
-		})
-	})();
-		
 	const header = (
 		<React.Fragment>
 			<Box title="Title">{`${Utils.toColorCode(titleColor)}${title}`}</Box>
@@ -98,10 +70,21 @@ export function BuildBattle(props) {
 		</React.Fragment>
 		);
 
-	return (
-		<Ribbon title="Build Battle" header={header} index={props.index}>
-			<div className="mb-1 font-bold">Title Progress</div>
-			<div className="h-flex mb-3">
+	const progressBar = (() => {
+		let levelingProgressProps = {
+			proportion: leveling.xp / starToScore(leveling.levelCeiling),
+			color: titleColor,
+			dataTip: `${Utils.formatNum(leveling.xp)}/${Utils.formatNum(starToScore(leveling.levelCeiling))} Score`
+		}
+		if (leveling.levelFloor === 12) {
+			levelingProgressProps = {
+					proportion: 1,
+					color: titleColor,
+					dataTip: `${Utils.formatNum(leveling.xp)}/${Utils.formatNum(starToScore(12))} Score`
+				}
+		}
+		return (
+			<React.Fragment>
 				<div className="flex-1">
 					<ProgressBar {...levelingProgressProps}>
 						<Progress {...levelingProgressProps} />
@@ -110,6 +93,36 @@ export function BuildBattle(props) {
 				<span className={`px-1 c-${getTitle(leveling.levelCeiling).color}`}>
 					{getTitle(leveling.levelCeiling).name}
 				</span>
+			</React.Fragment>
+			);
+	})();
+
+	const table = (
+		<table>
+			<thead>
+				<tr>
+					<th>Mode</th>
+					<th>Wins</th>
+				</tr>
+			</thead>
+			<tbody>
+			{
+				consts.MODES.map(mode => 
+					<tr key={mode.id}>
+						<td>{mode.name}</td>
+						<td>{Utils.formatNum(json[`wins_${mode.id}`])}</td>
+					</tr>
+					)
+			}
+			</tbody>
+		</table>
+		);
+
+	return (
+		<Ribbon title="Build Battle" header={header} index={props.index}>
+			<div className="mb-1 font-bold">Title Progress</div>
+			<div className="h-flex mb-3">
+				{progressBar}
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
@@ -130,18 +143,8 @@ export function BuildBattle(props) {
 				</div>
 			</div>
 			<div className="stats-separator mb-3"></div>
-			<div className="stats-table mb-2">
-				<table>
-					<thead>
-						<tr>
-							<th>Mode</th>
-							<th>Wins</th>
-						</tr>
-					</thead>
-					<tbody>
-						{tableBody}
-					</tbody>
-				</table>
+			<div className="overflow-x mb-2">
+				{table}
 			</div>
 		</Ribbon>
 		);

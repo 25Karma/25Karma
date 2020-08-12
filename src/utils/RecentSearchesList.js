@@ -18,7 +18,7 @@ export class RecentSearchesList {
 		}
 		this.array = JSON.parse(cookie);
 		// Maximum amount of recent searches to store
-		this.maxLength = 5;
+		this.maxLength = 25;
 	}
 	
 	/*

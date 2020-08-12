@@ -18,18 +18,18 @@ export function Skywars(props) {
 		INITIAL_XP: [0, 20, 70, 150, 250, 500, 1000, 2000, 3500, 6000, 10000, 15000],
 		RECURRING_XP: 10000,
 		PRESTIGES : [
-			[0,   'gray', 'None'], 
-			[5,   'white', 'Iron'], 
-			[10,  'gold', 'Gold'], 
-			[15,  'aqua', 'Diamond'], 
-			[20,  'darkgreen', 'Emerald'], 
-			[25,  'darkaqua', 'Sapphire'], 
-			[30,  'darkred', 'Ruby'], 
-			[35,  'pink', 'Crystal'], 
-			[40,  'blue', 'Opal'], 
-			[45,  'purple', 'Amethyst'], 
-			[50,  'rainbow', 'Rainbow'], 
-			[100, 'rainbow font-bold', 'Mythic']
+			{level: 0,   color: 'gray', name: 'None'}, 
+			{level: 5,   color: 'white', name: 'Iron'}, 
+			{level: 10,  color: 'gold', name: 'Gold'}, 
+			{level: 15,  color: 'aqua', name: 'Diamond'}, 
+			{level: 20,  color: 'darkgreen', name: 'Emerald'}, 
+			{level: 25,  color: 'darkaqua', name: 'Sapphire'}, 
+			{level: 30,  color: 'darkred', name: 'Ruby'}, 
+			{level: 35,  color: 'pink', name: 'Crystal'}, 
+			{level: 40,  color: 'blue', name: 'Opal'}, 
+			{level: 45,  color: 'purple', name: 'Amethyst'}, 
+			{level: 50,  color: 'rainbow', name: 'Rainbow'}, 
+			{level: 100, color: 'rainbow font-bold', name: 'Mythic'}
 		],
 		ICONS : {
 			default: '\u22c6',
@@ -60,25 +60,25 @@ export function Skywars(props) {
 			omega_icon: '\u03a9',
 		},
 		MODES : [
-			['ranked',       'Ranked'],
-			['solo_normal',  'Solo Normal'],
-			['solo_insane',  'Solo Insane'],
-			['team_normal',  'Teams Normal'],
-			['team_insane',  'Teams Insane'],
-			['mega_normal',  'Mega'],
-			['mega_doubles', 'Mega Doubles'],
+			{id: 'ranked',       name: 'Ranked'},
+			{id: 'solo_normal',  name: 'Solo Normal'},
+			{id: 'solo_insane',  name: 'Solo Insane'},
+			{id: 'team_normal',  name: 'Teams Normal'},
+			{id: 'team_insane',  name: 'Teams Insane'},
+			{id: 'mega_normal',  name: 'Mega'},
+			{id: 'mega_doubles', name: 'Mega Doubles'},
 		],
 		HEADS : [
-			['eww',       'Eww!',      'darkgray'],
-			['yucky',     'Yucky!',    'gray'],
-			['meh',       'Meh',       'white'],
-			['decent',    'Decent',    'yellow'],
-			['salty',     'Salty',     'green'],
-			['tasty',     'Tasty',     'darkaqua'],
-			['succulent', 'Succulent', 'pink'],
-			['divine',    'Divine',    'gold'],
-			['heavenly',  'Heavenly',  'purple'],
-			['sweet',     'Sweet',     'aqua'],
+			{id: 'eww',       name: 'Eww!',      color: 'darkgray'},
+			{id: 'yucky',     name: 'Yucky!',    color: 'gray'},
+			{id: 'meh',       name: 'Meh',       color: 'white'},
+			{id: 'decent',    name: 'Decent',    color: 'yellow'},
+			{id: 'salty',     name: 'Salty',     color: 'green'},
+			{id: 'tasty',     name: 'Tasty',     color: 'darkaqua'},
+			{id: 'succulent', name: 'Succulent', color: 'pink'},
+			{id: 'divine',    name: 'Divine',    color: 'gold'},
+			{id: 'heavenly',  name: 'Heavenly',  color: 'purple'},
+			{id: 'sweet',     name: 'Sweet',     color: 'aqua'},
 		],
 	};
 	
@@ -88,11 +88,6 @@ export function Skywars(props) {
 		Utils.default0(json.skywars_experience));
 	const prestigeColor = getPrestige(leveling.level).color;
 	const prestigeName = getPrestige(leveling.level).name;
-	const levelingProgressProps = {
-		proportion: leveling.proportionAboveLevel,
-		color: prestigeColor,
-		dataTip: `${leveling.xpAboveLevel}/${leveling.levelTotalXP} XP`
-	}
 	const ratios = {
 		ahm: Utils.ratio(json.arrows_hit, json.arrows_shot),
 		kd : Utils.ratio(json.kills, json.deaths),
@@ -130,9 +125,8 @@ export function Skywars(props) {
 	}
 
 	function getPrestige(level) {
-		const prestiges = consts.PRESTIGES;
-		for (const [l, c, n] of prestiges.slice().reverse()) {
-			if (l <= Math.floor(level)) return {color: c, name: n}
+		for (const pres of consts.PRESTIGES.slice().reverse()) {
+			if (pres.level <= Math.floor(level)) return {color: pres.color, name: pres.name}
 		}
 	}
 
@@ -146,58 +140,107 @@ export function Skywars(props) {
 	})();
 
 	const mostPlayedMode = (() => {
-		const modes = consts.MODES;
 		let mostPlayed = null;
 		let mostPlays = 0;
-		for (const mode of modes) {
-			const [id, name] = mode;
-			const plays = Utils.default0(json[`wins_${id}`]) + Utils.default0(json[`losses_${id}`])
+		for (const mode of consts.MODES) {
+			const plays = Utils.default0(json[`wins_${mode.id}`]) + Utils.default0(json[`losses_${mode.id}`])
 			if (plays > mostPlays) {
 				mostPlays = plays;
-				mostPlayed = name;
+				mostPlayed = mode.name;
 			}
 		}
 		return mostPlayed;
 	})();
 
-	const tableBody = (() => {
-		const modes = consts.MODES;
+	const header = (
+		<React.Fragment>
+			<Box title="Level">
+				{`${
+					Utils.toColorCode(prestigeColor)
+				}[${
+					leveling.levelFloor
+				}${
+					prestigeIcon
+				}]`}
+			</Box>
+			<Box title="KD">{ratios.kd}</Box>
+			<Box title="Wins">{json.wins}</Box>
+			<Box title="WL">{ratios.wl}</Box>
+		</React.Fragment>
+		);
 
-		return modes.map(mode => {
-			const [id,name] = mode;
-			return (
-				<tr key={id} className={name === mostPlayedMode ? 'c-pink' : ''}>
-					<td>{name}</td>
-					<td>{Utils.formatNum(json[`kills_${id}`])}</td>
-					<td>{Utils.formatNum(json[`deaths_${id}`])}</td>
-					<td>{Utils.formatNum(Utils.ratio(json[`kills_${id}`],json[`deaths_${id}`]))}</td>
-					<td>{Utils.formatNum(json[`wins_${id}`])}</td>
-					<td>{Utils.formatNum(json[`losses_${id}`])}</td>
-					<td>{Utils.formatNum(Utils.ratio(json[`wins_${id}`],json[`losses_${id}`]))}</td>
+	const levelProgress = (
+		<React.Fragment>
+			<span className={`px-1 c-${getPrestige(leveling.levelFloor).color}`}>
+				{leveling.levelFloor}
+			</span>
+			<div className="flex-1">
+				<ProgressBar 
+					dataTip={`${leveling.xpAboveLevel}/${leveling.levelTotalXP} XP`}>
+					<Progress
+						proportion={leveling.proportionAboveLevel}
+						color={prestigeColor}
+						dataTip={`${leveling.xpAboveLevel}/${leveling.levelTotalXP} XP`} />
+				</ProgressBar>
+			</div>
+			<span className={`px-1 c-${getPrestige(leveling.levelCeiling).color}`}>
+				{leveling.levelCeiling}
+			</span>
+		</React.Fragment>
+		);
+
+	const table = (
+		<table>
+			<thead>
+				<tr>
+					<th>Mode</th>
+					<th>Kills</th>
+					<th>Deaths</th>
+					<th>KD</th>
+					<th>Wins</th>
+					<th>Losses</th>
+					<th>WL</th>
 				</tr>
-				);
-		})
-	})();
+			</thead>
+			<tbody>
+			{
+				consts.MODES.map(mode => 
+					<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
+						<td>{mode.name}</td>
+						<td>{Utils.formatNum(json[`kills_${mode.id}`])}</td>
+						<td>{Utils.formatNum(json[`deaths_${mode.id}`])}</td>
+						<td>{Utils.formatNum(Utils.ratio(json[`kills_${mode.id}`],json[`deaths_${mode.id}`]))}</td>
+						<td>{Utils.formatNum(json[`wins_${mode.id}`])}</td>
+						<td>{Utils.formatNum(json[`losses_${mode.id}`])}</td>
+						<td>{Utils.formatNum(Utils.ratio(json[`wins_${mode.id}`],json[`losses_${mode.id}`]))}</td>
+					</tr>
+					)
+			}
+			</tbody>
+		</table>
+	);
 	
 	// Data used by the 'Total Heads Gathered' section
 	const headProgress = (() => {
-		const ranks = consts.HEADS;
-
 		let progressList = [];
-		for (const [i, n, c] of ranks.slice().reverse()) {
-			const amount = Utils.default0(json[`heads_${i}`]);
+		for (const rank of consts.HEADS.slice().reverse()) {
+			const amount = Utils.default0(json[`heads_${rank.id}`]);
 			// Do not render a span if they are no heads with that rank
 			if (amount === 0) continue;
 			const proportion = Utils.ratio(amount/json.heads);
 			progressList.push(
 				<Progress
-				key={i}
-				color={c}	
+				key={rank.id}
+				color={rank.color}	
 				proportion={proportion}
-				dataTip={`${amount} ${n} heads`}/>
+				dataTip={`${amount} ${rank.name} heads`}/>
 				);
 		}
-		return progressList;
+		return (
+			<ProgressBar>
+				{progressList}
+			</ProgressBar>
+			)
 	})();
 
 	const prestigiousHeadCollection = (() => {
@@ -223,38 +266,11 @@ export function Skywars(props) {
 		return imgList;
 	})();
 
-	const header = (
-		<React.Fragment>
-			<Box title="Level">
-				{`${
-					Utils.toColorCode(prestigeColor)
-				}[${
-					leveling.levelFloor
-				}${
-					prestigeIcon
-				}]`}
-			</Box>
-			<Box title="KD">{ratios.kd}</Box>
-			<Box title="Wins">{json.wins}</Box>
-			<Box title="WL">{ratios.wl}</Box>
-		</React.Fragment>
-		);
-
 	return (
 		<Ribbon title="SkyWars" header={header} index={props.index}>
 			<div className="mb-1 font-bold">Leveling Progress</div>
 			<div className="h-flex mb-3">
-				<span className={`px-1 c-${getPrestige(leveling.levelFloor).color}`}>
-					{leveling.levelFloor}
-				</span>
-				<div className="flex-1">
-					<ProgressBar {...levelingProgressProps}>
-						<Progress {...levelingProgressProps} />
-					</ProgressBar>
-				</div>
-				<span className={`px-1 c-${getPrestige(leveling.levelCeiling).color}`}>
-					{leveling.levelCeiling}
-				</span>
+				{levelProgress}
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
@@ -305,42 +321,23 @@ export function Skywars(props) {
 				</div>
 			</div>
 			<div className="stats-separator mb-3"></div>
-			<div className="stats-table mb-3">
-				<table>
-					<thead>
-						<tr>
-							<th>Mode</th>
-							<th>Kills</th>
-							<th>Deaths</th>
-							<th>KD</th>
-							<th>Wins</th>
-							<th>Losses</th>
-							<th>WL</th>
-						</tr>
-					</thead>
-					<tbody>
-						{tableBody}
-					</tbody>
-				</table>
+			<div className="overflow-x mb-3">
+				{table}
 			</div>
 			<div className="stats-separator mb-3"></div>
 			<div className="mb-1">
 				<Stat title="Total Heads Gathered">{json.heads}</Stat>
 			</div>
 			<div className="mb-3">
-				<ProgressBar>
-					{headProgress}
-				</ProgressBar>
+				{headProgress}
 			</div>
 			<div className="font-bold pb-2">Prestigious Head Collection</div>
 			<div className="h-flex flex-wrap mb-2">
-			{(() => {
-				if (!headButtonState) {
-					return <Button onClick={()=>{setHeadButtonState(true)}}>View</Button>;
-				} else {
-					return prestigiousHeadCollection;
-				}
-			})()}
+			{
+				headButtonState ?
+				prestigiousHeadCollection :
+				<Button onClick={()=>{setHeadButtonState(true)}}>View</Button>
+			}
 			</div>
 		</Ribbon>
 		);

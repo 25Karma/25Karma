@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { IconContext } from 'react-icons';
+import { MdMoreHoriz } from 'react-icons/md';
 import { Banner, Button, MinecraftText, Navbar, Searchbar } from 'components';
 import * as Utils from 'utils';
 import properties from 'properties.js';
@@ -15,6 +17,9 @@ import properties from 'properties.js';
 export function FrontPage(props) {
 
 	const config = props.config || {};
+
+	// Stores how many recent searches to show
+	const [recentSearchesCount, setRecentSearchesCount] = useState(5);
 
 	// Set the banner according to the config
 	let banner = null;
@@ -47,11 +52,13 @@ export function FrontPage(props) {
 			const suggestedPlayer = "gamerboy80"
 			return (
 				<React.Fragment>
-					<MinecraftText>First time? Try searching</MinecraftText>
-					<div className="pl-1">
+					<div className="pt-2">
+						<MinecraftText>First time? Try searching</MinecraftText>
+					</div>
+					<div className="pl-2 py-1">
 						<Link to={`/player/${suggestedPlayer}`}>
 							<Button>
-									<small className="c-gray">{suggestedPlayer}</small>
+									<span className="font-xs c-gray">{suggestedPlayer}</span>
 							</Button>
 						</Link>
 					</div>
@@ -60,18 +67,27 @@ export function FrontPage(props) {
 		}
 		return (
 			<React.Fragment>
-				<MinecraftText>
-					Recent searches
-				</MinecraftText>
-				{array.map((a) => (
-					<div key={a} className="pl-2">
-						<Link to={`/player/${a}`}>
-							<Button>
-									<small className="c-gray">{a}</small>
-							</Button>
-						</Link>
-					</div>
-				))}
+				<div className="pt-2 nowrap">
+					<MinecraftText>§7Recent searches</MinecraftText>
+				</div>
+				<div className="h-flex flex-wrap">
+					{array.slice(0,recentSearchesCount).map((a) => (
+						<div key={a} className="pl-2 py-1">
+							<Link to={`/player/${a}`}>
+								<Button>
+									<span className="font-xs c-gray">{a}</span>
+								</Button>
+							</Link>
+						</div>
+					))}
+					{array.length > 5 && recentSearchesCount === 5 &&
+						<IconContext.Provider value={{ className: 'react-icons' }}>
+							<button className="pl-2 c-gray" onClick={()=>{setRecentSearchesCount(25)}}>
+								<MdMoreHoriz />
+							</button>
+						</IconContext.Provider>
+					}
+				</div>
 			</React.Fragment>
 			);
 	}
@@ -86,15 +102,15 @@ export function FrontPage(props) {
 					</MinecraftText>
 					
 				</p>
-				<p className="w-100 pb-2 pl-2">
+				<p className="w-100 py-1 pl-2">
 					<MinecraftText font="md">
 						Search for the stats of a Hypixel player
 					</MinecraftText>
 				</p>
-				<div className="w-100 pb-2">
+				<div className="w-100 py-1">
 					<Searchbar defaultValue={config.username || ''}/>
 				</div>
-				<div className="w-100 pb-2 pl-2 h-flex align-items-center">
+				<div className="w-100 pb-2 pl-2 h-flex align-items-start">
 					{renderRecentSearches()}
 				</div>
 				{banner}
