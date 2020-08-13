@@ -108,6 +108,7 @@ export function BuildBattle(props) {
 			<tbody>
 			{
 				consts.MODES.map(mode => 
+					Utils.default0(json[`wins_${mode.id}`]) > 0 &&
 					<tr key={mode.id}>
 						<td>{mode.name}</td>
 						<td>{Utils.formatNum(json[`wins_${mode.id}`])}</td>

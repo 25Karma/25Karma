@@ -7,8 +7,8 @@ import { Box, Crafatar, ExternalLink, Playername } from 'components';
 import * as Utils from 'utils';
 
 export function Player(props) {
-	const player = props.player;
-	const status = props.status;
+	const player = props.player || {};
+	const status = props.status || {};
 	const uuid = player.uuid;
 	const decimal = Cookies.get('decimal') || 2;
 	const stats = {

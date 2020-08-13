@@ -12,7 +12,7 @@ export function Footer(props) {
 		<div className="p-1 footer font-xs">
 			<span>
 				Powered by the&nbsp;
-				<ExternalLink href={p.hypixelAPIURL}>{p.hypixelAPI}</ExternalLink>. 
+				<ExternalLink href="https://api.hypixel.net/">Hypixel API</ExternalLink>. 
 				Hosted on&nbsp;
 				<ExternalLink href={p.gitHubURL}>{p.gitHubName}</ExternalLink>.
 			</span>

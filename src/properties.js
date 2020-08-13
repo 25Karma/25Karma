@@ -4,8 +4,7 @@ export default {
 	appURL: "https://25karma.github.io/",
 	author: "Amos Yu",
 	authorURL: "https://amosyu2000.github.io/",
-	hypixelAPI: "Hypixel API",
-	hypixelAPIURL: "https://api.hypixel.net/",
+	API: 'https://karma-25.uc.r.appspot.com/',
 	gitHubName: "GitHub Pages",
 	gitHubURL: "https://pages.github.com/"
 }

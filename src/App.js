@@ -21,7 +21,7 @@ function App() {
 						{ pinnedPlayer ? <Redirect to={`/player/${pinnedPlayer}`} /> : <FrontPage />  }
 					</Route>
 					<Route path="/frontpage" component={FrontPage} />
-					<Route path="/player/:username" component={PlayerPage} />
+					<Route path="/player/:player" component={PlayerPage} />
 					<Route default component={NotFoundPage}/>
 				</Switch>
 			</div>

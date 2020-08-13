@@ -10,32 +10,56 @@ import properties from 'properties.js';
 * The frontpage of the site
 *
 * @param {JSX} props.config 	The frontpage will load banners and other components differently 
-*								depending on the config. The config must contain a key callStatus 
-*								and a key username, which is the username of the player that does 
-*								not exist.
+*								depending on the config. The config must contain a reason 
+*								for the error. Other optional properties will be provided in the
+*								config depending on the reason.
 */
 export function FrontPage(props) {
 
 	const config = props.config || {};
+	console.log(config)
 
 	// Stores how many recent searches to show
 	const [recentSearchesCount, setRecentSearchesCount] = useState(5);
 
 	// Set the banner according to the config
 	let banner = null;
-	if (config.callStatus === Utils.CALL_STATUS_FAILED_HYPIXEL) {
-		banner = (
-			<Banner type="error"
-				title='API call failed. '
-				description='The site failed to fetch from the Hypixel API.'/>
-			);
-	}
-	else if (config.callStatus === Utils.CALL_STATUS_RECEIVED_NULL) {
-		banner = (
-			<Banner type="error"
-				title='Player not found. '
-				description={`Could not find a player with the name "${config.username}".`}/>
-			);
+	switch (config.reason) {
+		case ('MOJANG_CALL_FAILED'):
+			banner = (
+				<Banner type="error"
+					title='API call failed. '
+					description='The site failed to fetch from the Mojang API.'/>
+				);
+			break;
+		case ('MOJANG_PLAYER_DNE'):
+			banner = (
+				<Banner type="error"
+					title='Player not found. '
+					description={`A player with the name "${config.player}" does not exist.`}/>
+				);
+			break;
+		case ('HYPIXEL_PLAYER_DNE'):
+			banner = (
+				<Banner type="error"
+					title='Player not found. '
+					description={`The player "${config.player}" has never played on Hypixel.`}/>
+				);
+			break;
+		case ('HYPIXEL_ACCESS_DENIED'):
+			banner = (
+				<Banner type="error"
+					title='Access denied. '
+					description={`The call to the Hypixel API was denied due to '${config.cause}'.`}/>
+				);
+			break;
+		case ('HYPIXEL_API_DOWN'):
+			banner = (
+				<Banner type="error"
+					title='Hypixel API Error. '
+					description={`The Hypixel API is not responding. Is it down?`}/>
+				);
+			break;
 	}
 
 	/*

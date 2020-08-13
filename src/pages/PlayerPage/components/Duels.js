@@ -40,6 +40,8 @@ export function Duels(props) {
 			{id: 'combo_duel', name: 'Combo 1v1'},
 			{id: 'bridge_duel', name: 'Bridge 1v1'},
 			{id: 'bridge_doubles', name: 'Bridge 2v2'},
+			{id: 'bridge_2v2v2v2', name: 'Bridge 2v2v2v2'},
+			{id: 'bridge_3v3v3v3', name: 'Bridge 3v3v3v3'},
 			{id: 'bridge_four', name: 'Bridge 4v4'},
 		],
 	};
@@ -124,6 +126,7 @@ export function Duels(props) {
 			<tbody>
 			{
 				consts.MODES.map(mode => 
+					Utils.default0(json[`${mode.id}_wins`]) + Utils.default0(json[`${mode.id}_losses`]) > 0 &&
 					<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
 						<td>{mode.name}</td>
 						<td>{Utils.formatNum(json[`${mode.id}_kills`])}</td>

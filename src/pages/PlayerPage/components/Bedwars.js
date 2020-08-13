@@ -151,6 +151,7 @@ export function Bedwars(props) {
 					);
 			}
 			rowList.push(
+				Utils.default0(json[`${mode.id}_wins_bedwars`]) + Utils.default0(json[`${mode.id}_losses_bedwars`]) > 0 &&
 				<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
 					<td>{mode.name}</td>
 					<td>{Utils.formatNum(json[`${mode.id}_kills_bedwars`])}</td>

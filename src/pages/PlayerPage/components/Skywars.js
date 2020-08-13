@@ -205,6 +205,7 @@ export function Skywars(props) {
 			<tbody>
 			{
 				consts.MODES.map(mode => 
+					Utils.default0(json[`wins_${mode.id}`]) + Utils.default0(json[`losses_${mode.id}`]) > 0 &&
 					<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
 						<td>{mode.name}</td>
 						<td>{Utils.formatNum(json[`kills_${mode.id}`])}</td>

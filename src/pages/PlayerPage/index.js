@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { IconContext } from 'react-icons';
 import { FaSortAlphaDown } from 'react-icons/fa';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Navbar, Searchbar, Player } from 'components';
 import { FrontPage, LoadingPage } from 'pages';
-import { useForceUpdate } from 'hooks';
+import { useForceUpdate, useHypixelAPI, useMojangAPI } from 'hooks';
 import * as Utils from 'utils';
 
 /*
@@ -16,61 +16,13 @@ import * as Utils from 'utils';
 export function PlayerPage(props) {
 
 	const { match: { params } } = props;
-
-	const [player, setPlayer] = useState(null);
-	const [status, setStatus] = useState(null);
-	const [callStatus, setCallStatus] = useState("requested");
-
-	const playerRibbonList = new Utils.PlayerRibbonList(player);
+	
+	const mojangPlayerData = useMojangAPI('player', params.player);
+	const player = useHypixelAPI('player', mojangPlayerData.uuid);
+	const status = useHypixelAPI('status', mojangPlayerData.uuid);
 	const forceUpdate = useForceUpdate();
 
-	// Runs once the page loads
-	useEffect(() => {
-		/*
-		* Retrieves and sets the player data received from the Hypixel API.
-		* Sets page state to 'requested' when waiting for response from API
-		* 'failed' if request to API failed
-		* 'received' if a response was received
-		*/
-		async function asyncCallAPIs(username){
-			setCallStatus(Utils.CALL_STATUS_REQUESTED);
-			let uuid = null;
-			// try {
-			// 	const mojangAPI = new Utils.MojangAPI();
-			// 	uuid = await mojangAPI.getUUIDofPlayer(username);
-			// } catch (e) {
-			// 	setCallStatus(Utils.CALL_STATUS_FAILED_MOJANG);
-			// 	return;
-			// }
-			let playerdata = null;
-			let statusdata = null;
-			try {
-				const hypixelAPI = new Utils.HypixelAPI(process.env.REACT_APP_HYPIXEL_API_KEY);
-				// First, check if the username passed was a uuid
-				// Regex of a UUID
-				const regex = RegExp('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
-				if (regex.test(username)) {
-					playerdata = await hypixelAPI.getPlayerByUUID(username);
-				} else {
-					playerdata = await hypixelAPI.getPlayerByName(username);
-				}
-				if (!playerdata) {
-					setCallStatus(Utils.CALL_STATUS_RECEIVED_NULL);
-					return;
-				}
-				uuid = playerdata.uuid;
-				statusdata = await hypixelAPI.getStatusByUUID(uuid);
-			} catch (e) {
-				setCallStatus(Utils.CALL_STATUS_FAILED_HYPIXEL);
-				return;
-			}
-			setPlayer(playerdata);
-			setStatus(statusdata);
-			setCallStatus(Utils.CALL_STATUS_RECEIVED_SUCCESS);
-		}
-		
-		asyncCallAPIs(params.username);
-	}, [params]);
+	const playerRibbonList = new Utils.PlayerRibbonList(player.player);
 
 	function onDragEnd(result) {
 		// dropped outside the list
@@ -87,16 +39,16 @@ export function PlayerPage(props) {
 
 	// JSX for when player data is successfully received
 	const playerStatsSection = (
-		<DragDropContext onDragEnd={onDragEnd}>
-			<div className="container my-4">
-				<Player player={player} status={status} />
-				<div className="h-flex px-2 py-1">
-					<IconContext.Provider value={{ className: 'react-icons' }}>
-						<button className="ml-auto" onClick={alphabetizeRibbons}>
-							<FaSortAlphaDown />
-						</button>
-					</IconContext.Provider>
-				</div>
+		<div className="container my-4">
+			<Player player={player.player} status={status.session} />
+			<div className="h-flex px-2 py-1">
+				<IconContext.Provider value={{ className: 'react-icons' }}>
+					<button className="ml-auto" onClick={alphabetizeRibbons}>
+						<FaSortAlphaDown />
+					</button>
+				</IconContext.Provider>
+			</div>
+			<DragDropContext onDragEnd={onDragEnd}>
 				<Droppable droppableId="playerStatsDroppable">
 					{provided => (
 						<div {...provided.droppableProps} ref={provided.innerRef}>
@@ -105,43 +57,37 @@ export function PlayerPage(props) {
 						</div>
 					)}
 				</Droppable>
-			</div>
-		</DragDropContext>
+			</DragDropContext>
+		</div>
 		);
 
 	/*
-	* Loads different JSX depending on the page state
+	* Loads different JSX depending on the states
 	*/
-	let config = null;
-	switch(callStatus) {
-		// Data has been requested from the Hypixel API but not received
-		case Utils.CALL_STATUS_FAILED_HYPIXEL:
-			config =  {
-				callStatus: Utils.CALL_STATUS_FAILED_HYPIXEL,
-				username: params.username,
-			};
-			return <FrontPage config={config} />
-
-		// If the API call was successful but it returned null player data
-		case Utils.CALL_STATUS_RECEIVED_NULL:
-			config =  {
-				callStatus: Utils.CALL_STATUS_RECEIVED_NULL,
-				username: params.username,
-			};
-			return <FrontPage config={config} />
-		
-		case Utils.CALL_STATUS_RECEIVED_SUCCESS:
-			// Log the player into recentSearches cookie
-			const recentSearchesList = new Utils.RecentSearchesList();
-			recentSearchesList.add(player.displayname);
-			return (
-				<div>
-					<Navbar><Searchbar /></Navbar>
-					{playerStatsSection}
-				</div>
-				);
-
-		default:
-			return <LoadingPage player={params.username} />
+	if (mojangPlayerData.success === true && player.success === true) {
+		// Log the player into recentSearches cookie
+		const recentSearchesList = new Utils.RecentSearchesList();
+		recentSearchesList.add(player.displayname);
+		return (
+			<div>
+				<Navbar><Searchbar /></Navbar>
+				{playerStatsSection}
+			</div>
+			);
+	}
+	else if (mojangPlayerData.success === false) {
+		return <FrontPage config={mojangPlayerData} />
+	}
+	else if (player.success === false) {
+		// The Hypixel API doesn't actually know the player's username (only his UUID)
+		// so we have to get the username from the URI
+		const config = {
+			player: params.player,
+			...player,
+		}
+		return <FrontPage config={config} />
+	}
+	else {
+		return <LoadingPage player={params.player} />
 	}
 }

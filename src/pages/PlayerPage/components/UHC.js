@@ -134,6 +134,7 @@ export function UHC(props) {
 			<tbody>
 			{
 				consts.MODES.map(mode =>
+					Utils.default0(json[`wins${mode.id}`]) + Utils.default0(json[`deaths${mode.id}`]) > 0 &&
 					<tr key={mode.id}>
 						<td>{mode.name}</td>
 						<td>{Utils.formatNum(json[`kills${mode.id}`])}</td>
