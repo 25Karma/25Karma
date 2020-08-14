@@ -12,13 +12,16 @@ function App() {
 	if (theme === 'light') {
 
 	}
-	
+
 	return (
 		<div className="h-100 v-flex">
 			<div className="flex-1">
 				<Switch>
 					<Route exact path="/">
-						{ pinnedPlayer ? <Redirect to={`/player/${pinnedPlayer}`} /> : <FrontPage />  }
+						{ pinnedPlayer ? 
+							<Redirect to={`/player/${pinnedPlayer}`} /> : 
+							<Redirect to={`/frontpage`} /> 
+						}
 					</Route>
 					<Route path="/frontpage" component={FrontPage} />
 					<Route path="/player/:player" component={PlayerPage} />

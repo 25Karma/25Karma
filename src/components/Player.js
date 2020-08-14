@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import Cookies from 'js-cookie';
-import { IconContext } from 'react-icons';
-import { FaSignal } from 'react-icons/fa';
-import { Box, Crafatar, ExternalLink, Playername } from 'components';
+import { Box, Crafatar, ExternalLink, Playername, ReactIcon } from 'components';
 import * as Utils from 'utils';
 
 export function Player(props) {
@@ -74,14 +72,12 @@ export function Player(props) {
 					<Crafatar uuid={player.uuid} shadow />
 				</ExternalLink>
 				<Playername playerdata={player} font="lg" />
-				<IconContext.Provider value={{ className: 'react-icons-lg' }}>
-					<span className={status.online ? 'c-green' : 'c-darkgray'}>
-						<FaSignal 
-							className="cursor-help"
-							data-tip={getStatusDataTip()}/>
+					<span 
+						className={`cursor-help ${status.online ? 'c-green' : 'c-darkgray'}`}
+						data-tip={getStatusDataTip()}>
+						<ReactIcon icon="FaSignal" size="lg" />
 						<ReactTooltip />
 					</span>
-				</IconContext.Provider>
 			</div>
 			<div className="h-flex">
 				<Box title="Hypixel Level">

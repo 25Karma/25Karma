@@ -1,8 +1,7 @@
 import React, { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { IconContext } from 'react-icons';
-import { MdSearch } from 'react-icons/md';
 import './Searchbar.css';
+import { ReactIcon } from 'components';
 
 /*
 * Styled input with search button
@@ -47,11 +46,9 @@ export function Searchbar(props) {
 			onFocus={(event)=>{event.target.select()}}
 			spellCheck={false}
 			/>
-			<IconContext.Provider value={{ className: 'react-icons' }}>
-				<button onClick={search}>
-					<MdSearch />
-				</button>
-			</IconContext.Provider>
+			<button onClick={search}>
+				<ReactIcon icon="MdSearch" />
+			</button>
 		</div>
 	);
 }

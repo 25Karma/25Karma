@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactLoading from 'react-loading';
-import { Navbar } from 'components';
+import { Navbar, Searchbar } from 'components';
 
 /*
 * Page that displays when waiting for API response
@@ -10,7 +10,7 @@ import { Navbar } from 'components';
 export function LoadingPage(props) {
 	return (
 		<div>
-			<Navbar></Navbar>
+			<Navbar><Searchbar /></Navbar>
 			<div className="container v-flex align-items-center my-4">
 				<div className="mb-2">
 					<ReactLoading type="spin" height="5rem" width="5rem"/>

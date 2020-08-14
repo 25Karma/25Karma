@@ -17,7 +17,6 @@ import properties from 'properties.js';
 export function FrontPage(props) {
 
 	const config = props.config || {};
-	console.log(config)
 
 	// Stores how many recent searches to show
 	const [recentSearchesCount, setRecentSearchesCount] = useState(5);
@@ -26,12 +25,6 @@ export function FrontPage(props) {
 	let banner = null;
 	switch (config.reason) {
 		case ('MOJANG_CALL_FAILED'):
-			banner = (
-				<Banner type="error"
-					title='API call failed. '
-					description='The site failed to fetch from the Mojang API.'/>
-				);
-			break;
 		case ('MOJANG_PLAYER_DNE'):
 			banner = (
 				<Banner type="error"
@@ -60,6 +53,7 @@ export function FrontPage(props) {
 					description={`The Hypixel API is not responding. Is it down?`}/>
 				);
 			break;
+		default: break;
 	}
 
 	/*
@@ -132,7 +126,7 @@ export function FrontPage(props) {
 					</MinecraftText>
 				</p>
 				<div className="w-100 py-1">
-					<Searchbar defaultValue={config.username || ''}/>
+					<Searchbar defaultValue={config.player || ''}/>
 				</div>
 				<div className="w-100 pb-2 pl-2 h-flex align-items-start">
 					{renderRecentSearches()}

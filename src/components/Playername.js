@@ -32,7 +32,7 @@ export function Playername(props) {
 
 	function getNameWithRank(stats) {
 		const plusColors = {
-			undefined : '',
+			undefined : '§c',
 			BLACK : '§0',
 			DARK_BLUE : '§1',
 			DARK_GREEN : '§2',

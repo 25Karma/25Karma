@@ -1,8 +1,6 @@
 import React from 'react';
-import { IconContext } from 'react-icons';
-import { FaSortAlphaDown } from 'react-icons/fa';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { Navbar, Searchbar, Player } from 'components';
+import { Navbar, Searchbar, Player, ReactIcon } from 'components';
 import { FrontPage, LoadingPage } from 'pages';
 import { useForceUpdate, useHypixelAPI, useMojangAPI } from 'hooks';
 import * as Utils from 'utils';
@@ -22,18 +20,18 @@ export function PlayerPage(props) {
 	const status = useHypixelAPI('status', mojangPlayerData.uuid);
 	const forceUpdate = useForceUpdate();
 
-	const playerRibbonList = new Utils.PlayerRibbonList(player.player);
+	const playerAccordionList = new Utils.PlayerAccordionList(player.player);
 
 	function onDragEnd(result) {
 		// dropped outside the list
 		if (!result.destination) {
 			return;
 		}
-		playerRibbonList.onDragEnd(result);
+		playerAccordionList.onDragEnd(result);
 	}
 
-	function alphabetizeRibbons() {
-		playerRibbonList.alphabetizeArray();
+	function alphabetizeAccordions() {
+		playerAccordionList.alphabetizeArray();
 		forceUpdate();
 	}
 
@@ -42,17 +40,15 @@ export function PlayerPage(props) {
 		<div className="container my-4">
 			<Player player={player.player} status={status.session} />
 			<div className="h-flex px-2 py-1">
-				<IconContext.Provider value={{ className: 'react-icons' }}>
-					<button className="ml-auto" onClick={alphabetizeRibbons}>
-						<FaSortAlphaDown />
-					</button>
-				</IconContext.Provider>
+				<button className="ml-auto" onClick={alphabetizeAccordions}>
+					<ReactIcon icon="FaSortAlphaDown" />
+				</button>
 			</div>
 			<DragDropContext onDragEnd={onDragEnd}>
 				<Droppable droppableId="playerStatsDroppable">
 					{provided => (
 						<div {...provided.droppableProps} ref={provided.innerRef}>
-							{playerRibbonList.toJSX()}
+							{playerAccordionList.toJSX()}
 							{provided.placeholder}
 						</div>
 					)}
@@ -67,7 +63,7 @@ export function PlayerPage(props) {
 	if (mojangPlayerData.success === true && player.success === true) {
 		// Log the player into recentSearches cookie
 		const recentSearchesList = new Utils.RecentSearchesList();
-		recentSearchesList.add(player.displayname);
+		recentSearchesList.add(player.player.displayname);
 		return (
 			<div>
 				<Navbar><Searchbar /></Navbar>

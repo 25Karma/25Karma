@@ -14,7 +14,7 @@ export function Footer(props) {
 				Powered by the&nbsp;
 				<ExternalLink href="https://api.hypixel.net/">Hypixel API</ExternalLink>. 
 				Hosted on&nbsp;
-				<ExternalLink href={p.gitHubURL}>{p.gitHubName}</ExternalLink>.
+				<ExternalLink href="https://pages.github.com/">GitHub Pages</ExternalLink>.
 			</span>
 			<span className="text-right">
 				{`Made with ❤️ by `}

@@ -1,11 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { IconContext } from 'react-icons';
-import { MdSettings } from 'react-icons/md';
-import { GoPin } from 'react-icons/go';
 import Cookies from 'js-cookie';
 import p from 'properties.js';
-import { Collapsible, MinecraftText, Settings } from 'components';
+import { Collapsible, MinecraftText, ReactIcon, Settings } from 'components';
 
 /*
 * Navbar that appears at the top of the page
@@ -24,7 +21,7 @@ export function Navbar(props) {
 		if (p) {
 			return (
 				<Link className="font-md" to={`/player/${p}`}>
-					<GoPin />
+					<ReactIcon icon="GoPin" />
 				</Link>
 				);
 		}
@@ -47,14 +44,12 @@ export function Navbar(props) {
 							{props.children}
 						</div>
 						<div className="flex-1 p-1 text-right">
-							<IconContext.Provider value={{ className: 'react-icons' }}>
 								<p className="p-1">
 									{renderPinnedPlayerButton()}
 									<button className="pl-2" {...provided.collapseButtonProps}>
-										<MdSettings />
+										<ReactIcon icon="MdSettings" />
 									</button>
 								</p>
-							</IconContext.Provider>
 						</div>
 				</div>
 				<div {...provided.collapsibleProps}>

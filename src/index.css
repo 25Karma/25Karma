@@ -134,6 +134,7 @@ button:focus {
 .text-right { text-align: right; }
 .text-shadow { text-shadow: 0 0.25rem 0.25rem black; }
 .top-0 { top: 0; }
+.underline { text-decoration: underline; }
 .user-select-none { user-select: none; }
 .v-flex { display: flex; flex-direction: column; }
 .vh-100 { height: 100vh; }
@@ -142,11 +143,6 @@ button:focus {
 .w-50 { width: 50%; }
 .z-top { z-index: 1030; }
 .z-0 { z-index: 0; }
-
-/* Used by IconContext component from react-icons */
-.react-icons { vertical-align: middle; transition: transform 0.2s; font-size: 1.25rem; }
-.react-icons-lg { vertical-align: middle; transition: transform 0.2s; font-size: 2.5rem; }
-.react-icons:hover { transform: scale(1.3); }
 
 /* text colors */
 .c-darkred { color: #a00; }
@@ -190,4 +186,4 @@ button:focus {
 .bg-darkgray { background-color: #555; }
 .bg-black { background-color: #000; }
 .bg-brown { background-color: #963; }
-.bg-rainbow { background: linear-gradient(to left, #a0a, #f5f, #5ff, #5f5, #ff5, #fa0, #f55); }
+.bg-rainbow { background: repeating-linear-gradient(to right, #f55, #fa0, #ff5, #5f5, #5ff, #f5f, #a0a, #f55 16rem); }

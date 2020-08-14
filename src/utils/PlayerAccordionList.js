@@ -1,20 +1,20 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-import * as Ribbon from 'pages/PlayerPage/components';
+import * as Accordion from 'pages/PlayerPage/components';
 
 /*
 * @class 	Deals with getting/setting the cookies that track
-* 			the user's preference for ribbon order
+* 			the user's preference for accordion order
 *			Used in conjunction with the react-beautiful-dnd library
 */
-export class PlayerRibbonList {
+export class PlayerAccordionList {
 	
 	/*
 	* @constructor
 	* @param {Object} playerdata 	JSON data of the player (from Hypixel API)
 	*/
 	constructor(playerdata) {
-		this.cookieName = 'playerRibbons';
+		this.cookieName = 'playerAccordions';
 		this.playerdata = playerdata;
 		let cookie = Cookies.get(this.cookieName);
 		// If no cookie found, it will be undefined
@@ -24,9 +24,9 @@ export class PlayerRibbonList {
 		}
 		else {
 			this.array = JSON.parse(cookie);
-			// Add any Ribbons that were not found in the cookie data
-			for (const [name] of Object.entries(Ribbon)) {
-				if (name !== 'Player' && name !== 'Ribbon' && !this.array.includes(name)) {
+			// Add any Accordions that were not found in the cookie data
+			for (const [name] of Object.entries(Accordion)) {
+				if (!this.array.includes(name)) {
 					this.array.push(name);
 				}
 			}
@@ -50,49 +50,49 @@ export class PlayerRibbonList {
 	* Converts this.array into an array of JSX components
 	*
 	* @override
-	* @return {array<JSX>} 	An array of Ribbon components
+	* @return {array<JSX>} 	An array of Accordion components
 	*/
 	toJSX() {
 		if (!this.playerdata) {
 			return null;
 		}
-		let ribbons = [];
+		let Accordions = [];
 		// For react-beautiful-dnd, Draggable components require an integer index prop
 		let index = 0;
-		for (const ribbon of this.array) {
-			const component = this._getRibbonFromString(ribbon);
+		for (const Accordion of this.array) {
+			const component = this._getAccordionFromString(Accordion);
 			const props = {
-				key: ribbon, 
+				key: Accordion, 
 				player: this.playerdata,
 				index: index++,
 			};
-			ribbons.push(React.createElement(component, props, null));
+			Accordions.push(React.createElement(component, props, null));
 		}
-		return ribbons;
+		return Accordions;
 	}
 	
 	/*
-	* Sets the ribbons in the array in alphabetical order
+	* Sets the Accordions in the array in alphabetical order
 	*/
 	alphabetizeArray() {
-		// Get the default (alphabetical) order of the ribbons
-		let ribbonArray = [];
-		for (const [name] of Object.entries(Ribbon)) {
-			ribbonArray.push(name);
+		// Get the default (alphabetical) order of the Accordions
+		let AccordionArray = [];
+		for (const [name] of Object.entries(Accordion)) {
+			AccordionArray.push(name);
 		}
-		this.array = ribbonArray;
+		this.array = AccordionArray;
 		this._set();
 	}
 
 	/*
-	* Finds the Ribbon component that corresponds to a string
+	* Finds the Accordion component that corresponds to a string
 	*
 	* @param {string} str 	The name of the component
 	* @return {Object} 		The component object itself
 	*/
-	_getRibbonFromString(str) {
-		// Finds the matching component from within the Ribbon module
-		for (const [name, component] of Object.entries(Ribbon)) {
+	_getAccordionFromString(str) {
+		// Finds the matching component from within the Accordion module
+		for (const [name, component] of Object.entries(Accordion)) {
 			if (name === str) {
 				return component;
 			}
@@ -111,14 +111,14 @@ export class PlayerRibbonList {
 	}
 	
 	/*
-	* Sets the playerRibbons cookie
+	* Sets the playerAccordions cookie
 	*/
 	_set() {
 		Cookies.set(this.cookieName, this._toString(), {expires:365});
 	}
 
 	/*
-	* Clears the playerRibbons cookie
+	* Clears the playerAccordions cookie
 	*/
 	clear() {
 		Cookies.remove(this.cookieName);

@@ -1,4 +1,4 @@
-.ribbon-header {
+.accordion-header {
 	display: flex;
 	flex-wrap: nowrap;
 	align-items: center;
@@ -7,30 +7,30 @@
 	background: var(--theme-secondary);
 }
 
-.ribbon-body {
+.accordion-body {
 	padding: 0 1rem 1rem;
 	background: var(--theme-secondary);
 }
 
-.ribbon-separator {
+.accordion-separator {
 	border-bottom: 2px solid var(--theme-primary);
 }
 
-.ribbon-body table {
+.accordion-body table {
 	width: 100%;
 	border-collapse: collapse;
 }
 
-.ribbon-body th,td {
+.accordion-body th,td {
 	padding: 0.25rem;
 	text-align: left;
 }
 
-.ribbon-body th {
+.accordion-body th {
 	background: var(--theme-secondary);
 	padding-bottom: 0.5rem;
 }
 
-.ribbon-body tr:nth-child(odd) {
+.accordion-body tr:nth-child(odd) {
 	background: var(--theme-primary);
 }

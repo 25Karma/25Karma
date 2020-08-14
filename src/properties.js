@@ -5,6 +5,4 @@ export default {
 	author: "Amos Yu",
 	authorURL: "https://amosyu2000.github.io/",
 	API: 'https://karma-25.uc.r.appspot.com/',
-	gitHubName: "GitHub Pages",
-	gitHubURL: "https://pages.github.com/"
 }

@@ -1,5 +1,4 @@
-import * as Ribbon from './Ribbon';
-
+export * from './Accordion.js';
 export * from './Banner.js';
 export * from './Box.js';
 export * from './Button.js';
@@ -13,8 +12,8 @@ export * from './Player.js';
 export * from './Playername.js';
 export * from './Progress.js';
 export * from './ProgressBar.js';
+export * from './ReactIcon.js';
 export * from './Searchbar.js';
 export * from './Settings.js';
 export * from './Stat.js';
 export * from './ToggleSwitch.js';
-export {Ribbon};

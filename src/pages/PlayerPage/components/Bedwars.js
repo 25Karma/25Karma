@@ -1,10 +1,9 @@
 import React from 'react';
-import { Box, Progress, ProgressBar,Stat } from 'components';
-import { Ribbon } from 'components/Ribbon';
+import { Accordion, Box, Progress, ProgressBar, Stat } from 'components';
 import * as Utils from 'utils';
 
 /*
-* Stats ribbon for Bedwars
+* Stats accordion for Bedwars
 *
 * @param {Object} props.player 	Player data in JSON object
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
@@ -199,7 +198,7 @@ export function Bedwars(props) {
 	})();
 
 	return (
-		<Ribbon title="Bed Wars" header={header} index={props.index}>
+		<Accordion title="Bed Wars" header={header} index={props.index}>
 			<div className="mb-1 font-bold">Leveling Progress</div>
 			<div className="h-flex mb-3">
 				{progressBar}
@@ -207,12 +206,8 @@ export function Bedwars(props) {
 			<div className="h-flex mb-3">
 				<div className="flex-1">
 					<Stat title="Level">{leveling.level}</Stat>
-					<Stat title="Prestige">
-						<span className={`c-${prestigeColor}`}>
-							{`${prestigeName}`}
-						</span>
-					</Stat>
-					<Stat title="Coins">{json.coins}</Stat>
+					<Stat title="Prestige" color={prestigeColor}>{prestigeName}</Stat>
+					<Stat title="Coins" color="gold">{json.coins}</Stat>
 					<br/>
 					<Stat title="Winstreak">{json.winstreak}</Stat>
 					<Stat title="Wins">{json.wins_bedwars}</Stat>
@@ -238,11 +233,11 @@ export function Bedwars(props) {
 					<Stat title="Wrapped Presents Collected">{json.wrapped_present_resources_collected_bedwars}</Stat>
 				</div>
 			</div>
-			<div className="stats-separator mb-3"></div>
+			<div className="accordion-separator mb-3"></div>
 			<div className="overflow-x mb-3">
 				{table}
 			</div>
-			<div className="stats-separator mb-3"></div>
+			<div className="accordion-separator mb-3"></div>
 			<div className="h-flex mb-2">
 				<div className="flex-1">
 					<Stat title="Times Drowned">{json.drowning_deaths_bedwars}</Stat>
@@ -254,6 +249,6 @@ export function Bedwars(props) {
 					<Stat title="Total Shop Purchases">{json._items_purchased_bedwars}</Stat>
 				</div>
 			</div>
-		</Ribbon>
+		</Accordion>
 		);
 }

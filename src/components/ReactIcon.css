@@ -1,0 +1,4 @@
+/* Used by IconContext component from react-icons */
+.react-icons-md { vertical-align: middle; transition: transform 0.2s; font-size: 1.25rem; }
+.react-icons-lg { vertical-align: middle; font-size: 2.5rem; }
+.react-icons-md:hover { transform: scale(1.3); }

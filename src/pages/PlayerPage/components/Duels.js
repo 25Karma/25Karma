@@ -1,10 +1,9 @@
 import React from 'react';
-import { Box, Stat } from 'components';
-import { Ribbon } from 'components/Ribbon';
+import { Accordion, Box, Stat } from 'components';
 import * as Utils from 'utils';
 
 /*
-* Stats ribbon for Duels
+* Stats accordion for Duels
 *
 * @param {Object} props.player 	Player data in JSON object
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
@@ -145,10 +144,10 @@ export function Duels(props) {
 		);
 
 	return (
-		<Ribbon title="Duels" header={header} index={props.index}>
+		<Accordion title="Duels" header={header} index={props.index}>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
-					<Stat title="Coins">{json.coins}</Stat>
+					<Stat title="Coins" color="gold">{json.coins}</Stat>
 					<Stat title="Loot Chests">{json.duels_chests}</Stat>
 					<br/>
 					<br/>
@@ -158,16 +157,12 @@ export function Duels(props) {
 					<br/>
 					<Stat title="Melee Swings">{json.melee_swings}</Stat>
 					<Stat title="Melee Hits">{json.melee_hits}</Stat>
-					<Stat title="Melee Hit/Miss Ratio">{ratios.mhm}</Stat>
+					<Stat title="Melee Hit Accuracy" percentage>{ratios.mhm}</Stat>
 				</div>
 				<div className="flex-1">
 					<Stat title="Best Winstreak">{json.best_overall_winstreak}</Stat>
 					<Stat title="Current Winstreak">{json.current_winstreak}</Stat>
-					<Stat title="Overall Division">
-						<span className={`c-${division.color}`}>
-							{division.name}
-						</span>
-					</Stat>
+					<Stat title="Overall Division" color={division.color}>{division.name}</Stat>
 					<br/>
 					<Stat title="Wins">{json.wins}</Stat>
 					<Stat title="Losses">{json.losses}</Stat>
@@ -175,13 +170,13 @@ export function Duels(props) {
 					<br/>
 					<Stat title="Arrows Shot">{json.bow_shots}</Stat>
 					<Stat title="Arrows Hit">{json.bow_hits}</Stat>
-					<Stat title="Arrow Hit/Miss Ratio">{ratios.ahm}</Stat>
+					<Stat title="Arrow Hit Accuracy" percentage>{ratios.ahm}</Stat>
 				</div>
 			</div>
-			<div className="stats-separator mb-3"></div>
+			<div className="accordion-separator mb-3"></div>
 			<div className="overflow-x mb-2">
 				{table}
 			</div>
-		</Ribbon>
+		</Accordion>
 		);
 }

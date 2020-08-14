@@ -20,6 +20,7 @@ export function useHypixelAPI(type, player) {
 				});
 		}
 		
+		setData({});
 		if (player) {
 			getData(player);
 		}

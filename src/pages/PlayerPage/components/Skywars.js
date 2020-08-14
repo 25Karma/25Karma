@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
-import { Banner, Box, Button, Crafatar, Progress, ProgressBar, Stat } from 'components';
-import { Ribbon } from 'components/Ribbon';
+import { Accordion, Banner, Box, Button, Crafatar, Progress, ProgressBar, Stat } from 'components';
 import * as Utils from 'utils';
 
 /*
-* Stats ribbon for Skywars
+* Stats accordion for Skywars
 *
 * @param {Object} props.player 	Player data in JSON object
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
@@ -268,7 +267,7 @@ export function Skywars(props) {
 	})();
 
 	return (
-		<Ribbon title="SkyWars" header={header} index={props.index}>
+		<Accordion title="SkyWars" header={header} index={props.index}>
 			<div className="mb-1 font-bold">Leveling Progress</div>
 			<div className="h-flex mb-3">
 				{levelProgress}
@@ -276,12 +275,8 @@ export function Skywars(props) {
 			<div className="h-flex mb-3">
 				<div className="flex-1">
 					<Stat title="Level">{leveling.level}</Stat>
-					<Stat title="Prestige">
-						<span className={`c-${prestigeColor}`}>
-							{`${prestigeName} ${prestigeIcon}`}
-						</span>
-					</Stat>
-					<Stat title="Coins">{json.coins}</Stat>
+					<Stat title="Prestige" color={prestigeColor}>{`${prestigeName} ${prestigeIcon}`}</Stat>
+					<Stat title="Coins" color="gold">{json.coins}</Stat>
 					<Stat title="Tokens">{json.cosmetic_tokens}</Stat>
 					<br/>
 					<br/>
@@ -290,7 +285,7 @@ export function Skywars(props) {
 					<Stat title="Chests Opened">{json.chests_opened}</Stat>
 					<Stat title="Arrows Hit">{json.arrows_hit}</Stat>
 					<Stat title="Arrows Shot">{json.arrows_shot}</Stat>
-					<Stat title="Arrows Hit/Miss">{ratios.ahm}</Stat>
+					<Stat title="Arrow Hit Accuracy" percentage>{ratios.ahm}</Stat>
 				</div>
 				<div className="flex-1">
 					<Stat title="Kills">{json.kills}</Stat>
@@ -321,11 +316,11 @@ export function Skywars(props) {
 					<Stat title="Soul Well Uses">{json.soul_well}</Stat>
 				</div>
 			</div>
-			<div className="stats-separator mb-3"></div>
+			<div className="accordion-separator mb-3"></div>
 			<div className="overflow-x mb-3">
 				{table}
 			</div>
-			<div className="stats-separator mb-3"></div>
+			<div className="accordion-separator mb-3"></div>
 			<div className="mb-1">
 				<Stat title="Total Heads Gathered">{json.heads}</Stat>
 			</div>
@@ -340,6 +335,6 @@ export function Skywars(props) {
 				<Button onClick={()=>{setHeadButtonState(true)}}>View</Button>
 			}
 			</div>
-		</Ribbon>
+		</Accordion>
 		);
 }

@@ -1,10 +1,9 @@
 import React from 'react';
-import { Box, Progress, ProgressBar, Stat } from 'components';
-import { Ribbon } from 'components/Ribbon';
+import { Accordion, Box, Progress, ProgressBar, Stat } from 'components';
 import * as Utils from 'utils';
 
 /*
-* Stats ribbon for UHC
+* Stats accordion for UHC
 *
 * @param {Object} props.player 	Player data in JSON object
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
@@ -151,7 +150,7 @@ export function UHC(props) {
 		);
 		
 	return (
-		<Ribbon title="UHC" header={header} index={props.index}>
+		<Accordion title="UHC" header={header} index={props.index}>
 			<div className="mb-1 font-bold">Title Progress</div>
 			<div className="h-flex mb-3">
 				{progressBar}
@@ -159,10 +158,8 @@ export function UHC(props) {
 			<div className="h-flex mb-3">
 				<div className="flex-1">
 					<Stat title="Score">{leveling.xp}</Stat>
-					<Stat title="Title">
-						<span className={`c-${titleColor}`}>{title}</span>
-					</Stat>
-					<Stat title="Coins">{json.coins}</Stat>
+					<Stat title="Title" color={titleColor}>{title}</Stat>
+					<Stat title="Coins" color="gold">{json.coins}</Stat>
 				</div>
 				<div className="flex-1">
 					<Stat title="Kills">{kills}</Stat>
@@ -178,10 +175,10 @@ export function UHC(props) {
 					</Stat>
 				</div>
 			</div>
-			<div className="stats-separator mb-3"></div>
+			<div className="accordion-separator mb-3"></div>
 			<div className="overflow-x mb-2">
 				{table}
 			</div>
-		</Ribbon>
+		</Accordion>
 		);
 }

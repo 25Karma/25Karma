@@ -1,18 +1,16 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { IconContext } from 'react-icons';
-import { MdDragHandle } from 'react-icons/md';
-import './Ribbon.css';
-import { Collapsible, MinecraftText } from 'components';
+import './Accordion.css';
+import { Collapsible, MinecraftText, ReactIcon } from 'components';
 
 /*
-* Base container for all player stats components
+* Draggable container with a collapsable portion underneath
 *
 * @param {string} props.title 	The title of the stats row
 * @param {JSX} props.header 	JSX objects to place beside the title
 * @param {JSX} props.children 	The contents of the collapsible area
 */
-export function Ribbon(props) {
+export function Accordion(props) {
 	return (
 		<Draggable key={props.title} draggableId={props.title} index={props.index}>
 		{dProvided => (
@@ -23,7 +21,7 @@ export function Ribbon(props) {
 					ref={dProvided.innerRef}
 					{...dProvided.draggableProps}>
 					<div className="rounded overflow-hidden">
-						<div className="ribbon-header px-2"> 
+						<div className="accordion-header px-2"> 
 							<div 
 								className="h-flex align-items-center flex-1 cursor-pointer overflow-hidden" 
 								{...cProvided.collapseButtonProps}>
@@ -33,14 +31,12 @@ export function Ribbon(props) {
 								</div>
 							</div>
 							<button className="ml-2" {...dProvided.dragHandleProps}>
-								<IconContext.Provider value={{ className: 'react-icons' }}>
-										<MdDragHandle />
-								</IconContext.Provider>
+								<ReactIcon icon="MdDragHandle" />
 							</button>
 						</div>
 						<div {...cProvided.collapsibleProps}>
-							<div className="ribbon-body">
-								<div className="ribbon-separator mb-3"></div>
+							<div className="accordion-body">
+								<div className="accordion-separator mb-3"></div>
 								{props.children}
 							</div>
 						</div>

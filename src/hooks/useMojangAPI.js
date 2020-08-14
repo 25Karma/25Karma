@@ -20,6 +20,7 @@ export function useMojangAPI(type, player) {
 				});
 		}
 
+		setData({});
 		if (player) {
 			getData(player);
 		}	
