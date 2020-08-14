@@ -1,19 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.e0fd88f1.chunk.css",
-    "main.js": "/static/js/main.45cc3cda.chunk.js",
-    "runtime-main.js": "/static/js/runtime-main.b3ffeb4c.js",
-    "static/js/2.6440e4f4.chunk.js": "/static/js/2.6440e4f4.chunk.js",
+    "main.css": "/static/css/main.8d78ca46.chunk.css",
+    "main.js": "/static/js/main.7246310f.chunk.js",
+    "runtime-main.js": "/static/js/runtime-main.ea35fa8b.js",
+    "static/js/2.f38e13d0.chunk.js": "/static/js/2.f38e13d0.chunk.js",
+    "static/js/3.9f96eeb3.chunk.js": "/static/js/3.9f96eeb3.chunk.js",
+    "static/js/4.f5749d40.chunk.js": "/static/js/4.f5749d40.chunk.js",
     "index.html": "/index.html",
-    "precache-manifest.7321615e2de74ff3941ed2f6afe0f02f.js": "/precache-manifest.7321615e2de74ff3941ed2f6afe0f02f.js",
+    "precache-manifest.a2a76486f9a50adb0deb5892deb3ee10.js": "/precache-manifest.a2a76486f9a50adb0deb5892deb3ee10.js",
     "service-worker.js": "/service-worker.js",
-    "static/js/2.6440e4f4.chunk.js.LICENSE.txt": "/static/js/2.6440e4f4.chunk.js.LICENSE.txt",
+    "static/js/2.f38e13d0.chunk.js.LICENSE.txt": "/static/js/2.f38e13d0.chunk.js.LICENSE.txt",
     "static/media/index.css": "/static/media/minecraft.ff1f96e3.otf"
   },
   "entrypoints": [
-    "static/js/runtime-main.b3ffeb4c.js",
-    "static/js/2.6440e4f4.chunk.js",
-    "static/css/main.e0fd88f1.chunk.css",
-    "static/js/main.45cc3cda.chunk.js"
+    "static/js/runtime-main.ea35fa8b.js",
+    "static/js/2.f38e13d0.chunk.js",
+    "static/css/main.8d78ca46.chunk.css",
+    "static/js/main.7246310f.chunk.js"
   ]
 }
