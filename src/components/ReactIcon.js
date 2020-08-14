@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './ReactIcon.css';
 import { IconContext } from 'react-icons';
 
+/*
+* Icons from the react-icons module
+*
+* @param {string} props.icon 	The name of the icon - ex. "MdSettings"
+* @param {string} props.size 	Size of the icon - default md
+*								When size is md, the icon scales up when hovered
+*/
 export function ReactIcon(props) {
 	const dir = props.icon.substring(0,2).toLowerCase();
 	const [icon, setIcon] = useState(null);

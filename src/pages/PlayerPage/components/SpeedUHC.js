@@ -34,7 +34,6 @@ export function SpeedUHC(props) {
 
 	// The player's API data for Speed UHC
 	const json = Utils.traverse(props.player,'stats.SpeedUHC') || {};
-	console.log(json)
 	const leveling = new Utils.HypixelLeveling(scoreToStar, starToScore, Utils.default0(json.score));
 	if (leveling.levelCeiling > 10) leveling.levelCeiling = 10;
 	const title = getTitle(leveling.levelFloor);

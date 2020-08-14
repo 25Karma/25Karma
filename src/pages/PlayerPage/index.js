@@ -1,7 +1,7 @@
 import React from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { Navbar, Searchbar, Player, ReactIcon } from 'components';
-import { FrontPage, LoadingPage } from 'pages';
+import { LoadingSpinner, Navbar, Player, ReactIcon } from 'components';
+import { FrontPage } from 'pages';
 import { useForceUpdate, useHypixelAPI, useMojangAPI } from 'hooks';
 import * as Utils from 'utils';
 
@@ -36,7 +36,12 @@ export function PlayerPage(props) {
 	}
 
 	// JSX for when player data is successfully received
-	const playerStatsSection = (
+	function renderPlayerStatsSection() {
+		// Log the player into recentSearches cookie
+		const recentSearchesList = new Utils.RecentSearchesList();
+		recentSearchesList.add(mojangPlayerData.username);
+
+		return (
 		<div className="container my-4">
 			<Player player={player.player} status={status.session} />
 			<div className="h-flex px-2 py-1">
@@ -56,22 +61,12 @@ export function PlayerPage(props) {
 			</DragDropContext>
 		</div>
 		);
+	}
 
 	/*
 	* Loads different JSX depending on the states
 	*/
-	if (mojangPlayerData.success === true && player.success === true) {
-		// Log the player into recentSearches cookie
-		const recentSearchesList = new Utils.RecentSearchesList();
-		recentSearchesList.add(player.player.displayname);
-		return (
-			<div>
-				<Navbar><Searchbar /></Navbar>
-				{playerStatsSection}
-			</div>
-			);
-	}
-	else if (mojangPlayerData.success === false) {
+	if (mojangPlayerData.success === false) {
 		return <FrontPage config={mojangPlayerData} />
 	}
 	else if (player.success === false) {
@@ -84,6 +79,19 @@ export function PlayerPage(props) {
 		return <FrontPage config={config} />
 	}
 	else {
-		return <LoadingPage player={params.player} />
+		return (
+			<div>
+				<Navbar searchbar />
+				<div className="container v-flex my-4">
+				{
+					mojangPlayerData.success === true && player.success === true ? 
+					renderPlayerStatsSection() :
+					<div className="mx-auto">
+						<LoadingSpinner text={`Loading stats for ${params.player}`} />
+					</div>
+				}
+				</div>
+			</div>
+			);
 	}
 }

@@ -17,11 +17,11 @@ Under 640px width, the font size is 12px
 Over 1240px width, the font size is 18px
 In between 640px and 1240px, the font size increases linearly from 12px to 18px
 */
-html { font-size: 12px; background: var(--theme-primary);}
+html { font-size: 13px; background: var(--theme-primary);}
 /* Assuming that anything under a width of 640px is a mobile device */
-@media (min-width: 640px) { html { font-size: calc(12px + (100vw - 640px) / 150); } }
+@media (min-width: 640px) { html { font-size: calc(13px + (100vw - 640px) / 300); } }
 /* Cap it off at a width of 1280px */
-@media (min-width: 1240px) { html { font-size: 16px; } }
+@media (min-width: 1240px) { html { font-size: 15px; } }
 
 body { margin: 0; }
 div, span, p, a, ul, input, button { 

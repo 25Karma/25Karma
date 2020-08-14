@@ -6,6 +6,7 @@ export * from './Collapsible.js';
 export * from './Crafatar.js';
 export * from './Footer.js';
 export * from './ExternalLink.js';
+export * from './LoadingSpinner.js';
 export * from './MinecraftText.js';
 export * from './Navbar.js';
 export * from './Player.js';

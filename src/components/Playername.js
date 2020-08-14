@@ -11,7 +11,7 @@ export function Playername(props) {
 
 	const playerdata = props.playerdata
 	const stats = {
-		name: playerdata.displayname,
+		name: playerdata.displayname || '',
 		rank: getPlayerRank(playerdata),
 		prefix: playerdata.prefix,
 		plusColor: playerdata.rankPlusColor,

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { IconContext } from 'react-icons';
-import { MdMoreHoriz } from 'react-icons/md';
-import { Banner, Button, MinecraftText, Navbar, Searchbar } from 'components';
+import { Banner, Button, MinecraftText, Navbar, ReactIcon, Searchbar } from 'components';
 import * as Utils from 'utils';
 import properties from 'properties.js';
 
@@ -99,11 +97,9 @@ export function FrontPage(props) {
 						</div>
 					))}
 					{array.length > 5 && recentSearchesCount === 5 &&
-						<IconContext.Provider value={{ className: 'react-icons' }}>
 							<button className="pl-2 c-gray" onClick={()=>{setRecentSearchesCount(25)}}>
-								<MdMoreHoriz />
+								<ReactIcon icon="MdMoreHoriz" />
 							</button>
-						</IconContext.Provider>
 					}
 				</div>
 			</React.Fragment>
@@ -112,7 +108,7 @@ export function FrontPage(props) {
 	
 	return (
 		<div>
-			<Navbar></Navbar>
+			<Navbar />
 			<div className="container v-flex align-items-center my-4">
 				<p className="pb-4 text-shadow">
 					<MinecraftText font="xl">

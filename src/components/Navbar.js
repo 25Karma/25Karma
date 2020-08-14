@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import p from 'properties.js';
-import { Collapsible, MinecraftText, ReactIcon, Settings } from 'components';
+import { Collapsible, MinecraftText, ReactIcon, Searchbar, Settings } from 'components';
 
 /*
 * Navbar that appears at the top of the page
 *
-* @param {JSX} props.children 	JSX Object to display in the center of the navbar
+* @param {boolean} props.searchbar 	Whether or not to display the Searchbar component
 */
 export function Navbar(props) {
 	
@@ -41,7 +41,7 @@ export function Navbar(props) {
 							</Link>
 						</div>
 						<div className="flex-1 py-1 flex-grow-3">
-							{props.children}
+							{props.searchbar && <Searchbar />}
 						</div>
 						<div className="flex-1 p-1 text-right">
 								<p className="p-1">

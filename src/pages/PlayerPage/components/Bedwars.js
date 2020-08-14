@@ -3,7 +3,7 @@ import { Accordion, Box, Progress, ProgressBar, Stat } from 'components';
 import * as Utils from 'utils';
 
 /*
-* Stats accordion for Bedwars
+* Stats accordion for Bed Wars
 *
 * @param {Object} props.player 	Player data in JSON object
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)

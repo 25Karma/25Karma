@@ -31,6 +31,9 @@ export function Searchbar(props) {
 	function search() {
 		const player = refInput.current.value;
 		if (player !== '') {
+			// Clear the input
+			refInput.current.value = '';
+			// Redirect page
 			history.push(`/player/${player}`);
 		}
 	}
