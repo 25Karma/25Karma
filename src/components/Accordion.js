@@ -25,7 +25,9 @@ export function Accordion(props) {
 							<div 
 								className="h-flex align-items-center flex-1 cursor-pointer overflow-hidden" 
 								{...cProvided.collapseButtonProps}>
+								<div className="py-2">
 								<MinecraftText font="md">{props.title}</MinecraftText>
+								</div>
 								<div className="h-flex mx-auto px-3">
 									{props.header}
 								</div>
@@ -37,7 +39,9 @@ export function Accordion(props) {
 						<div {...cProvided.collapsibleProps}>
 							<div className="accordion-body">
 								<div className="accordion-separator mb-3"></div>
-								{props.children}
+								<div className="mb-2">
+									{props.children || `No stats to display for ${props.title}.`}
+								</div>
 							</div>
 						</div>
 					</div>

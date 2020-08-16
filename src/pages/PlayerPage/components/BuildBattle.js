@@ -11,7 +11,8 @@ import * as Utils from 'utils';
 export function BuildBattle(props) {
 
 	const consts = {
-		MODES : [
+		TITLE: 'Build Battle',
+		MODES: [
 			{id: 'solo_normal', name: 'Solo'},
 			{id: 'teams_normal', name: 'Teams'},
 			{id: 'guess_the_build', name: 'Guess the Build'},
@@ -118,8 +119,10 @@ export function BuildBattle(props) {
 		</table>
 		);
 
-	return (
-		<Accordion title="Build Battle" header={header} index={props.index}>
+	return Utils.isEmpty(json) ?
+		<Accordion title={consts.TITLE} index={props.index} />
+		:
+		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="mb-1 font-bold">Title Progress</div>
 			<div className="h-flex mb-3">
 				{progressBar}
@@ -141,9 +144,8 @@ export function BuildBattle(props) {
 				</div>
 			</div>
 			<div className="accordion-separator mb-3"></div>
-			<div className="overflow-x mb-2">
+			<div className="overflow-x">
 				{table}
 			</div>
 		</Accordion>
-		);
 }

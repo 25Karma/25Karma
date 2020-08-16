@@ -10,6 +10,7 @@ import * as Utils from 'utils';
 */
 export function Arcade(props) {
 	const consts = {
+		TITLE: 'Arcade',
 		ZOMBIESMODES : [
 			{id: 'deadend', name: 'Dead End', color: 'gold'},
 			{id: 'badblood', name: 'Bad Blood', color: 'red'},
@@ -108,8 +109,10 @@ export function Arcade(props) {
 		</table>
 		);
 
-	return (
-		<Accordion title="Arcade" header={header} index={props.index}>
+	return Utils.isEmpty(json) ? 
+		<Accordion title={consts.TITLE} index={props.index} />
+		:
+		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="mb-3">
 				<StatPair title="Arcade Coins" color="gold">{json.coins}</StatPair>
 			</div>
@@ -258,9 +261,8 @@ export function Arcade(props) {
 			<div className="overflow-x mb-2">
 				{zombiesMapTable}
 			</div>
-			<div className="overflow-x mb-2" style={{width: '50%'}}>
+			<div className="overflow-x" style={{width: '50%'}}>
 				{zombiesTypeTable}
 			</div>
 		</Accordion>
-		)
 }

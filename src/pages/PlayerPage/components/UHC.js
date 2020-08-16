@@ -11,7 +11,8 @@ import * as Utils from 'utils';
 export function UHC(props) {
 
 	const consts = {
-		MODES : [
+		TITLE: 'UHC',
+		MODES: [
 		{id: '_solo', name: 'Solo'},
 		{id: '', name: 'Teams'},
 		{id: '_red vs blue', name: 'Red vs. Blue'},
@@ -149,8 +150,10 @@ export function UHC(props) {
 		</table>
 		);
 		
-	return (
-		<Accordion title="UHC" header={header} index={props.index}>
+	return Utils.isEmpty(json) ?
+		<Accordion title={consts.TITLE} index={props.index} />
+		:
+		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="mb-1 font-bold">Title Progress</div>
 			<div className="h-flex mb-3">
 				{progressBar}
@@ -176,9 +179,8 @@ export function UHC(props) {
 				</div>
 			</div>
 			<div className="accordion-separator mb-3"></div>
-			<div className="overflow-x mb-2">
+			<div className="overflow-x">
 				{table}
 			</div>
 		</Accordion>
-		);
 }

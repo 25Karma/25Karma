@@ -10,7 +10,8 @@ import * as Utils from 'utils';
 */
 export function MurderMystery(props) {
 	const consts = {
-		MODES : [
+		TITLE: 'Murder Mystery',
+		MODES: [
 			{id: 'MURDER_CLASSIC', name: 'Classic'},
 			{id: 'MURDER_ASSASSINS', name: 'Assassins'},
 			{id: 'MURDER_DOUBLE_UP', name: 'Double Up'},
@@ -125,7 +126,9 @@ export function MurderMystery(props) {
 			);
 	})();
 
-	return (
+	return Utils.isEmpty(json) ?
+		<Accordion title={consts.TITLE} index={props.index} />
+		:
 		<Accordion title="Murder Mystery" header={header} index={props.index}>
 			<StatPair title="Coins" color="gold">{json.coins}</StatPair>
 			<div className="h-flex mb-3">
@@ -145,9 +148,8 @@ export function MurderMystery(props) {
 				</div>
 			</div>
 			<div className="accordion-separator mb-3"></div>
-			<div className="overflow-x mb-3">
+			<div className="overflow-x">
 				{table}
 			</div>
 		</Accordion>
-		);
 }

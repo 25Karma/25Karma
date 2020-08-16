@@ -115,6 +115,16 @@ export function capitalize(str) {
 }
 
 /*
+* Checks if an Object is empty
+*
+* @param {Object} obj 	The object to check
+* @return {boolean} 	Whether or not it is empty
+*/
+export function isEmpty(obj) {
+	return Object.keys(obj).length === 0 && obj.constructor === Object
+}
+
+/*
 * Returns time since a date integer
 *
 * @param {number} date 	Date integer

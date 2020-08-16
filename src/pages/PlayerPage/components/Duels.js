@@ -12,7 +12,8 @@ export function Duels(props) {
 
 	// Constants useful for processing Duels API data
 	const consts = {
-		DIVISIONS : [
+		TITLE: 'Duels',
+		DIVISIONS: [
 			{name: 'Rookie', color: 'darkgray'},
 			{name: 'Iron', color: 'white'},
 			{name: 'Gold', color: 'gold'},
@@ -22,7 +23,7 @@ export function Duels(props) {
 			{name: 'Grandmaster', color: 'yellow'},
 			{name: 'Godlike', color: 'purple'},
 		],
-		MODES : [
+		MODES: [
 			{id: 'uhc_duel', name: 'UHC 1v1'},
 			{id: 'uhc_doubles', name: 'UHC 2v2'},
 			{id: 'uhc_meetup', name: 'UHC Meetup'},
@@ -143,7 +144,9 @@ export function Duels(props) {
 		</table>
 		);
 
-	return (
+	return Utils.isEmpty(json) ?
+		<Accordion title={consts.TITLE} index={props.index} />
+		:
 		<Accordion title="Duels" header={header} index={props.index}>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
@@ -174,9 +177,8 @@ export function Duels(props) {
 				</div>
 			</div>
 			<div className="accordion-separator mb-3"></div>
-			<div className="overflow-x mb-2">
+			<div className="overflow-x">
 				{table}
 			</div>
 		</Accordion>
-		);
 }

@@ -10,6 +10,7 @@ import * as Utils from 'utils';
 */
 export function TurboKartRacers(props) {
 	const consts = {
+		TITLE: 'Turbo Kart Racers',
 		ATTRIBUTES: {
 			ACCELERATION: 'Acceleration',
 			BOOSTER_SPEED: 'Booster Speed',
@@ -56,6 +57,31 @@ export function TurboKartRacers(props) {
 		Frame : getPartData(json.frame_active),
 		Turbocharger : getPartData(json.booster_active),
 	}
+	
+	const currentKart = Object.entries(kart).map(
+		part => Boolean(part[1].quality) ?
+		<table className="flex-1 mx-3" key={part[0]}>
+			<thead>
+				<tr>
+					<th colSpan="2" className={`c-${part[1].color}`}>
+						{`${part[1].quality} ${part[1].rarity} ${part[0]}`}
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+			{Object.entries(part[1].attributes).map(attr =>
+				<tr key={attr[0]}>
+					<td className="c-gray pr-2">{attr[0]}</td>
+					<td>{renderAttributePoints(attr[1])}</td>
+				</tr>
+			)}
+			</tbody>
+		</table>
+		:
+		<div className="flex-1 c-gray text-center mx-3" key={part[0]}>
+			{`No ${part[0]} equipped.`}
+		</div>
+		);
 	
 	function getPartData(str) {
 		const raw = JSON.parse(addQuotes(str));
@@ -109,8 +135,10 @@ export function TurboKartRacers(props) {
 		</React.Fragment>
 		);
 
-	return (
-		<Accordion title="Turbo Kart Racers" header={header} index={props.index}>
+	return Utils.isEmpty(json) ?
+		<Accordion title={consts.TITLE} index={props.index} />
+		:
+		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
 					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
@@ -134,31 +162,8 @@ export function TurboKartRacers(props) {
 			</div>
 			<div className="accordion-separator mb-3"></div>
 			<div className="font-bold font-md text-center mb-2">Current Kart</div>
-			<div className="h-flex overflow-x mb-2">
-				{Object.entries(kart).map(part => Boolean(part[1].quality) ?
-					<table className="flex-1 mx-3" key={part[0]}>
-						<thead>
-							<tr>
-								<th colSpan="2" className={`c-${part[1].color}`}>
-									{`${part[1].quality} ${part[1].rarity} ${part[0]}`}
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-						{Object.entries(part[1].attributes).map(attr =>
-							<tr key={attr[0]}>
-								<td className="c-gray pr-2">{attr[0]}</td>
-								<td>{renderAttributePoints(attr[1])}</td>
-							</tr>
-						)}
-						</tbody>
-					</table>
-					:
-					<div className="flex-1 c-gray text-center mx-3" key={part[0]}>
-						{`No ${part[0]} equipped.`}
-					</div>
-				)}
+			<div className="h-flex overflow-x">
+				{currentKart}
 			</div>
 		</Accordion>
-		);
 }

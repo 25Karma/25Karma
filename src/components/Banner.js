@@ -14,6 +14,7 @@ import { ReactIcon } from 'components';
 export function Banner(props) {
 	
 	const bannerRef = useRef('banner');
+	const onExpiry = props.onExpiry;
 	const expire = props.expire;
 	const styleHidden = {
 		opacity: '0',
@@ -50,12 +51,12 @@ export function Banner(props) {
 				setStyle(styleHidden)
 			}, 5000);
 			setTimeout(function () {
-				if (props.onExpiry) {
-					props.onExpiry();
+				if (onExpiry) {
+					onExpiry();
 				}
 			}, 6000);
 		}
-	},[]);
+	}, []);
 
 	return (
 		<div 

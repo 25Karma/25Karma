@@ -11,6 +11,7 @@ import * as Utils from 'utils';
 export function Bedwars(props) {
 
 	const consts = {
+		TITLE : 'Bed Wars',
 		EASY_XP: [500, 1000, 2000, 3500],
 		NORMAL_XP: 5000,
 		PRESTIGES : [
@@ -197,8 +198,10 @@ export function Bedwars(props) {
 			);
 	})();
 
-	return (
-		<Accordion title="Bed Wars" header={header} index={props.index}>
+	return Utils.isEmpty(json) ?
+		<Accordion title={consts.TITLE} index={props.index} />
+		:
+		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="mb-1 font-bold">Leveling Progress</div>
 			<div className="h-flex mb-3">
 				{progressBar}
@@ -238,7 +241,7 @@ export function Bedwars(props) {
 				{table}
 			</div>
 			<div className="accordion-separator mb-3"></div>
-			<div className="h-flex mb-2">
+			<div className="h-flex">
 				<div className="flex-1">
 					<StatPair title="Times Drowned">{json.drowning_deaths_bedwars}</StatPair>
 					<StatPair title="Deaths to Fire">{Utils.default0(json.fire_tick_deaths_bedwars)+Utils.default0(json.fire_deaths_bedwars)}</StatPair>
@@ -250,5 +253,4 @@ export function Bedwars(props) {
 				</div>
 			</div>
 		</Accordion>
-		);
 }

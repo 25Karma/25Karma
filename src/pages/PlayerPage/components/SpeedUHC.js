@@ -11,7 +11,8 @@ import * as Utils from 'utils';
 export function SpeedUHC(props) {
 
 	const consts = {
-		MODES : [
+		TITLE: 'Speed UHC',
+		MODES: [
 		{id: 'solo_normal', name: 'Solo Normal'},
 		{id: 'solo_insane', name: 'Solo Insane'},
 		{id: 'team_normal', name: 'Teams Normal'},
@@ -140,8 +141,10 @@ export function SpeedUHC(props) {
 		</table>
 		);
 
-	return (
-		<Accordion title="Speed UHC" header={header} index={props.index}>
+	return Utils.isEmpty(json) ?
+		<Accordion title={consts.TITLE} index={props.index} />
+		:
+		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="mb-1 font-bold">Title Progress</div>
 			<div className="h-flex mb-3">
 				{progressBar}
@@ -165,9 +168,8 @@ export function SpeedUHC(props) {
 					<StatPair title="Winstreak">{json.winstreak}</StatPair>
 				</div>
 			</div>
-			<div className="overflow-x mb-2">
+			<div className="overflow-x">
 				{table}
 			</div>
 		</Accordion>
-		);
 }

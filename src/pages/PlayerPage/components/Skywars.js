@@ -14,6 +14,7 @@ export function Skywars(props) {
 
 	// Constants useful for processing Skywars API data
 	const consts = {
+		TITLE : 'SkyWars',
 		INITIAL_XP: [0, 20, 70, 150, 250, 500, 1000, 2000, 3500, 6000, 10000, 15000],
 		RECURRING_XP: 10000,
 		PRESTIGES : [
@@ -28,6 +29,7 @@ export function Skywars(props) {
 			{level: 40,  color: 'blue', name: 'Opal'}, 
 			{level: 45,  color: 'purple', name: 'Amethyst'}, 
 			{level: 50,  color: 'rainbow', name: 'Rainbow'}, 
+			{level: 60, color: 'rainbow', name: 'Mythic'},
 			{level: 100, color: 'rainbow font-bold', name: 'Mythic'}
 		],
 		ICONS : {
@@ -75,12 +77,12 @@ export function Skywars(props) {
 			{id: 'salty',     name: 'Salty',     color: 'green'},
 			{id: 'tasty',     name: 'Tasty',     color: 'darkaqua'},
 			{id: 'succulent', name: 'Succulent', color: 'pink'},
+			{id: 'sweet',     name: 'Sweet',     color: 'aqua'},
 			{id: 'divine',    name: 'Divine',    color: 'gold'},
 			{id: 'heavenly',  name: 'Heavenly',  color: 'purple'},
-			{id: 'sweet',     name: 'Sweet',     color: 'aqua'},
 		],
 	};
-	
+
 	// Get the player's API data for SkyWars
 	const json = Utils.traverse(props.player,'stats.SkyWars') || {};
 	const leveling = new Utils.HypixelLeveling(xpToLevel, levelToXP,
@@ -263,9 +265,11 @@ export function Skywars(props) {
 		imgList.reverse();
 		return imgList;
 	})();
-
-	return (
-		<Accordion title="SkyWars" header={header} index={props.index}>
+	
+	return Utils.isEmpty(json) ? 
+		<Accordion title={consts.TITLE} index={props.index} /> 
+		:
+		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="mb-1 font-bold">Leveling Progress</div>
 			<div className="h-flex mb-3">
 				{levelProgress}
@@ -326,7 +330,7 @@ export function Skywars(props) {
 				{headProgress}
 			</div>
 			<div className="font-bold pb-2">Prestigious Head Collection</div>
-			<div className="h-flex flex-wrap mb-2">
+			<div className="h-flex flex-wrap">
 			{
 				headButtonState ?
 				prestigiousHeadCollection :
@@ -336,5 +340,4 @@ export function Skywars(props) {
 			}
 			</div>
 		</Accordion>
-		);
 }
