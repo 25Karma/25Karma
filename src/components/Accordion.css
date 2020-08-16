@@ -1,19 +1,24 @@
+.accordion {
+	overflow: hidden;
+	border-radius: 0.25rem;
+	border: 1px solid var(--theme-border);
+	background: var(--theme-secondary);
+}
+
 .accordion-header {
 	display: flex;
 	flex-wrap: nowrap;
 	align-items: center;
 	user-select: none;
 	width: 100%;
-	background: var(--theme-secondary);
 }
 
 .accordion-body {
 	padding: 0 1rem 1rem;
-	background: var(--theme-secondary);
 }
 
 .accordion-separator {
-	border-bottom: 2px solid var(--theme-primary);
+	border-bottom: 1px solid var(--theme-border);
 }
 
 .accordion-body table {

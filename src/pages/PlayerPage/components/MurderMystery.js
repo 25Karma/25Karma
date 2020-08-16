@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, Box, Stat } from 'components';
+import { Accordion, Box, StatCell, StatPair } from 'components';
 import * as Utils from 'utils';
 
 /*
@@ -59,7 +59,6 @@ export function MurderMystery(props) {
 	const knifeSkin = consts.KNIFESKINS[json.active_knife_skin];
 	const fastestDetectiveWin = json.quickest_detective_win_time_seconds;
 	const fastestMurdererWin = json.quickest_murderer_win_time_seconds;
-	console.log(json.active_knife_skin)
 
 	const mostPlayedMode = (() => {
 		let mostPlayed = null;
@@ -85,20 +84,23 @@ export function MurderMystery(props) {
 		const legacyStartsAt = 'MURDER_HARDCORE';
 		let rowList = [];
 		for (const mode of consts.MODES) {
+			const losses = Utils.default0(json[`games_${mode.id}`])-Utils.default0(json[`wins_${mode.id}`]);
 			if (mode.id === legacyStartsAt) {
 				rowList.push(
 					<tr key="legacy"><th><div className="mt-2">Legacy Modes</div></th></tr>
 					);
 			}
 			rowList.push(
-				json[`games_${mode.id}`] &&
+				Boolean(json[`games_${mode.id}`]) &&
 				<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
-					<td>{mode.name}</td>
-					<td>{Utils.formatNum(json[`wins_${mode.id}`])}</td>
-					<td>{Utils.formatNum(json[`kills_${mode.id}`])}</td>
-					<td>{Utils.formatNum(json[`bow_kills_${mode.id}`])}</td>
-					<td>{Utils.formatNum(json[`knife_kills_${mode.id}`])}</td>
-					<td>{Utils.formatNum(json[`thrown_knife_kills_${mode.id}`])}</td>
+					<StatCell>{mode.name}</StatCell>
+					<StatCell>{json[`kills_${mode.id}`]}</StatCell>
+					<StatCell>{json[`bow_kills_${mode.id}`]}</StatCell>
+					<StatCell>{json[`knife_kills_${mode.id}`]}</StatCell>
+					<StatCell>{json[`thrown_knife_kills_${mode.id}`]}</StatCell>
+					<StatCell>{json[`wins_${mode.id}`]}</StatCell>
+					<StatCell>{losses}</StatCell>
+					<StatCell>{Utils.ratio(json[`wins_${mode.id}`], losses)}</StatCell>
 				</tr>
 				);
 		}
@@ -107,11 +109,13 @@ export function MurderMystery(props) {
 				<thead>
 					<tr>
 						<th>Mode</th>
-						<th>Wins</th>
 						<th>Kills</th>
 						<th>Bow Kills</th>
 						<th>Knife Kills</th>
 						<th>Thrown Knife Kills</th>
+						<th>Wins</th>
+						<th>Losses</th>
+						<th>WL</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -123,21 +127,21 @@ export function MurderMystery(props) {
 
 	return (
 		<Accordion title="Murder Mystery" header={header} index={props.index}>
-			<Stat title="Coins" color="gold">{json.coins}</Stat>
+			<StatPair title="Coins" color="gold">{json.coins}</StatPair>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
-					<Stat title="Kills">{json.kills}</Stat>
-					<Stat title="Kills as Murderer">{json.kills_as_murderer}</Stat>
-					<Stat title="Thrown Knife Kills">{json.thrown_knife_kills}</Stat>
-					<Stat title="Deaths">{json.deaths}</Stat>
-					<Stat title="Murder Weapon" color="red">{knifeSkin || '<unknown>'}</Stat>
+					<StatPair title="Kills">{json.kills}</StatPair>
+					<StatPair title="Kills as Murderer">{json.kills_as_murderer}</StatPair>
+					<StatPair title="Thrown Knife Kills">{json.thrown_knife_kills}</StatPair>
+					<StatPair title="Deaths">{json.deaths}</StatPair>
+					<StatPair title="Murder Weapon" color="red">{knifeSkin || '<unknown>'}</StatPair>
 				</div>
 				<div className="flex-1">
-					<Stat title="Wins">{json.wins}</Stat>
-					<Stat title="Losses">{losses}</Stat>
-					<Stat title="Win/Loss Ratio">{Utils.ratio(json.wins/losses)}</Stat>
-					<Stat title="Fastest Detective Win">{fastestDetectiveWin ? fastestDetectiveWin+'s' : '-'}</Stat>
-					<Stat title="Fastest Murderer Win">{fastestMurdererWin ? fastestMurdererWin+'s' : '-'}</Stat>
+					<StatPair title="Wins">{json.wins}</StatPair>
+					<StatPair title="Losses">{losses}</StatPair>
+					<StatPair title="Win/Loss Ratio">{Utils.ratio(json.wins/losses)}</StatPair>
+					<StatPair title="Fastest Detective Win">{fastestDetectiveWin ? fastestDetectiveWin+'s' : '-'}</StatPair>
+					<StatPair title="Fastest Murderer Win">{fastestMurdererWin ? fastestMurdererWin+'s' : '-'}</StatPair>
 				</div>
 			</div>
 			<div className="accordion-separator mb-3"></div>

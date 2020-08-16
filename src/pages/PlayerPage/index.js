@@ -42,7 +42,7 @@ export function PlayerPage(props) {
 		recentSearchesList.add(mojangPlayerData.username);
 
 		return (
-		<div className="container my-4">
+		<div className="container my-3">
 			<Player player={player.player} status={status.session} />
 			<div className="h-flex px-2 py-1">
 				<button className="ml-auto" onClick={alphabetizeAccordions}>

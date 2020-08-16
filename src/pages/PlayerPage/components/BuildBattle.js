@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, Box, Progress, ProgressBar, Stat } from 'components';
+import { Accordion, Box, Progress, ProgressBar, StatCell, StatPair } from 'components';
 import * as Utils from 'utils';
 
 /*
@@ -14,7 +14,7 @@ export function BuildBattle(props) {
 		MODES : [
 			{id: 'solo_normal', name: 'Solo'},
 			{id: 'teams_normal', name: 'Teams'},
-			{id: 'guess_the_build', name: 'Red vs. Blue'},
+			{id: 'guess_the_build', name: 'Guess the Build'},
 			{id: 'solo_pro', name: 'Pro'},
 		],
 		STARS: [
@@ -64,7 +64,7 @@ export function BuildBattle(props) {
 
 	const header = (
 		<React.Fragment>
-			<Box title="Title">{`${Utils.toColorCode(titleColor)}${title}`}</Box>
+			<Box title="Title" color={titleColor}>{title}</Box>
 			<Box title="Wins">{json.wins}</Box>
 		</React.Fragment>
 		);
@@ -107,10 +107,10 @@ export function BuildBattle(props) {
 			<tbody>
 			{
 				consts.MODES.map(mode => 
-					Utils.default0(json[`wins_${mode.id}`]) > 0 &&
+					Boolean(json[`wins_${mode.id}`]) &&
 					<tr key={mode.id}>
-						<td>{mode.name}</td>
-						<td>{Utils.formatNum(json[`wins_${mode.id}`])}</td>
+						<StatCell>{mode.name}</StatCell>
+						<StatCell>{json[`wins_${mode.id}`]}</StatCell>
 					</tr>
 					)
 			}
@@ -126,18 +126,18 @@ export function BuildBattle(props) {
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
-					<Stat title="Score">{json.score}</Stat>
-					<Stat title="Title" color={titleColor}>{title}</Stat>
-					<Stat title="Coins" color="gold">{json.coins}</Stat>
+					<StatPair title="Score">{json.score}</StatPair>
+					<StatPair title="Title" color={titleColor}>{title}</StatPair>
+					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
 				</div>
 				<div className="flex-1">
-					<Stat title="Wins">{json.wins}</Stat>
-					<Stat title="Losses">{losses}</Stat>
-					<Stat title="Win/Loss Ratio">{Utils.ratio(json.wins/losses)}</Stat>
+					<StatPair title="Wins">{json.wins}</StatPair>
+					<StatPair title="Losses">{losses}</StatPair>
+					<StatPair title="Win/Loss Ratio">{Utils.ratio(json.wins/losses)}</StatPair>
 				</div>
 				<div className="flex-1">
-					<Stat title="Correct Guesses">{json.correct_guesses}</Stat>
-					<Stat title="Super Votes">{json.super_votes}</Stat>
+					<StatPair title="Correct Guesses">{json.correct_guesses}</StatPair>
+					<StatPair title="Super Votes">{json.super_votes}</StatPair>
 				</div>
 			</div>
 			<div className="accordion-separator mb-3"></div>

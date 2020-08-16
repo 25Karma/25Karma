@@ -9,7 +9,7 @@ import { formatNum } from 'utils';
 * @param {string} props.color 		The color of the stat (title will always be white)
 * @param {boolean} props.percentage Whether the stat should be displayed as a percentage
 */
-export function Stat(props) {
+export function StatPair(props) {
 	function renderChildren() {
 		if (props.children === undefined) return 0;
 		else if (isNaN(props.children)) return props.children;

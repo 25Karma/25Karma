@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
-import { Accordion, Banner, Box, Button, Crafatar, Progress, ProgressBar, Stat } from 'components';
+import { Accordion, Banner, Box, Button, Crafatar, Progress, ProgressBar, StatCell, StatPair } from 'components';
 import * as Utils from 'utils';
 
 /*
@@ -48,7 +48,7 @@ export function Skywars(props) {
 			gold_prestige: '\u2764',
 			diamond_prestige: '\u2620',
 			emerald_prestige: '\u2726',
-			sapphire_prestige: '\u270c',
+			sapphire_prestige: '\u270c\uFE0E', // Uses symbol instead of emoji
 			ruby_prestige: '\u2766',
 			crystal_prestige: '\u2735',
 			opal_prestige: '\u2763',
@@ -153,10 +153,8 @@ export function Skywars(props) {
 
 	const header = (
 		<React.Fragment>
-			<Box title="Level">
-				{`${
-					Utils.toColorCode(prestigeColor)
-				}[${
+			<Box title="Level" color={prestigeColor}>
+				{`[${
 					leveling.levelFloor
 				}${
 					prestigeIcon
@@ -204,15 +202,15 @@ export function Skywars(props) {
 			<tbody>
 			{
 				consts.MODES.map(mode => 
-					Utils.default0(json[`wins_${mode.id}`]) + Utils.default0(json[`losses_${mode.id}`]) > 0 &&
+					Boolean(Utils.add(json[`wins_${mode.id}`], json[`losses_${mode.id}`])) &&
 					<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
-						<td>{mode.name}</td>
-						<td>{Utils.formatNum(json[`kills_${mode.id}`])}</td>
-						<td>{Utils.formatNum(json[`deaths_${mode.id}`])}</td>
-						<td>{Utils.formatNum(Utils.ratio(json[`kills_${mode.id}`],json[`deaths_${mode.id}`]))}</td>
-						<td>{Utils.formatNum(json[`wins_${mode.id}`])}</td>
-						<td>{Utils.formatNum(json[`losses_${mode.id}`])}</td>
-						<td>{Utils.formatNum(Utils.ratio(json[`wins_${mode.id}`],json[`losses_${mode.id}`]))}</td>
+						<StatCell>{mode.name}</StatCell>
+						<StatCell>{json[`kills_${mode.id}`]}</StatCell>
+						<StatCell>{json[`deaths_${mode.id}`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`kills_${mode.id}`],json[`deaths_${mode.id}`])}</StatCell>
+						<StatCell>{json[`wins_${mode.id}`]}</StatCell>
+						<StatCell>{json[`losses_${mode.id}`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`wins_${mode.id}`],json[`losses_${mode.id}`])}</StatCell>
 					</tr>
 					)
 			}
@@ -274,46 +272,46 @@ export function Skywars(props) {
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
-					<Stat title="Level">{leveling.level}</Stat>
-					<Stat title="Prestige" color={prestigeColor}>{`${prestigeName} ${prestigeIcon}`}</Stat>
-					<Stat title="Coins" color="gold">{json.coins}</Stat>
-					<Stat title="Tokens">{json.cosmetic_tokens}</Stat>
+					<StatPair title="Level">{leveling.level}</StatPair>
+					<StatPair title="Prestige" color={prestigeColor}>{`${prestigeName} ${prestigeIcon}`}</StatPair>
+					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
+					<StatPair title="Tokens">{json.cosmetic_tokens}</StatPair>
 					<br/>
 					<br/>
-					<Stat title="Blocks Placed">{json.blocks_placed}</Stat>
-					<Stat title="Blocks Broken">{json.blocks_broken}</Stat>
-					<Stat title="Chests Opened">{json.chests_opened}</Stat>
-					<Stat title="Arrows Hit">{json.arrows_hit}</Stat>
-					<Stat title="Arrows Shot">{json.arrows_shot}</Stat>
-					<Stat title="Arrow Hit Accuracy" percentage>{ratios.ahm}</Stat>
+					<StatPair title="Blocks Placed">{json.blocks_placed}</StatPair>
+					<StatPair title="Blocks Broken">{json.blocks_broken}</StatPair>
+					<StatPair title="Chests Opened">{json.chests_opened}</StatPair>
+					<StatPair title="Arrows Hit">{json.arrows_hit}</StatPair>
+					<StatPair title="Arrows Shot">{json.arrows_shot}</StatPair>
+					<StatPair title="Arrow Hit Accuracy" percentage>{ratios.ahm}</StatPair>
 				</div>
 				<div className="flex-1">
-					<Stat title="Kills">{json.kills}</Stat>
-					<Stat title="Deaths">{json.deaths}</Stat>
-					<Stat title="Assists">{json.assists}</Stat>
-					<Stat title="Kill/Death Ratio">{ratios.kd}</Stat>
+					<StatPair title="Kills">{json.kills}</StatPair>
+					<StatPair title="Deaths">{json.deaths}</StatPair>
+					<StatPair title="Assists">{json.assists}</StatPair>
+					<StatPair title="Kill/Death Ratio">{ratios.kd}</StatPair>
 					<br/>
 					<br/>
-					<Stat title="Melee Kills">{json.melee_kills}</Stat>
-					<Stat title="Void Kills">{json.void_kills}</Stat>
-					<Stat title="Bow Kills">{json.bow_kills}</Stat>
-					<Stat title="Mob Kills">{json.mob_kills}</Stat>
-					<Stat title="Eggs Thrown">{json.egg_thrown}</Stat>
-					<Stat title="Pearls Thrown">{json.enderpearls_thrown}</Stat>
+					<StatPair title="Melee Kills">{json.melee_kills}</StatPair>
+					<StatPair title="Void Kills">{json.void_kills}</StatPair>
+					<StatPair title="Bow Kills">{json.bow_kills}</StatPair>
+					<StatPair title="Mob Kills">{json.mob_kills}</StatPair>
+					<StatPair title="Eggs Thrown">{json.egg_thrown}</StatPair>
+					<StatPair title="Pearls Thrown">{json.enderpearls_thrown}</StatPair>
 				</div>
 				<div className="flex-1">
-					<Stat title="Wins">{json.wins}</Stat>
-					<Stat title="Lab Wins">{json.wins_lab}</Stat>
-					<Stat title="Losses">{json.losses}</Stat>
-					<Stat title="Win/Loss Ratio">{ratios.wl}</Stat>
-					<Stat title="Kill/Win Ratio">{ratios.kw}</Stat>
+					<StatPair title="Wins">{json.wins}</StatPair>
+					<StatPair title="Lab Wins">{json.wins_lab}</StatPair>
+					<StatPair title="Losses">{json.losses}</StatPair>
+					<StatPair title="Win/Loss Ratio">{ratios.wl}</StatPair>
+					<StatPair title="Kill/Win Ratio">{ratios.kw}</StatPair>
 					<br/>
-					<Stat title="Heads">{json.heads}</Stat>
-					<Stat title="Corruption">{`${Utils.default0(json.angel_of_death_level)}%`}</Stat>
-					<Stat title="Total Souls">{json.souls_gathered}</Stat>
-					<Stat title="Current Souls">{json.souls}</Stat>
-					<Stat title="Paid Souls">{json.paid_souls}</Stat>
-					<Stat title="Soul Well Uses">{json.soul_well}</Stat>
+					<StatPair title="Heads">{json.heads}</StatPair>
+					<StatPair title="Corruption">{`${Utils.default0(json.angel_of_death_level)}%`}</StatPair>
+					<StatPair title="Total Souls">{json.souls_gathered}</StatPair>
+					<StatPair title="Current Souls">{json.souls}</StatPair>
+					<StatPair title="Paid Souls">{json.paid_souls}</StatPair>
+					<StatPair title="Soul Well Uses">{json.soul_well}</StatPair>
 				</div>
 			</div>
 			<div className="accordion-separator mb-3"></div>
@@ -322,7 +320,7 @@ export function Skywars(props) {
 			</div>
 			<div className="accordion-separator mb-3"></div>
 			<div className="mb-1">
-				<Stat title="Total Heads Gathered">{json.heads}</Stat>
+				<StatPair title="Total Heads Gathered">{json.heads}</StatPair>
 			</div>
 			<div className="mb-3">
 				{headProgress}
@@ -332,7 +330,9 @@ export function Skywars(props) {
 			{
 				headButtonState ?
 				prestigiousHeadCollection :
-				<Button onClick={()=>{setHeadButtonState(true)}}>View</Button>
+				<Button onClick={()=>{setHeadButtonState(true)}}>
+					<span className="font-bold">View</span>
+				</Button>
 			}
 			</div>
 		</Accordion>

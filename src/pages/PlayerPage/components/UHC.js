@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, Box, Progress, ProgressBar, Stat } from 'components';
+import { Accordion, Box, Progress, ProgressBar, StatCell, StatPair } from 'components';
 import * as Utils from 'utils';
 
 /*
@@ -84,7 +84,7 @@ export function UHC(props) {
 
 	const header = (
 		<React.Fragment>
-			<Box title="Star">{`§6[${leveling.levelFloor}✫]`}</Box>
+			<Box title="Star" color="gold">{`[${leveling.levelFloor}✫]`}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="Wins">{wins}</Box>
 		</React.Fragment>
@@ -133,15 +133,15 @@ export function UHC(props) {
 			<tbody>
 			{
 				consts.MODES.map(mode =>
-					Utils.default0(json[`wins${mode.id}`]) + Utils.default0(json[`deaths${mode.id}`]) > 0 &&
+					Boolean(Utils.add(json[`wins${mode.id}`], json[`deaths${mode.id}`])) &&
 					<tr key={mode.id}>
-						<td>{mode.name}</td>
-						<td>{Utils.formatNum(json[`kills${mode.id}`])}</td>
-						<td>{Utils.formatNum(json[`deaths${mode.id}`])}</td>
-						<td>{Utils.formatNum(Utils.ratio(json[`kills${mode.id}`],json[`deaths${mode.id}`]))}</td>
-						<td>{Utils.formatNum(json[`wins${mode.id}`])}</td>
-						<td>{Utils.formatNum(Utils.ratio(json[`kills${mode.id}`],json[`wins${mode.id}`]))}</td>
-						<td>{Utils.formatNum(json[`heads_eaten${mode.id}`])}</td>
+						<StatCell>{mode.name}</StatCell>
+						<StatCell>{json[`kills${mode.id}`]}</StatCell>
+						<StatCell>{json[`deaths${mode.id}`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`kills${mode.id}`],json[`deaths${mode.id}`])}</StatCell>
+						<StatCell>{json[`wins${mode.id}`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`kills${mode.id}`],json[`wins${mode.id}`])}</StatCell>
+						<StatCell>{json[`heads_eaten${mode.id}`]}</StatCell>
 					</tr>
 					)
 			}
@@ -157,22 +157,22 @@ export function UHC(props) {
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
-					<Stat title="Score">{leveling.xp}</Stat>
-					<Stat title="Title" color={titleColor}>{title}</Stat>
-					<Stat title="Coins" color="gold">{json.coins}</Stat>
+					<StatPair title="Score">{leveling.xp}</StatPair>
+					<StatPair title="Title" color={titleColor}>{title}</StatPair>
+					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
 				</div>
 				<div className="flex-1">
-					<Stat title="Kills">{kills}</Stat>
-					<Stat title="Deaths">{deaths}</Stat>
-					<Stat title="Kill/Death Ratio">{ratios.kd}</Stat>
+					<StatPair title="Kills">{kills}</StatPair>
+					<StatPair title="Deaths">{deaths}</StatPair>
+					<StatPair title="Kill/Death Ratio">{ratios.kd}</StatPair>
 				</div>
 				<div className="flex-1">
-					<Stat title="Wins">{wins}</Stat>
-					<Stat title="Kill/Win Ratio">{ratios.kw}</Stat>
-					<Stat title="Heads Eaten">{heads}</Stat>
-					<Stat title="Ultimates Crafted">
+					<StatPair title="Wins">{wins}</StatPair>
+					<StatPair title="Kill/Win Ratio">{ratios.kw}</StatPair>
+					<StatPair title="Heads Eaten">{heads}</StatPair>
+					<StatPair title="Ultimates Crafted">
 						{Utils.default0(json.ultimates_crafted) + Utils.default0(json.ultimates_crafted_solo)}
-					</Stat>
+					</StatPair>
 				</div>
 			</div>
 			<div className="accordion-separator mb-3"></div>

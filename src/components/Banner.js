@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { IconContext } from 'react-icons';
-import { MdReport, MdInfoOutline } from 'react-icons/md';
 import './Banner.css';
+import { ReactIcon } from 'components';
 
 /*
 * A popup banner to display a message
@@ -34,10 +33,10 @@ export function Banner(props) {
 	*/
 	function getSymbol() {
 		if (props.type === "error") {
-			return <MdReport />;
+			return <ReactIcon icon="MdReport" />;
 		}
 		else if (props.type === "info") {
-			return <MdInfoOutline />;
+			return <ReactIcon icon="MdInfoOutline" />;
 		}
 	}
 
@@ -64,11 +63,9 @@ export function Banner(props) {
 			className={`banner banner-${props.type}`}
 			style={style}>
 			<div className="py-1 px-3">
-				<IconContext.Provider value={{ className: 'react-icons' }}>
-					<span className="font-md pr-1">
-						{getSymbol()}
-					</span>
-				</IconContext.Provider>
+				<span className="font-md pr-1">
+					{getSymbol()}
+				</span>
 				<span className="font-bold">{props.title}</span>
 				<span>{props.description}</span>
 			</div>

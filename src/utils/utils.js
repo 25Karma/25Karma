@@ -32,6 +32,16 @@ export function default0(val) {
 }
 
 /*
+* Safely adds numbers that could be undefined
+*
+* @param {number} arguments A dynamic amount of parameters to add
+* @return {number} 			The sum of the parameters
+*/
+export function add() {
+	return Array.from(arguments).reduce((a, b) => default0(a) + default0(b), 0);
+}
+
+/*
 * Calculates a ratio safely
 *
 * @param {number} num 	The numerator of the ratio
@@ -53,8 +63,8 @@ export function ratio(num, denom) {
 export function traverse(json, path) {
 	const paths = path.split('.');
 	for (const p of paths) {
-		json = json[p];
 		if (json === undefined) return undefined;
+		json = json[p];
 	}
 	return json;
 }
@@ -166,6 +176,7 @@ export function toColorCode(str) {
 		'pink' : 'd',
 		'yellow' : 'e',
 		'white' : 'f',
+		'brown' : 'g',
 		'rainbow' : 'R',
 		'rainbow font-bold' : 'K',
 	}

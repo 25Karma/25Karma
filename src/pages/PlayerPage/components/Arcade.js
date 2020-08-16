@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, Box, Stat } from 'components';
+import { Accordion, Box, StatCell, StatPair } from 'components';
 import * as Utils from 'utils';
 
 /*
@@ -69,16 +69,16 @@ export function Arcade(props) {
 			<tbody>
 			{
 				consts.ZOMBIESMODES.map(mode => 
-					Utils.default0(json[`best_round_zombies_${mode.id}`]) > 0 &&
+					Boolean(json[`best_round_zombies_${mode.id}`]) &&
 					<tr key={mode.id}>
-						<td className={`c-${mode.color}`}>{mode.name}</td>
-						<td>{Utils.formatNum(json[`times_knocked_down_zombies_${mode.id}`])}</td>
-						<td>{Utils.formatNum(json[`players_revived_zombies_${mode.id}`])}</td>
-						<td>{Utils.formatNum(json[`doors_opened_zombies_${mode.id}`])}</td>
-						<td>{Utils.formatNum(json[`windows_repaired_zombies_${mode.id}`])}</td>
-						<td>{Utils.formatNum(json[`zombie_kills_zombies_${mode.id}`])}</td>
-						<td>{Utils.formatNum(json[`deaths_zombies_${mode.id}`])}</td>
-						<td>{Utils.formatNum(json[`best_round_zombies_${mode.id}`])}</td>
+						<StatCell color={mode.color}>{mode.name}</StatCell>
+						<StatCell>{json[`times_knocked_down_zombies_${mode.id}`]}</StatCell>
+						<StatCell>{json[`players_revived_zombies_${mode.id}`]}</StatCell>
+						<StatCell>{json[`doors_opened_zombies_${mode.id}`]}</StatCell>
+						<StatCell>{json[`windows_repaired_zombies_${mode.id}`]}</StatCell>
+						<StatCell>{json[`zombie_kills_zombies_${mode.id}`]}</StatCell>
+						<StatCell>{json[`deaths_zombies_${mode.id}`]}</StatCell>
+						<StatCell>{json[`best_round_zombies_${mode.id}`]}</StatCell>
 					</tr>
 					)
 			}
@@ -99,8 +99,8 @@ export function Arcade(props) {
 				consts.ZOMBIESTYPES.map(mode => 
 					json[`${mode.id}_zombie_kills_zombies`] &&
 					<tr key={mode.id}>
-						<td className={`c-${mode.color || 'white'}`}>{mode.name}</td>
-						<td>{Utils.formatNum(json[`${mode.id}_zombie_kills_zombies`])}</td>
+						<StatCell color={mode.color}>{mode.name}</StatCell>
+						<StatCell>{json[`${mode.id}_zombie_kills_zombies`]}</StatCell>
 					</tr>
 					)
 			}
@@ -111,105 +111,105 @@ export function Arcade(props) {
 	return (
 		<Accordion title="Arcade" header={header} index={props.index}>
 			<div className="mb-3">
-				<Stat title="Arcade Coins" color="gold">{json.coins}</Stat>
+				<StatPair title="Arcade Coins" color="gold">{json.coins}</StatPair>
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
 					<div className="font-bold underline mb-1">Blocking Dead</div>
-					<Stat title="Wins">{json.wins_dayone}</Stat>
-					<Stat title="Kills">{json.kills_dayone}</Stat>
-					<Stat title="Headshots">{json.headshots_dayone}</Stat>
-					<Stat title="Melee Weapon">
+					<StatPair title="Wins">{json.wins_dayone}</StatPair>
+					<StatPair title="Kills">{json.kills_dayone}</StatPair>
+					<StatPair title="Headshots">{json.headshots_dayone}</StatPair>
+					<StatPair title="Melee Weapon">
 						{Utils.capitalize((json.melee_weapon || '-').split('_').join(' '))}
-					</Stat>
+					</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Bounty Hunters</div>
-					<Stat title="Wins">{json.wins_oneinthequiver}</Stat>
-					<Stat title="Kills">{json.kills_oneinthequiver}</Stat>
-					<Stat title="Deaths">{json.deaths_oneinthequiver}</Stat>
-					<Stat title="Kill/Death Ratio">{Utils.ratio(json.kills_oneinthequiver, json.deaths_oneinthequiver)}</Stat>
+					<StatPair title="Wins">{json.wins_oneinthequiver}</StatPair>
+					<StatPair title="Kills">{json.kills_oneinthequiver}</StatPair>
+					<StatPair title="Deaths">{json.deaths_oneinthequiver}</StatPair>
+					<StatPair title="Kill/Death Ratio">{Utils.ratio(json.kills_oneinthequiver, json.deaths_oneinthequiver)}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Creeper Attack</div>
-					<Stat title="Max Wave">{json.max_wave}</Stat>
+					<StatPair title="Max Wave">{json.max_wave}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Dragon Wars</div>
-					<Stat title="Wins">{json.wins_dragonwars2}</Stat>
-					<Stat title="Kills">{json.kills_dragonwars2}</Stat>
+					<StatPair title="Wins">{json.wins_dragonwars2}</StatPair>
+					<StatPair title="Kills">{json.kills_dragonwars2}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Easter Simulator</div>
-					<Stat title="Wins">{json.wins_easter_simulator}</Stat>
-					<Stat title="Eggs Found">{json.eggs_found_easter_simulator}</Stat>
+					<StatPair title="Wins">{json.wins_easter_simulator}</StatPair>
+					<StatPair title="Eggs Found">{json.eggs_found_easter_simulator}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Ender Spleef</div>
-					<Stat title="Wins">{json.wins_ender}</Stat>
+					<StatPair title="Wins">{json.wins_ender}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Farm Hunt</div>
-					<Stat title="Wins">{json.wins_farm_hunt}</Stat>
-					<Stat title="Poop Collected">{json.poop_collected}</Stat>
+					<StatPair title="Wins">{json.wins_farm_hunt}</StatPair>
+					<StatPair title="Poop Collected">{json.poop_collected}</StatPair>
 				</div>
 				<div className="flex-1">
 					<div className="font-bold underline mb-1">Football</div>
-					<Stat title="Wins">{json.wins_soccer}</Stat>
-					<Stat title="Goals">{json.goals_soccer}</Stat>
-					<Stat title="Kicks">{json.kicks_soccer}</Stat>
-					<Stat title="Powerkicks">{json.powerkicks_soccer}</Stat>
+					<StatPair title="Wins">{json.wins_soccer}</StatPair>
+					<StatPair title="Goals">{json.goals_soccer}</StatPair>
+					<StatPair title="Kicks">{json.kicks_soccer}</StatPair>
+					<StatPair title="Powerkicks">{json.powerkicks_soccer}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Galaxy Wars</div>
-					<Stat title="Wins">{json.sw_game_wins}</Stat>
-					<Stat title="Kills">{json.sw_kills}</Stat>
-					<Stat title="Empire Kills">{json.sw_empire_kills}</Stat>
-					<Stat title="Rebel Kills">{json.sw_rebel_kills}</Stat>
-					<Stat title="Deaths">{json.sw_deaths}</Stat>
-					<Stat title="Kill/Death Ratio">{Utils.ratio(json.sw_wins, json.sw_deaths)}</Stat>
-					<Stat title="Shots Fired">{json.sw_shots_fired}</Stat>
+					<StatPair title="Wins">{json.sw_game_wins}</StatPair>
+					<StatPair title="Kills">{json.sw_kills}</StatPair>
+					<StatPair title="Empire Kills">{json.sw_empire_kills}</StatPair>
+					<StatPair title="Rebel Kills">{json.sw_rebel_kills}</StatPair>
+					<StatPair title="Deaths">{json.sw_deaths}</StatPair>
+					<StatPair title="Kill/Death Ratio">{Utils.ratio(json.sw_wins, json.sw_deaths)}</StatPair>
+					<StatPair title="Shots Fired">{json.sw_shots_fired}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Grinch Simulator</div>
-					<Stat title="Wins">{json.wins_grinch}</Stat>
+					<StatPair title="Wins">{json.wins_grinch}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Hide and Seek</div>
-					<Stat title="Wins as Seeker">{json.seeker_wins_hide_and_seek}</Stat>
-					<Stat title="Wins as Hider">{json.hider_wins_hide_and_seek}</Stat>
+					<StatPair title="Wins as Seeker">{json.seeker_wins_hide_and_seek}</StatPair>
+					<StatPair title="Wins as Hider">{json.hider_wins_hide_and_seek}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Hole in the Wall</div>
-					<Stat title="Wins">{json.wins_hole_in_the_wall}</Stat>
-					<Stat title="Highest Score Qualifications">{json.hitw_record_q}</Stat>
-					<Stat title="Highest Score Finals">{json.hitw_record_f}</Stat>
+					<StatPair title="Wins">{json.wins_hole_in_the_wall}</StatPair>
+					<StatPair title="Highest Score Qualifications">{json.hitw_record_q}</StatPair>
+					<StatPair title="Highest Score Finals">{json.hitw_record_f}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Hypixel Says</div>
-					<Stat title="Wins">{json.wins_simon_says}</Stat>
-					<Stat title="Rounds">{json.rounds_simon_says}</Stat>
+					<StatPair title="Wins">{json.wins_simon_says}</StatPair>
+					<StatPair title="Rounds">{json.rounds_simon_says}</StatPair>
 				</div>
 				<div className="flex-1">
 					<div className="font-bold underline mb-1">Party Games 1</div>
-					<Stat title="Wins">{json.wins_party}</Stat>
+					<StatPair title="Wins">{json.wins_party}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Party Games 2</div>
-					<Stat title="Wins">{json.wins_party_2}</Stat>
+					<StatPair title="Wins">{json.wins_party_2}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Party Games 3</div>
-					<Stat title="Wins">{json.wins_party_3}</Stat>
+					<StatPair title="Wins">{json.wins_party_3}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Pixel Painters</div>
-					<Stat title="Wins">{json.wins_draw_their_thing}</Stat>
+					<StatPair title="Wins">{json.wins_draw_their_thing}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Santa Says</div>
-					<Stat title="Wins">{json.wins_santa_says}</Stat>
-					<Stat title="Rounds">{json.rounds_santa_says}</Stat>
+					<StatPair title="Wins">{json.wins_santa_says}</StatPair>
+					<StatPair title="Rounds">{json.rounds_santa_says}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Santa Simulator</div>
-					<Stat title="Presents Delivered">{json.delivered_santa_simulator}</Stat>
-					<Stat title="Times Spotted">{json.spotted_santa_simulator}</Stat>
+					<StatPair title="Presents Delivered">{json.delivered_santa_simulator}</StatPair>
+					<StatPair title="Times Spotted">{json.spotted_santa_simulator}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Scuba Simulator</div>
-					<Stat title="Wins">{json.wins_scuba_simulator}</Stat>
-					<Stat title="Items Found">{json.items_found_scuba_simulator}</Stat>
-					<Stat title="Total Points">{json.total_points_scuba_simulator}</Stat>
+					<StatPair title="Wins">{json.wins_scuba_simulator}</StatPair>
+					<StatPair title="Items Found">{json.items_found_scuba_simulator}</StatPair>
+					<StatPair title="Total Points">{json.total_points_scuba_simulator}</StatPair>
 					<br />
 					<div className="font-bold underline mb-1">Throw Out</div>
-					<Stat title="Wins">{json.wins_throw_out}</Stat>
-					<Stat title="Kills">{json.kills_throw_out}</Stat>
-					<Stat title="Deaths">{json.deaths_throw_out}</Stat>
-					<Stat title="Kill/Death Ratio">{Utils.ratio(json.kills_throw_out, json.deaths_throw_out)}</Stat>
+					<StatPair title="Wins">{json.wins_throw_out}</StatPair>
+					<StatPair title="Kills">{json.kills_throw_out}</StatPair>
+					<StatPair title="Deaths">{json.deaths_throw_out}</StatPair>
+					<StatPair title="Kill/Death Ratio">{Utils.ratio(json.kills_throw_out, json.deaths_throw_out)}</StatPair>
 				</div>
 			</div>
 			<div className="accordion-separator mb-2"></div>
@@ -217,23 +217,23 @@ export function Arcade(props) {
 			<div className="font-bold font-md text-center mb-2">Mini Walls</div>
 			<div className="h-flex mb-2">
 				<div className="flex-1">
-					<Stat title="Wins">{json.wins_mini_walls}</Stat>
-					<Stat title="Kit">{Utils.capitalize(json.miniwalls_activeKit || '-')}</Stat>
-					<Stat title="Withers Killed">{json.wither_kills_mini_walls}</Stat>
+					<StatPair title="Wins">{json.wins_mini_walls}</StatPair>
+					<StatPair title="Kit">{Utils.capitalize(json.miniwalls_activeKit || '-')}</StatPair>
+					<StatPair title="Withers Killed">{json.wither_kills_mini_walls}</StatPair>
 				</div>
 				<div className="flex-1">
-					<Stat title="Kills">{json.kills_mini_walls}</Stat>
-					<Stat title="Final Kills">{json.final_kills_mini_walls}</Stat>
-					<Stat title="Deaths">{json.deaths_mini_walls}</Stat>
-					<Stat title="Kill/Death Ratio">
+					<StatPair title="Kills">{json.kills_mini_walls}</StatPair>
+					<StatPair title="Final Kills">{json.final_kills_mini_walls}</StatPair>
+					<StatPair title="Deaths">{json.deaths_mini_walls}</StatPair>
+					<StatPair title="Kill/Death Ratio">
 						{Utils.ratio(json.kills_mini_walls/json.deaths_mini_walls)
 							+Utils.ratio(json.final_kills_mini_walls/json.deaths_mini_walls)}
-					</Stat>
+					</StatPair>
 				</div>
 				<div className="flex-1">
-					<Stat title="Arrows Hit">{json.arrows_hit_mini_walls}</Stat>
-					<Stat title="Arrows Shot">{json.arrows_shot_mini_walls}</Stat>
-					<Stat title="Arrow Hit Accuracy">{Utils.ratio(json.arrows_hit_mini_walls, json.arrows_shot_mini_walls)}</Stat>
+					<StatPair title="Arrows Hit">{json.arrows_hit_mini_walls}</StatPair>
+					<StatPair title="Arrows Shot">{json.arrows_shot_mini_walls}</StatPair>
+					<StatPair title="Arrow Hit Accuracy">{Utils.ratio(json.arrows_hit_mini_walls, json.arrows_shot_mini_walls)}</StatPair>
 				</div>
 			</div>
 			<div className="accordion-separator mb-2"></div>
@@ -241,18 +241,18 @@ export function Arcade(props) {
 			<div className="font-bold font-md text-center mb-2">Zombies</div>
 			<div className="h-flex mb-2">
 				<div className="flex-1">
-					<Stat title="Bullets Hit">{json.bullets_hit_zombies}</Stat>
-					<Stat title="Bullets Shot">{json.bullets_shot_zombies}</Stat>
-					<Stat title="Bullet Hit Accuracy" percentage>{Utils.ratio(json.bullets_hit_zombies, json.bullets_shot_zombies)}</Stat>
-					<Stat title="Headshots">{json.headshots_zombies}</Stat>
-					<Stat title="Headshot Accuracy" percentage>{Utils.ratio(json.headshots_zombies, json.bullets_hit_zombies)}</Stat>
+					<StatPair title="Bullets Hit">{json.bullets_hit_zombies}</StatPair>
+					<StatPair title="Bullets Shot">{json.bullets_shot_zombies}</StatPair>
+					<StatPair title="Bullet Hit Accuracy" percentage>{Utils.ratio(json.bullets_hit_zombies, json.bullets_shot_zombies)}</StatPair>
+					<StatPair title="Headshots">{json.headshots_zombies}</StatPair>
+					<StatPair title="Headshot Accuracy" percentage>{Utils.ratio(json.headshots_zombies, json.bullets_hit_zombies)}</StatPair>
 				</div>
 				<div className="flex-1">
-					<Stat title="Times Knocked Down">{json.times_knocked_down_zombies}</Stat>
-					<Stat title="Players Revived">{json.players_revived_zombies}</Stat>
-					<Stat title="Doors Opened">{json.doors_opened_zombies}</Stat>
-					<Stat title="Windows Repaired">{json.windows_repaired_zombies}</Stat>
-					<Stat title="Zombies Killed">{json.zombie_kills_zombies}</Stat>
+					<StatPair title="Times Knocked Down">{json.times_knocked_down_zombies}</StatPair>
+					<StatPair title="Players Revived">{json.players_revived_zombies}</StatPair>
+					<StatPair title="Doors Opened">{json.doors_opened_zombies}</StatPair>
+					<StatPair title="Windows Repaired">{json.windows_repaired_zombies}</StatPair>
+					<StatPair title="Zombies Killed">{json.zombie_kills_zombies}</StatPair>
 				</div>
 			</div>
 			<div className="overflow-x mb-2">

@@ -17,7 +17,7 @@ export function FrontPage(props) {
 	const config = props.config || {};
 
 	// Stores how many recent searches to show
-	const [recentSearchesCount, setRecentSearchesCount] = useState(5);
+	const [showAllRecents, setShowAllRecents] = useState(false);
 
 	// Set the banner according to the config
 	let banner = null;
@@ -74,7 +74,7 @@ export function FrontPage(props) {
 					<div className="pl-2 py-1">
 						<Link to={`/player/${suggestedPlayer}`}>
 							<Button>
-									<span className="font-xs c-gray">{suggestedPlayer}</span>
+									<span className="font-xs">{suggestedPlayer}</span>
 							</Button>
 						</Link>
 					</div>
@@ -84,20 +84,20 @@ export function FrontPage(props) {
 		return (
 			<React.Fragment>
 				<div className="pt-2 nowrap">
-					<MinecraftText>§7Recent searches</MinecraftText>
+					<MinecraftText>Recent searches</MinecraftText>
 				</div>
 				<div className="h-flex flex-wrap">
-					{array.slice(0,recentSearchesCount).map((a) => (
+					{array.slice(0, showAllRecents ? array.length : 5).map((a) => (
 						<div key={a} className="pl-2 py-1">
 							<Link to={`/player/${a}`}>
 								<Button>
-									<span className="font-xs c-gray">{a}</span>
+									<span className="font-xs">{a}</span>
 								</Button>
 							</Link>
 						</div>
 					))}
-					{array.length > 5 && recentSearchesCount === 5 &&
-							<button className="pl-2 c-gray" onClick={()=>{setRecentSearchesCount(25)}}>
+					{array.length > 5 && !showAllRecents &&
+							<button className="pl-2" onClick={()=>{setShowAllRecents(true)}}>
 								<ReactIcon icon="MdMoreHoriz" />
 							</button>
 					}

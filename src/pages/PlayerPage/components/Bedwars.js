@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, Box, Progress, ProgressBar, Stat } from 'components';
+import { Accordion, Box, Progress, ProgressBar, StatCell, StatPair } from 'components';
 import * as Utils from 'utils';
 
 /*
@@ -111,7 +111,7 @@ export function Bedwars(props) {
 
 	const header = (
 		<React.Fragment>
-			<Box title="Level">{`${Utils.toColorCode(prestigeColor)}[${leveling.levelFloor}✫]`}</Box>
+			<Box title="Level" color={prestigeColor}>{`[${leveling.levelFloor}✫]`}</Box>
 			<Box title="WS">{json.winstreak}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="FKD">{ratios.fkd}</Box>
@@ -150,20 +150,20 @@ export function Bedwars(props) {
 					);
 			}
 			rowList.push(
-				Utils.default0(json[`${mode.id}_wins_bedwars`]) + Utils.default0(json[`${mode.id}_losses_bedwars`]) > 0 &&
+				Boolean(Utils.add(json[`${mode.id}_wins_bedwars`], json[`${mode.id}_losses_bedwars`])) &&
 				<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
-					<td>{mode.name}</td>
-					<td>{Utils.formatNum(json[`${mode.id}_kills_bedwars`])}</td>
-					<td>{Utils.formatNum(json[`${mode.id}_deaths_bedwars`])}</td>
-					<td>{Utils.formatNum(Utils.ratio(json[`${mode.id}_kills_bedwars`],json[`${mode.id}_deaths_bedwars`]))}</td>
-					<td>{Utils.formatNum(json[`${mode.id}_final_kills_bedwars`])}</td>
-					<td>{Utils.formatNum(json[`${mode.id}_final_deaths_bedwars`])}</td>
-					<td>{Utils.formatNum(Utils.ratio(json[`${mode.id}_final_kills_bedwars`],json[`${mode.id}_final_deaths_bedwars`]))}</td>
-					<td>{Utils.formatNum(json[`${mode.id}_wins_bedwars`])}</td>
-					<td>{Utils.formatNum(json[`${mode.id}_losses_bedwars`])}</td>
-					<td>{Utils.formatNum(Utils.ratio(json[`${mode.id}_wins_bedwars`],json[`${mode.id}_losses_bedwars`]))}</td>
-					<td>{Utils.formatNum(json[`${mode.id}_beds_broken_bedwars`])}</td>
-					<td>{Utils.formatNum(Utils.ratio(json[`${mode.id}_beds_broken_bedwars`],json[`${mode.id}_beds_lost_bedwars`]))}</td>
+					<StatCell>{mode.name}</StatCell>
+					<StatCell>{json[`${mode.id}_kills_bedwars`]}</StatCell>
+					<StatCell>{json[`${mode.id}_deaths_bedwars`]}</StatCell>
+					<StatCell>{Utils.ratio(json[`${mode.id}_kills_bedwars`],json[`${mode.id}_deaths_bedwars`])}</StatCell>
+					<StatCell>{json[`${mode.id}_final_kills_bedwars`]}</StatCell>
+					<StatCell>{json[`${mode.id}_final_deaths_bedwars`]}</StatCell>
+					<StatCell>{Utils.ratio(json[`${mode.id}_final_kills_bedwars`],json[`${mode.id}_final_deaths_bedwars`])}</StatCell>
+					<StatCell>{json[`${mode.id}_wins_bedwars`]}</StatCell>
+					<StatCell>{json[`${mode.id}_losses_bedwars`]}</StatCell>
+					<StatCell>{Utils.ratio(json[`${mode.id}_wins_bedwars`],json[`${mode.id}_losses_bedwars`])}</StatCell>
+					<StatCell>{json[`${mode.id}_beds_broken_bedwars`]}</StatCell>
+					<StatCell>{Utils.ratio(json[`${mode.id}_beds_broken_bedwars`],json[`${mode.id}_beds_lost_bedwars`])}</StatCell>
 				</tr>
 				);
 		}
@@ -205,32 +205,32 @@ export function Bedwars(props) {
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
-					<Stat title="Level">{leveling.level}</Stat>
-					<Stat title="Prestige" color={prestigeColor}>{prestigeName}</Stat>
-					<Stat title="Coins" color="gold">{json.coins}</Stat>
+					<StatPair title="Level">{leveling.level}</StatPair>
+					<StatPair title="Prestige" color={prestigeColor}>{prestigeName}</StatPair>
+					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
 					<br/>
-					<Stat title="Winstreak">{json.winstreak}</Stat>
-					<Stat title="Wins">{json.wins_bedwars}</Stat>
-					<Stat title="Losses">{json.losses_bedwars}</Stat>
-					<Stat title="Win/Loss Ratio">{ratios.wl}</Stat>
+					<StatPair title="Winstreak">{json.winstreak}</StatPair>
+					<StatPair title="Wins">{json.wins_bedwars}</StatPair>
+					<StatPair title="Losses">{json.losses_bedwars}</StatPair>
+					<StatPair title="Win/Loss Ratio">{ratios.wl}</StatPair>
 					<br/>
-					<Stat title="Beds Broken">{json.beds_broken_bedwars}</Stat>
-					<Stat title="Beds Lost">{json.beds_lost_bedwars}</Stat>
-					<Stat title="Beds Broken/Lost Ratio">{ratios.bbl}</Stat>
+					<StatPair title="Beds Broken">{json.beds_broken_bedwars}</StatPair>
+					<StatPair title="Beds Lost">{json.beds_lost_bedwars}</StatPair>
+					<StatPair title="Beds Broken/Lost Ratio">{ratios.bbl}</StatPair>
 				</div>
 				<div className="flex-1">
-					<Stat title="Kills">{json.kills_bedwars}</Stat>
-					<Stat title="Deaths">{json.deaths_bedwars}</Stat>
-					<Stat title="Kill/Death Ratio">{ratios.kd}</Stat>
-					<Stat title="Final Kills">{json.final_kills_bedwars}</Stat>
-					<Stat title="Final Deaths">{json.final_deaths_bedwars}</Stat>
-					<Stat title="Final Kill/Death Ratio">{ratios.fkd}</Stat>
+					<StatPair title="Kills">{json.kills_bedwars}</StatPair>
+					<StatPair title="Deaths">{json.deaths_bedwars}</StatPair>
+					<StatPair title="Kill/Death Ratio">{ratios.kd}</StatPair>
+					<StatPair title="Final Kills">{json.final_kills_bedwars}</StatPair>
+					<StatPair title="Final Deaths">{json.final_deaths_bedwars}</StatPair>
+					<StatPair title="Final Kill/Death Ratio">{ratios.fkd}</StatPair>
 					<br/>
-					<Stat title="Iron Collected">{json.iron_resources_collected_bedwars}</Stat>
-					<Stat title="Gold Collected">{json.gold_resources_collected_bedwars}</Stat>
-					<Stat title="Diamonds Collected">{json.diamond_resources_collected_bedwars}</Stat>
-					<Stat title="Emeralds Collected">{json.emerald_resources_collected_bedwars}</Stat>
-					<Stat title="Wrapped Presents Collected">{json.wrapped_present_resources_collected_bedwars}</Stat>
+					<StatPair title="Iron Collected">{json.iron_resources_collected_bedwars}</StatPair>
+					<StatPair title="Gold Collected">{json.gold_resources_collected_bedwars}</StatPair>
+					<StatPair title="Diamonds Collected">{json.diamond_resources_collected_bedwars}</StatPair>
+					<StatPair title="Emeralds Collected">{json.emerald_resources_collected_bedwars}</StatPair>
+					<StatPair title="Wrapped Presents Collected">{json.wrapped_present_resources_collected_bedwars}</StatPair>
 				</div>
 			</div>
 			<div className="accordion-separator mb-3"></div>
@@ -240,13 +240,13 @@ export function Bedwars(props) {
 			<div className="accordion-separator mb-3"></div>
 			<div className="h-flex mb-2">
 				<div className="flex-1">
-					<Stat title="Times Drowned">{json.drowning_deaths_bedwars}</Stat>
-					<Stat title="Deaths to Fire">{Utils.default0(json.fire_tick_deaths_bedwars)+Utils.default0(json.fire_deaths_bedwars)}</Stat>
-					<Stat title="Deaths to Suffocation">{Utils.default0(json.suffocation_deaths_bedwars)+Utils.default0(json.suffocation_final_deaths_bedwars)}</Stat>
+					<StatPair title="Times Drowned">{json.drowning_deaths_bedwars}</StatPair>
+					<StatPair title="Deaths to Fire">{Utils.default0(json.fire_tick_deaths_bedwars)+Utils.default0(json.fire_deaths_bedwars)}</StatPair>
+					<StatPair title="Deaths to Suffocation">{Utils.default0(json.suffocation_deaths_bedwars)+Utils.default0(json.suffocation_final_deaths_bedwars)}</StatPair>
 				</div>
 				<div className="flex-1">
-					<Stat title="Loot Chests">{json.bedwars_boxes}</Stat>
-					<Stat title="Total Shop Purchases">{json._items_purchased_bedwars}</Stat>
+					<StatPair title="Loot Chests">{json.bedwars_boxes}</StatPair>
+					<StatPair title="Total Shop Purchases">{json._items_purchased_bedwars}</StatPair>
 				</div>
 			</div>
 		</Accordion>

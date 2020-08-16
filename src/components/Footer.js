@@ -9,7 +9,7 @@ import { ExternalLink } from 'components';
 */
 export function Footer(props) {
 	return (
-		<div className="p-1 footer font-xs">
+		<div className="p-1 footer font-xs border">
 			<span>
 				Powered by the&nbsp;
 				<ExternalLink href="https://api.hypixel.net/">Hypixel API</ExternalLink>. 

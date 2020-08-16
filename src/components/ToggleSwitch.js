@@ -16,8 +16,10 @@ export function ToggleSwitch(props) {
 	const [checked, setChecked] = useState(props.checked);
 
 	function handleChange(event) {
-		setChecked(!checked);
-		props.onChange(event.target.checked);
+		setChecked(event.target.checked);
+		if (props.onChange) {
+			props.onChange(event.target.checked);
+		}
 	}
 
 	return (

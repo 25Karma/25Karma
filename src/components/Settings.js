@@ -100,11 +100,11 @@ export function Settings(props) {
 			<div className="container v-flex">
 				{/* 'Pinned Player' row */}
 				<div className="h-flex align-items-center pb-2">
-					<div 
+					<span 
 						data-tip="The player you would like to load by default when you visit this site." 
 						className="font-bold cursor-help pr-2">
 						Pinned Player
-					</div>
+					</span>
 					<input 
 						ref={pinnedPlayerInput}
 						style={{width:'15rem'}}
@@ -113,17 +113,17 @@ export function Settings(props) {
 						defaultValue={Cookies.get('pinnedPlayer')}/>
 					<div className="pl-2 ml-auto">
 						<Button type="error" onClick={clearCookies}>
-							<small>Clear Cookies</small>
+							<span className="font-bold">Clear Cookies</span>
 						</Button>
 					</div>
 				</div>
 				{/* 'Decimal Places' row */}
 				<div className="h-flex align-items-center pb-2">
-					<div 
+					<span 
 						data-tip="The amount of decimal places to display for K/D, W/L, etc." 
 						className="font-bold cursor-help pr-2">
 						Decimal Places
-					</div>
+					</span>
 					<input 
 						ref={decimalInput}
 						style={{width:'4rem'}}
@@ -135,7 +135,7 @@ export function Settings(props) {
 				</div>
 				<div className="v-flex align-items-center pb-2">
 					<div className="pb-2">
-						<Button onClick={setCookies}>Save Settings</Button>
+						<Button onClick={setCookies}><span className="font-bold">Save Settings</span></Button>
 					</div>
 					{renderBanner()}
 				</div>

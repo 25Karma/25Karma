@@ -30,6 +30,7 @@ export function MinecraftText(props) {
 			'd': 'pink',
 			'e': 'yellow',
 			'f': 'white',
+			'g': 'brown',
 			'R': 'rainbow',
 			'K': 'rainbow font-bold'
 		}

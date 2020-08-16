@@ -1,19 +1,10 @@
-.btn25 {
+.btn {
 	border-radius: 0.25rem;
-	box-shadow: inset 0 0 0.25rem #0009;
-	font-size: 1rem;
-	font-weight: bold;
-	transition: all 0.2s;
+	transition: all 0.1s;
 	user-select: none;
+	border: 1px solid var(--theme-border);
 }
-.btn25:hover {
-	box-shadow: inset 0 0 1rem #0009;
-	text-shadow: 0 0.25rem 0.25rem #0009; 
-	color: #ccc;
-}
-.btn25-default {
-	background-color: transparent;
-}
-.btn25-error {
-	background-color: rgba(200,50,50,0.5);
-}
+.btn-default { background-color: rgba(0,0,0,0.2); }
+.btn-default:hover { background-color: rgba(0,0,0,0.5); }
+.btn-error { background-color: rgba(200,50,50,0.4); }
+.btn-error:hover { background-color: rgba(200,50,50,0.7); }

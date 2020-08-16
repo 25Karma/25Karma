@@ -20,7 +20,7 @@ export function Accordion(props) {
 					className="py-1"
 					ref={dProvided.innerRef}
 					{...dProvided.draggableProps}>
-					<div className="rounded overflow-hidden">
+					<div className="accordion">
 						<div className="accordion-header px-2"> 
 							<div 
 								className="h-flex align-items-center flex-1 cursor-pointer overflow-hidden" 

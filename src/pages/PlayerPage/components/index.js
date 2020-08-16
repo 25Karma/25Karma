@@ -5,4 +5,5 @@ export * from './Duels.js';
 export * from './MurderMystery.js';
 export * from './Skywars.js';
 export * from './SpeedUHC.js';
+export * from './TurboKartRacers.js';
 export * from './UHC.js';

@@ -1,11 +1,13 @@
 .settings {
 	background-color: var(--theme-secondary);
+	/* Top and bottom inset box shadows only */
+	box-shadow: 0 1px 2px var(--theme-border) inset, 0 -1px 2px var(--theme-border) inset;
 }
 .settings input {
 	border: 0px;
 	padding: 0.5rem;
-	background: var(--theme-input);
-	font-size: 1rem;
+	background: var(--theme-primary);
+	border: 1px solid var(--theme-border);
 	border-radius: 0.25rem;
 }
 .settings input::placeholder {

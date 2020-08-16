@@ -4,12 +4,11 @@
 }
 
 :root {
-	--theme-border: white;
 	--theme-text: white;
 	--theme-secondary: #222;
 	--theme-primary: #333;
-	--theme-input: #666;
-	--theme-input-placeholder: #999;
+	--theme-input-placeholder: #777;
+	--theme-border: #111;
 }
 
 /* 
@@ -96,6 +95,7 @@ button:focus {
 .mt-auto { margin-top: auto; }
 .mx-1 { margin-left: 0.5rem; margin-right: 0.5rem; }
 .mx-2 { margin-left: 1rem; margin-right: 1rem; }
+.mx-3 { margin-left: 2rem; margin-right: 2rem; }
 .mx-auto { margin-left: auto; margin-right: auto; }
 .my-1 { margin-top: 0.5rem; margin-bottom: 0.5rem; }
 .my-2 { margin-top: 1rem; margin-bottom: 1rem; }
@@ -118,6 +118,7 @@ button:focus {
 .pr-1 { padding-right: 0.5rem; }
 .pr-2 { padding-right: 1rem; }
 .pr-3 { padding-right: 2rem; }
+.pr-4 { padding-right: 4rem; }
 .pt-1 { padding-top: 0.5rem; }
 .pt-2 { padding-top: 1rem; }
 .pt-3 { padding-top: 2rem; }

@@ -7,12 +7,6 @@ import { FrontPage, NotFoundPage, PlayerPage } from 'pages';
 function App() {
 	const pinnedPlayer = Cookies.get('pinnedPlayer');
 
-	// Set dark/light theme of page - dark by default
-	const theme = Cookies.get('theme');
-	if (theme === 'light') {
-
-	}
-
 	return (
 		<div className="h-100 v-flex">
 			<div className="flex-1">

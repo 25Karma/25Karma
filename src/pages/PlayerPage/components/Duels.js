@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, Box, Stat } from 'components';
+import { Accordion, Box, StatCell, StatPair } from 'components';
 import * as Utils from 'utils';
 
 /*
@@ -100,7 +100,7 @@ export function Duels(props) {
 
 	const header = (
 		<React.Fragment>
-			<Box title="Division">{`${Utils.toColorCode(division.color)}${division.name}`}</Box>
+			<Box title="Division" color={division.color}>{division.name}</Box>
 			<Box title="Wins">{json.wins}</Box>
 			<Box title="WL">{ratios.wl}</Box>
 			<Box title="Most Played">{`§f${mostPlayedMode}`}</Box>
@@ -125,17 +125,17 @@ export function Duels(props) {
 			<tbody>
 			{
 				consts.MODES.map(mode => 
-					Utils.default0(json[`${mode.id}_wins`]) + Utils.default0(json[`${mode.id}_losses`]) > 0 &&
+					Boolean(Utils.add(json[`${mode.id}_wins`], json[`${mode.id}_losses`])) &&
 					<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
-						<td>{mode.name}</td>
-						<td>{Utils.formatNum(json[`${mode.id}_kills`])}</td>
-						<td>{Utils.formatNum(json[`${mode.id}_deaths`])}</td>
-						<td>{Utils.formatNum(Utils.ratio(json[`${mode.id}_kills`],json[`${mode.id}_deaths`]))}</td>
-						<td>{Utils.formatNum(json[`${mode.id}_wins`])}</td>
-						<td>{Utils.formatNum(json[`${mode.id}_losses`])}</td>
-						<td>{Utils.formatNum(Utils.ratio(json[`${mode.id}_wins`],json[`${mode.id}_losses`]))}</td>
-						<td>{Utils.formatNum(Utils.ratio(json[`${mode.id}_melee_hits`],json[`${mode.id}_melee_swings`]))}</td>
-						<td>{Utils.formatNum(Utils.ratio(json[`${mode.id}_bow_hits`],json[`${mode.id}_bow_shots`]))}</td>
+						<StatCell>{mode.name}</StatCell>
+						<StatCell>{json[`${mode.id}_kills`]}</StatCell>
+						<StatCell>{json[`${mode.id}_deaths`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`${mode.id}_kills`],json[`${mode.id}_deaths`])}</StatCell>
+						<StatCell>{json[`${mode.id}_wins`]}</StatCell>
+						<StatCell>{json[`${mode.id}_losses`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`${mode.id}_wins`],json[`${mode.id}_losses`])}</StatCell>
+						<StatCell>{Utils.ratio(json[`${mode.id}_melee_hits`],json[`${mode.id}_melee_swings`])}</StatCell>
+						<StatCell>{Utils.ratio(json[`${mode.id}_bow_hits`],json[`${mode.id}_bow_shots`])}</StatCell>
 					</tr>
 					)
 			}
@@ -147,30 +147,30 @@ export function Duels(props) {
 		<Accordion title="Duels" header={header} index={props.index}>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
-					<Stat title="Coins" color="gold">{json.coins}</Stat>
-					<Stat title="Loot Chests">{json.duels_chests}</Stat>
+					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
+					<StatPair title="Loot Chests">{json.duels_chests}</StatPair>
 					<br/>
 					<br/>
-					<Stat title="Kills">{stats.kills}</Stat>
-					<Stat title="Deaths">{stats.deaths}</Stat>
-					<Stat title="Kill/Death Ratio">{ratios.kd}</Stat>
+					<StatPair title="Kills">{stats.kills}</StatPair>
+					<StatPair title="Deaths">{stats.deaths}</StatPair>
+					<StatPair title="Kill/Death Ratio">{ratios.kd}</StatPair>
 					<br/>
-					<Stat title="Melee Swings">{json.melee_swings}</Stat>
-					<Stat title="Melee Hits">{json.melee_hits}</Stat>
-					<Stat title="Melee Hit Accuracy" percentage>{ratios.mhm}</Stat>
+					<StatPair title="Melee Swings">{json.melee_swings}</StatPair>
+					<StatPair title="Melee Hits">{json.melee_hits}</StatPair>
+					<StatPair title="Melee Hit Accuracy" percentage>{ratios.mhm}</StatPair>
 				</div>
 				<div className="flex-1">
-					<Stat title="Best Winstreak">{json.best_overall_winstreak}</Stat>
-					<Stat title="Current Winstreak">{json.current_winstreak}</Stat>
-					<Stat title="Overall Division" color={division.color}>{division.name}</Stat>
+					<StatPair title="Best Winstreak">{json.best_overall_winstreak}</StatPair>
+					<StatPair title="Current Winstreak">{json.current_winstreak}</StatPair>
+					<StatPair title="Overall Division" color={division.color}>{division.name}</StatPair>
 					<br/>
-					<Stat title="Wins">{json.wins}</Stat>
-					<Stat title="Losses">{json.losses}</Stat>
-					<Stat title="Win/Loss Ratio">{ratios.wl}</Stat>
+					<StatPair title="Wins">{json.wins}</StatPair>
+					<StatPair title="Losses">{json.losses}</StatPair>
+					<StatPair title="Win/Loss Ratio">{ratios.wl}</StatPair>
 					<br/>
-					<Stat title="Arrows Shot">{json.bow_shots}</Stat>
-					<Stat title="Arrows Hit">{json.bow_hits}</Stat>
-					<Stat title="Arrow Hit Accuracy" percentage>{ratios.ahm}</Stat>
+					<StatPair title="Arrows Shot">{json.bow_shots}</StatPair>
+					<StatPair title="Arrows Hit">{json.bow_hits}</StatPair>
+					<StatPair title="Arrow Hit Accuracy" percentage>{ratios.ahm}</StatPair>
 				</div>
 			</div>
 			<div className="accordion-separator mb-3"></div>

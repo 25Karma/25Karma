@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, Box, Progress, ProgressBar, Stat } from 'components';
+import { Accordion, Box, Progress, ProgressBar, StatCell, StatPair } from 'components';
 import * as Utils from 'utils';
 
 /*
@@ -74,7 +74,7 @@ export function SpeedUHC(props) {
 
 	const header = (
 		<React.Fragment>
-			<Box title="Star">{`${Utils.toColorCode('pink')}[${leveling.levelFloor}❋]`}</Box>
+			<Box title="Star" color="pink">{`[${leveling.levelFloor}❋]`}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="Wins">{json.wins}</Box>
 			<Box title="WL">{ratios.wl}</Box>
@@ -124,15 +124,15 @@ export function SpeedUHC(props) {
 			<tbody>
 			{
 				consts.MODES.map(mode =>
-					Utils.default0(json[`wins_${mode.id}`]) + Utils.default0(json[`deaths_${mode.id}`]) > 0 &&
+					Boolean(Utils.add(json[`wins_${mode.id}`], json[`deaths_${mode.id}`])) &&
 					<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
-						<td>{mode.name}</td>
-						<td>{Utils.formatNum(json[`kills_${mode.id}`])}</td>
-						<td>{Utils.formatNum(json[`deaths_${mode.id}`])}</td>
-						<td>{Utils.formatNum(Utils.ratio(json[`kills_${mode.id}`],json[`deaths_${mode.id}`]))}</td>
-						<td>{Utils.formatNum(json[`wins_${mode.id}`])}</td>
-						<td>{Utils.formatNum(json[`losses_${mode.id}`])}</td>
-						<td>{Utils.formatNum(Utils.ratio(json[`wins_${mode.id}`],json[`losses_${mode.id}`]))}</td>
+						<StatCell>{mode.name}</StatCell>
+						<StatCell>{json[`kills_${mode.id}`]}</StatCell>
+						<StatCell>{json[`deaths_${mode.id}`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`kills_${mode.id}`],json[`deaths_${mode.id}`])}</StatCell>
+						<StatCell>{json[`wins_${mode.id}`]}</StatCell>
+						<StatCell>{json[`losses_${mode.id}`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`wins_${mode.id}`],json[`losses_${mode.id}`])}</StatCell>
 					</tr>
 					)
 			}
@@ -148,21 +148,21 @@ export function SpeedUHC(props) {
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
-					<Stat title="Score">{json.score}</Stat>
-					<Stat title="Title" color="white">{title}</Stat>
-					<Stat title="Coins" color="gold">{json.coins}</Stat>
-					<Stat title="Salt">{json.salt}</Stat>
+					<StatPair title="Score">{json.score}</StatPair>
+					<StatPair title="Title" color="white">{title}</StatPair>
+					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
+					<StatPair title="Salt">{json.salt}</StatPair>
 				</div>
 				<div className="flex-1">
-					<Stat title="Kills">{json.kills}</Stat>
-					<Stat title="Deaths">{json.deaths}</Stat>
-					<Stat title="Kill/Death Ratio">{ratios.kd}</Stat>
+					<StatPair title="Kills">{json.kills}</StatPair>
+					<StatPair title="Deaths">{json.deaths}</StatPair>
+					<StatPair title="Kill/Death Ratio">{ratios.kd}</StatPair>
 				</div>
 				<div className="flex-1">
-					<Stat title="Wins">{json.wins}</Stat>
-					<Stat title="Losses">{json.losses}</Stat>
-					<Stat title="Win/Loss Ratio">{ratios.wl}</Stat>
-					<Stat title="Winstreak">{json.winstreak}</Stat>
+					<StatPair title="Wins">{json.wins}</StatPair>
+					<StatPair title="Losses">{json.losses}</StatPair>
+					<StatPair title="Win/Loss Ratio">{ratios.wl}</StatPair>
+					<StatPair title="Winstreak">{json.winstreak}</StatPair>
 				</div>
 			</div>
 			<div className="overflow-x mb-2">
