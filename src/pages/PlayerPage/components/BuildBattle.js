@@ -13,10 +13,11 @@ export function BuildBattle(props) {
 	const consts = {
 		TITLE: 'Build Battle',
 		MODES: [
-			{id: 'solo_normal', name: 'Solo'},
-			{id: 'teams_normal', name: 'Teams'},
-			{id: 'guess_the_build', name: 'Guess the Build'},
-			{id: 'solo_pro', name: 'Pro'},
+			{id: '_solo_normal', name: 'Solo'},
+			{id: '_teams_normal', name: 'Teams'},
+			{id: '_guess_the_build', name: 'Guess the Build'},
+			{id: '_solo_pro', name: 'Pro'},
+			{id: '', name: <div className="font-bold mt-2">Overall</div>},
 		],
 		STARS: [
 			{value: 0, name: 'Rookie', color: 'white'},
@@ -108,10 +109,10 @@ export function BuildBattle(props) {
 			<tbody>
 			{
 				consts.MODES.map(mode => 
-					Boolean(json[`wins_${mode.id}`]) &&
+					Boolean(json[`wins${mode.id}`]) &&
 					<tr key={mode.id}>
 						<StatCell>{mode.name}</StatCell>
-						<StatCell>{json[`wins_${mode.id}`]}</StatCell>
+						<StatCell>{json[`wins${mode.id}`]}</StatCell>
 					</tr>
 					)
 			}

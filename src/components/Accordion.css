@@ -29,6 +29,7 @@
 .accordion-body th,td {
 	padding: 0.25rem;
 	text-align: left;
+	vertical-align: bottom;
 }
 
 .accordion-body th {

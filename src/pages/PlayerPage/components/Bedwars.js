@@ -29,24 +29,25 @@ export function Bedwars(props) {
 			{level: 2000, color: 'rainbow', name: 'Rainbow'}
 		],
 		MODES : [
-			{id: 'eight_one', name: 'Solo'},
-			{id: 'eight_two', name: 'Doubles'},
-			{id: 'four_three', name: '3v3v3v3'},
-			{id: 'four_four', name: '4v4v4v4'},
-			{id: 'two_four', name: '4v4'},
-			{id: 'eight_one_rush', name: 'Rush Solo'},
-			{id: 'eight_two_rush', name: 'Rush Doubles'},
-			{id: 'four_four_rush', name: 'Rush 4v4v4v4'},
-			{id: 'eight_one_ultimate', name: 'Ultimate Solo'},
-			{id: 'eight_two_ultimate', name: 'Ultimate Doubles'},
-			{id: 'four_four_ultimate', name: 'Ultimate 4v4v4v4'},
-			{id: 'eight_two_lucky', name: 'Lucky Doubles'},
-			{id: 'four_four_lucky', name: 'Lucky 4v4v4v4'},
-			{id: 'eight_two_voidless', name: 'Voidless Doubles'},
-			{id: 'four_four_voidless', name: 'Voidless 4v4v4v4'},
-			{id: 'eight_two_armed', name: 'Armed Doubles'},
-			{id: 'four_four_armed', name: 'Armed 4v4v4v4'},
-			{id: 'castle', name: 'Castle'},
+			{id: 'eight_one_', name: 'Solo'},
+			{id: 'eight_two_', name: 'Doubles'},
+			{id: 'four_three_', name: '3v3v3v3'},
+			{id: 'four_four_', name: '4v4v4v4'},
+			{id: 'two_four_', name: '4v4'},
+			{id: 'eight_one_rush_', name: 'Rush Solo'},
+			{id: 'eight_two_rush_', name: 'Rush Doubles'},
+			{id: 'four_four_rush_', name: 'Rush 4v4v4v4'},
+			{id: 'eight_one_ultimate_', name: 'Ultimate Solo'},
+			{id: 'eight_two_ultimate_', name: 'Ultimate Doubles'},
+			{id: 'four_four_ultimate_', name: 'Ultimate 4v4v4v4'},
+			{id: 'eight_two_lucky_', name: 'Lucky Doubles'},
+			{id: 'four_four_lucky_', name: 'Lucky 4v4v4v4'},
+			{id: 'eight_two_voidless_', name: 'Voidless Doubles'},
+			{id: 'four_four_voidless_', name: 'Voidless 4v4v4v4'},
+			{id: 'eight_two_armed_', name: 'Armed Doubles'},
+			{id: 'four_four_armed_', name: 'Armed 4v4v4v4'},
+			{id: 'castle_', name: 'Castle'},
+			{id: '', name: <div className="font-bold mt-2">Overall</div>},
 		],
 	};
 	
@@ -101,8 +102,9 @@ export function Bedwars(props) {
 		let mostPlayed = null;
 		let mostPlays = 0;
 		for (const mode of consts.MODES) {
-			const plays = Utils.default0(json[`${mode.id}_wins_bedwars`]) + Utils.default0(json[`${mode.id}_losses_bedwars`])
-			if (plays > mostPlays) {
+			const plays = Utils.default0(json[`${mode.id}wins_bedwars`]) + Utils.default0(json[`${mode.id}losses_bedwars`])
+			// The mode.id part is so that the 'Overall' category is ignored
+			if (plays > mostPlays && mode.id) {
 				mostPlays = plays;
 				mostPlayed = mode.name;
 			}
@@ -142,7 +144,7 @@ export function Bedwars(props) {
 		)
 
 	const table = (() => {
-		const dreamsStartAt = 'eight_one_rush';
+		const dreamsStartAt = 'eight_one_rush_';
 		let rowList = [];
 		for (const mode of consts.MODES) {
 			if (mode.id === dreamsStartAt) {
@@ -151,20 +153,21 @@ export function Bedwars(props) {
 					);
 			}
 			rowList.push(
-				Boolean(Utils.add(json[`${mode.id}_wins_bedwars`], json[`${mode.id}_losses_bedwars`])) &&
+				Boolean(Utils.add(json[`${mode.id}wins_bedwars`], json[`${mode.id}losses_bedwars`])) &&
 				<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
 					<StatCell>{mode.name}</StatCell>
-					<StatCell>{json[`${mode.id}_kills_bedwars`]}</StatCell>
-					<StatCell>{json[`${mode.id}_deaths_bedwars`]}</StatCell>
-					<StatCell>{Utils.ratio(json[`${mode.id}_kills_bedwars`],json[`${mode.id}_deaths_bedwars`])}</StatCell>
-					<StatCell>{json[`${mode.id}_final_kills_bedwars`]}</StatCell>
-					<StatCell>{json[`${mode.id}_final_deaths_bedwars`]}</StatCell>
-					<StatCell>{Utils.ratio(json[`${mode.id}_final_kills_bedwars`],json[`${mode.id}_final_deaths_bedwars`])}</StatCell>
-					<StatCell>{json[`${mode.id}_wins_bedwars`]}</StatCell>
-					<StatCell>{json[`${mode.id}_losses_bedwars`]}</StatCell>
-					<StatCell>{Utils.ratio(json[`${mode.id}_wins_bedwars`],json[`${mode.id}_losses_bedwars`])}</StatCell>
-					<StatCell>{json[`${mode.id}_beds_broken_bedwars`]}</StatCell>
-					<StatCell>{Utils.ratio(json[`${mode.id}_beds_broken_bedwars`],json[`${mode.id}_beds_lost_bedwars`])}</StatCell>
+					<StatCell>{json[`${mode.id}kills_bedwars`]}</StatCell>
+					<StatCell>{json[`${mode.id}deaths_bedwars`]}</StatCell>
+					<StatCell>{Utils.ratio(json[`${mode.id}kills_bedwars`],json[`${mode.id}deaths_bedwars`])}</StatCell>
+					<StatCell>{json[`${mode.id}final_kills_bedwars`]}</StatCell>
+					<StatCell>{json[`${mode.id}final_deaths_bedwars`]}</StatCell>
+					<StatCell>{Utils.ratio(json[`${mode.id}final_kills_bedwars`],json[`${mode.id}final_deaths_bedwars`])}</StatCell>
+					<StatCell>{json[`${mode.id}wins_bedwars`]}</StatCell>
+					<StatCell>{json[`${mode.id}losses_bedwars`]}</StatCell>
+					<StatCell>{Utils.ratio(json[`${mode.id}wins_bedwars`],json[`${mode.id}losses_bedwars`])}</StatCell>
+					<StatCell>{json[`${mode.id}beds_broken_bedwars`]}</StatCell>
+					<StatCell>{json[`${mode.id}beds_lost_bedwars`]}</StatCell>
+					<StatCell>{Utils.ratio(json[`${mode.id}beds_broken_bedwars`],json[`${mode.id}beds_lost_bedwars`])}</StatCell>
 				</tr>
 				);
 		}
@@ -188,6 +191,7 @@ export function Bedwars(props) {
 						<th>Losses</th>
 						<th>WL</th>
 						<th>Beds Broken</th>
+						<th>Beds Lost</th>
 						<th>BBL</th>
 					</tr>
 				</thead>

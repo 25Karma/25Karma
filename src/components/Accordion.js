@@ -38,10 +38,12 @@ export function Accordion(props) {
 						</div>
 						<div {...cProvided.collapsibleProps}>
 							<div className="accordion-body">
-								<div className="accordion-separator mb-3"></div>
-								<div className="mb-2">
-									{props.children || `No stats to display for ${props.title}.`}
-								</div>
+								<div className="accordion-separator mb-2"></div>
+								{props.children ?
+									<div className="py-2">{props.children}</div>
+									:
+									`No stats to display for ${props.title}.`
+								}
 							</div>
 						</div>
 					</div>

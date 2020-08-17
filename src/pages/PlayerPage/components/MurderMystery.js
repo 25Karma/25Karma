@@ -12,12 +12,13 @@ export function MurderMystery(props) {
 	const consts = {
 		TITLE: 'Murder Mystery',
 		MODES: [
-			{id: 'MURDER_CLASSIC', name: 'Classic'},
-			{id: 'MURDER_ASSASSINS', name: 'Assassins'},
-			{id: 'MURDER_DOUBLE_UP', name: 'Double Up'},
-			{id: 'MURDER_INFECTION', name: 'Infection'},
-			{id: 'MURDER_HARDCORE', name: 'Hardcore'},
-			{id: 'MURDER_SHOWDOWN', name: 'Showdown'},
+			{id: '_MURDER_CLASSIC', name: 'Classic'},
+			{id: '_MURDER_ASSASSINS', name: 'Assassins'},
+			{id: '_MURDER_DOUBLE_UP', name: 'Double Up'},
+			{id: '_MURDER_INFECTION', name: 'Infection'},
+			{id: '_MURDER_HARDCORE', name: 'Hardcore'},
+			{id: '_MURDER_SHOWDOWN', name: 'Showdown'},
+			{id: '', name: <div className="font-bold mt-2">Overall</div>},
 		],
 		KNIFESKINS: {
 			knife_skin_bone : "Big Bone",
@@ -65,8 +66,9 @@ export function MurderMystery(props) {
 		let mostPlayed = null;
 		let mostPlays = 0;
 		for (const mode of consts.MODES) {
-			const plays = Utils.default0(json[`games_${mode.id}`]);
-			if (plays > mostPlays) {
+			const plays = Utils.default0(json[`games${mode.id}`]);
+			// The mode.id part is so that the 'Overall' category is ignored_
+			if (plays > mostPlays && mode.id) {
 				mostPlays = plays;
 				mostPlayed = mode.name;
 			}
@@ -85,23 +87,23 @@ export function MurderMystery(props) {
 		const legacyStartsAt = 'MURDER_HARDCORE';
 		let rowList = [];
 		for (const mode of consts.MODES) {
-			const losses = Utils.default0(json[`games_${mode.id}`])-Utils.default0(json[`wins_${mode.id}`]);
+			const losses = Utils.default0(json[`games${mode.id}`])-Utils.default0(json[`wins${mode.id}`]);
 			if (mode.id === legacyStartsAt) {
 				rowList.push(
 					<tr key="legacy"><th><div className="mt-2">Legacy Modes</div></th></tr>
 					);
 			}
 			rowList.push(
-				Boolean(json[`games_${mode.id}`]) &&
+				Boolean(json[`games${mode.id}`]) &&
 				<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
 					<StatCell>{mode.name}</StatCell>
-					<StatCell>{json[`kills_${mode.id}`]}</StatCell>
-					<StatCell>{json[`bow_kills_${mode.id}`]}</StatCell>
-					<StatCell>{json[`knife_kills_${mode.id}`]}</StatCell>
-					<StatCell>{json[`thrown_knife_kills_${mode.id}`]}</StatCell>
-					<StatCell>{json[`wins_${mode.id}`]}</StatCell>
+					<StatCell>{json[`kills${mode.id}`]}</StatCell>
+					<StatCell>{json[`bow_kills${mode.id}`]}</StatCell>
+					<StatCell>{json[`knife_kills${mode.id}`]}</StatCell>
+					<StatCell>{json[`thrown_knife_kills${mode.id}`]}</StatCell>
+					<StatCell>{json[`wins${mode.id}`]}</StatCell>
 					<StatCell>{losses}</StatCell>
-					<StatCell>{Utils.ratio(json[`wins_${mode.id}`], losses)}</StatCell>
+					<StatCell>{Utils.ratio(json[`wins${mode.id}`], losses)}</StatCell>
 				</tr>
 				);
 		}

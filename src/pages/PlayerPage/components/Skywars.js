@@ -61,13 +61,14 @@ export function Skywars(props) {
 			omega_icon: '\u03a9',
 		},
 		MODES : [
-			{id: 'ranked',       name: 'Ranked'},
-			{id: 'solo_normal',  name: 'Solo Normal'},
-			{id: 'solo_insane',  name: 'Solo Insane'},
-			{id: 'team_normal',  name: 'Teams Normal'},
-			{id: 'team_insane',  name: 'Teams Insane'},
-			{id: 'mega_normal',  name: 'Mega'},
-			{id: 'mega_doubles', name: 'Mega Doubles'},
+			{id: '_ranked',       name: 'Ranked'},
+			{id: '_solo_normal',  name: 'Solo Normal'},
+			{id: '_solo_insane',  name: 'Solo Insane'},
+			{id: '_team_normal',  name: 'Teams Normal'},
+			{id: '_team_insane',  name: 'Teams Insane'},
+			{id: '_mega_normal',  name: 'Mega'},
+			{id: '_mega_doubles', name: 'Mega Doubles'},
+			{id: '', name: <div className="font-bold mt-2">Overall</div>},
 		],
 		HEADS : [
 			{id: 'eww',       name: 'Eww!',      color: 'darkgray'},
@@ -144,8 +145,9 @@ export function Skywars(props) {
 		let mostPlayed = null;
 		let mostPlays = 0;
 		for (const mode of consts.MODES) {
-			const plays = Utils.default0(json[`wins_${mode.id}`]) + Utils.default0(json[`losses_${mode.id}`])
-			if (plays > mostPlays) {
+			const plays = Utils.default0(json[`wins${mode.id}`]) + Utils.default0(json[`losses${mode.id}`])
+			// The mode.id part is so that the 'Overall' category is ignored
+			if (plays > mostPlays && mode.id) {
 				mostPlays = plays;
 				mostPlayed = mode.name;
 			}
@@ -204,15 +206,15 @@ export function Skywars(props) {
 			<tbody>
 			{
 				consts.MODES.map(mode => 
-					Boolean(Utils.add(json[`wins_${mode.id}`], json[`losses_${mode.id}`])) &&
+					Boolean(Utils.add(json[`wins${mode.id}`], json[`losses${mode.id}`])) &&
 					<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
 						<StatCell>{mode.name}</StatCell>
-						<StatCell>{json[`kills_${mode.id}`]}</StatCell>
-						<StatCell>{json[`deaths_${mode.id}`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`kills_${mode.id}`],json[`deaths_${mode.id}`])}</StatCell>
-						<StatCell>{json[`wins_${mode.id}`]}</StatCell>
-						<StatCell>{json[`losses_${mode.id}`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`wins_${mode.id}`],json[`losses_${mode.id}`])}</StatCell>
+						<StatCell>{json[`kills${mode.id}`]}</StatCell>
+						<StatCell>{json[`deaths${mode.id}`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`kills${mode.id}`],json[`deaths${mode.id}`])}</StatCell>
+						<StatCell>{json[`wins${mode.id}`]}</StatCell>
+						<StatCell>{json[`losses${mode.id}`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`wins${mode.id}`],json[`losses${mode.id}`])}</StatCell>
 					</tr>
 					)
 			}
