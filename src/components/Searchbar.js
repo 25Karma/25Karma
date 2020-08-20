@@ -50,7 +50,7 @@ export function Searchbar(props) {
 			spellCheck={false}
 			/>
 			<button onClick={search}>
-				<ReactIcon icon="MdSearch" />
+				<ReactIcon icon="MdSearch" clickable />
 			</button>
 		</div>
 	);

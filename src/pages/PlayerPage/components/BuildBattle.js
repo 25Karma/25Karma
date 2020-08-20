@@ -1,11 +1,12 @@
 import React from 'react';
-import { Accordion, Box, Progress, ProgressBar, StatCell, StatPair } from 'components';
+import { Accordion, Box, HorizontalLine, Progress, 
+	ProgressBar, StatCell, StatPair, StatRow } from 'components';
+import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
 
 /*
 * Stats accordion for Build Battle
 *
-* @param {Object} props.player 	Player data in JSON object
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
 export function BuildBattle(props) {
@@ -17,7 +18,7 @@ export function BuildBattle(props) {
 			{id: '_teams_normal', name: 'Teams'},
 			{id: '_guess_the_build', name: 'Guess the Build'},
 			{id: '_solo_pro', name: 'Pro'},
-			{id: '', name: <div className="font-bold mt-2">Overall</div>},
+			{id: '', name: 'Overall'},
 		],
 		STARS: [
 			{value: 0, name: 'Rookie', color: 'white'},
@@ -37,7 +38,8 @@ export function BuildBattle(props) {
 	}
 
 	// Get the player's API data for SkyWars
-	const json = Utils.traverse(props.player,'stats.BuildBattle') || {};
+	const { player } = useHypixelContext();
+	const json = Utils.traverse(player,'player.stats.BuildBattle') || {};
 	const losses = Utils.default0(json.games_played) - Utils.default0(json.wins);
 	const leveling = new Utils.HypixelLeveling(scoreToStar, starToScore, Utils.default0(json.score));
 	if (leveling.levelCeiling > 12) leveling.levelCeiling = 12;
@@ -108,12 +110,12 @@ export function BuildBattle(props) {
 			</thead>
 			<tbody>
 			{
-				consts.MODES.map(mode => 
-					Boolean(json[`wins${mode.id}`]) &&
-					<tr key={mode.id}>
-						<StatCell>{mode.name}</StatCell>
-						<StatCell>{json[`wins${mode.id}`]}</StatCell>
-					</tr>
+				consts.MODES.map(({id, name}) => 
+					Boolean(json[`wins${id}`]) &&
+					<StatRow key={id} id={id}>
+						<StatCell>{name}</StatCell>
+						<StatCell>{json[`wins${id}`]}</StatCell>
+					</StatRow>
 					)
 			}
 			</tbody>
@@ -124,9 +126,11 @@ export function BuildBattle(props) {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="mb-1 font-bold">Title Progress</div>
-			<div className="h-flex mb-3">
-				{progressBar}
+			<div className="my-3">
+				<div className="mb-1 font-bold">Title Progress</div>
+				<div className="h-flex">
+					{progressBar}
+				</div>
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
@@ -144,8 +148,10 @@ export function BuildBattle(props) {
 					<StatPair title="Super Votes">{json.super_votes}</StatPair>
 				</div>
 			</div>
-			<div className="accordion-separator mb-3"></div>
-			<div className="overflow-x">
+			
+			<HorizontalLine />
+
+			<div className="overflow-x py-3">
 				{table}
 			</div>
 		</Accordion>

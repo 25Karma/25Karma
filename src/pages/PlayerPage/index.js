@@ -1,6 +1,7 @@
 import React from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { LoadingSpinner, Navbar, Player, ReactIcon } from 'components';
+import { HypixelContextProvider, LoadingSpinner, Navbar, PageLayout, 
+	PlayerCard, PlayerHeadline, ReactIcon } from 'components';
 import { FrontPage } from 'pages';
 import { useForceUpdate, useHypixelAPI, useMojangAPI } from 'hooks';
 import * as Utils from 'utils';
@@ -14,13 +15,12 @@ import * as Utils from 'utils';
 export function PlayerPage(props) {
 
 	const { match: { params } } = props;
-	
-	const mojangPlayerData = useMojangAPI('player', params.player);
-	const player = useHypixelAPI('player', mojangPlayerData.uuid);
-	const status = useHypixelAPI('status', mojangPlayerData.uuid);
+	const mojang = useMojangAPI(params.player);
+	const player = useHypixelAPI(mojang.uuid);
+	const status = useHypixelAPI(mojang.uuid, 'status');
 	const forceUpdate = useForceUpdate();
 
-	const playerAccordionList = new Utils.PlayerAccordionList(player.player);
+	const playerAccordionList = new Utils.PlayerAccordionList();
 
 	function onDragEnd(result) {
 		// dropped outside the list
@@ -39,59 +39,55 @@ export function PlayerPage(props) {
 	function renderPlayerStatsSection() {
 		// Log the player into recentSearches cookie
 		const recentSearchesList = new Utils.RecentSearchesList();
-		recentSearchesList.add(mojangPlayerData.username);
+		recentSearchesList.add(mojang.username);
 
 		return (
-		<div className="container my-3">
-			<Player player={player.player} status={status.session} />
-			<div className="h-flex px-2 py-1">
-				<button className="ml-auto" onClick={alphabetizeAccordions}>
-					<ReactIcon icon="FaSortAlphaDown" />
-				</button>
-			</div>
-			<DragDropContext onDragEnd={onDragEnd}>
-				<Droppable droppableId="playerStatsDroppable">
-					{provided => (
-						<div {...provided.droppableProps} ref={provided.innerRef}>
-							{playerAccordionList.toJSX()}
-							{provided.placeholder}
-						</div>
-					)}
-				</Droppable>
-			</DragDropContext>
-		</div>
+				<DragDropContext onDragEnd={onDragEnd}>
+					<div className="h-flex px-2 py-1 justify-content-end">
+						<button onClick={alphabetizeAccordions}>
+							<ReactIcon icon="FaSortAlphaDown" clickable />
+						</button>
+					</div>
+					<Droppable droppableId="playerStatsDroppable">
+						{provided => (
+							<div {...provided.droppableProps} ref={provided.innerRef}>
+								{playerAccordionList.toJSX()}
+								{provided.placeholder}
+							</div>
+						)}
+					</Droppable>
+				</DragDropContext>
 		);
 	}
 
 	/*
 	* Loads different JSX depending on the states
 	*/
-	if (mojangPlayerData.success === false) {
-		return <FrontPage config={mojangPlayerData} />
+	if (mojang.success === false) {
+		return <FrontPage config={mojang} />
 	}
 	else if (player.success === false) {
 		// The Hypixel API doesn't actually know the player's username (only his UUID)
 		// so we have to get the username from the URI
 		const config = {
-			player: params.player,
+			player: mojang.username,
 			...player,
 		}
 		return <FrontPage config={config} />
 	}
 	else {
 		return (
-			<div>
-				<Navbar searchbar />
-				<div className="container v-flex my-4">
-				{
-					mojangPlayerData.success === true && player.success === true ? 
-					renderPlayerStatsSection() :
-					<div className="mx-auto">
+			<HypixelContextProvider value={{mojang, player, status}}>
+				<PageLayout
+					header={<Navbar searchbar />}
+					top={player.success && <PlayerHeadline />}
+					left={player.success && <PlayerCard />}
+					center={
+						player.success ? 
+						renderPlayerStatsSection() :
 						<LoadingSpinner text={`Loading stats for ${params.player}`} />
-					</div>
-				}
-				</div>
-			</div>
+					}/>
+			</HypixelContextProvider>
 			);
 	}
 }

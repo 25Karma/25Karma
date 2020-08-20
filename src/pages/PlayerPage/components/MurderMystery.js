@@ -1,11 +1,12 @@
 import React from 'react';
-import { Accordion, Box, StatCell, StatPair } from 'components';
+import { Accordion, Box, HorizontalLine, StatCell, 
+	StatPair, StatRow } from 'components';
+import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
 
 /*
 * Stats accordion for Murder Mystery
 *
-* @param {Object} props.player 	Player data in JSON object
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
 export function MurderMystery(props) {
@@ -18,7 +19,7 @@ export function MurderMystery(props) {
 			{id: '_MURDER_INFECTION', name: 'Infection'},
 			{id: '_MURDER_HARDCORE', name: 'Hardcore'},
 			{id: '_MURDER_SHOWDOWN', name: 'Showdown'},
-			{id: '', name: <div className="font-bold mt-2">Overall</div>},
+			{id: '', name: 'Overall'},
 		],
 		KNIFESKINS: {
 			knife_skin_bone : "Big Bone",
@@ -56,7 +57,9 @@ export function MurderMystery(props) {
 	}
 
 	// The player's API data for Murder Mystery
-	const json = Utils.traverse(props.player,'stats.MurderMystery') || {};
+	const { player } = useHypixelContext();
+	const json = Utils.traverse(player,'player.stats.MurderMystery') || {};
+
 	const losses = Utils.default0(json.games)-Utils.default0(json.wins);
 	const knifeSkin = consts.KNIFESKINS[json.active_knife_skin];
 	const fastestDetectiveWin = json.quickest_detective_win_time_seconds;
@@ -86,25 +89,25 @@ export function MurderMystery(props) {
 	const table = (() => {
 		const legacyStartsAt = 'MURDER_HARDCORE';
 		let rowList = [];
-		for (const mode of consts.MODES) {
-			const losses = Utils.default0(json[`games${mode.id}`])-Utils.default0(json[`wins${mode.id}`]);
-			if (mode.id === legacyStartsAt) {
+		for (const {id, name} of consts.MODES) {
+			const losses = Utils.default0(json[`games${id}`])-Utils.default0(json[`wins${id}`]);
+			if (id === legacyStartsAt) {
 				rowList.push(
 					<tr key="legacy"><th><div className="mt-2">Legacy Modes</div></th></tr>
 					);
 			}
 			rowList.push(
-				Boolean(json[`games${mode.id}`]) &&
-				<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
-					<StatCell>{mode.name}</StatCell>
-					<StatCell>{json[`kills${mode.id}`]}</StatCell>
-					<StatCell>{json[`bow_kills${mode.id}`]}</StatCell>
-					<StatCell>{json[`knife_kills${mode.id}`]}</StatCell>
-					<StatCell>{json[`thrown_knife_kills${mode.id}`]}</StatCell>
-					<StatCell>{json[`wins${mode.id}`]}</StatCell>
+				Boolean(json[`games${id}`]) &&
+				<StatRow key={id} id={id} isHighlighted={name === mostPlayedMode}>
+					<StatCell>{name}</StatCell>
+					<StatCell>{json[`kills${id}`]}</StatCell>
+					<StatCell>{json[`bow_kills${id}`]}</StatCell>
+					<StatCell>{json[`knife_kills${id}`]}</StatCell>
+					<StatCell>{json[`thrown_knife_kills${id}`]}</StatCell>
+					<StatCell>{json[`wins${id}`]}</StatCell>
 					<StatCell>{losses}</StatCell>
-					<StatCell>{Utils.ratio(json[`wins${mode.id}`], losses)}</StatCell>
-				</tr>
+					<StatCell>{Utils.ratio(json[`wins${id}`], losses)}</StatCell>
+				</StatRow>
 				);
 		}
 		return (
@@ -131,8 +134,10 @@ export function MurderMystery(props) {
 	return Utils.isEmpty(json) ?
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
-		<Accordion title="Murder Mystery" header={header} index={props.index}>
-			<StatPair title="Coins" color="gold">{json.coins}</StatPair>
+		<Accordion title={consts.TITLE} header={header} index={props.index}>
+			<div className="mt-3">
+				<StatPair title="Coins" color="gold">{json.coins}</StatPair>
+			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
 					<StatPair title="Kills">{json.kills}</StatPair>
@@ -149,8 +154,10 @@ export function MurderMystery(props) {
 					<StatPair title="Fastest Murderer Win">{fastestMurdererWin ? fastestMurdererWin+'s' : '-'}</StatPair>
 				</div>
 			</div>
-			<div className="accordion-separator mb-3"></div>
-			<div className="overflow-x">
+			
+			<HorizontalLine />
+
+			<div className="overflow-x my-3">
 				{table}
 			</div>
 		</Accordion>

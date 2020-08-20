@@ -59,16 +59,17 @@ export function Banner(props) {
 	}, []);
 
 	return (
-		<div 
-			ref={bannerRef} 
-			className={`banner banner-${props.type}`}
-			style={style}>
-			<div className="py-1 px-3">
-				<span className="font-md pr-1">
-					{getSymbol()}
-				</span>
-				<span className="font-bold">{props.title}</span>
-				<span>{props.description}</span>
+		<div ref={bannerRef} style={style}>
+			<div className="pt-2"></div>
+			<div  
+				className={`banner banner-${props.type}`}>
+				<div className="py-1 px-3">
+					<span className="font-md pr-1">
+						{getSymbol()}
+					</span>
+					<span className="font-bold">{props.title}</span>
+					<span>{props.description}</span>
+				</div>
 			</div>
 		</div>
 		)

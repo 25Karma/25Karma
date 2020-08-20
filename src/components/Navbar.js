@@ -21,7 +21,7 @@ export function Navbar(props) {
 		if (p) {
 			return (
 				<Link className="font-md" to={`/player/${p}`}>
-					<ReactIcon icon="GoPin" />
+					<ReactIcon icon="GoPin" clickable />
 				</Link>
 				);
 		}
@@ -47,7 +47,7 @@ export function Navbar(props) {
 								<p className="p-1">
 									{renderPinnedPlayerButton()}
 									<button className="pl-2" {...provided.collapseButtonProps}>
-										<ReactIcon icon="MdSettings" />
+										<ReactIcon icon="MdSettings" clickable />
 									</button>
 								</p>
 						</div>

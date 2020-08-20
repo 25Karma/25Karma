@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Banner, Button, MinecraftText, Navbar, ReactIcon, Searchbar } from 'components';
+import { Banner, Button, MinecraftText, Navbar, 
+	PageLayout, ReactIcon, Searchbar } from 'components';
 import * as Utils from 'utils';
 import properties from 'properties.js';
 
@@ -107,32 +108,36 @@ export function FrontPage(props) {
 	}
 	
 	return (
-		<div>
-			<Navbar />
-			<div className="container v-flex align-items-center my-4">
-				<p className="pb-4 text-shadow">
+		<PageLayout
+			header={<Navbar />}
+			top={
+				<span className="text-shadow">
 					<MinecraftText font="xl">
 						{"§d"+properties.appName}
 					</MinecraftText>
-					
-				</p>
-				<p className="w-100 py-1 pl-2">
-					<MinecraftText font="md">
-						Search for the stats of a Hypixel player
-					</MinecraftText>
-				</p>
-				<div className="w-100 py-1">
-					<Searchbar defaultValue={config.player || ''}/>
-				</div>
-				<div className="w-100 pb-2 pl-2 h-flex align-items-start">
-					{renderRecentSearches()}
-				</div>
-				{banner}
-				<p className="w-50 pt-4 pb-2 text-center">
-					Pro tip: Customize this site by clicking on the gear button 
-					in the top-right corner. 
-				</p>
-			</div>
-		</div>
+				</span>
+			}
+			center={
+				<React.Fragment>
+					<p className="py-1 pl-2">
+						<MinecraftText font="md">
+							Search for the stats of a Hypixel player
+						</MinecraftText>
+					</p>
+					<div className="py-1">
+						<Searchbar defaultValue={config.player || ''}/>
+					</div>
+					<div className="pb-2 pl-2 h-flex align-items-start">
+						{renderRecentSearches()}
+					</div>
+					<div className="mx-auto">
+						{banner}
+					</div>
+					<p className="pt-4 pb-2 text-center">
+						Pro tip: Customize this site by clicking on the gear button 
+						in the top-right corner. 
+					</p>
+				</React.Fragment>
+			}/>
 		);
 }

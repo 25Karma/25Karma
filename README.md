@@ -12,7 +12,7 @@ The project is live at [25karma.github.io](https://25karma.github.io)!
 ## Downloading 25Karma
 
 To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) installed on your machine. Once you do, follow these steps:
-1. Download the repository from the [source](https://github.com/25Karma/25karma.github.io/tree/source) branch on GitHub.
+1. Download the repository from the [master](https://github.com/25Karma/25karma.github.io) branch on GitHub
 2. Extract the .zip
 3. Run `npm install` in the root directory (where the `package.json` file is found)
 4. Run `npm start` in the root directory
@@ -23,4 +23,4 @@ If you have an idea for how I can make 25Karma even better, let's start a conver
 
 ## License
 
-See the license file [here](https://github.com/25Karma/25karma.github.io/blob/source/LICENSE).
+See the license file [here](https://github.com/25Karma/25karma.github.io/blob/master/LICENSE).

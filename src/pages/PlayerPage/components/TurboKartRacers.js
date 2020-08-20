@@ -1,11 +1,11 @@
 import React from 'react';
-import { Accordion, Box, StatPair } from 'components';
+import { Accordion, Box, HorizontalLine, StatPair } from 'components';
+import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
 
 /*
 * Stats accordion for Turbo Kart Racers
 *
-* @param {Object} props.player 	Player data in JSON object
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
 export function TurboKartRacers(props) {
@@ -46,7 +46,9 @@ export function TurboKartRacers(props) {
 		}
 	}
 
-	const json = Utils.traverse(props.player, 'stats.GingerBread') || {};
+	const { player } = useHypixelContext();
+	const json = Utils.traverse(player, 'player.stats.GingerBread') || {};
+
 	const trophies = {
 		gold : `${Utils.formatNum(json.gold_trophy)}🏆\uFE0E`,
 		silver : `${Utils.formatNum(json.silver_trophy)}🏆\uFE0E`,
@@ -139,7 +141,7 @@ export function TurboKartRacers(props) {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="h-flex mb-3">
+			<div className="h-flex my-3">
 				<div className="flex-1">
 					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
 					<StatPair title="Grand Prix Tokens" color="aqua">{json.grand_prix_tokens}</StatPair>
@@ -160,9 +162,11 @@ export function TurboKartRacers(props) {
 					<StatPair title="Banana Sent/Received Ratio">{Utils.ratio(json.banana_hits_sent, json.banana_hits_received)}</StatPair>
 				</div>
 			</div>
-			<div className="accordion-separator mb-3"></div>
-			<div className="font-bold font-md text-center mb-2">Current Kart</div>
-			<div className="h-flex overflow-x">
+			
+			<HorizontalLine />
+
+			<div className="font-bold font-md text-center mb-2 mt-3">Current Kart</div>
+			<div className="h-flex overflow-x mb-3">
 				{currentKart}
 			</div>
 		</Accordion>

@@ -1,11 +1,12 @@
 import React from 'react';
-import { Accordion, Box, StatCell, StatPair } from 'components';
+import { Accordion, Box, HorizontalLine, StatCell, 
+	StatPair, StatRow } from 'components';
+import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
 
 /*
 * Stats accordion for Duels
 *
-* @param {Object} props.player 	Player data in JSON object
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
 export function Duels(props) {
@@ -43,11 +44,12 @@ export function Duels(props) {
 			{id: 'bridge_2v2v2v2_', name: 'Bridge 2v2v2v2'},
 			{id: 'bridge_3v3v3v3_', name: 'Bridge 3v3v3v3'},
 			{id: 'bridge_four_', name: 'Bridge 4v4'},
-			{id: '', name: <div className="font-bold mt-2">Overall</div>},
+			{id: '', name: 'Overall'},
 		],
 	};
-
-	const json = Utils.traverse(props.player,'stats.Duels') || {};
+	
+	const { player } = useHypixelContext();
+	const json = Utils.traverse(player,'player.stats.Duels') || {};
 
 	const division = (() => {
 		for (const div of consts.DIVISIONS.slice().reverse()) {
@@ -127,19 +129,19 @@ export function Duels(props) {
 			</thead>
 			<tbody>
 			{
-				consts.MODES.map(mode => 
-					Boolean(Utils.add(json[`${mode.id}wins`], json[`${mode.id}losses`])) &&
-					<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
-						<StatCell>{mode.name}</StatCell>
-						<StatCell>{json[`${mode.id}kills`]}</StatCell>
-						<StatCell>{json[`${mode.id}deaths`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`${mode.id}_kills`],json[`${mode.id}deaths`])}</StatCell>
-						<StatCell>{json[`${mode.id}wins`]}</StatCell>
-						<StatCell>{json[`${mode.id}losses`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`${mode.id}wins`],json[`${mode.id}losses`])}</StatCell>
-						<StatCell>{Utils.ratio(json[`${mode.id}melee_hits`],json[`${mode.id}melee_swings`])}</StatCell>
-						<StatCell>{Utils.ratio(json[`${mode.id}bow_hits`],json[`${mode.id}bow_shots`])}</StatCell>
-					</tr>
+				consts.MODES.map(({id, name}) => 
+					Boolean(Utils.add(json[`${id}wins`], json[`${id}losses`])) &&
+					<StatRow key={id} id={id} isHighlighted={name === mostPlayedMode}>
+						<StatCell>{name}</StatCell>
+						<StatCell>{json[`${id}kills`]}</StatCell>
+						<StatCell>{json[`${id}deaths`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`${id}_kills`],json[`${id}deaths`])}</StatCell>
+						<StatCell>{json[`${id}wins`]}</StatCell>
+						<StatCell>{json[`${id}losses`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`${id}wins`],json[`${id}losses`])}</StatCell>
+						<StatCell>{Utils.ratio(json[`${id}melee_hits`],json[`${id}melee_swings`])}</StatCell>
+						<StatCell>{Utils.ratio(json[`${id}bow_hits`],json[`${id}bow_shots`])}</StatCell>
+					</StatRow>
 					)
 			}
 			</tbody>
@@ -149,8 +151,8 @@ export function Duels(props) {
 	return Utils.isEmpty(json) ?
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
-		<Accordion title="Duels" header={header} index={props.index}>
-			<div className="h-flex mb-3">
+		<Accordion title={consts.TITLE} header={header} index={props.index}>
+			<div className="h-flex my-3">
 				<div className="flex-1">
 					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
 					<StatPair title="Loot Chests">{json.duels_chests}</StatPair>
@@ -178,8 +180,10 @@ export function Duels(props) {
 					<StatPair title="Arrow Hit Accuracy" percentage>{ratios.ahm}</StatPair>
 				</div>
 			</div>
-			<div className="accordion-separator mb-3"></div>
-			<div className="overflow-x">
+			
+			<HorizontalLine />
+
+			<div className="overflow-x my-3">
 				{table}
 			</div>
 		</Accordion>

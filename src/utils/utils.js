@@ -60,12 +60,13 @@ export function ratio(num, denom) {
 * @return {any} 		Returns the value at the path, or an 
 *						empty Object if the path does not exist at any point
 */
-export function traverse(json, path) {
+export function traverse(json, path, defaultValue) {
 	const paths = path.split('.');
 	for (const p of paths) {
-		if (json === undefined) return undefined;
+		if (json === undefined) return (defaultValue || undefined);
 		json = json[p];
 	}
+	if (json === undefined) return (defaultValue || undefined);
 	return json;
 }
 

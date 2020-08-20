@@ -11,11 +11,9 @@ export class PlayerAccordionList {
 	
 	/*
 	* @constructor
-	* @param {Object} playerdata 	JSON data of the player (from Hypixel API)
 	*/
-	constructor(playerdata) {
+	constructor() {
 		this.cookieName = 'playerAccordions';
-		this.playerdata = playerdata;
 		let cookie = Cookies.get(this.cookieName);
 		// If no cookie found, it will be undefined
 		if (cookie === undefined) {
@@ -53,9 +51,6 @@ export class PlayerAccordionList {
 	* @return {array<JSX>} 	An array of Accordion components
 	*/
 	toJSX() {
-		if (!this.playerdata) {
-			return null;
-		}
 		let Accordions = [];
 		// For react-beautiful-dnd, Draggable components require an integer index prop
 		let index = 0;
@@ -63,7 +58,6 @@ export class PlayerAccordionList {
 			const component = this._getAccordionFromString(Accordion);
 			const props = {
 				key: Accordion, 
-				player: this.playerdata,
 				index: index++,
 			};
 			Accordions.push(React.createElement(component, props, null));

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Accordion, Box, StatCell, StatPair } from 'components';
+import { Accordion, Box, HorizontalLine, StatCell, StatPair } from 'components';
+import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
 
 /*
 * Stats accordion for Arcade Games
 *
-* @param {Object} props.player 	Player data in JSON object
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
 export function Arcade(props) {
@@ -42,7 +42,9 @@ export function Arcade(props) {
 	};
 
 	// The player's API data for Arcade Games
-	const json = Utils.traverse(props.player,'stats.Arcade') || {};
+	const { player } = useHypixelContext();
+	const json = Utils.traverse(player,'player.stats.Arcade') || {};
+	
 	const totalWins = Object.entries(json)
 		// The point of substring() is to filter out 'prop_hunt_hider_wins_hide_and_seek' from the
 		// total wins since it is a duplicate of 'hider_wins_hide_and_seek' (same for seekers)
@@ -69,17 +71,17 @@ export function Arcade(props) {
 			</thead>
 			<tbody>
 			{
-				consts.ZOMBIESMODES.map(mode => 
-					Boolean(json[`best_round_zombies_${mode.id}`]) &&
-					<tr key={mode.id}>
-						<StatCell color={mode.color}>{mode.name}</StatCell>
-						<StatCell>{json[`times_knocked_down_zombies_${mode.id}`]}</StatCell>
-						<StatCell>{json[`players_revived_zombies_${mode.id}`]}</StatCell>
-						<StatCell>{json[`doors_opened_zombies_${mode.id}`]}</StatCell>
-						<StatCell>{json[`windows_repaired_zombies_${mode.id}`]}</StatCell>
-						<StatCell>{json[`zombie_kills_zombies_${mode.id}`]}</StatCell>
-						<StatCell>{json[`deaths_zombies_${mode.id}`]}</StatCell>
-						<StatCell>{json[`best_round_zombies_${mode.id}`]}</StatCell>
+				consts.ZOMBIESMODES.map(({id, name, color}) => 
+					Boolean(json[`best_round_zombies_${id}`]) &&
+					<tr key={id}>
+						<StatCell color={color}>{name}</StatCell>
+						<StatCell>{json[`times_knocked_down_zombies_${id}`]}</StatCell>
+						<StatCell>{json[`players_revived_zombies_${id}`]}</StatCell>
+						<StatCell>{json[`doors_opened_zombies_${id}`]}</StatCell>
+						<StatCell>{json[`windows_repaired_zombies_${id}`]}</StatCell>
+						<StatCell>{json[`zombie_kills_zombies_${id}`]}</StatCell>
+						<StatCell>{json[`deaths_zombies_${id}`]}</StatCell>
+						<StatCell>{json[`best_round_zombies_${id}`]}</StatCell>
 					</tr>
 					)
 			}
@@ -113,7 +115,7 @@ export function Arcade(props) {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="mb-3">
+			<div className="my-3">
 				<StatPair title="Arcade Coins" color="gold">{json.coins}</StatPair>
 			</div>
 			<div className="h-flex mb-3">
@@ -215,10 +217,11 @@ export function Arcade(props) {
 					<StatPair title="Kill/Death Ratio">{Utils.ratio(json.kills_throw_out, json.deaths_throw_out)}</StatPair>
 				</div>
 			</div>
-			<div className="accordion-separator mb-2"></div>
 
-			<div className="font-bold font-md text-center mb-2">Mini Walls</div>
-			<div className="h-flex mb-2">
+			<HorizontalLine />
+
+			<div className="font-bold font-md text-center mt-3 mb-2">Mini Walls</div>
+			<div className="h-flex mb-3">
 				<div className="flex-1">
 					<StatPair title="Wins">{json.wins_mini_walls}</StatPair>
 					<StatPair title="Kit">{Utils.capitalize(json.miniwalls_activeKit || '-')}</StatPair>
@@ -239,9 +242,10 @@ export function Arcade(props) {
 					<StatPair title="Arrow Hit Accuracy">{Utils.ratio(json.arrows_hit_mini_walls, json.arrows_shot_mini_walls)}</StatPair>
 				</div>
 			</div>
-			<div className="accordion-separator mb-2"></div>
 
-			<div className="font-bold font-md text-center mb-2">Zombies</div>
+			<HorizontalLine />
+
+			<div className="font-bold font-md text-center mt-3 mb-2">Zombies</div>
 			<div className="h-flex mb-2">
 				<div className="flex-1">
 					<StatPair title="Bullets Hit">{json.bullets_hit_zombies}</StatPair>
@@ -261,7 +265,7 @@ export function Arcade(props) {
 			<div className="overflow-x mb-2">
 				{zombiesMapTable}
 			</div>
-			<div className="overflow-x" style={{width: '50%'}}>
+			<div className="overflow-x mb-3" style={{width: '50%'}}>
 				{zombiesTypeTable}
 			</div>
 		</Accordion>

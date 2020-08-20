@@ -1,0 +1,1 @@
+export { default as Hypixel } from './hypixel.svg';

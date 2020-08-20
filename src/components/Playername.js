@@ -1,20 +1,22 @@
 import React from 'react';
 import { MinecraftText } from 'components';
+import * as Utils from 'utils';
 
 /*
 * Hypixel player username with rank & colors in Minecraft font
 *
-* @param {Object} props.playerdata 	Player data JSON object
-* @param {string} props.font 		Font size
+* @param {Object} props.player 	Player data JSON object
+* @param {string} props.font 	Font size
 */
-export function Playername(props) {
+export function PlayerName(props) {
 
-	const playerdata = props.playerdata
+	const playerdata = Utils.traverse(props.player, 'player', {});
 	const stats = {
 		name: playerdata.displayname || '',
 		rank: getPlayerRank(playerdata),
 		prefix: playerdata.prefix,
 		plusColor: playerdata.rankPlusColor,
+		rankColor: playerdata.monthlyRankColor,
 	}
 
 	function getPlayerRank(playerdata) {
@@ -51,6 +53,8 @@ export function Playername(props) {
 			WHITE : '§f'
 		}
 		const plusColor = plusColors[stats.plusColor];
+		// For MVP++s only
+		const rankColor = plusColors[stats.rankColor]
 		const ranks = {
 			undefined : `§7${stats.name}`,
 			NONE : `§7${stats.name}`,
@@ -58,7 +62,7 @@ export function Playername(props) {
 			VIP_PLUS : `§a[VIP§6+§a] ${stats.name}`,
 			MVP : `§b[MVP] ${stats.name}`,
 			MVP_PLUS : `§b[MVP${plusColor}+§b] ${stats.name}`,
-			SUPERSTAR : `§6[MVP${plusColor}++§6] ${stats.name}`,
+			SUPERSTAR : `${rankColor}[MVP${plusColor}++${rankColor}] ${stats.name}`,
 			HELPER : `§9[HELPER] ${stats.name}`,
 			MODERATOR : `§2[MOD] ${stats.name}`,
 			ADMIN : `§c[ADMIN] ${stats.name}`,

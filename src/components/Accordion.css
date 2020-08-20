@@ -13,14 +13,6 @@
 	width: 100%;
 }
 
-.accordion-body {
-	padding: 0 1rem 1rem;
-}
-
-.accordion-separator {
-	border-bottom: 1px solid var(--theme-border);
-}
-
 .accordion-body table {
 	width: 100%;
 	border-collapse: collapse;

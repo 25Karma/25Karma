@@ -1,7 +1,7 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import './Accordion.css';
-import { Collapsible, MinecraftText, ReactIcon } from 'components';
+import { Collapsible, HorizontalLine, MinecraftText, ReactIcon } from 'components';
 
 /*
 * Draggable container with a collapsable portion underneath
@@ -28,7 +28,7 @@ export function Accordion(props) {
 								<div className="py-2">
 								<MinecraftText font="md">{props.title}</MinecraftText>
 								</div>
-								<div className="h-flex mx-auto px-3">
+								<div className="h-flex flex-1 justify-content-center px-3">
 									{props.header}
 								</div>
 							</div>
@@ -37,12 +37,11 @@ export function Accordion(props) {
 							</button>
 						</div>
 						<div {...cProvided.collapsibleProps}>
-							<div className="accordion-body">
-								<div className="accordion-separator mb-2"></div>
+							<div className="accordion-body px-2">
+								<HorizontalLine />
 								{props.children ?
-									<div className="py-2">{props.children}</div>
-									:
-									`No stats to display for ${props.title}.`
+									props.children : 
+									<div className="my-2">{`No stats to display for ${props.title}.`}</div>
 								}
 							</div>
 						</div>

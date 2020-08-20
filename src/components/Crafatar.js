@@ -16,10 +16,8 @@ export function Crafatar(props) {
 			style={{height:'2.5rem'}}/>
 	}
 	return <img 
+		className={props.shadow && 'box-shadow'}
 		src={`https://crafatar.com/avatars/${props.uuid}?overlay`} 
 		alt="Player face"
-		style={{
-			height:'2.5rem',
-			boxShadow: props.shadow ? '0 0.25rem 0.25rem black' : 'none'
-		}}/>
+		style={{ height:'2.5rem' }}/>
 }

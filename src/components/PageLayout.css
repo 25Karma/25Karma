@@ -1,0 +1,20 @@
+.pagelayout {
+	display: flex;
+	flex: 1;
+	width: 100%;
+	justify-content: center;
+}
+
+
+.pagelayout-left {
+}
+
+.pagelayout-body { 
+	/* https://stackoverflow.com/a/36247448 */
+	min-width: 0;
+	max-width: 1000px;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+}
+@media ( max-width: 640px ) { .pagelayout { flex-direction: column; }  }

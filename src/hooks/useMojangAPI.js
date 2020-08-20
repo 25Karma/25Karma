@@ -4,10 +4,11 @@ import p from 'properties.js';
 /*
 * Makes an API call to Mojang to get data on a player
 *
-* @param {string} player 	EIther the username or UUID of the player
+* @param {string} type 		Name of endpoint - default 'player'
+* @param {string} player 	Either the username or UUID of the player
 * @return {JSON} 			JSON object containing both username and UUID data
 */
-export function useMojangAPI(type, player) {
+export function useMojangAPI(player, type) {
 	const [data, setData] = useState({});
 	
 	useEffect(() => {

@@ -92,6 +92,8 @@ button:focus {
 .mr-auto { margin-right: auto; }
 .mt-1 { margin-top: 0.5rem; }
 .mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 2rem; }
+.mt-4 { margin-top: 4rem; }
 .mt-auto { margin-top: auto; }
 .mx-1 { margin-left: 0.5rem; margin-right: 0.5rem; }
 .mx-2 { margin-left: 1rem; margin-right: 1rem; }
@@ -104,6 +106,7 @@ button:focus {
 .my-auto { margin-top: auto; margin-bottom: auto; }
 .overflow-hidden { overflow: hidden; }
 .overflow-x { overflow-x: auto; }
+.overflow-y { overflow-y: auto; }
 .nowrap { white-space: nowrap; }
 .position-absolute { position: absolute; }
 .position-relative { position: relative; }
@@ -134,7 +137,7 @@ button:focus {
 .rounded { border-radius: 0.25rem; }
 .text-center { text-align: center; }
 .text-right { text-align: right; }
-.text-shadow { text-shadow: 0 0.25rem 0.25rem black; }
+.text-shadow { text-shadow: 0rem 0.25rem 0.25rem black; }
 .top-0 { top: 0; }
 .underline { text-decoration: underline; }
 .user-select-none { user-select: none; }

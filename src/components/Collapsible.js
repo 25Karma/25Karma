@@ -18,7 +18,7 @@ export function Collapsible(props) {
 			style: { 
 				maxHeight: collapsibleHeight,
 				overflow: 'hidden',
-				transition: 'max-height 500ms' 
+				transition: 'max-height 500ms',
 			}
 		},
 		collapseButtonProps : {

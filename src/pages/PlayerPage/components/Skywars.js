@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
-import { Accordion, Banner, Box, Button, Crafatar, Progress, ProgressBar, StatCell, StatPair } from 'components';
+import { Accordion, Banner, Box, Button, 
+	Crafatar, HorizontalLine, Progress, ProgressBar, 
+	StatCell, StatPair, StatRow } from 'components';
+import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
 
 /*
 * Stats accordion for Skywars
 *
-* @param {Object} props.player 	Player data in JSON object
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
 export function Skywars(props) {
@@ -68,7 +70,7 @@ export function Skywars(props) {
 			{id: '_team_insane',  name: 'Teams Insane'},
 			{id: '_mega_normal',  name: 'Mega'},
 			{id: '_mega_doubles', name: 'Mega Doubles'},
-			{id: '', name: <div className="font-bold mt-2">Overall</div>},
+			{id: '', name: 'Overall'},
 		],
 		HEADS : [
 			{id: 'eww',       name: 'Eww!',      color: 'darkgray'},
@@ -85,7 +87,9 @@ export function Skywars(props) {
 	};
 
 	// Get the player's API data for SkyWars
-	const json = Utils.traverse(props.player,'stats.SkyWars') || {};
+	const { player } = useHypixelContext();
+	const json = Utils.traverse(player,'player.stats.SkyWars') || {};
+
 	const leveling = new Utils.HypixelLeveling(xpToLevel, levelToXP,
 		Utils.default0(json.skywars_experience));
 	const prestigeColor = getPrestige(leveling.level).color;
@@ -205,17 +209,17 @@ export function Skywars(props) {
 			</thead>
 			<tbody>
 			{
-				consts.MODES.map(mode => 
-					Boolean(Utils.add(json[`wins${mode.id}`], json[`losses${mode.id}`])) &&
-					<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
-						<StatCell>{mode.name}</StatCell>
-						<StatCell>{json[`kills${mode.id}`]}</StatCell>
-						<StatCell>{json[`deaths${mode.id}`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`kills${mode.id}`],json[`deaths${mode.id}`])}</StatCell>
-						<StatCell>{json[`wins${mode.id}`]}</StatCell>
-						<StatCell>{json[`losses${mode.id}`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`wins${mode.id}`],json[`losses${mode.id}`])}</StatCell>
-					</tr>
+				consts.MODES.map(({id, name}) => 
+					Boolean(Utils.add(json[`wins${id}`], json[`losses${id}`])) &&
+					<StatRow key={id} id={id} isHighlighted={name === mostPlayedMode}>
+						<StatCell>{name}</StatCell>
+						<StatCell>{json[`kills${id}`]}</StatCell>
+						<StatCell>{json[`deaths${id}`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`kills${id}`],json[`deaths${id}`])}</StatCell>
+						<StatCell>{json[`wins${id}`]}</StatCell>
+						<StatCell>{json[`losses${id}`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`wins${id}`],json[`losses${id}`])}</StatCell>
+					</StatRow>
 					)
 			}
 			</tbody>
@@ -272,9 +276,11 @@ export function Skywars(props) {
 		<Accordion title={consts.TITLE} index={props.index} /> 
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="mb-1 font-bold">Leveling Progress</div>
-			<div className="h-flex mb-3">
-				{levelProgress}
+			<div className="my-3">
+				<div className="mb-1 font-bold">Leveling Progress</div>
+				<div className="h-flex">
+					{levelProgress}
+				</div>
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
@@ -320,19 +326,23 @@ export function Skywars(props) {
 					<StatPair title="Soul Well Uses">{json.soul_well}</StatPair>
 				</div>
 			</div>
-			<div className="accordion-separator mb-3"></div>
-			<div className="overflow-x mb-3">
+			
+			<HorizontalLine />
+
+			<div className="overflow-x my-3">
 				{table}
 			</div>
-			<div className="accordion-separator mb-3"></div>
-			<div className="mb-1">
+			
+			<HorizontalLine />
+
+			<div className="mb-1 mt-3">
 				<StatPair title="Total Heads Gathered">{json.heads}</StatPair>
 			</div>
 			<div className="mb-3">
 				{headProgress}
 			</div>
 			<div className="font-bold pb-2">Prestigious Head Collection</div>
-			<div className="h-flex flex-wrap">
+			<div className="h-flex flex-wrap pb-3">
 			{
 				headButtonState ?
 				prestigiousHeadCollection :

@@ -1,0 +1,6 @@
+.playercard {
+	overflow: hidden;
+	border-radius: 0.25rem;
+	border: 1px solid var(--theme-border);
+	background: var(--theme-secondary);
+}

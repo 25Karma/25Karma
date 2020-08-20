@@ -1,11 +1,12 @@
 import React from 'react';
-import { Accordion, Box, Progress, ProgressBar, StatCell, StatPair } from 'components';
+import { Accordion, Box, Progress, 
+	ProgressBar, StatCell, StatPair, StatRow } from 'components';
+import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
 
 /*
 * Stats accordion for Speed UHC
 *
-* @param {Object} props.player 	Player data in JSON object
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
 export function SpeedUHC(props) {
@@ -13,10 +14,11 @@ export function SpeedUHC(props) {
 	const consts = {
 		TITLE: 'Speed UHC',
 		MODES: [
-		{id: 'solo_normal', name: 'Solo Normal'},
-		{id: 'solo_insane', name: 'Solo Insane'},
-		{id: 'team_normal', name: 'Teams Normal'},
-		{id: 'team_insane', name: 'Teams Insane'},
+		{id: '_solo_normal', name: 'Solo Normal'},
+		{id: '_solo_insane', name: 'Solo Insane'},
+		{id: '_team_normal', name: 'Teams Normal'},
+		{id: '_team_insane', name: 'Teams Insane'},
+		{id: '', name: 'Overall'},
 		],
 		TITLES: [
 			{value: 0, name: 'Hiker'},
@@ -34,7 +36,9 @@ export function SpeedUHC(props) {
 	}
 
 	// The player's API data for Speed UHC
-	const json = Utils.traverse(props.player,'stats.SpeedUHC') || {};
+	const { player } = useHypixelContext();
+	const json = Utils.traverse(player,'player.stats.SpeedUHC') || {};
+	
 	const leveling = new Utils.HypixelLeveling(scoreToStar, starToScore, Utils.default0(json.score));
 	if (leveling.levelCeiling > 10) leveling.levelCeiling = 10;
 	const title = getTitle(leveling.levelFloor);
@@ -47,8 +51,8 @@ export function SpeedUHC(props) {
 		let mostPlayed = null;
 		let mostPlays = 0;
 		for (const mode of consts.MODES) {
-			const plays = Utils.default0(json[`wins_${mode.id}`]) + Utils.default0(json[`losses_${mode.id}`])
-			if (plays > mostPlays) {
+			const plays = Utils.default0(json[`wins${mode.id}`]) + Utils.default0(json[`losses${mode.id}`])
+			if (plays > mostPlays && mode.id) {
 				mostPlays = plays;
 				mostPlayed = mode.name;
 			}
@@ -124,17 +128,17 @@ export function SpeedUHC(props) {
 			</thead>
 			<tbody>
 			{
-				consts.MODES.map(mode =>
-					Boolean(Utils.add(json[`wins_${mode.id}`], json[`deaths_${mode.id}`])) &&
-					<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
-						<StatCell>{mode.name}</StatCell>
-						<StatCell>{json[`kills_${mode.id}`]}</StatCell>
-						<StatCell>{json[`deaths_${mode.id}`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`kills_${mode.id}`],json[`deaths_${mode.id}`])}</StatCell>
-						<StatCell>{json[`wins_${mode.id}`]}</StatCell>
-						<StatCell>{json[`losses_${mode.id}`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`wins_${mode.id}`],json[`losses_${mode.id}`])}</StatCell>
-					</tr>
+				consts.MODES.map(({id, name}) =>
+					Boolean(Utils.add(json[`wins${id}`], json[`deaths${id}`])) &&
+					<StatRow key={id} id={id} isHighlighted={name === mostPlayedMode}>
+						<StatCell>{name}</StatCell>
+						<StatCell>{json[`kills${id}`]}</StatCell>
+						<StatCell>{json[`deaths${id}`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`kills${id}`],json[`deaths${id}`])}</StatCell>
+						<StatCell>{json[`wins${id}`]}</StatCell>
+						<StatCell>{json[`losses${id}`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`wins${id}`],json[`losses${id}`])}</StatCell>
+					</StatRow>
 					)
 			}
 			</tbody>
@@ -145,9 +149,11 @@ export function SpeedUHC(props) {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="mb-1 font-bold">Title Progress</div>
-			<div className="h-flex mb-3">
-				{progressBar}
+			<div className="my-3">
+				<div className="mb-1 font-bold">Title Progress</div>
+				<div className="h-flex">
+					{progressBar}
+				</div>
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
@@ -168,7 +174,7 @@ export function SpeedUHC(props) {
 					<StatPair title="Winstreak">{json.winstreak}</StatPair>
 				</div>
 			</div>
-			<div className="overflow-x">
+			<div className="overflow-x mb-3">
 				{table}
 			</div>
 		</Accordion>

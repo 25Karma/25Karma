@@ -1,11 +1,12 @@
 import React from 'react';
-import { Accordion, Box, Progress, ProgressBar, StatCell, StatPair } from 'components';
+import { Accordion, Box, HorizontalLine, Progress, 
+	ProgressBar, StatCell, StatPair } from 'components';
+import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
 
 /*
 * Stats accordion for UHC
 *
-* @param {Object} props.player 	Player data in JSON object
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
 export function UHC(props) {
@@ -42,8 +43,10 @@ export function UHC(props) {
 		],
 	}
 
-	// Get the player's API data for SkyWars
-	const json = Utils.traverse(props.player,'stats.UHC') || {};
+	// Get the player's API data for UHC
+	const { player } = useHypixelContext();
+	const json = Utils.traverse(player,'player.stats.UHC') || {};
+
 	const leveling = new Utils.HypixelLeveling(scoreToStar, starToScore, Utils.default0(json.score));
 	if (leveling.levelCeiling > 15) leveling.levelCeiling = 15;
 	const title = getTitle(leveling.levelFloor).name;
@@ -154,9 +157,11 @@ export function UHC(props) {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="mb-1 font-bold">Title Progress</div>
-			<div className="h-flex mb-3">
-				{progressBar}
+			<div className="my-3">
+				<div className="mb-1 font-bold">Title Progress</div>
+				<div className="h-flex">
+					{progressBar}
+				</div>
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
@@ -178,8 +183,10 @@ export function UHC(props) {
 					</StatPair>
 				</div>
 			</div>
-			<div className="accordion-separator mb-3"></div>
-			<div className="overflow-x">
+			
+			<HorizontalLine />
+
+			<div className="overflow-x my-3">
 				{table}
 			</div>
 		</Accordion>

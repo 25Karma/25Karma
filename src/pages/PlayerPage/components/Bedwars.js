@@ -1,11 +1,12 @@
 import React from 'react';
-import { Accordion, Box, Progress, ProgressBar, StatCell, StatPair } from 'components';
+import { Accordion, Box, HorizontalLine, Progress, 
+	ProgressBar, StatCell, StatPair, StatRow } from 'components';
+import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
 
 /*
 * Stats accordion for Bed Wars
 *
-* @param {Object} props.player 	Player data in JSON object
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
 export function Bedwars(props) {
@@ -34,6 +35,7 @@ export function Bedwars(props) {
 			{id: 'four_three_', name: '3v3v3v3'},
 			{id: 'four_four_', name: '4v4v4v4'},
 			{id: 'two_four_', name: '4v4'},
+			{id: '', name: 'Overall'},
 			{id: 'eight_one_rush_', name: 'Rush Solo'},
 			{id: 'eight_two_rush_', name: 'Rush Doubles'},
 			{id: 'four_four_rush_', name: 'Rush 4v4v4v4'},
@@ -47,12 +49,13 @@ export function Bedwars(props) {
 			{id: 'eight_two_armed_', name: 'Armed Doubles'},
 			{id: 'four_four_armed_', name: 'Armed 4v4v4v4'},
 			{id: 'castle_', name: 'Castle'},
-			{id: '', name: <div className="font-bold mt-2">Overall</div>},
 		],
 	};
 	
 	// The player's API data for Bed Wars
-	const json = Utils.traverse(props.player,'stats.Bedwars') || {};
+	const { player } = useHypixelContext();
+	const json = Utils.traverse(player,'player.stats.Bedwars') || {};
+
 	const leveling = new Utils.HypixelLeveling(xpToLevel, levelToXP, 
 		Utils.default0(json.Experience) + Utils.default0(json.Experience_new));
 	const prestigeColor = getPrestige(leveling.level).color;
@@ -146,29 +149,29 @@ export function Bedwars(props) {
 	const table = (() => {
 		const dreamsStartAt = 'eight_one_rush_';
 		let rowList = [];
-		for (const mode of consts.MODES) {
-			if (mode.id === dreamsStartAt) {
+		for (const {id, name} of consts.MODES) {
+			if (id === dreamsStartAt) {
 				rowList.push(
 					<tr key="dreams"><th><div className="mt-2">Dreams Mode</div></th></tr>
 					);
 			}
 			rowList.push(
-				Boolean(Utils.add(json[`${mode.id}wins_bedwars`], json[`${mode.id}losses_bedwars`])) &&
-				<tr key={mode.id} className={mode.name === mostPlayedMode ? 'c-pink' : ''}>
-					<StatCell>{mode.name}</StatCell>
-					<StatCell>{json[`${mode.id}kills_bedwars`]}</StatCell>
-					<StatCell>{json[`${mode.id}deaths_bedwars`]}</StatCell>
-					<StatCell>{Utils.ratio(json[`${mode.id}kills_bedwars`],json[`${mode.id}deaths_bedwars`])}</StatCell>
-					<StatCell>{json[`${mode.id}final_kills_bedwars`]}</StatCell>
-					<StatCell>{json[`${mode.id}final_deaths_bedwars`]}</StatCell>
-					<StatCell>{Utils.ratio(json[`${mode.id}final_kills_bedwars`],json[`${mode.id}final_deaths_bedwars`])}</StatCell>
-					<StatCell>{json[`${mode.id}wins_bedwars`]}</StatCell>
-					<StatCell>{json[`${mode.id}losses_bedwars`]}</StatCell>
-					<StatCell>{Utils.ratio(json[`${mode.id}wins_bedwars`],json[`${mode.id}losses_bedwars`])}</StatCell>
-					<StatCell>{json[`${mode.id}beds_broken_bedwars`]}</StatCell>
-					<StatCell>{json[`${mode.id}beds_lost_bedwars`]}</StatCell>
-					<StatCell>{Utils.ratio(json[`${mode.id}beds_broken_bedwars`],json[`${mode.id}beds_lost_bedwars`])}</StatCell>
-				</tr>
+				Boolean(Utils.add(json[`${id}wins_bedwars`], json[`${id}losses_bedwars`])) &&
+				<StatRow key={id} id={id} isHighlighted={name === mostPlayedMode}>
+					<StatCell>{name}</StatCell>
+					<StatCell>{json[`${id}kills_bedwars`]}</StatCell>
+					<StatCell>{json[`${id}deaths_bedwars`]}</StatCell>
+					<StatCell>{Utils.ratio(json[`${id}kills_bedwars`],json[`${id}deaths_bedwars`])}</StatCell>
+					<StatCell>{json[`${id}final_kills_bedwars`]}</StatCell>
+					<StatCell>{json[`${id}final_deaths_bedwars`]}</StatCell>
+					<StatCell>{Utils.ratio(json[`${id}final_kills_bedwars`],json[`${id}final_deaths_bedwars`])}</StatCell>
+					<StatCell>{json[`${id}wins_bedwars`]}</StatCell>
+					<StatCell>{json[`${id}losses_bedwars`]}</StatCell>
+					<StatCell>{Utils.ratio(json[`${id}wins_bedwars`],json[`${id}losses_bedwars`])}</StatCell>
+					<StatCell>{json[`${id}beds_broken_bedwars`]}</StatCell>
+					<StatCell>{json[`${id}beds_lost_bedwars`]}</StatCell>
+					<StatCell>{Utils.ratio(json[`${id}beds_broken_bedwars`],json[`${id}beds_lost_bedwars`])}</StatCell>
+				</StatRow>
 				);
 		}
 		return (
@@ -206,9 +209,11 @@ export function Bedwars(props) {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="mb-1 font-bold">Leveling Progress</div>
-			<div className="h-flex mb-3">
-				{progressBar}
+			<div className="my-3">
+				<div className="mb-1 font-bold">Leveling Progress</div>
+				<div className="h-flex">
+					{progressBar}
+				</div>
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
@@ -240,12 +245,16 @@ export function Bedwars(props) {
 					<StatPair title="Wrapped Presents Collected">{json.wrapped_present_resources_collected_bedwars}</StatPair>
 				</div>
 			</div>
-			<div className="accordion-separator mb-3"></div>
-			<div className="overflow-x mb-3">
+			
+			<HorizontalLine />
+
+			<div className="overflow-x my-3">
 				{table}
 			</div>
-			<div className="accordion-separator mb-3"></div>
-			<div className="h-flex">
+			
+			<HorizontalLine />
+
+			<div className="h-flex my-3">
 				<div className="flex-1">
 					<StatPair title="Times Drowned">{json.drowning_deaths_bedwars}</StatPair>
 					<StatPair title="Deaths to Fire">{Utils.default0(json.fire_tick_deaths_bedwars)+Utils.default0(json.fire_deaths_bedwars)}</StatPair>
