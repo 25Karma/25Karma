@@ -13,7 +13,7 @@ export function SocialMedia(props) {
 			HYPIXEL: {icon: 'FaHireAHelper', color: 'gold'},
 			TWITCH: {icon: 'FaTwitch', color: 'purple'},
 			TWITTER: {icon: 'FaTwitter', color: 'aqua'},
-			YOUTUBE: {icon: 'FaYoutube', color: 'darkred'},
+			YOUTUBE: {icon: 'FaYoutube', color: 'red'},
 		},
 	}
 
@@ -31,7 +31,8 @@ export function SocialMedia(props) {
 						<button onClick={()=>{setBannerShown(true)}}>
 							<ReactIcon 
 								icon={s.icon} 
-								color={s.color} />
+								color={s.color}
+								clickable />
 						</button>
 					</span>
 					);
@@ -49,7 +50,8 @@ export function SocialMedia(props) {
 						<ExternalLink href={v}>
 							<ReactIcon 
 								icon={s.icon} 
-								color={s.color} />
+								color={s.color} 
+								clickable />
 						</ExternalLink>
 					</span>
 					);

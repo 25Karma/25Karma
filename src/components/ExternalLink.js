@@ -7,7 +7,11 @@ import React from 'react';
 * @param {string} props.children 	Text of the link
 */
 export function ExternalLink(props) {
-	return <a className="link" target="_blank" rel="noopener noreferrer" href={props.href}>
+	let { href } = props;
+	if (!href.startsWith('http')) {
+		href = 'https://' + href;
+	}
+	return <a className="link" target="_blank" rel="noopener noreferrer" href={href}>
 			{props.children}
 		</a>;
 }

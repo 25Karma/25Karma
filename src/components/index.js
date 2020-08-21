@@ -6,6 +6,7 @@ export * from './Collapsible.js';
 export * from './Crafatar.js';
 export * from './Footer.js';
 export * from './ExternalLink.js';
+export * from './GuildTag.js';
 export * from './HorizontalLine.js';
 export * from './HypixelContextProvider.js';
 export * from './LoadingSpinner.js';

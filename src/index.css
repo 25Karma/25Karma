@@ -150,22 +150,22 @@ button:focus {
 .z-0 { z-index: 0; }
 
 /* text colors */
-.c-darkred { color: #a00; }
-.c-red { color: #f55; }
-.c-gold { color: #fa0; }
-.c-yellow { color: #ff5; }
-.c-darkgreen { color: #0a0; }
-.c-green { color: #5f5; }
-.c-aqua { color: #5ff; }
-.c-darkaqua { color: #0aa; }
-.c-darkblue { color: #00a; }
-.c-blue { color: #55f; }
-.c-pink { color: #f5f; }
-.c-purple { color: #a0a }
-.c-white { color: #fff; }
-.c-gray { color: #aaa; }
-.c-darkgray { color: #555; }
-.c-black { color: #000; }
+.c-darkred, .c-DARK_RED { color: #a00; }
+.c-red, .c-RED { color: #f55; }
+.c-gold, .c-GOLD { color: #fa0; }
+.c-yellow, .c-YELLOW { color: #ff5; }
+.c-darkgreen, .c-DARK_GREEN { color: #0a0; }
+.c-green, .c-GREEN { color: #5f5; }
+.c-aqua, .c-AQUA { color: #5ff; }
+.c-darkaqua, .c-DARK_AQUA { color: #0aa; }
+.c-darkblue, .c-DARK_BLUE { color: #00a; }
+.c-blue, .c-BLUE { color: #55f; }
+.c-pink, .c-LIGHT_PURPLE { color: #f5f; }
+.c-purple, .c-DARK_PURPLE { color: #a0a }
+.c-white, .c-WHITE { color: #fff; }
+.c-gray, .c-GRAY { color: #aaa; }
+.c-darkgray, .c-DARK_GRAY { color: #555; }
+.c-black, .c-BLACK { color: #000; }
 .c-brown { color: #963; }
 .c-rainbow { 
 	background-image: linear-gradient(to left, #a0a, #f5f, #5ff, #5f5, #ff5, #fa0, #f55);   

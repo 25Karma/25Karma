@@ -28,14 +28,13 @@ export function PlayerCard(props) {
 			{level: 250, value: 8},
 		],
 	}
-	const { player } = useHypixelContext();
+	const { friends, player, guild } = useHypixelContext();
 	const json = player.player || {};
-	console.log(json)
 	const networkLevel = Utils.formatNum(calculateNetworkLevel(json.networkExp));
 	const multiplier = (() => {
 		let m = null;
 		for (const {level, value} of consts.MULTIPLIER.slice().reverse()) {
-			if (networkLevel > level) {
+			if (networkLevel >= level) {
 				m = value;
 				break;
 			}
@@ -74,18 +73,29 @@ export function PlayerCard(props) {
 		</React.Fragment>
 		);
 	
-	const socialMedia = (socialMediaLinks &&
+	const guildInfo = (guild.guild &&
 		<React.Fragment>
-			<div className="my-2">
+			<div className="my-3">
 				<HorizontalLine />
 			</div>
-			<div className="font-bold mb-1">Social Media</div>
+			<div className="font-bold font-md mb-2">Guild</div>
+			<StatPair title="Name" color={guild.guild.tagColor}>{guild.guild.name}</StatPair>
+			<StatPair title="Members">{guild.guild.members.length}</StatPair>
+		</React.Fragment>
+		);
+
+	const socialMedia = (socialMediaLinks &&
+		<React.Fragment>
+			<div className="my-3">
+				<HorizontalLine />
+			</div>
+			<div className="font-bold font-md mb-2">Social Media</div>
 			<SocialMedia links={socialMediaLinks} />
 		</React.Fragment>
 		);
 
 	return (
-		<div className="playercard p-2 pt-1 my-1">
+		<div className="playercard px-2 pt-1 pb-3 my-1">
 			<div className="h-flex w-100 justify-content-center">
 				<Box title="Hypixel Level" color="white">
 					{networkLevel}
@@ -94,12 +104,14 @@ export function PlayerCard(props) {
 					{json.karma}
 				</Box>
 			</div>
-			<div className="mb-2">
+			<div className="mb-3">
 				<HorizontalLine />
 			</div>
 			<StatPair title="Coin Multiplier">{`${multiplier.value} (${multiplier.name})`}</StatPair>
 			<StatPair title="Achievement Points">{json.achievementPoints}</StatPair>
 			<StatPair title="Quests Completed">{questsCompleted}</StatPair>
+			<br />
+			<StatPair title="Friends">{friends.records.length}</StatPair>
 			<br />
 			{loginDates}
 			<ExternalLink href={`https://sky.lea.moe/stats/${json.uuid}`}>
@@ -108,6 +120,7 @@ export function PlayerCard(props) {
 					<ReactIcon icon="FaExternalLinkAlt" size="sm"/>
 				</Button>
 			</ExternalLink>
+			{guildInfo}
 			{socialMedia}
 		</div>
 		);

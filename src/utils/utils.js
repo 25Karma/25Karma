@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie';
 
-const decimal = Cookies.get('decimal') || 2;
 export const CALL_STATUS_REQUESTED = 'requested';
 export const CALL_STATUS_FAILED_HYPIXEL = 'failed-hypixel';
 export const CALL_STATUS_FAILED_MOJANG = 'failed-mojang';
@@ -77,6 +76,7 @@ export function traverse(json, path, defaultValue) {
 * @return {string} 		The comma-separated, decimal-stripped number
 */
 export function formatNum(num) {
+	const decimal = Cookies.get('decimal') || 2;
 	num = default0(num);
 	return num.toLocaleString('en', {   
 			minimumFractionDigits: 0,
@@ -190,6 +190,22 @@ export function toColorCode(str) {
 		'brown' : 'g',
 		'rainbow' : 'R',
 		'rainbow font-bold' : 'K',
+		'BLACK' : '0',
+		'DARK_BLUE' : '1',
+		'DARK_GREEN' : '2',
+		'DARK_AQUA' : '3',
+		'DARK_RED' : '4',
+		'DARK_PURPLE' : '5',
+		'GOLD' : '6',
+		'GRAY' : '7',
+		'DARK_GRAY' : '8',
+		'BLUE' : '9',
+		'GREEN' : 'a',
+		'AQUA' : 'b',
+		'RED' : 'c',
+		'LIGHT_PURPLE' : 'd',
+		'YELLOW' : 'e',
+		'WHITE' : 'f'
 	}
 	return '§' + (colorClasses[str] || 'f');
 }

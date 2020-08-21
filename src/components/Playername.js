@@ -6,7 +6,7 @@ import * as Utils from 'utils';
 * Hypixel player username with rank & colors in Minecraft font
 *
 * @param {Object} props.player 	Player data JSON object
-* @param {string} props.font 	Font size
+* @param {string} props.size 	Font size
 */
 export function PlayerName(props) {
 
@@ -33,28 +33,9 @@ export function PlayerName(props) {
 	}
 
 	function getNameWithRank(stats) {
-		const plusColors = {
-			undefined : '§c',
-			BLACK : '§0',
-			DARK_BLUE : '§1',
-			DARK_GREEN : '§2',
-			DARK_AQUA : '§3',
-			DARK_RED : '§4',
-			DARK_PURPLE : '§5',
-			GOLD : '§6',
-			GRAY : '§7',
-			DARK_GRAY : '§8',
-			BLUE : '§9',
-			GREEN : '§a',
-			AQUA : '§b',
-			RED : '§c',
-			LIGHT_PURPLE : '§d',
-			YELLOW : '§e',
-			WHITE : '§f'
-		}
-		const plusColor = plusColors[stats.plusColor];
+		const plusColor = Utils.toColorCode(stats.plusColor || 'red');
 		// For MVP++s only
-		const rankColor = plusColors[stats.rankColor]
+		const rankColor = Utils.toColorCode(stats.rankColor);
 		const ranks = {
 			undefined : `§7${stats.name}`,
 			NONE : `§7${stats.name}`,
@@ -75,7 +56,7 @@ export function PlayerName(props) {
 	}
 
 	return (
-		<MinecraftText font={props.font} className="px-2">
+		<MinecraftText size={props.size} className="pr-2">
 			{getNameWithRank(stats)}
 		</MinecraftText>
 		);
