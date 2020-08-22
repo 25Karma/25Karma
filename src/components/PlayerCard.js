@@ -3,31 +3,16 @@ import './PlayerCard.css';
 import dateFormat from 'dateformat';
 import { Box, Button, ExternalLink, HorizontalLine, 
 	ReactIcon, SocialMedia, StatPair } from 'components';
+import { HYPIXEL as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
+import { getPlayerRank } from 'utils/hypixel';
 
 /*
 * Displays general Hypixel stats about the player in the Hypixel Context
 */
 export function PlayerCard(props) {
-	const consts = {
-		MULTIPLIER: [
-			{level: 0, value: 1},
-			{level: 5, value: 1.5},
-			{level: 10, value: 2},
-			{level: 15, value: 2.5},
-			{level: 20, value: 3},
-			{level: 25, value: 3.5},
-			{level: 30, value: 4},
-			{level: 40, value: 4.5},
-			{level: 50, value: 5},
-			{level: 100, value: 5.5},
-			{level: 125, value: 6},
-			{level: 150, value: 6.5},
-			{level: 200, value: 7},
-			{level: 250, value: 8},
-		],
-	}
+	
 	const { friends, player, guild } = useHypixelContext();
 	const json = player.player || {};
 	const networkLevel = Utils.formatNum(calculateNetworkLevel(json.networkExp));
@@ -39,9 +24,12 @@ export function PlayerCard(props) {
 				break;
 			}
 		}
-		if (json.rank === 'YOUTUBER') {
-			m = Math.max(m, 7);
-			if (m === 7) return {name: 'YouTuber', value: '×7'};
+		const playerRank = getPlayerRank(json)
+		if (json.eulaCoins || playerRank === 'YOUTUBER') {
+			const { value, name } = consts.RANKMULTIPLIER[playerRank]
+			if (Math.max(m, value) === value) {
+				return {name: name, value: `×${value}`};
+			}
 		}
 		return {name: `Level ${Math.floor(networkLevel)}`, value: `×${m}`};
 	})();
@@ -61,14 +49,18 @@ export function PlayerCard(props) {
 		return ((Math.sqrt(exp + 15312.5) - 125/Math.sqrt(2))/(25*Math.sqrt(2)))
 	}
 
-	const loginDates = (json.firstLogin &&
+	const loginDates = ( 
 		<React.Fragment>
-			<StatPair title="First Login">
-				{dateFormat(new Date(json.firstLogin), 'yyyy/mm/dd, h:MM TT Z')}
-			</StatPair>
-			<StatPair title="Last Login">
-				{dateFormat(new Date(json.lastLogin), 'yyyy/mm/dd, h:MM TT Z')}
-			</StatPair>
+			{json.firstLogin &&
+				<StatPair title="First Login">
+					{dateFormat(new Date(json.firstLogin), 'yyyy/mm/dd, h:MM TT Z')}
+				</StatPair>
+			}
+			{json.lastLogin &&
+				<StatPair title="Last Login">
+					{dateFormat(new Date(json.lastLogin), 'yyyy/mm/dd, h:MM TT Z')}
+				</StatPair>
+			}
 			<br/>
 		</React.Fragment>
 		);

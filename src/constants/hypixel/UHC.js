@@ -1,0 +1,31 @@
+export const UHC = {
+	TITLE: 'UHC',
+	MODES: [
+	{id: '_solo', name: 'Solo'},
+	{id: '', name: 'Teams'},
+	{id: '_red vs blue', name: 'Red vs. Blue'},
+	{id: '_no diamonds', name: 'No Diamonds'},
+	{id: '_vanilla doubles', name: 'Vanilla Doubles'},
+	{id: '_brawl', name: 'Brawl'},
+	{id: '_solo brawl', name: 'Solo Brawl'},
+	{id: '_duo brawl', name: 'Duo Brawl'},
+	],
+	STARS: [
+		{value: 0, name: 'Recruit', color: 'gray'},
+		{value: 10, name: 'Initiate', color: 'gray'},
+		{value: 60, name: 'Soldier', color: 'gray'},
+		{value: 210, name: 'Sergeant', color: 'gray'},
+		{value: 460, name: 'Knight', color: 'gray'},
+		{value: 960, name: 'Captain', color: 'gray'},
+		{value: 1710, name: 'Centurion', color: 'gray'},
+		{value: 2710, name: 'Gladiator', color: 'gray'},
+		{value: 5210, name: 'Warlord', color: 'gray'},
+		{value: 10210, name: 'Champion', color: 'gray'},
+		{value: 13210, name: 'Champion', color: 'gray'},
+		{value: 16210, name: 'Bronze Champion', color: 'brown'},
+		{value: 19210, name: 'Silver Champion', color: 'white'},
+		{value: 22210, name: 'Gold Champion', color: 'gold'},
+		{value: 25210, name: 'High Champion', color: 'aqua'},
+		{value: Infinity, name: null, color: null}
+	],
+}

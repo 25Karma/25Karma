@@ -127,13 +127,13 @@ export function FrontPage(props) {
 					<div className="py-1">
 						<Searchbar defaultValue={config.player || ''}/>
 					</div>
-					<div className="pb-2 pl-2 h-flex align-items-start">
+					<div className="pl-2 h-flex align-items-start">
 						{renderRecentSearches()}
 					</div>
 					<div className="mx-auto">
 						{banner}
 					</div>
-					<div className="pt-4 pb-2">
+					<div className="pt-5 pb-2">
 						<ProTip />
 					</div>
 				</React.Fragment>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { MinecraftText } from 'components';
 import * as Utils from 'utils';
+import { getPlayerRank } from 'utils/hypixel';
 
 /*
 * Hypixel player username with rank & colors in Minecraft font
@@ -17,19 +18,6 @@ export function PlayerName(props) {
 		prefix: playerdata.prefix,
 		plusColor: playerdata.rankPlusColor,
 		rankColor: playerdata.monthlyRankColor,
-	}
-
-	function getPlayerRank(playerdata) {
-		let ranks = [
-			playerdata.rank, 
-			playerdata.monthlyPackageRank, 
-			playerdata.newPackageRank, 
-			playerdata.packageRank
-		];
-		for (const rank of ranks) {
-			if (rank !== undefined && rank !== "NONE" && rank !== "NORMAL") return rank;
-		}
-		return "NONE";
 	}
 
 	function getNameWithRank(stats) {

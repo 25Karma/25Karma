@@ -133,10 +133,8 @@ export function Settings(props) {
 						max="8"
 						step="1"/>
 				</div>
-				<div className="v-flex align-items-center pb-2">
-					<div className="pb-2">
-						<Button onClick={setCookies}><span className="font-bold">Save Settings</span></Button>
-					</div>
+				<div className="v-flex align-items-center pb-3">
+					<Button onClick={setCookies}><span className="font-bold">Save Settings</span></Button>
 					{renderBanner()}
 				</div>
 				<p>

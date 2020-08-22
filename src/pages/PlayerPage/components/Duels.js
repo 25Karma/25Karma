@@ -1,6 +1,7 @@
 import React from 'react';
 import { Accordion, Box, HorizontalLine, StatCell, 
 	StatPair, StatRow } from 'components';
+import { DUELS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
 
@@ -10,43 +11,6 @@ import * as Utils from 'utils';
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
 export const Duels = React.memo((props) => {
-
-	// Constants useful for processing Duels API data
-	const consts = {
-		TITLE: 'Duels',
-		DIVISIONS: [
-			{name: 'Rookie', color: 'darkgray'},
-			{name: 'Iron', color: 'white'},
-			{name: 'Gold', color: 'gold'},
-			{name: 'Diamond', color: 'aqua'},
-			{name: 'Master', color: 'darkgreen'},
-			{name: 'Legend', color: 'darkred'},
-			{name: 'Grandmaster', color: 'yellow'},
-			{name: 'Godlike', color: 'purple'},
-		],
-		MODES: [
-			{id: 'uhc_duel_', name: 'UHC 1v1'},
-			{id: 'uhc_doubles_', name: 'UHC 2v2'},
-			{id: 'uhc_meetup_', name: 'UHC Meetup'},
-			{id: 'op_duel_', name: 'OP 1v1'},
-			{id: 'op_doubles_', name: 'OP 2v2'},
-			{id: 'sw_duel_', name: 'SkyWars 1v1'},
-			{id: 'sw_doubles_', name: 'SkyWars 2v2'},
-			{id: 'bow_duel_', name: 'Bow 1v1'},
-			{id: 'blitz_duel_', name: 'Blitz 1v1'},
-			{id: 'sumo_duel_', name: 'Sumo 1v1'},
-			{id: 'bowspleef_duel_', name: 'Bow Spleef 1v1'},
-			{id: 'classic_duel_', name: 'Classic 1v1'},
-			{id: 'potion_duel_', name: 'NoDebuff 1v1'},
-			{id: 'combo_duel_', name: 'Combo 1v1'},
-			{id: 'bridge_duel_', name: 'Bridge 1v1'},
-			{id: 'bridge_doubles_', name: 'Bridge 2v2'},
-			{id: 'bridge_2v2v2v2_', name: 'Bridge 2v2v2v2'},
-			{id: 'bridge_3v3v3v3_', name: 'Bridge 3v3v3v3'},
-			{id: 'bridge_four_', name: 'Bridge 4v4'},
-			{id: '', name: 'Overall'},
-		],
-	};
 	
 	const { player } = useHypixelContext();
 	const json = Utils.traverse(player,'player.stats.Duels') || {};

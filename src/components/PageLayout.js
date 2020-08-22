@@ -17,9 +17,11 @@ export function PageLayout(props) {
 		<div className="h-100 v-flex">
 			<div className="v-flex flex-1">
 				{props.header}
-				<div className="h-flex justify-content-center pt-4 pb-2">
-					{props.top}
-				</div>
+				{props.top &&
+					<div className="h-flex justify-content-center pt-4 pb-2">
+						{props.top}
+					</div>
+				}
 				<div className="pagelayout pb-4 px-1">
 					{props.left &&
 						<div className="pagelayout-left px-1">

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Accordion, Box, HorizontalLine, Progress, 
 	ProgressBar, StatCell, StatPair, StatRow } from 'components';
+import { BUILDBATTLE as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
+import { HypixelLeveling } from 'utils/hypixel';
 
 /*
 * Stats accordion for Build Battle
@@ -11,37 +13,11 @@ import * as Utils from 'utils';
 */
 export const BuildBattle = React.memo((props) => {
 
-	const consts = {
-		TITLE: 'Build Battle',
-		MODES: [
-			{id: '_solo_normal', name: 'Solo'},
-			{id: '_teams_normal', name: 'Teams'},
-			{id: '_guess_the_build', name: 'Guess the Build'},
-			{id: '_solo_pro', name: 'Pro'},
-			{id: '', name: 'Overall'},
-		],
-		STARS: [
-			{value: 0, name: 'Rookie', color: 'white'},
-			{value: 100, name: 'Untrained', color: 'gray'},
-			{value: 250, name: 'Amateur', color: 'yellow'},
-			{value: 500, name: 'Apprentice', color: 'green'},
-			{value: 1000, name: 'Experienced', color: 'pink'},
-			{value: 2000, name: 'Seasoned', color: 'blue'},
-			{value: 3500, name: 'Trained', color: 'darkgreen'},
-			{value: 5000, name: 'Skilled', color: 'darkaqua'},
-			{value: 7500, name: 'Talented', color: 'red'},
-			{value: 10000, name: 'Professional', color: 'purple'},
-			{value: 15000, name: 'Expert', color: 'darkblue'},
-			{value: 20000, name: 'Master', color: 'darkred'},
-			{value: Infinity, name: null, color: null}
-		],
-	}
-
 	// Get the player's API data for SkyWars
 	const { player } = useHypixelContext();
 	const json = Utils.traverse(player,'player.stats.BuildBattle') || {};
 	const losses = Utils.default0(json.games_played) - Utils.default0(json.wins);
-	const leveling = new Utils.HypixelLeveling(scoreToStar, starToScore, Utils.default0(json.score));
+	const leveling = new HypixelLeveling(scoreToStar, starToScore, Utils.default0(json.score));
 	if (leveling.levelCeiling > 12) leveling.levelCeiling = 12;
 	const title = getTitle(leveling.levelFloor).name;
 	const titleColor = getTitle(leveling.levelFloor).color;

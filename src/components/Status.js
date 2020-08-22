@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import { ReactIcon } from 'components';
+import { HYPIXEL } from 'constants/hypixel';
 import * as Utils from 'utils';
 
 /*
@@ -11,39 +12,11 @@ import * as Utils from 'utils';
 * @param {string} props.size 	Size of the icon, default 'md'
 */
 export function Status(props) {
+	const games = HYPIXEL.GAMES;
 	const session = props.status.session || {};
 	const lastLogout = Utils.traverse(props.player, 'player.lastLogout');
 
 	function getStatusDataTip() {
-		const games = {
-			ARENA: 'Arena Brawl',
-			ARCADE: 'Arcade Games',
-			BATTLEGROUND: 'Warlords',
-			BEDWARS: 'Bed Wars',
-			BUILD_BATTLE: 'Build Battle',
-			DUELS: 'Duels',
-			GINGERBREAD: 'Turbo Kart Racers',
-			HOUSING: 'Housing',
-			LEGACY: 'Classic Games',
-			MAIN: 'Main',
-			MCGO: 'Cops and Crims',
-			MURDER_MYSTERY: 'Murder Mystery',
-			PAINTBALL: 'Paintball',
-			PIT: 'The Hypixel Pit',
-			PROTOTYPE: 'Prototype',
-			QUAKECRAFT: 'Quakecraft',
-			SKYBLOCK: 'SkyBlock',
-			SKYWARS: 'SkyWars',
-			SPEED_UHC: 'Speed UHC',
-			SUPER_SMASH: 'Smash Heroes',
-			SURVIVAL_GAMES: 'Blitz SG',
-			TNTGAMES: 'TNT Games',
-			TOURNAMENT: 'Tournament Hall',
-			UHC: 'UHC Champions',
-			VAMPIREZ: 'VampireZ',
-			WALLS: 'The Walls',
-			WALLS3: 'Mega Walls',
-		}
 
 		if (session.online) {
 			const game = session.gameType

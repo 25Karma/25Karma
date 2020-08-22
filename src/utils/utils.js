@@ -1,11 +1,5 @@
 import Cookies from 'js-cookie';
 
-export const CALL_STATUS_REQUESTED = 'requested';
-export const CALL_STATUS_FAILED_HYPIXEL = 'failed-hypixel';
-export const CALL_STATUS_FAILED_MOJANG = 'failed-mojang';
-export const CALL_STATUS_RECEIVED_NULL = 'receivednull';
-export const CALL_STATUS_RECEIVED_SUCCESS = 'receivedsuccess';
-
 /*
 * Returns 1 if the number is zero
 *

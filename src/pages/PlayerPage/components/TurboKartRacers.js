@@ -1,5 +1,6 @@
 import React from 'react';
 import { Accordion, Box, HorizontalLine, StatPair } from 'components';
+import { TURBOKARTRACERS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
 
@@ -9,42 +10,6 @@ import * as Utils from 'utils';
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
 export const TurboKartRacers = React.memo((props) => {
-	const consts = {
-		TITLE: 'Turbo Kart Racers',
-		ATTRIBUTES: {
-			ACCELERATION: 'Acceleration',
-			BOOSTER_SPEED: 'Booster Speed',
-			BRAKES: 'Brakes',
-			DRIFTING_EFFICIENCY: 'Drifting Efficiency',
-			HANDLING: 'Handling',
-			RECOVERY: 'Recovery',
-			START_POSITION: 'Start Position',
-			TOP_SPEED: 'Top Speed',
-			TRACTION: 'Traction',
-		},
-		QUALITY: [
-			{name: 'Starter', color: 'gray'},
-			{name: 'Mini', color: 'gray'},
-			{name: 'Auxillary', color: 'green'},
-			{name: 'Standard', color: 'green'},
-			{name: 'Primary', color: 'green'},
-			{name: 'Experimental', color: 'green'},
-			{name: 'Dynamic', color: 'blue'},
-			{name: 'Stellar', color: 'blue'},
-			{name: 'Kinetic', color: 'blue'},
-			{name: 'Multi-phase', color: 'blue'},
-			{name: 'Turbocharged', color: 'pink'},
-			{name: 'Quantum', color: 'pink'},
-			{name: 'Superluminal', color: 'pink'},
-			{name: 'Psi', color: 'pink'},
-			{name: 'Eternal', color: 'purple'},
-		],
-		RARITY: {
-			BASIC: 'Basic',
-			SUPER: 'Super',
-			AWESOME: 'Awesome',
-		}
-	}
 
 	const { player } = useHypixelContext();
 	const json = Utils.traverse(player, 'player.stats.GingerBread') || {};

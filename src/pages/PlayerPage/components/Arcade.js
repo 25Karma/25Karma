@@ -1,5 +1,6 @@
 import React from 'react';
 import { Accordion, Box, HorizontalLine, StatCell, StatPair } from 'components';
+import { ARCADE as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
 
@@ -9,37 +10,6 @@ import * as Utils from 'utils';
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
 export const Arcade = React.memo((props) => {
-	const consts = {
-		TITLE: 'Arcade',
-		ZOMBIESMODES : [
-			{id: 'deadend', name: 'Dead End', color: 'gold'},
-			{id: 'badblood', name: 'Bad Blood', color: 'red'},
-			{id: 'alienarcadium', name: 'Alien Arcadium', color: 'pink'},
-		],
-		ZOMBIESTYPES : [
-			{id: 'basic', name: 'Basic'},
-			{id: 'blaze', name: 'Blaze'},
-			{id: 'empowered', name: 'Empowered'},
-			{id: 'ender', name: 'Ender'},
-			{id: 'endermite', name: 'Endermite'},
-			{id: 'fire', name: 'Fire'},
-			{id: 'guardian', name: 'Guardian'},
-			{id: 'magma', name: 'Magma'},
-			{id: 'magma_cube', name: 'Magma Cube'},
-			{id: 'pig_zombie', name: 'Pig Zombie'},
-			{id: 'skelefish', name: 'Skelefish'},
-			{id: 'tnt_baby', name: 'TNT Baby'},
-			{id: 'tnt', name: 'Bombie', color: 'gold'},
-			{id: 'inferno', name: 'Inferno', color: 'gold'},
-			{id: 'broodmother', name: 'Broodmother', color: 'gold'},
-			{id: 'king_slime', name: 'King Slime', color: 'red'},
-			{id: 'wither', name: 'Wither', color: 'red'},
-			{id: 'herobrine', name: 'Herobrine', color: 'red'},
-			{id: 'mega_blob', name: 'Mega Blob', color: 'pink'},
-			{id: 'mega_magma', name: 'Mega Magma', color: 'pink'},
-			{id: 'world_ender', name: 'World Ender', color: 'pink'},
-		],
-	};
 
 	// The player's API data for Arcade Games
 	const { player } = useHypixelContext();

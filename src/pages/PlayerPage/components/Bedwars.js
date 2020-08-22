@@ -1,8 +1,10 @@
 import React from 'react';
 import { Accordion, Box, HorizontalLine, Progress, 
 	ProgressBar, StatCell, StatPair, StatRow } from 'components';
+import { BEDWARS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
+import { HypixelLeveling } from 'utils/hypixel';
 
 /*
 * Stats accordion for Bed Wars
@@ -10,53 +12,12 @@ import * as Utils from 'utils';
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
 export const Bedwars = React.memo((props) => {
-
-	const consts = {
-		TITLE : 'Bed Wars',
-		EASY_XP: [500, 1000, 2000, 3500],
-		NORMAL_XP: 5000,
-		PRESTIGES : [
-			{level: 0, color: 'gray', name: 'None'},
-			{level: 100, color: 'white', name: 'Iron'},
-			{level: 200, color: 'gold', name: 'Gold'},
-			{level: 300, color: 'aqua', name: 'Diamond'},
-			{level: 400, color: 'darkgreen', name: 'Emerald'},
-			{level: 500, color: 'darkaqua', name: 'Sapphire'},
-			{level: 600, color: 'darkred', name: 'Ruby'},
-			{level: 700, color: 'pink', name: 'Crystal'},
-			{level: 800, color: 'blue', name: 'Opal'},
-			{level: 900, color: 'purple', name: 'Amethyst'},
-			{level: 1000, color: 'rainbow', name: 'Rainbow'},
-			{level: 2000, color: 'rainbow', name: 'Rainbow'}
-		],
-		MODES : [
-			{id: 'eight_one_', name: 'Solo'},
-			{id: 'eight_two_', name: 'Doubles'},
-			{id: 'four_three_', name: '3v3v3v3'},
-			{id: 'four_four_', name: '4v4v4v4'},
-			{id: 'two_four_', name: '4v4'},
-			{id: '', name: 'Overall'},
-			{id: 'eight_one_rush_', name: 'Rush Solo'},
-			{id: 'eight_two_rush_', name: 'Rush Doubles'},
-			{id: 'four_four_rush_', name: 'Rush 4v4v4v4'},
-			{id: 'eight_one_ultimate_', name: 'Ultimate Solo'},
-			{id: 'eight_two_ultimate_', name: 'Ultimate Doubles'},
-			{id: 'four_four_ultimate_', name: 'Ultimate 4v4v4v4'},
-			{id: 'eight_two_lucky_', name: 'Lucky Doubles'},
-			{id: 'four_four_lucky_', name: 'Lucky 4v4v4v4'},
-			{id: 'eight_two_voidless_', name: 'Voidless Doubles'},
-			{id: 'four_four_voidless_', name: 'Voidless 4v4v4v4'},
-			{id: 'eight_two_armed_', name: 'Armed Doubles'},
-			{id: 'four_four_armed_', name: 'Armed 4v4v4v4'},
-			{id: 'castle_', name: 'Castle'},
-		],
-	};
 	
 	// The player's API data for Bed Wars
 	const { player } = useHypixelContext();
 	const json = Utils.traverse(player,'player.stats.Bedwars') || {};
 
-	const leveling = new Utils.HypixelLeveling(xpToLevel, levelToXP, 
+	const leveling = new HypixelLeveling(xpToLevel, levelToXP, 
 		Utils.default0(json.Experience) + Utils.default0(json.Experience_new));
 	const prestigeColor = getPrestige(leveling.level).color;
 	const prestigeName = getPrestige(leveling.level).name;

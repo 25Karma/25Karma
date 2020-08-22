@@ -1,8 +1,10 @@
 import React from 'react';
 import { Accordion, Box, HorizontalLine, Progress, 
 	ProgressBar, StatCell, StatPair } from 'components';
+import { UHC as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
+import { HypixelLeveling } from 'utils/hypixel';
 
 /*
 * Stats accordion for UHC
@@ -11,43 +13,11 @@ import * as Utils from 'utils';
 */
 export function UHC(props) {
 
-	const consts = {
-		TITLE: 'UHC',
-		MODES: [
-		{id: '_solo', name: 'Solo'},
-		{id: '', name: 'Teams'},
-		{id: '_red vs blue', name: 'Red vs. Blue'},
-		{id: '_no diamonds', name: 'No Diamonds'},
-		{id: '_vanilla doubles', name: 'Vanilla Doubles'},
-		{id: '_brawl', name: 'Brawl'},
-		{id: '_solo brawl', name: 'Solo Brawl'},
-		{id: '_duo brawl', name: 'Duo Brawl'},
-		],
-		STARS: [
-			{value: 0, name: 'Recruit', color: 'gray'},
-			{value: 10, name: 'Initiate', color: 'gray'},
-			{value: 60, name: 'Soldier', color: 'gray'},
-			{value: 210, name: 'Sergeant', color: 'gray'},
-			{value: 460, name: 'Knight', color: 'gray'},
-			{value: 960, name: 'Captain', color: 'gray'},
-			{value: 1710, name: 'Centurion', color: 'gray'},
-			{value: 2710, name: 'Gladiator', color: 'gray'},
-			{value: 5210, name: 'Warlord', color: 'gray'},
-			{value: 10210, name: 'Champion', color: 'gray'},
-			{value: 13210, name: 'Champion', color: 'gray'},
-			{value: 16210, name: 'Bronze Champion', color: 'brown'},
-			{value: 19210, name: 'Silver Champion', color: 'white'},
-			{value: 22210, name: 'Gold Champion', color: 'gold'},
-			{value: 25210, name: 'High Champion', color: 'aqua'},
-			{value: Infinity, name: null, color: null}
-		],
-	}
-
 	// Get the player's API data for UHC
 	const { player } = useHypixelContext();
 	const json = Utils.traverse(player,'player.stats.UHC') || {};
 
-	const leveling = new Utils.HypixelLeveling(scoreToStar, starToScore, Utils.default0(json.score));
+	const leveling = new HypixelLeveling(scoreToStar, starToScore, Utils.default0(json.score));
 	if (leveling.levelCeiling > 15) leveling.levelCeiling = 15;
 	const title = getTitle(leveling.levelFloor).name;
 	const titleColor = getTitle(leveling.levelFloor).color;

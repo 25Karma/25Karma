@@ -72,7 +72,9 @@ export function PlayerPage(props) {
 						</Droppable>
 					</DragDropContext>
 					:
-					<LoadingSpinner text={`Loading stats for ${context.slug}`} />
+					<div className="py-5">
+						<LoadingSpinner text={`Loading stats for ${context.slug}`} />
+					</div>
 				}/>
 			);
 	}
