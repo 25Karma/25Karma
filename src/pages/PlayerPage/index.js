@@ -48,7 +48,12 @@ export function PlayerPage(props) {
 			<PageLayout
 				header={<Navbar searchbar />}
 				top={context.isFinished && <PlayerHeadline />}
-				left={context.isFinished && <PlayerCard />}
+				left={context.isFinished && 
+					<React.Fragment>
+						<div className="py-1 hidden"><ReactIcon icon="FaSortAlphaDown" /></div>
+						<PlayerCard />
+					</React.Fragment>
+				}
 				center={
 					context.isFinished ? 
 					<DragDropContext onDragEnd={onDragEnd}>

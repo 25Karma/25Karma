@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Banner, Button, MinecraftText, Navbar, 
-	PageLayout, ReactIcon, Searchbar } from 'components';
+	PageLayout, ProTip, ReactIcon, Searchbar } from 'components';
 import * as Utils from 'utils';
 import properties from 'properties.js';
 
@@ -85,7 +85,7 @@ export function FrontPage(props) {
 		return (
 			<React.Fragment>
 				<div className="pt-2 nowrap">
-					<MinecraftText>Recent searches</MinecraftText>
+					<MinecraftText size="sm">Recent searches</MinecraftText>
 				</div>
 				<div className="h-flex flex-wrap">
 					{array.slice(0, showAllRecents ? array.length : 5).map((a) => (
@@ -99,7 +99,7 @@ export function FrontPage(props) {
 					))}
 					{array.length > 5 && !showAllRecents &&
 							<button className="pl-2" onClick={()=>{setShowAllRecents(true)}}>
-								<ReactIcon icon="MdMoreHoriz" />
+								<ReactIcon icon="MdMoreHoriz" clickable />
 							</button>
 					}
 				</div>
@@ -112,7 +112,7 @@ export function FrontPage(props) {
 			header={<Navbar />}
 			top={
 				<span className="text-shadow">
-					<MinecraftText font="xl">
+					<MinecraftText size="xl">
 						{"§d"+properties.appName}
 					</MinecraftText>
 				</span>
@@ -120,7 +120,7 @@ export function FrontPage(props) {
 			center={
 				<React.Fragment>
 					<p className="py-1 pl-2">
-						<MinecraftText font="md">
+						<MinecraftText size="md">
 							Search for the stats of a Hypixel player
 						</MinecraftText>
 					</p>
@@ -133,10 +133,9 @@ export function FrontPage(props) {
 					<div className="mx-auto">
 						{banner}
 					</div>
-					<p className="pt-4 pb-2 text-center">
-						Pro tip: Customize this site by clicking on the gear button 
-						in the top-right corner. 
-					</p>
+					<div className="pt-4 pb-2">
+						<ProTip />
+					</div>
 				</React.Fragment>
 			}/>
 		);

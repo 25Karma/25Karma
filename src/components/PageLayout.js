@@ -2,6 +2,16 @@ import React from 'react';
 import './PageLayout.css';
 import { Footer } from 'components';
 
+/*
+* Width-aware container to layout the page, contains a header and a body
+* The body is separated into 4 parts: top, center, left, and right
+*
+* @param {JSX} props.header
+* @param {JSX} props.top
+* @param {JSX} props.center
+* @param {JSX} props.left
+* @param {JSX} props.right
+*/
 export function PageLayout(props) {
 	return (
 		<div className="h-100 v-flex">
@@ -19,6 +29,11 @@ export function PageLayout(props) {
 					<div className="pagelayout-body px-1">
 						{props.center}
 					</div>
+					{props.right &&
+						<div className="pagelayout-left px-1">
+							{props.right}
+						</div>
+					}
 				</div>
 				<Footer />
 			</div>

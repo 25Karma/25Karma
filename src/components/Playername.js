@@ -35,7 +35,7 @@ export function PlayerName(props) {
 	function getNameWithRank(stats) {
 		const plusColor = Utils.toColorCode(stats.plusColor || 'red');
 		// For MVP++s only
-		const rankColor = Utils.toColorCode(stats.rankColor);
+		const rankColor = Utils.toColorCode(stats.rankColor || 'gold');
 		const ranks = {
 			undefined : `§7${stats.name}`,
 			NONE : `§7${stats.name}`,

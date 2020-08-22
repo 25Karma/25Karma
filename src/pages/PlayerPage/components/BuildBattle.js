@@ -9,7 +9,7 @@ import * as Utils from 'utils';
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
-export function BuildBattle(props) {
+export const BuildBattle = React.memo((props) => {
 
 	const consts = {
 		TITLE: 'Build Battle',
@@ -155,4 +155,4 @@ export function BuildBattle(props) {
 				{table}
 			</div>
 		</Accordion>
-}
+});

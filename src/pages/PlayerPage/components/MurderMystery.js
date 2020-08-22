@@ -9,7 +9,7 @@ import * as Utils from 'utils';
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
-export function MurderMystery(props) {
+export const MurderMystery = React.memo((props) => {
 	const consts = {
 		TITLE: 'Murder Mystery',
 		MODES: [
@@ -161,4 +161,4 @@ export function MurderMystery(props) {
 				{table}
 			</div>
 		</Accordion>
-}
+});

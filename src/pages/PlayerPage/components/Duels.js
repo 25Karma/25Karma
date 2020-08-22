@@ -9,7 +9,7 @@ import * as Utils from 'utils';
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
-export function Duels(props) {
+export const Duels = React.memo((props) => {
 
 	// Constants useful for processing Duels API data
 	const consts = {
@@ -187,4 +187,4 @@ export function Duels(props) {
 				{table}
 			</div>
 		</Accordion>
-}
+});

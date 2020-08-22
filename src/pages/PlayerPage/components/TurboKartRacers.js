@@ -8,7 +8,7 @@ import * as Utils from 'utils';
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
-export function TurboKartRacers(props) {
+export const TurboKartRacers = React.memo((props) => {
 	const consts = {
 		TITLE: 'Turbo Kart Racers',
 		ATTRIBUTES: {
@@ -170,4 +170,4 @@ export function TurboKartRacers(props) {
 				{currentKart}
 			</div>
 		</Accordion>
-}
+});

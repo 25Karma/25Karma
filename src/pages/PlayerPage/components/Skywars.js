@@ -12,7 +12,7 @@ import * as Utils from 'utils';
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
-export function Skywars(props) {
+export const Skywars = React.memo((props) => {
 
 	// Constants useful for processing Skywars API data
 	const consts = {
@@ -352,4 +352,4 @@ export function Skywars(props) {
 			}
 			</div>
 		</Accordion>
-}
+});

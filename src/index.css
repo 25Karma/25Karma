@@ -73,6 +73,7 @@ button:focus {
 .font-xs { font-size: 0.75rem; }
 .h-100 { height: 100%; }
 .h-flex { display: flex; flex-direction: row; }
+.hidden { visibility: hidden; }
 .justify-content-around { justify-content: space-around; }
 .justify-content-between { justify-content: space-between; }
 .justify-content-center { justify-content: center; }
@@ -81,6 +82,7 @@ button:focus {
 .justify-content-stretch { justify-content: stretch; }
 .link:hover { color: var(--theme-text); text-decoration: underline solid var(--theme-text); }
 .link { color: var(--theme-text); text-decoration: underline dotted var(--theme-text); }
+.m-0 { margin: 0; }
 .m-1 { margin: 0.5rem; }
 .m-2 { margin: 1rem; }
 .mb-1 { margin-bottom: 0.5rem; }

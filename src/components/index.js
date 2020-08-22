@@ -18,6 +18,7 @@ export * from './PlayerHeadline.js';
 export * from './PlayerName.js';
 export * from './Progress.js';
 export * from './ProgressBar.js';
+export * from './ProTip.js';
 export * from './ReactIcon.js';
 export * from './Searchbar.js';
 export * from './Settings.js';

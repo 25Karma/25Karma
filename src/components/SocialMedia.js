@@ -10,7 +10,7 @@ export function SocialMedia(props) {
 	const consts = {
 		SOCIALMEDIA: {
 			DISCORD: {icon: 'FaDiscord', color: 'gray'},
-			HYPIXEL: {icon: 'FaHireAHelper', color: 'gold'},
+			HYPIXEL: {icon: 'HypixelLogo', color: 'gold'},
 			TWITCH: {icon: 'FaTwitch', color: 'purple'},
 			TWITTER: {icon: 'FaTwitter', color: 'aqua'},
 			YOUTUBE: {icon: 'FaYoutube', color: 'red'},

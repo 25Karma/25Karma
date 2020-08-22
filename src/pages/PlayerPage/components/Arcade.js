@@ -8,7 +8,7 @@ import * as Utils from 'utils';
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
-export function Arcade(props) {
+export const Arcade = React.memo((props) => {
 	const consts = {
 		TITLE: 'Arcade',
 		ZOMBIESMODES : [
@@ -269,4 +269,4 @@ export function Arcade(props) {
 				{zombiesTypeTable}
 			</div>
 		</Accordion>
-}
+});

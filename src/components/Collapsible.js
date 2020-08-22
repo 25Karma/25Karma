@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 
 /*
 * Wrapper for components that open and collapse
-* Spread {...provided.collapseibleProps} into the component that should collapse/open
+* Spread {...provided.collapsibleProps} into the component that should collapse/open
 * Spread {...provided.collapseButtonProps} into the component/button that should toggle the collapse
 *
 * @param {function} props.children 	The JSX to render
@@ -11,6 +11,7 @@ export function Collapsible(props) {
 	const [isCollapsed, setCollapsed] = useState(true);
 	const [collapsibleHeight, setCollapsibleHeight] = useState(0);
 	const collapsibleRef = useRef('collapsible');
+	const duration = 500;
 
 	const provided = {
 		collapsibleProps : {
@@ -18,7 +19,8 @@ export function Collapsible(props) {
 			style: { 
 				maxHeight: collapsibleHeight,
 				overflow: 'hidden',
-				transition: 'max-height 500ms',
+				transition: `max-height ${duration}ms`,
+				display: 'none',
 			}
 		},
 		collapseButtonProps : {
@@ -29,6 +31,7 @@ export function Collapsible(props) {
 	function toggleCollapsed() {
 		// You can't transition smoothly from max-height:0; to max-height:none;
 		// To solve this, we employ an intermediate value (the height of the div)
+		collapsibleRef.current.style.display = 'block';
 		setCollapsibleHeight(collapsibleRef.current.scrollHeight+'px');
 	}
 	
@@ -38,9 +41,12 @@ export function Collapsible(props) {
 			if (isCollapsed) {
 				setTimeout(() => {
 					setCollapsibleHeight('none');
-				}, 500);
+				}, duration);
 			}
 			else {
+				setTimeout(() => {
+					collapsibleRef.current.style.display = 'none';
+				}, duration);
 				setCollapsibleHeight(0);
 			}
 			setCollapsed(!isCollapsed);

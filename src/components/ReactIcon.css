@@ -1,5 +1,5 @@
 /* Used by IconContext component from react-icons */
-.reacticon-md { vertical-align: middle; font-size: 1.25rem; }
+.reacticon-md { vertical-align: middle; font-size: 1.35rem; }
 .reacticon-lg { vertical-align: middle; font-size: 2.5rem; }
 .reacticon-clickable { transition: transform 0.2s; }
 .reacticon-clickable:hover { transform: scale(1.3); }

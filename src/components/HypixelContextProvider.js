@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { hypixelContext, useHypixelAPI, useMojangAPI } from 'hooks';
+import { HypixelContext, useHypixelAPI, useMojangAPI } from 'hooks';
 import * as Utils from 'utils';
 
 /*
@@ -43,5 +43,5 @@ export function HypixelContextProvider(props) {
 		status, // Player's online status
 	}
 
-	return <hypixelContext.Provider value={value}>{props.children}</hypixelContext.Provider>;
+	return <HypixelContext.Provider value={value}>{props.children}</HypixelContext.Provider>;
 }

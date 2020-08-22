@@ -1,6 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
-import p from 'properties.js';
 import { ExternalLink } from 'components';
 
 /*
@@ -18,7 +18,7 @@ export function Footer(props) {
 			</span>
 			<span className="text-right">
 				{`Made with ❤️ by `}
-				<ExternalLink href={p.authorURL}>{p.author}</ExternalLink>.
+				<Link to="/player/amos283086" className="link">Amos Yu</Link>.
 			</span>
 		</div>
 		);

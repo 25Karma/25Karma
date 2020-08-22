@@ -33,7 +33,7 @@ export function Accordion(props) {
 								</div>
 							</div>
 							<button className="ml-2" {...dProvided.dragHandleProps}>
-								<ReactIcon icon="MdDragHandle" />
+								<ReactIcon icon="MdDragHandle" clickable />
 							</button>
 						</div>
 						<div {...cProvided.collapsibleProps}>

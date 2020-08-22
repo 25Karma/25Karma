@@ -9,7 +9,7 @@ import * as Utils from 'utils';
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
-export function SpeedUHC(props) {
+export const SpeedUHC = React.memo((props) => {
 
 	const consts = {
 		TITLE: 'Speed UHC',
@@ -178,4 +178,4 @@ export function SpeedUHC(props) {
 				{table}
 			</div>
 		</Accordion>
-}
+});

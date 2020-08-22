@@ -9,7 +9,7 @@ import * as Utils from 'utils';
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
-export function Bedwars(props) {
+export const Bedwars = React.memo((props) => {
 
 	const consts = {
 		TITLE : 'Bed Wars',
@@ -266,4 +266,4 @@ export function Bedwars(props) {
 				</div>
 			</div>
 		</Accordion>
-}
+});

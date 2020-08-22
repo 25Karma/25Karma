@@ -10,11 +10,13 @@ import * as Utils from 'utils';
 */
 export function GuildTag(props) {
 	const { guild, size } = props;
+	if (!guild || !guild.tag) return null;
+
 	const tag = [...guild.tag].map(char => char+'\uFE0E').join('');
 
 	return (
 		<MinecraftText size={size} className="pr-2">
-			{`${Utils.toColorCode(guild.tagColor)}[${tag}]`}
+			{`${Utils.toColorCode(guild.tagColor || 'gray')}[${tag}]`}
 		</MinecraftText>
 		);
 }
