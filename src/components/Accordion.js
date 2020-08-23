@@ -1,5 +1,6 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import { MdDragHandle } from 'react-icons/md';
 import './Accordion.css';
 import { Collapsible, HorizontalLine, MinecraftText, ReactIcon } from 'components';
 
@@ -33,7 +34,7 @@ export function Accordion(props) {
 								</div>
 							</div>
 							<button className="ml-2" {...dProvided.dragHandleProps}>
-								<ReactIcon icon="MdDragHandle" clickable />
+								<ReactIcon icon={MdDragHandle} clickable />
 							</button>
 						</div>
 						<div {...cProvided.collapsibleProps}>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Banner, Button, MinecraftText, Navbar, 
-	PageLayout, ProTip, ReactIcon, Searchbar } from 'components';
+	PageLayout, Tips, ReactIcon, Searchbar } from 'components';
 import * as Utils from 'utils';
 import properties from 'properties.js';
 
@@ -134,7 +134,7 @@ export function FrontPage(props) {
 						{banner}
 					</div>
 					<div className="pt-5 pb-2">
-						<ProTip />
+						<Tips />
 					</div>
 				</React.Fragment>
 			}/>

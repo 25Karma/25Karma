@@ -1,4 +1,6 @@
 import React from 'react';
+import { GoPin } from 'react-icons/go';
+import { MdSettings } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import p from 'properties.js';
@@ -21,7 +23,7 @@ export function Navbar(props) {
 		if (p) {
 			return (
 				<Link className="font-md" to={`/player/${p}`}>
-					<ReactIcon icon="GoPin" clickable />
+					<ReactIcon icon={GoPin} clickable />
 				</Link>
 				);
 		}
@@ -47,7 +49,7 @@ export function Navbar(props) {
 								<p className="p-1">
 									{renderPinnedPlayerButton()}
 									<button className="pl-2" {...provided.collapseButtonProps}>
-										<ReactIcon icon="MdSettings" clickable />
+										<ReactIcon icon={MdSettings} clickable />
 									</button>
 								</p>
 						</div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaDiscord, FaTwitch, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { Banner, ExternalLink, ReactIcon } from 'components';
 
 /*
@@ -9,11 +10,11 @@ import { Banner, ExternalLink, ReactIcon } from 'components';
 export function SocialMedia(props) {
 	const consts = {
 		SOCIALMEDIA: {
-			DISCORD: {icon: 'FaDiscord', color: 'gray'},
+			DISCORD: {icon: FaDiscord, color: 'gray'},
 			HYPIXEL: {icon: 'HypixelLogo', color: 'gold'},
-			TWITCH: {icon: 'FaTwitch', color: 'purple'},
-			TWITTER: {icon: 'FaTwitter', color: 'aqua'},
-			YOUTUBE: {icon: 'FaYoutube', color: 'red'},
+			TWITCH: {icon: FaTwitch, color: 'purple'},
+			TWITTER: {icon: FaTwitter, color: 'aqua'},
+			YOUTUBE: {icon: FaYoutube, color: 'red'},
 		},
 	}
 

@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { MdSearch } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
 import './Searchbar.css';
 import { ReactIcon } from 'components';
@@ -50,7 +51,7 @@ export function Searchbar(props) {
 			spellCheck={false}
 			/>
 			<button onClick={search}>
-				<ReactIcon icon="MdSearch" clickable />
+				<ReactIcon icon={MdSearch} clickable />
 			</button>
 		</div>
 	);
