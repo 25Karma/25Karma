@@ -1,5 +1,6 @@
 import React from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { FaSortAlphaDown } from 'react-icons/fa';
 import { LoadingSpinner, Navbar, PageLayout, 
 	PlayerCard, PlayerHeadline, ReactIcon } from 'components';
 import { FrontPage } from 'pages';
@@ -50,7 +51,7 @@ export function PlayerPage(props) {
 				top={context.isFinished && <PlayerHeadline />}
 				left={context.isFinished && 
 					<React.Fragment>
-						<div className="py-1 hidden"><ReactIcon icon="FaSortAlphaDown" /></div>
+						<div className="py-1 hidden"><ReactIcon icon={FaSortAlphaDown} /></div>
 						<PlayerCard />
 					</React.Fragment>
 				}
@@ -59,7 +60,7 @@ export function PlayerPage(props) {
 					<DragDropContext onDragEnd={onDragEnd}>
 						<div className="h-flex px-2 py-1 justify-content-end">
 							<button onClick={alphabetizeAccordions}>
-								<ReactIcon icon="FaSortAlphaDown" clickable />
+								<ReactIcon icon={FaSortAlphaDown} clickable />
 							</button>
 						</div>
 						<Droppable droppableId="playerStatsDroppable">

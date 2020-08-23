@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaSignal } from 'react-icons/fa';
 import ReactTooltip from 'react-tooltip';
 import { ReactIcon } from 'components';
 import { HYPIXEL } from 'constants/hypixel';
@@ -38,7 +39,7 @@ export function Status(props) {
 			className="cursor-help"
 			data-tip={getStatusDataTip()}>
 			<ReactIcon 
-				icon="FaSignal" 
+				icon={FaSignal} 
 				color={session.online ? 'green' : 'darkgray'}
 				size={props.size} />
 			<ReactTooltip />

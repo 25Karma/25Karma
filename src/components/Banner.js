@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Banner.css';
+import { MdReport, MdInfoOutline } from 'react-icons/md';
 import { ReactIcon } from 'components';
 
 /*
@@ -34,10 +35,10 @@ export function Banner(props) {
 	*/
 	function getSymbol() {
 		if (props.type === "error") {
-			return <ReactIcon icon="MdReport" />;
+			return <ReactIcon icon={MdReport} />;
 		}
 		else if (props.type === "info") {
-			return <ReactIcon icon="MdInfoOutline" />;
+			return <ReactIcon icon={MdInfoOutline} />;
 		}
 	}
 

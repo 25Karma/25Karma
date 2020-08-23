@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { FaCaretLeft, FaCaretRight } from 'react-icons/fa';
 import { ExternalLink, ReactIcon } from 'components';
 import p from 'properties.js';
 
-export function ProTip(props) {
+export function Tips(props) {
 	const proTips = [
-		"Customize this site by clicking on the gear button in the top-right corner.",
+		"Pro tip: Customize this site by clicking on the gear button in the top-right corner.",
 		<React.Fragment>
 			Have a suggestion? Message me on the Hypixel
 			Forums <ExternalLink href={p.hypixelForums}>here</ExternalLink>.
@@ -26,13 +27,11 @@ export function ProTip(props) {
 	return (
 		<span className="h-flex align-items-center justify-content-center mx-auto" style={{maxWidth:'45rem'}}>
 			<button onClick={previousTip}>
-				<ReactIcon icon="FaCaretLeft" clickable />
+				<ReactIcon icon={FaCaretLeft} clickable />
 			</button>
-			<p className="px-2 mx-auto">
-				Pro tip: {proTips[tipIndex]}
-			</p>
+			<p className="px-2 mx-auto">{proTips[tipIndex]}</p>
 			<button onClick={nextTip}>
-				<ReactIcon icon="FaCaretRight" clickable />
+				<ReactIcon icon={FaCaretRight} clickable />
 			</button>
 		</span>
 		);
