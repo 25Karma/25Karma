@@ -12,7 +12,7 @@ import * as Utils from 'utils';
 export const TurboKartRacers = React.memo((props) => {
 
 	const { player } = useHypixelContext();
-	const json = Utils.traverse(player, 'player.stats.GingerBread') || {};
+	const json = Utils.traverse(player, 'stats.GingerBread') || {};
 
 	const trophies = {
 		gold : `${Utils.formatNum(json.gold_trophy)}🏆\uFE0E`,

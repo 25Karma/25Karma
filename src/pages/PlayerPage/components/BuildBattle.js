@@ -15,7 +15,7 @@ export const BuildBattle = React.memo((props) => {
 
 	// Get the player's API data for SkyWars
 	const { player } = useHypixelContext();
-	const json = Utils.traverse(player,'player.stats.BuildBattle') || {};
+	const json = Utils.traverse(player,'stats.BuildBattle') || {};
 	const losses = Utils.default0(json.games_played) - Utils.default0(json.wins);
 	const leveling = new HypixelLeveling(scoreToStar, starToScore, Utils.default0(json.score));
 	if (leveling.levelCeiling > 12) leveling.levelCeiling = 12;

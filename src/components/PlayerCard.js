@@ -15,7 +15,7 @@ import { getPlayerRank } from 'utils/hypixel';
 export function PlayerCard(props) {
 	
 	const { friends, player, guild } = useHypixelContext();
-	const json = player.player || {};
+	const json = player || {};
 	const networkLevel = Utils.formatNum(calculateNetworkLevel(json.networkExp));
 	const multiplier = (() => {
 		let m = null;
@@ -27,7 +27,7 @@ export function PlayerCard(props) {
 		}
 		const playerRank = getPlayerRank(json)
 		if (json.eulaCoins || playerRank === 'YOUTUBER') {
-			const { value, name } = consts.RANKMULTIPLIER[playerRank]
+			const { value, name } = consts.RANKMULTIPLIER[playerRank] || {};
 			if (Math.max(m, value) === value) {
 				return {name: name, value: `×${value}`};
 			}
@@ -66,14 +66,14 @@ export function PlayerCard(props) {
 		</React.Fragment>
 		);
 	
-	const guildInfo = (guild.guild &&
+	const guildInfo = (guild &&
 		<React.Fragment>
 			<div className="my-3">
 				<HorizontalLine />
 			</div>
 			<div className="font-bold font-md mb-2">Guild</div>
-			<StatPair title="Name" color={guild.guild.tagColor}>{guild.guild.name}</StatPair>
-			<StatPair title="Members">{guild.guild.members.length}</StatPair>
+			<StatPair title="Name" color={guild.tagColor}>{guild.name}</StatPair>
+			<StatPair title="Members">{guild.members}</StatPair>
 		</React.Fragment>
 		);
 
@@ -104,7 +104,7 @@ export function PlayerCard(props) {
 			<StatPair title="Achievement Points">{json.achievementPoints}</StatPair>
 			<StatPair title="Quests Completed">{questsCompleted}</StatPair>
 			<br />
-			<StatPair title="Friends">{friends.records.length}</StatPair>
+			<StatPair title="Friends">{friends}</StatPair>
 			<br />
 			{loginDates}
 			<ExternalLink href={`https://sky.lea.moe/stats/${json.uuid}`}>

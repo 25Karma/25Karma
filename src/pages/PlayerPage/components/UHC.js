@@ -15,7 +15,7 @@ export function UHC(props) {
 
 	// Get the player's API data for UHC
 	const { player } = useHypixelContext();
-	const json = Utils.traverse(player,'player.stats.UHC') || {};
+	const json = Utils.traverse(player,'stats.UHC') || {};
 
 	const leveling = new HypixelLeveling(scoreToStar, starToScore, Utils.default0(json.score));
 	if (leveling.levelCeiling > 15) leveling.levelCeiling = 15;

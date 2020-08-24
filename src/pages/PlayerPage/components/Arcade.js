@@ -13,7 +13,7 @@ export const Arcade = React.memo((props) => {
 
 	// The player's API data for Arcade Games
 	const { player } = useHypixelContext();
-	const json = Utils.traverse(player,'player.stats.Arcade') || {};
+	const json = Utils.traverse(player,'stats.Arcade') || {};
 	
 	const totalWins = Object.entries(json)
 		// The point of substring() is to filter out 'prop_hunt_hider_wins_hide_and_seek' from the

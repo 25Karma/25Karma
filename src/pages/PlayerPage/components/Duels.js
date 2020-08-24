@@ -13,7 +13,7 @@ import * as Utils from 'utils';
 export const Duels = React.memo((props) => {
 	
 	const { player } = useHypixelContext();
-	const json = Utils.traverse(player,'player.stats.Duels') || {};
+	const json = Utils.traverse(player,'stats.Duels') || {};
 
 	const division = (() => {
 		for (const div of consts.DIVISIONS.slice().reverse()) {

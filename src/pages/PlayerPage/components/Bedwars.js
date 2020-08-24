@@ -15,7 +15,7 @@ export const Bedwars = React.memo((props) => {
 	
 	// The player's API data for Bed Wars
 	const { player } = useHypixelContext();
-	const json = Utils.traverse(player,'player.stats.Bedwars') || {};
+	const json = Utils.traverse(player,'stats.Bedwars') || {};
 
 	const leveling = new HypixelLeveling(xpToLevel, levelToXP, 
 		Utils.default0(json.Experience) + Utils.default0(json.Experience_new));

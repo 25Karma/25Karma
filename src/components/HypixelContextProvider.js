@@ -1,7 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { HypixelContext, useHypixelAPI, useMojangAPI } from 'hooks';
+import { HypixelContext, useAPI } from 'hooks';
 import * as Utils from 'utils';
+import properties from 'properties.js';
 
 /*
 * Provider for the Hypixel Context
@@ -10,37 +11,21 @@ import * as Utils from 'utils';
 */
 export function HypixelContextProvider(props) {
 	const { slug } = useParams();
-	const mojang = useMojangAPI(slug);
-	const friends = useHypixelAPI(mojang.uuid, 'friends');
-	const guild = useHypixelAPI(mojang.uuid, 'guild');
-	const player = useHypixelAPI(mojang.uuid);
-	const status = useHypixelAPI(mojang.uuid, 'status');
+	let response = useAPI(slug, 'stats');
 
-	// A variable to store if all the API calls are finished
-	const isFinished = [mojang, friends, guild, player, status].every(
-		response => !Utils.isEmpty(response));
-
-	if (isFinished) {
-		document.title = `${mojang.username} | Hypixel Player Stats`;
-	} 
-	else {
-		document.title = `Hypixel Player Stats`;
-	}
-
-	if (mojang.success && player.success) {
+	if (response.success) {
+		document.title = `${response.mojang.username} | ${properties.documentTitle}`;
 		// Log the player into recentSearches cookie
 		const recentSearchesList = new Utils.RecentSearchesList();
-		recentSearchesList.add(mojang.username);
+		recentSearchesList.add(response.mojang.username);
+	} 
+	else {
+		document.title = properties.documentTitle;
 	}
 
 	const value = {
-		friends, // Player's friends
-		guild, // Player's guild
-		isFinished,
-		mojang, // Player's username and uuid from the Mojang API
-		player, // General player statistics
+		...response,
 		slug,
-		status, // Player's online status
 	}
 
 	return <HypixelContext.Provider value={value}>{props.children}</HypixelContext.Provider>;

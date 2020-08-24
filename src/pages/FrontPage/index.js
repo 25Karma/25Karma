@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { MdMoreHoriz } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { Banner, Button, MinecraftText, Navbar, 
 	PageLayout, Tips, ReactIcon, Searchbar } from 'components';
@@ -16,6 +17,7 @@ import properties from 'properties.js';
 export function FrontPage(props) {
 
 	const config = props.config || {};
+	document.title = properties.documentTitle;
 
 	// Stores how many recent searches to show
 	const [showAllRecents, setShowAllRecents] = useState(false);
@@ -52,6 +54,13 @@ export function FrontPage(props) {
 					description={`The Hypixel API is not responding. Is it down?`}/>
 				);
 			break;
+		case ('RATELIMITED'):
+			banner = (
+				<Banner type="error"
+					title='Woah there! '
+					description={`You've sent too many requests recently! Try again in a few minutes.`}/>
+				);
+			break;
 		default: break;
 	}
 
@@ -75,7 +84,7 @@ export function FrontPage(props) {
 					<div className="pl-2 py-1">
 						<Link to={`/player/${suggestedPlayer}`}>
 							<Button>
-									<span className="font-xs">{suggestedPlayer}</span>
+								<span className="font-xs">{suggestedPlayer}</span>
 							</Button>
 						</Link>
 					</div>
@@ -99,7 +108,7 @@ export function FrontPage(props) {
 					))}
 					{array.length > 5 && !showAllRecents &&
 							<button className="pl-2" onClick={()=>{setShowAllRecents(true)}}>
-								<ReactIcon icon="MdMoreHoriz" clickable />
+								<ReactIcon icon={MdMoreHoriz} clickable />
 							</button>
 					}
 				</div>

@@ -18,7 +18,7 @@ export function PlayerHeadline(props) {
 			}
 			<div className="text-shadow pl-2">
 				<PlayerName player={player} size="lg" />
-				<GuildTag guild={guild.guild} size="lg" />
+				<GuildTag guild={guild} size="lg" />
 			</div>
 			<Status player={player} status={status} size="lg" />
 		</div>

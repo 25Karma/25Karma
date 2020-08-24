@@ -15,7 +15,7 @@ export const SpeedUHC = React.memo((props) => {
 
 	// The player's API data for Speed UHC
 	const { player } = useHypixelContext();
-	const json = Utils.traverse(player,'player.stats.SpeedUHC') || {};
+	const json = Utils.traverse(player,'stats.SpeedUHC') || {};
 	
 	const leveling = new HypixelLeveling(scoreToStar, starToScore, Utils.default0(json.score));
 	if (leveling.levelCeiling > 10) leveling.levelCeiling = 10;

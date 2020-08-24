@@ -32,31 +32,27 @@ export function PlayerPage(props) {
 	/*
 	* Loads different JSX depending on the states
 	*/
-	if (context.mojang.success === false) {
-		return <FrontPage config={context.mojang} />
-	}
-	else if (context.player.success === false) {
-		// The Hypixel API doesn't actually know the player's username (only his UUID)
-		// so we have to get the username from the URI
+	if (context.success === false) {
 		const config = {
-			player: context.mojang.username,
-			...context.player,
+			...context,
+			player: context.slug,
 		}
 		return <FrontPage config={config} />
 	}
+
 	else {
 		return (
 			<PageLayout
 				header={<Navbar searchbar />}
-				top={context.isFinished && <PlayerHeadline />}
-				left={context.isFinished && 
+				top={context.success && <PlayerHeadline />}
+				left={context.success && 
 					<React.Fragment>
 						<div className="py-1 hidden"><ReactIcon icon={FaSortAlphaDown} /></div>
 						<PlayerCard />
 					</React.Fragment>
 				}
 				center={
-					context.isFinished ? 
+					context.success ? 
 					<DragDropContext onDragEnd={onDragEnd}>
 						<div className="h-flex px-2 py-1 justify-content-end">
 							<button onClick={alphabetizeAccordions}>

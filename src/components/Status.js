@@ -14,17 +14,17 @@ import * as Utils from 'utils';
 */
 export function Status(props) {
 	const games = HYPIXEL.GAMES;
-	const session = props.status.session || {};
-	const lastLogout = Utils.traverse(props.player, 'player.lastLogout');
+	const { status, player } = props;
+	const lastLogout = Utils.traverse(player, 'lastLogout');
 
 	function getStatusDataTip() {
 
-		if (session.online) {
-			const game = session.gameType
-			if (session.mode === 'LOBBY') {
+		if (status.online) {
+			const game = status.gameType
+			if (status.mode === 'LOBBY') {
 				return `Online. In a ${games[game] || game} lobby.`;
 			}
-			return `Online. Playing ${games[session.gameType] || session.gameType}.`;
+			return `Online. Playing ${games[status.gameType] || status.gameType}.`;
 		}
 		else {
 			if (lastLogout) {
@@ -40,7 +40,7 @@ export function Status(props) {
 			data-tip={getStatusDataTip()}>
 			<ReactIcon 
 				icon={FaSignal} 
-				color={session.online ? 'green' : 'darkgray'}
+				color={status.online ? 'green' : 'darkgray'}
 				size={props.size} />
 			<ReactTooltip />
 		</span>

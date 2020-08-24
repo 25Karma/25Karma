@@ -5,7 +5,7 @@ import p from 'properties.js';
 
 export function Tips(props) {
 	const proTips = [
-		"Pro tip: Customize this site by clicking on the gear button in the top-right corner.",
+		"Customize this site by clicking on the gear button in the top-right corner.",
 		<React.Fragment>
 			Have a suggestion? Message me on the Hypixel
 			Forums <ExternalLink href={p.hypixelForums}>here</ExternalLink>.
@@ -25,7 +25,7 @@ export function Tips(props) {
 		setTipIndex((tipIndex+1)%proTips.length);
 	}
 	return (
-		<span className="h-flex align-items-center justify-content-center mx-auto" style={{maxWidth:'45rem'}}>
+		<span className="h-flex align-items-center justify-content-center mx-auto" style={{maxWidth:'40rem'}}>
 			<button onClick={previousTip}>
 				<ReactIcon icon={FaCaretLeft} clickable />
 			</button>

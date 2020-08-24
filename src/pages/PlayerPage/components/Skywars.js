@@ -18,7 +18,7 @@ export const Skywars = React.memo((props) => {
 
 	// Get the player's API data for SkyWars
 	const { player } = useHypixelContext();
-	const json = Utils.traverse(player,'player.stats.SkyWars') || {};
+	const json = Utils.traverse(player,'stats.SkyWars') || {};
 
 	const leveling = new HypixelLeveling(xpToLevel, levelToXP,
 		Utils.default0(json.skywars_experience));

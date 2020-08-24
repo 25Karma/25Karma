@@ -14,7 +14,7 @@ export const MurderMystery = React.memo((props) => {
 
 	// The player's API data for Murder Mystery
 	const { player } = useHypixelContext();
-	const json = Utils.traverse(player,'player.stats.MurderMystery') || {};
+	const json = Utils.traverse(player,'stats.MurderMystery') || {};
 
 	const losses = Utils.default0(json.games)-Utils.default0(json.wins);
 	const knifeSkin = consts.KNIFESKINS[json.active_knife_skin];

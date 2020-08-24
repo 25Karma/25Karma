@@ -11,7 +11,7 @@ import { getPlayerRank } from 'utils/hypixel';
 */
 export function PlayerName(props) {
 
-	const playerdata = Utils.traverse(props.player, 'player', {});
+	const playerdata = props.player || {};
 	const stats = {
 		name: playerdata.displayname || '',
 		rank: getPlayerRank(playerdata),
