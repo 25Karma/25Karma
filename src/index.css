@@ -23,7 +23,7 @@ html { font-size: 13px; background: var(--theme-primary);}
 @media (min-width: 1240px) { html { font-size: 15px; } }
 
 body { margin: 0; }
-div, span, p, a, ul, input, button { 
+div, span, p, a, ul, input, button, footer { 
 	padding: 0;
 	margin: 0;
 	text-decoration: none; 

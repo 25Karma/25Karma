@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Accordion, Box, HorizontalLine, Progress, 
 	ProgressBar, StatCell, StatPair, StatRow } from 'components';
 import { BEDWARS as consts } from 'constants/hypixel';
@@ -11,7 +11,7 @@ import { HypixelLeveling } from 'utils/hypixel';
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
-export const Bedwars = React.memo((props) => {
+export const Bedwars = memo((props) => {
 	
 	// The player's API data for Bed Wars
 	const { player } = useHypixelContext();

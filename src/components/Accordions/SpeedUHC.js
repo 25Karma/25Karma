@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Accordion, Box, Progress, 
 	ProgressBar, StatCell, StatPair, StatRow } from 'components';
 import { SPEEDUHC as consts } from 'constants/hypixel';
@@ -11,7 +11,7 @@ import { HypixelLeveling } from 'utils/hypixel';
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
-export const SpeedUHC = React.memo((props) => {
+export const SpeedUHC = memo((props) => {
 
 	// The player's API data for Speed UHC
 	const { player } = useHypixelContext();

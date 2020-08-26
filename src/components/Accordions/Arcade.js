@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Accordion, Box, HorizontalLine, StatCell, StatPair } from 'components';
 import { ARCADE as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
@@ -9,7 +9,7 @@ import * as Utils from 'utils';
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
-export const Arcade = React.memo((props) => {
+export const Arcade = memo((props) => {
 
 	// The player's API data for Arcade Games
 	const { player } = useHypixelContext();

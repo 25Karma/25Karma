@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { HypixelContextProvider } from 'components';
+import { HypixelContextProvider } from 'contexts';
 import { FrontPage, NotFoundPage, PlayerPage } from 'pages';
 
 function App() {

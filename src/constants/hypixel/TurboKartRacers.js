@@ -14,7 +14,7 @@ export const TURBOKARTRACERS = {
 	QUALITY: [
 		{name: 'Starter', color: 'gray'},
 		{name: 'Mini', color: 'gray'},
-		{name: 'Auxillary', color: 'green'},
+		{name: 'Auxiliary', color: 'green'},
 		{name: 'Standard', color: 'green'},
 		{name: 'Primary', color: 'green'},
 		{name: 'Experimental', color: 'green'},

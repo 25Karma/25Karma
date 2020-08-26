@@ -1,3 +1,3 @@
-export * from './FrontPage';
-export * from './NotFoundPage';
-export * from './PlayerPage';
+export * from './FrontPage.js';
+export * from './NotFoundPage.js';
+export * from './PlayerPage.js';

@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
-import { MdMoreHoriz } from 'react-icons/md';
-import { Link } from 'react-router-dom';
-import { Banner, Button, MinecraftText, Navbar, 
-	PageLayout, Tips, ReactIcon, Searchbar } from 'components';
-import * as Utils from 'utils';
+import React from 'react';
+import { Banner, MinecraftText, Navbar, 
+	PageLayout, Tips, RecentSearches, Searchbar } from 'components';
 import properties from 'properties.js';
 
 /*
@@ -18,9 +15,6 @@ export function FrontPage(props) {
 
 	const config = props.config || {};
 	document.title = properties.documentTitle;
-
-	// Stores how many recent searches to show
-	const [showAllRecents, setShowAllRecents] = useState(false);
 
 	// Set the banner according to the config
 	let banner = null;
@@ -63,58 +57,6 @@ export function FrontPage(props) {
 			break;
 		default: break;
 	}
-
-	/*
-	* Renders JSX containing recent searches if there are any
-	* If there are none, renders a suggestion
-	*
-	* @return {JSX} A div containing buttons to search for recent players
-	*/
-	function renderRecentSearches() {
-		const recentSearchesList = new Utils.RecentSearchesList();
-		const array = recentSearchesList.toArray();
-		// If the cookie is empty or doesn't exist, render a suggestion
-		if (array === undefined || array.length === 0) {
-			const suggestedPlayer = "gamerboy80"
-			return (
-				<React.Fragment>
-					<div className="pt-2">
-						<MinecraftText>First time? Try searching</MinecraftText>
-					</div>
-					<div className="pl-2 py-1">
-						<Link to={`/player/${suggestedPlayer}`}>
-							<Button>
-								<span className="font-xs">{suggestedPlayer}</span>
-							</Button>
-						</Link>
-					</div>
-				</React.Fragment>
-			);
-		}
-		return (
-			<React.Fragment>
-				<div className="pt-2 nowrap">
-					<MinecraftText size="sm">Recent searches</MinecraftText>
-				</div>
-				<div className="h-flex flex-wrap">
-					{array.slice(0, showAllRecents ? array.length : 5).map((a) => (
-						<div key={a} className="pl-2 py-1">
-							<Link to={`/player/${a}`}>
-								<Button>
-									<span className="font-xs">{a}</span>
-								</Button>
-							</Link>
-						</div>
-					))}
-					{array.length > 5 && !showAllRecents &&
-							<button className="pl-2" onClick={()=>{setShowAllRecents(true)}}>
-								<ReactIcon icon={MdMoreHoriz} clickable />
-							</button>
-					}
-				</div>
-			</React.Fragment>
-			);
-	}
 	
 	return (
 		<PageLayout
@@ -137,7 +79,7 @@ export function FrontPage(props) {
 						<Searchbar defaultValue={config.player || ''}/>
 					</div>
 					<div className="pl-2 h-flex align-items-start">
-						{renderRecentSearches()}
+						<RecentSearches />
 					</div>
 					<div className="mx-auto">
 						{banner}

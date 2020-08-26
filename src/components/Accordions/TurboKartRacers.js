@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Accordion, Box, HorizontalLine, StatPair } from 'components';
 import { TURBOKARTRACERS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
@@ -9,7 +9,7 @@ import * as Utils from 'utils';
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
-export const TurboKartRacers = React.memo((props) => {
+export const TurboKartRacers = memo((props) => {
 
 	const { player } = useHypixelContext();
 	const json = Utils.traverse(player, 'stats.GingerBread') || {};

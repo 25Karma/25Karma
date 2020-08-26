@@ -3,7 +3,6 @@ import ReactTooltip from 'react-tooltip';
 import Cookies from 'js-cookie';
 import './Settings.css';
 import { Banner, Button, ExternalLink } from 'components';
-import { RecentSearchesList, PlayerAccordionList } from 'utils';
 
 /*
 * Gets/sets cookies based on user's site preferences
@@ -39,10 +38,8 @@ export function Settings(props) {
 	function clearCookies() {
 		Cookies.remove('pinnedPlayer');
 		Cookies.remove('decimal');
-		const recentSearchesList = new RecentSearchesList();
-		recentSearchesList.clear();
-		const playerAccordionList = new PlayerAccordionList();
-		playerAccordionList.clear();
+		Cookies.remove('accordionList');
+		Cookies.remove('recentSearches');
 		setBanner("ClearCookiesInfo");
 	}
 	

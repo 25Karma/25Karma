@@ -1,26 +1,40 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Accordion, Box, HorizontalLine, Progress, 
-	ProgressBar, StatCell, StatPair, StatRow } from 'components';
-import { BUILDBATTLE as consts } from 'constants/hypixel';
+	ProgressBar, StatCell, StatPair } from 'components';
+import { UHC as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
 import { HypixelLeveling } from 'utils/hypixel';
 
 /*
-* Stats accordion for Build Battle
+* Stats accordion for UHC
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
-export const BuildBattle = React.memo((props) => {
+export const UHC = memo((props) => {
 
-	// Get the player's API data for SkyWars
+	// Get the player's API data for UHC
 	const { player } = useHypixelContext();
-	const json = Utils.traverse(player,'stats.BuildBattle') || {};
-	const losses = Utils.default0(json.games_played) - Utils.default0(json.wins);
+	const json = Utils.traverse(player,'stats.UHC') || {};
+
 	const leveling = new HypixelLeveling(scoreToStar, starToScore, Utils.default0(json.score));
-	if (leveling.levelCeiling > 12) leveling.levelCeiling = 12;
+	if (leveling.levelCeiling > 15) leveling.levelCeiling = 15;
 	const title = getTitle(leveling.levelFloor).name;
 	const titleColor = getTitle(leveling.levelFloor).color;
+
+	// Calculate total kills/deaths etc. across all gamemodes
+	let kills = 0, deaths = 0, wins = 0, heads = 0;
+	for (const mode of consts.MODES) {
+		kills += Utils.default0(json[`kills${mode.id}`]);
+		deaths += Utils.default0(json[`deaths${mode.id}`]);
+		wins += Utils.default0(json[`wins${mode.id}`]);
+		heads += Utils.default0(json[`heads_eaten${mode.id}`]);
+	}
+
+	const ratios = {
+		kd: Utils.ratio(kills,deaths),
+		kw: Utils.ratio(kills,wins),
+	}
 
 	function scoreToStar(score) {
 		const stars = consts.STARS;
@@ -44,8 +58,9 @@ export const BuildBattle = React.memo((props) => {
 
 	const header = (
 		<React.Fragment>
-			<Box title="Title" color={titleColor}>{title}</Box>
-			<Box title="Wins">{json.wins}</Box>
+			<Box title="Star" color="gold">{`[${leveling.levelFloor}✫]`}</Box>
+			<Box title="KD">{ratios.kd}</Box>
+			<Box title="Wins">{wins}</Box>
 		</React.Fragment>
 		);
 
@@ -55,11 +70,11 @@ export const BuildBattle = React.memo((props) => {
 			color: titleColor,
 			dataTip: `${Utils.formatNum(leveling.xp)}/${Utils.formatNum(starToScore(leveling.levelCeiling))} Score`
 		}
-		if (leveling.levelFloor === 12) {
+		if (leveling.levelFloor === 15) {
 			levelingProgressProps = {
 					proportion: 1,
 					color: titleColor,
-					dataTip: `${Utils.formatNum(leveling.xp)}/${Utils.formatNum(starToScore(12))} Score`
+					dataTip: `${Utils.formatNum(leveling.xp)}/${Utils.formatNum(starToScore(15))} Score`
 				}
 		}
 		return (
@@ -81,23 +96,33 @@ export const BuildBattle = React.memo((props) => {
 			<thead>
 				<tr>
 					<th>Mode</th>
+					<th>Kills</th>
+					<th>Deaths</th>
+					<th>KD</th>
 					<th>Wins</th>
+					<th>KW</th>
+					<th>Heads Eaten</th>
 				</tr>
 			</thead>
 			<tbody>
 			{
-				consts.MODES.map(({id, name}) => 
-					Boolean(json[`wins${id}`]) &&
-					<StatRow key={id} id={id}>
-						<StatCell>{name}</StatCell>
-						<StatCell>{json[`wins${id}`]}</StatCell>
-					</StatRow>
+				consts.MODES.map(mode =>
+					Boolean(Utils.add(json[`wins${mode.id}`], json[`deaths${mode.id}`])) &&
+					<tr key={mode.id}>
+						<StatCell>{mode.name}</StatCell>
+						<StatCell>{json[`kills${mode.id}`]}</StatCell>
+						<StatCell>{json[`deaths${mode.id}`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`kills${mode.id}`],json[`deaths${mode.id}`])}</StatCell>
+						<StatCell>{json[`wins${mode.id}`]}</StatCell>
+						<StatCell>{Utils.ratio(json[`kills${mode.id}`],json[`wins${mode.id}`])}</StatCell>
+						<StatCell>{json[`heads_eaten${mode.id}`]}</StatCell>
+					</tr>
 					)
 			}
 			</tbody>
 		</table>
 		);
-
+		
 	return Utils.isEmpty(json) ?
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
@@ -110,24 +135,28 @@ export const BuildBattle = React.memo((props) => {
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
-					<StatPair title="Score">{json.score}</StatPair>
+					<StatPair title="Score">{leveling.xp}</StatPair>
 					<StatPair title="Title" color={titleColor}>{title}</StatPair>
 					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Wins">{json.wins}</StatPair>
-					<StatPair title="Losses">{losses}</StatPair>
-					<StatPair title="Win/Loss Ratio">{Utils.ratio(json.wins/losses)}</StatPair>
+					<StatPair title="Kills">{kills}</StatPair>
+					<StatPair title="Deaths">{deaths}</StatPair>
+					<StatPair title="Kill/Death Ratio">{ratios.kd}</StatPair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Correct Guesses">{json.correct_guesses}</StatPair>
-					<StatPair title="Super Votes">{json.super_votes}</StatPair>
+					<StatPair title="Wins">{wins}</StatPair>
+					<StatPair title="Kill/Win Ratio">{ratios.kw}</StatPair>
+					<StatPair title="Heads Eaten">{heads}</StatPair>
+					<StatPair title="Ultimates Crafted">
+						{Utils.default0(json.ultimates_crafted) + Utils.default0(json.ultimates_crafted_solo)}
+					</StatPair>
 				</div>
 			</div>
 			
 			<HorizontalLine />
 
-			<div className="overflow-x py-3">
+			<div className="overflow-x my-3">
 				{table}
 			</div>
 		</Accordion>

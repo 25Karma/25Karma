@@ -9,7 +9,7 @@ import { ExternalLink } from 'components';
 */
 export function Footer(props) {
 	return (
-		<div className="p-1 footer font-xs border">
+		<footer className="p-1 footer font-xs border">
 			<span>
 				Powered by the&nbsp;
 				<ExternalLink href="https://api.hypixel.net/">Hypixel API</ExternalLink>. 
@@ -20,6 +20,6 @@ export function Footer(props) {
 				{`Made with ❤️ by `}
 				<Link to="/player/amos283086" className="link">Amos Yu</Link>.
 			</span>
-		</div>
+		</footer>
 		);
 }

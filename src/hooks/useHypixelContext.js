@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
-
-export const HypixelContext = React.createContext({});
+import { useContext } from 'react';
+import { HypixelContext } from 'contexts';
 
 export function useHypixelContext() {
 	return useContext(HypixelContext);

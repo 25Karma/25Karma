@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Accordion, Box, HorizontalLine, StatCell, 
 	StatPair, StatRow } from 'components';
 import { DUELS as consts } from 'constants/hypixel';
@@ -10,7 +10,7 @@ import * as Utils from 'utils';
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
-export const Duels = React.memo((props) => {
+export const Duels = memo((props) => {
 	
 	const { player } = useHypixelContext();
 	const json = Utils.traverse(player,'stats.Duels') || {};

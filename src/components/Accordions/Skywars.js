@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import { Accordion, Banner, Box, Button, 
@@ -14,7 +14,7 @@ import { HypixelLeveling } from 'utils/hypixel';
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
-export const Skywars = React.memo((props) => {
+export const Skywars = memo((props) => {
 
 	// Get the player's API data for SkyWars
 	const { player } = useHypixelContext();

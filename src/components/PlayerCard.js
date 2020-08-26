@@ -34,16 +34,6 @@ export function PlayerCard(props) {
 		}
 		return {name: `Level ${Math.floor(networkLevel)}`, value: `×${m}`};
 	})();
-	const questsCompleted = (() => {
-		if (!json.quests) return 0;
-		let sum = 0;
-		for (const [,v] of Object.entries(json.quests)) {
-			if (v.completions) {
-				sum += v.completions.length;
-			}
-		}
-		return sum;
-	})();
 	const socialMediaLinks = Utils.traverse(json, 'socialMedia.links');
 
 	function calculateNetworkLevel(exp) {
@@ -77,7 +67,7 @@ export function PlayerCard(props) {
 		</React.Fragment>
 		);
 
-	const socialMedia = (socialMediaLinks &&
+	const socialMedia = (socialMediaLinks && !Utils.isEmpty(socialMediaLinks) &&
 		<React.Fragment>
 			<div className="my-3">
 				<HorizontalLine />
@@ -102,7 +92,7 @@ export function PlayerCard(props) {
 			</div>
 			<StatPair title="Coin Multiplier">{`${multiplier.value} (${multiplier.name})`}</StatPair>
 			<StatPair title="Achievement Points">{json.achievementPoints}</StatPair>
-			<StatPair title="Quests Completed">{questsCompleted}</StatPair>
+			<StatPair title="Quests Completed">{json.questsCompleted}</StatPair>
 			<br />
 			<StatPair title="Friends">{friends}</StatPair>
 			<br />
