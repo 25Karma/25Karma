@@ -99,8 +99,8 @@ export function PlayerCard(props) {
 			{loginDates}
 			<ExternalLink href={`https://sky.lea.moe/stats/${json.uuid}`}>
 				<Button>
-					<span className="font-bold">SkyBlock Stats&nbsp;&nbsp;</span>
-					<ReactIcon icon={FaExternalLinkAlt} size="sm"/>
+					<span className="font-bold pr-1">SkyBlock Stats</span>
+					<ReactIcon icon={FaExternalLinkAlt} size="sm" />
 				</Button>
 			</ExternalLink>
 			{guildInfo}

@@ -36,10 +36,9 @@ export function Settings(props) {
 	* Clears all cookies - user preference cookies as well as others used by the app
 	*/
 	function clearCookies() {
-		Cookies.remove('pinnedPlayer');
-		Cookies.remove('decimal');
-		Cookies.remove('accordionList');
-		Cookies.remove('recentSearches');
+		Object.keys(Cookies.get()).forEach((cookie) => {
+			Cookies.remove(cookie);
+		});
 		setBanner("ClearCookiesInfo");
 	}
 	

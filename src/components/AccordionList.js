@@ -23,17 +23,21 @@ export function AccordionList(props) {
 				showLine: false,
 			}
 		}
-		// If the cookie is in the old format
-		else if (Array.isArray(JSON.parse(cookie))) {
-			Cookies.remove(cookieName);
-			return getCookie();
-		}
 		else {
 			const {list, showLine} = JSON.parse(cookie);
+			let accordionNames = Object.entries(Accordions).map(([name]) => name);
+			accordionNames.push('HorizontalLine');
 			// Add any Accordions that were not found in the cookie data
-			for (const [name] of Object.entries(Accordions)) {
+			for (const name of accordionNames) {
 				if (!list.includes(name)) {
 					list.push(name);
+				}
+			}
+			// If any invalid accordion names are found, reset the entire cookie
+			for (const name of list) {
+				if (!accordionNames.includes(name)) {
+					Cookies.remove(cookieName);
+					return getCookie();
 				}
 			}
 			return {list, showLine};

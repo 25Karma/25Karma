@@ -14,7 +14,7 @@ import { HypixelLeveling } from 'utils/hypixel';
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
-export const Skywars = memo((props) => {
+export const SkyWars = memo((props) => {
 
 	// Get the player's API data for SkyWars
 	const { player } = useHypixelContext();
