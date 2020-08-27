@@ -48,7 +48,7 @@ export function Navbar(props) {
 						<div className="flex-1 p-1 text-right">
 								<p className="p-1">
 									{renderPinnedPlayerButton()}
-									<button className="pl-2" {...provided.collapseButtonProps}>
+									<button className="ml-2" {...provided.collapseButtonProps}>
 										<ReactIcon icon={MdSettings} clickable />
 									</button>
 								</p>

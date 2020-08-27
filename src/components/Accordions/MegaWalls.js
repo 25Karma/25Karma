@@ -7,7 +7,7 @@ import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
 
 /*
-* Stats accordion for Bed Wars
+* Stats accordion for Mega Walls
 *
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
@@ -148,7 +148,7 @@ export const MegaWalls = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="py-3 h-flex">
+			<div className="mt-3 mb-2 h-flex">
 				<div className="flex-1">
 					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
 					<StatPair title="Wither Damage Dealt">{Utils.add(json.witherDamage, json.wither_damage)}</StatPair>
@@ -172,7 +172,7 @@ export const MegaWalls = memo((props) => {
 					<StatPair title="Final Kill/Death Ratio">{ratios.fkd}</StatPair>
 				</div>
 			</div>
-			<div className="pb-3">
+			<div className="mb-3">
 				<ExternalLink href={`https://gen.plancke.io/mw/${mojang.username}/2.png`}>
 					<Button>
 						<span className="font-bold pr-1">Class Skins and Levels</span>

@@ -6,14 +6,18 @@ import { getPlayerRank } from 'utils/hypixel';
 /*
 * Hypixel player username with rank & colors in Minecraft font
 *
-* @param {Object} props.player 	Player data JSON object
-* @param {string} props.size 	Font size
+* @param {string} props.username 	Player's username
+* @param {Object} props.playerdata 	Player data JSON object
+* @param {string} props.size 		Font size
 */
 export function PlayerName(props) {
 
 	const playerdata = props.player || {};
 	const stats = {
-		name: playerdata.displayname || '',
+		// Must pass username as separate prop because Hypixel's displayname
+		// only updates when the player logs in
+		// props.username should be sourced from the Mojang API
+		name: props.username || '',
 		rank: getPlayerRank(playerdata),
 		prefix: playerdata.prefix,
 		plusColor: playerdata.rankPlusColor,

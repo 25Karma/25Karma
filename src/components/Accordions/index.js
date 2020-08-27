@@ -1,5 +1,6 @@
 export * from './Arcade.js';
 export * from './BedWars.js';
+export * from './BlitzSG.js';
 export * from './BuildBattle.js';
 export * from './Duels.js';
 export * from './MegaWalls.js';

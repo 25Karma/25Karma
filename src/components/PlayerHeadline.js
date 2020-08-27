@@ -17,7 +17,7 @@ export function PlayerHeadline(props) {
 				</ExternalLink>
 			}
 			<div className="text-shadow pl-2">
-				<PlayerName player={player} size="lg" />
+				<PlayerName username={mojang.username} player={player} size="lg" />
 				<GuildTag guild={guild} size="lg" />
 			</div>
 			<Status player={player} status={status} size="lg" />

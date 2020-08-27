@@ -105,7 +105,7 @@ export function AccordionList(props) {
 		<DragDropContext onDragEnd={onDragEnd}>
 			<div className="h-flex px-2 py-1 justify-content-end">
 				<button 
-					className="pr-2" 
+					className="mr-2" 
 					onClick={()=>{setShowLine(!showLine)}}
 					data-tip={(showLine ? 'Hide' : 'Show') + ' line spacer'}>
 					<ReactIcon 
@@ -140,7 +140,7 @@ const HorizontalLine = memo((props) => {
 		<Draggable key="HorizontalLine" draggableId="HorizontalLine" index={props.index}>
 		{provided => (
 			<div 
-				className={props.hidden ? "hidden" : "py-2"} 
+				className={props.hidden ? "hidden" : "my-1 py-1"} 
 				ref={provided.innerRef} 
 				{...provided.draggableProps} 
 				{...provided.dragHandleProps}>
