@@ -15,7 +15,6 @@ export const BlitzSG = memo((props) => {
 
 	const { mojang, player } = useHypixelContext();
 	const json = Utils.traverse(player, 'stats.HungerGames', {});
-	const brokenKits = ['donkeytamer', 'phoenix', 'ranger', 'warrior'];
 	const totalWins = Utils.add(json.wins_solo_normal, json.wins_teams_normal);
 	const gamesPlayed = Utils.add(totalWins, json.deaths);
 	const ratios = {
@@ -40,12 +39,23 @@ export const BlitzSG = memo((props) => {
 	}
 
 	function losses(kit) {
-		return Utils.add(json[`games_played_${kit}`], -wins(kit));
+		return Utils.subtract(json[`games_played_${kit}`], wins(kit));
 	}
 
 	function kitLevel(kit) {
 		let level = json[kit];
-		if (level === undefined) return '';
+		if (level === undefined) {
+			level = -1;
+			const exp = Utils.default0(json[`exp_${kit}`]);
+			for (const kitexp of consts.KITEXP.slice()) {
+				if (exp >= kitexp) {
+					level++;
+				}
+				else {
+					break;
+				}
+			}
+		}
 		return Utils.romanize(level+1);
 	}
 
@@ -69,7 +79,7 @@ export const BlitzSG = memo((props) => {
 
 	const header = (
 		<React.Fragment>
-			<Box title="Main" color="white">{mostPlayedKit}</Box>
+			<Box title="Main" color={mostPlayedKit && 'white'}>{mostPlayedKit || '-'}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="Wins">{totalWins}</Box>
 		</React.Fragment>
@@ -90,8 +100,7 @@ export const BlitzSG = memo((props) => {
 				</tr>
 			</thead>
 			<tbody>
-				{consts.KITS.map(({id, name}) => 
-					Boolean(!brokenKits.includes(id)) &&
+				{consts.KITS.map(({id, name}) =>
 					(Boolean(json[`time_played_${id}`]) || Boolean(json[id])) &&
 					<StatRow key={id} isHighlighted={name === mostPlayedKit}>
 						<StatCell color={kitLevel(id) === 'X' && 'darkred'}>{`${name} ${kitLevel(id)}`}</StatCell>
@@ -152,7 +161,7 @@ export const BlitzSG = memo((props) => {
 				</div>
 			</div>
 			<div className="mb-3">
-				<ExternalLink href={`https://gen.plancke.io/blitz/${mojang.username}/3.png`}>
+				<ExternalLink href={`https://gen.plancke.io/blitz/${mojang.uuid}/3.png`}>
 					<Button>
 						<span className="font-bold pr-1">Kit Levels</span>
 						<ReactIcon icon={FaExternalLinkAlt} size="sm" />

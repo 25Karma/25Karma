@@ -10,19 +10,21 @@ import { formatNum } from 'utils';
 * @param {boolean} props.percentage Whether the stat should be displayed as a percentage
 */
 export function StatPair(props) {
+	const { title, children, color, percentage } = props;
+
 	function renderChildren() {
-		if (props.children === undefined) return 0;
-		else if (isNaN(props.children)) return props.children;
+		if (children === undefined) return 0;
+		else if (isNaN(children)) return children;
 		else {
-			if (props.percentage) return `${formatNum(props.children * 100)}%`
-			else return formatNum(props.children);
+			if (percentage) return `${formatNum(children * 100)}%`
+			else return formatNum(children);
 		}
 	}
 
 	return (
 		<div style={{paddingBottom: '0.25rem'}}>
-			<span className="font-bold">{`${props.title}: `}</span>
-			<span className={`c-${props.color || 'gray'}`}>
+			<span className="font-bold">{`${title}: `}</span>
+			<span className={`c-${color || 'gray'}`}>
 				{renderChildren()}
 			</span>
 		</div>

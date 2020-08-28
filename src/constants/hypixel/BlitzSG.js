@@ -45,4 +45,5 @@ export const BLITZSG = {
 		{id: 'solo_normal', name: 'Solo Normal'},
 		{id: 'teams_normal', name: 'Teams Normal'},
 	],
+	KITEXP: [ 0, 100, 250, 500, 1000, 1500, 2000, 2500, 5000, 10000 ],
 }

@@ -22,9 +22,9 @@ export function Accordion(props) {
 					ref={dProvided.innerRef}
 					{...dProvided.draggableProps}>
 					<div className="accordion">
-						<div className="accordion-header px-2"> 
+						<div className="accordion-header"> 
 							<div 
-								className="h-flex align-items-center flex-1 cursor-pointer overflow-hidden" 
+								className="h-flex align-items-center flex-1 cursor-pointer overflow-hidden pl-2" 
 								{...cProvided.collapseButtonProps}>
 								<div className="py-2">
 								<MinecraftText font="md">{props.title}</MinecraftText>
@@ -33,7 +33,7 @@ export function Accordion(props) {
 									{props.header}
 								</div>
 							</div>
-							<button className="ml-2" {...dProvided.dragHandleProps}>
+							<button className="mx-2" {...dProvided.dragHandleProps}>
 								<ReactIcon icon={MdDragHandle} clickable />
 							</button>
 						</div>

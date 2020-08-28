@@ -173,7 +173,7 @@ export const MegaWalls = memo((props) => {
 				</div>
 			</div>
 			<div className="mb-3">
-				<ExternalLink href={`https://gen.plancke.io/mw/${mojang.username}/2.png`}>
+				<ExternalLink href={`https://gen.plancke.io/mw/${mojang.uuid}/2.png`}>
 					<Button>
 						<span className="font-bold pr-1">Class Skins and Levels</span>
 						<ReactIcon icon={FaExternalLinkAlt} size="sm" />

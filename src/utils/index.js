@@ -34,6 +34,10 @@ export function add() {
 	return Array.from(arguments).reduce((a, b) => default0(a) + default0(b), 0);
 }
 
+export function subtract(a, b) {
+	return default0(a) - default0(b);
+}
+
 /*
 * Calculates a ratio safely
 *
