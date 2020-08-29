@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Accordion, Box, HorizontalLine, StatCell, 
-	StatPair, StatRow } from 'components';
+	StatPair, StatRow, StatTable } from 'components';
 import { MURDERMYSTERY as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -43,7 +43,7 @@ export const MurderMystery = memo((props) => {
 		);
 
 	const table = (() => {
-		const legacyStartsAt = 'MURDER_HARDCORE';
+		const legacyStartsAt = '_MURDER_HARDCORE';
 		let rowList = [];
 		for (const {id, name} of consts.MODES) {
 			const losses = Utils.default0(json[`games${id}`])-Utils.default0(json[`wins${id}`]);
@@ -67,7 +67,7 @@ export const MurderMystery = memo((props) => {
 				);
 		}
 		return (
-			<table>
+			<StatTable>
 				<thead>
 					<tr>
 						<th>Mode</th>
@@ -83,7 +83,7 @@ export const MurderMystery = memo((props) => {
 				<tbody>
 					{rowList}
 				</tbody>
-			</table>
+			</StatTable>
 			);
 	})();
 
@@ -106,8 +106,8 @@ export const MurderMystery = memo((props) => {
 					<StatPair title="Wins">{json.wins}</StatPair>
 					<StatPair title="Losses">{losses}</StatPair>
 					<StatPair title="Win/Loss Ratio">{Utils.ratio(json.wins/losses)}</StatPair>
-					<StatPair title="Fastest Detective Win">{fastestDetectiveWin ? fastestDetectiveWin+'s' : '-'}</StatPair>
-					<StatPair title="Fastest Murderer Win">{fastestMurdererWin ? fastestMurdererWin+'s' : '-'}</StatPair>
+					<StatPair title="Fastest Detective Win">{Utils.secondsToHms(fastestDetectiveWin)}</StatPair>
+					<StatPair title="Fastest Murderer Win">{Utils.secondsToHms(fastestMurdererWin)}</StatPair>
 				</div>
 			</div>
 			

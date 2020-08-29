@@ -140,6 +140,7 @@ button:focus {
 .py-4 { padding-top: 4rem; padding-bottom: 4rem; }
 .py-5 { padding-top: 8rem; padding-bottom: 8rem; }
 .rounded { border-radius: 0.25rem; }
+.td-shrink { width: 1%; white-space: nowrap; }
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 .text-shadow { text-shadow: 0rem 0.25rem 0.25rem black; }

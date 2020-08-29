@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { Accordion, Box, Button, ExternalLink, 
-	HorizontalLine, ReactIcon, StatCell, StatPair, StatRow } from 'components';
+	HorizontalLine, ReactIcon, StatCell, StatPair, StatRow, StatTable } from 'components';
 import { BLITZSG as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -64,19 +64,6 @@ export const BlitzSG = memo((props) => {
 		return pres === undefined ? '-' : Utils.romanize(pres);
 	}
 
-	function secondsToHms(d) {
-		if (d === undefined) return "-";
-		d = Number(d);
-		var h = Math.floor(d / 3600);
-		var m = Math.floor(d % 3600 / 60);
-		var s = Math.floor(d % 3600 % 60);
-
-		var hDisplay = h > 0 ? h + "h, " : "";
-		var mDisplay = m > 0 ? m + "m, " : "";
-		var sDisplay = s > 0 ? s + "s" : "";
-		return hDisplay + mDisplay + sDisplay; 
-	}
-
 	const header = (
 		<React.Fragment>
 			<Box title="Main" color={mostPlayedKit && 'white'}>{mostPlayedKit || '-'}</Box>
@@ -86,7 +73,7 @@ export const BlitzSG = memo((props) => {
 	);
 
 	const kitsTable = (
-		<table>
+		<StatTable>
 			<thead>
 				<tr>
 					<th>Kit</th>
@@ -110,15 +97,15 @@ export const BlitzSG = memo((props) => {
 						<StatCell>{wins(id)}</StatCell>
 						<StatCell>{losses(id)}</StatCell>
 						<StatCell>{Utils.ratio(wins(id), losses(id))}</StatCell>
-						<StatCell>{secondsToHms(json[`time_played_${id}`])}</StatCell>
+						<StatCell>{Utils.secondsToHms(json[`time_played_${id}`])}</StatCell>
 					</StatRow>
 				)}
 			</tbody>
-		</table>
+		</StatTable>
 		);
 
 	const modesTable = (
-		<table>
+		<StatTable>
 			<thead>
 				<tr>
 					<th>Mode</th>
@@ -136,7 +123,7 @@ export const BlitzSG = memo((props) => {
 					</StatRow>
 				)}
 			</tbody>
-		</table>
+		</StatTable>
 		);
 
 	return Utils.isEmpty(json) ?

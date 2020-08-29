@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import { Accordion, Banner, Box, Button, 
 	Crafatar, HorizontalLine, Progress, ProgressBar, 
-	StatCell, StatPair, StatRow } from 'components';
+	StatCell, StatPair, StatRow, StatTable } from 'components';
 import { SKYWARS as consts } from 'constants/hypixel';  
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -125,7 +125,7 @@ export const SkyWars = memo((props) => {
 		);
 
 	const table = (
-		<table>
+		<StatTable>
 			<thead>
 				<tr>
 					<th>Mode</th>
@@ -153,7 +153,7 @@ export const SkyWars = memo((props) => {
 					)
 			}
 			</tbody>
-		</table>
+		</StatTable>
 	);
 	
 	// Data used by the 'Total Heads Gathered' section

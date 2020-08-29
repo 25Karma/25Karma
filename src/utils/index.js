@@ -162,6 +162,25 @@ export function timeSince(date) {
 }
 
 /*
+* Converts an integer amount of seconds into the form (x)h, (y)m, (z)s
+*
+* @param {any} d 	Amount of seconds
+* @return {string} 	The formatted string
+*/
+export function secondsToHms(d) {
+		if (d === undefined) return "-";
+		d = Number(d);
+		var h = Math.floor(d / 3600);
+		var m = Math.floor(d % 3600 / 60);
+		var s = Math.floor(d % 3600 % 60);
+
+		var hDisplay = h > 0 ? h + "h, " : "";
+		var mDisplay = m > 0 ? m + "m, " : "";
+		var sDisplay = s > 0 ? s + "s" : "";
+		return hDisplay + mDisplay + sDisplay; 
+	}
+
+/*
 * Converts a color string into its corresponding Minecraft color code
 *
 * @param {string} str 	Name of the color

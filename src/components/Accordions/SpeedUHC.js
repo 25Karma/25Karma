@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Accordion, Box, Progress, 
-	ProgressBar, StatCell, StatPair, StatRow } from 'components';
+	ProgressBar, StatCell, StatPair, StatRow, StatTable } from 'components';
 import { SPEEDUHC as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -92,7 +92,7 @@ export const SpeedUHC = memo((props) => {
 	})();
 
 	const table = (
-		<table>
+		<StatTable>
 			<thead>
 				<tr>
 					<th>Mode</th>
@@ -120,7 +120,7 @@ export const SpeedUHC = memo((props) => {
 					)
 			}
 			</tbody>
-		</table>
+		</StatTable>
 		);
 
 	return Utils.isEmpty(json) ?

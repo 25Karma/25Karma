@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { Accordion, Box, Button, ExternalLink, 
-	HorizontalLine, ReactIcon, StatCell, StatPair, StatRow } from 'components';
+	HorizontalLine, ReactIcon, StatCell, StatPair, StatRow, StatTable } from 'components';
 import { MEGAWALLS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -68,7 +68,7 @@ export const MegaWalls = memo((props) => {
 		);
 
 	const classesTable = (
-		<table>
+		<StatTable>
 			<thead>
 				<tr>
 					<th></th>
@@ -110,11 +110,11 @@ export const MegaWalls = memo((props) => {
 						)
 				}
 			</tbody>
-		</table>
+		</StatTable>
 		);
 
 	const modesTable = (
-		<table>
+		<StatTable>
 			<thead>
 				<tr>
 					<th>Mode</th>
@@ -141,7 +141,7 @@ export const MegaWalls = memo((props) => {
 						)
 				}
 			</tbody>
-		</table>
+		</StatTable>
 		);
 
 	return Utils.isEmpty(json) ?

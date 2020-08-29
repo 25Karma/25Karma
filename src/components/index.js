@@ -26,6 +26,8 @@ export * from './SocialMedia.js';
 export * from './StatCell.js';
 export * from './StatPair.js';
 export * from './StatRow.js';
+export * from './StatTable.js';
+export * from './StatTitle.js';
 export * from './Status.js';
 export * from './Tips.js';
 export * from './ToggleSwitch.js';

@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
-import { Accordion, Box, HorizontalLine, StatCell, StatPair } from 'components';
+import { Accordion, Box, HorizontalLine, StatCell, 
+	StatPair, StatTable, StatTitle } from 'components';
 import { ARCADE as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -26,7 +27,7 @@ export const Arcade = memo((props) => {
 		);
 
 	const zombiesMapTable = (
-		<table>
+		<StatTable>
 			<thead>
 				<tr>
 					<th>Map</th>
@@ -56,11 +57,11 @@ export const Arcade = memo((props) => {
 					)
 			}
 			</tbody>
-		</table>
+		</StatTable>
 		);
 
 	const zombiesTypeTable = (
-		<table>
+		<StatTable>
 			<thead>
 				<tr>
 					<th>Zombie</th>
@@ -78,7 +79,7 @@ export const Arcade = memo((props) => {
 					)
 			}
 			</tbody>
-		</table>
+		</StatTable>
 		);
 
 	return Utils.isEmpty(json) ? 
@@ -190,7 +191,7 @@ export const Arcade = memo((props) => {
 
 			<HorizontalLine />
 
-			<div className="font-bold font-md text-center mt-3 mb-2">Mini Walls</div>
+			<StatTitle>Mini Walls</StatTitle>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
 					<StatPair title="Wins">{json.wins_mini_walls}</StatPair>
@@ -215,7 +216,7 @@ export const Arcade = memo((props) => {
 
 			<HorizontalLine />
 
-			<div className="font-bold font-md text-center mt-3 mb-2">Zombies</div>
+			<StatTitle>Zombies</StatTitle>
 			<div className="h-flex mb-2">
 				<div className="flex-1">
 					<StatPair title="Bullets Hit">{json.bullets_hit_zombies}</StatPair>

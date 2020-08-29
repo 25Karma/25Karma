@@ -1,5 +1,8 @@
 .playercard {
 	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 	border-radius: 0.25rem;
 	border: 1px solid var(--theme-border);
 	background: var(--theme-secondary);

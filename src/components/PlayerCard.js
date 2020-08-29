@@ -3,7 +3,7 @@ import './PlayerCard.css';
 import dateFormat from 'dateformat';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { Box, Button, ExternalLink, HorizontalLine, 
-	ReactIcon, SocialMedia, StatPair } from 'components';
+	ReactIcon, SocialMedia, StatPair, StatTitle } from 'components';
 import { HYPIXEL as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -58,10 +58,8 @@ export function PlayerCard(props) {
 	
 	const guildInfo = (guild &&
 		<React.Fragment>
-			<div className="my-3">
-				<HorizontalLine />
-			</div>
-			<div className="font-bold font-md mb-2">Guild</div>
+			<HorizontalLine className="mt-3"/>
+			<StatTitle>Guild</StatTitle>
 			<StatPair title="Name" color={guild.tagColor}>{guild.name}</StatPair>
 			<StatPair title="Members">{guild.members}</StatPair>
 		</React.Fragment>
@@ -69,10 +67,8 @@ export function PlayerCard(props) {
 
 	const socialMedia = (socialMediaLinks && !Utils.isEmpty(socialMediaLinks) &&
 		<React.Fragment>
-			<div className="my-3">
-				<HorizontalLine />
-			</div>
-			<div className="font-bold font-md mb-2">Social Media</div>
+			<HorizontalLine className="mt-3"/>
+			<StatTitle>Social Media</StatTitle>
 			<SocialMedia links={socialMediaLinks} />
 		</React.Fragment>
 		);
@@ -87,9 +83,7 @@ export function PlayerCard(props) {
 					{json.karma}
 				</Box>
 			</div>
-			<div className="mb-3">
-				<HorizontalLine />
-			</div>
+			<HorizontalLine className="mb-3"/>
 			<StatPair title="Coin Multiplier">{`${multiplier.value} (${multiplier.name})`}</StatPair>
 			<StatPair title="Achievement Points">{json.achievementPoints}</StatPair>
 			<StatPair title="Quests Completed">{json.questsCompleted}</StatPair>

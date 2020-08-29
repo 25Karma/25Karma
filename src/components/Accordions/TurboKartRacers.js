@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Accordion, Box, HorizontalLine, StatPair } from 'components';
+import { Accordion, Box, HorizontalLine, StatPair, StatTitle } from 'components';
 import { TURBOKARTRACERS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -27,7 +27,7 @@ export const TurboKartRacers = memo((props) => {
 	
 	const currentKart = Object.entries(kart).map(
 		part => Boolean(part[1].quality) ?
-		<table className="flex-1 mx-3" key={part[0]}>
+		<table className="flex-1 px-3" key={part[0]}>
 			<thead>
 				<tr>
 					<th colSpan="2" className={`c-${part[1].color}`}>
@@ -38,14 +38,14 @@ export const TurboKartRacers = memo((props) => {
 			<tbody>
 			{Object.entries(part[1].attributes).map(attr =>
 				<tr key={attr[0]}>
-					<td className="c-gray pr-2">{attr[0]}</td>
-					<td>{renderAttributePoints(attr[1])}</td>
+					<td className="px-3">{attr[0]}</td>
+					<td className="text-right pr-3">{renderAttributePoints(attr[1])}</td>
 				</tr>
 			)}
 			</tbody>
 		</table>
 		:
-		<div className="flex-1 c-gray text-center mx-3" key={part[0]}>
+		<div className="flex-1 c-gray text-center px-3" key={part[0]}>
 			{`No ${part[0]} equipped.`}
 		</div>
 		);
@@ -130,7 +130,7 @@ export const TurboKartRacers = memo((props) => {
 			
 			<HorizontalLine />
 
-			<div className="font-bold font-md text-center mb-2 mt-3">Current Kart</div>
+			<StatTitle>Current Kart</StatTitle>
 			<div className="h-flex overflow-x mb-3">
 				{currentKart}
 			</div>

@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Accordion, Box, HorizontalLine, Progress, 
-	ProgressBar, StatCell, StatPair } from 'components';
+	ProgressBar, StatCell, StatPair, StatTitle, StatTable } from 'components';
 import { COPSANDCRIMS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -42,7 +42,7 @@ export const CopsAndCrims = memo((props) => {
 		);
 
 	const table = (
-		<table>
+		<StatTable>
 			<thead>
 				<tr>
 					<th>Mode</th>
@@ -67,7 +67,7 @@ export const CopsAndCrims = memo((props) => {
 					</tr>
 				)}
 			</tbody>
-		</table>
+		</StatTable>
 		);
 
 	return Utils.isEmpty(json) ?
@@ -102,8 +102,8 @@ export const CopsAndCrims = memo((props) => {
 
 			<HorizontalLine />
 
-			<div className="font-bold font-md text-center mt-3 mb-2">Weapons</div>
-			<div className="h-flex justify-content-center flex-wrap mb-3">
+			<StatTitle>Weapons</StatTitle>
+			<div className="h-flex justify-content-center flex-wrap overflow-x mb-3">
 				{consts.GUNS.map(gun => <Gun gun={gun} json={json} key={gun.id}/>)}
 			</div>
 		</Accordion>
@@ -127,19 +127,25 @@ function Gun(props) {
 	}
 
 	return Boolean(upgrades.length) &&
-		<div className="v-flex w-100 mb-2 p-1" style={{maxWidth: '21rem'}}>
-			<span className="font-bold mb-1 text-center">{name}</span>
-			{upgrades.map(upgrade =>
-				<div className="mb-1" key={upgrade.name}>
-					<div>{upgrade.name}</div>
-					<ProgressBar>
-						<Progress 
-							proportion={upgrade.level/9}
-							color={upgrade.color}>
-							{Utils.romanize(upgrade.level)}
-						</Progress>
-					</ProgressBar>
-				</div>
-			)}
-		</div>
+		<table className="w-100 p-1" style={{maxWidth: '30rem'}}>
+			<thead>
+				<tr><th colSpan="2">{name}</th></tr>
+			</thead>
+			<tbody>
+				{upgrades.map(upgrade =>
+					<tr key={upgrade.name}>
+						<td className="td-shrink text-right">{upgrade.name}</td>
+						<td>
+							<ProgressBar>
+								<Progress 
+									proportion={upgrade.level/9}
+									color={upgrade.color}>
+									{Utils.romanize(upgrade.level)}
+								</Progress>
+							</ProgressBar>
+						</td>
+					</tr>
+				)}
+			</tbody>
+		</table>
 }

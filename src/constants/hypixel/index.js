@@ -9,5 +9,6 @@ export * from './MegaWalls.js';
 export * from './MurderMystery.js';
 export * from './SkyWars.js';
 export * from './SpeedUHC.js';
+export * from './TNTGames.js';
 export * from './TurboKartRacers.js';
 export * from './UHC.js';

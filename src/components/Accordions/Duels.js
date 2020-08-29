@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Accordion, Box, HorizontalLine, StatCell, 
-	StatPair, StatRow } from 'components';
+	StatPair, StatRow, StatTable } from 'components';
 import { DUELS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -77,7 +77,7 @@ export const Duels = memo((props) => {
 		);
 
 	const table = (
-		<table>
+		<StatTable>
 			<thead>
 				<tr>
 					<th>Mode</th>
@@ -109,7 +109,7 @@ export const Duels = memo((props) => {
 					)
 			}
 			</tbody>
-		</table>
+		</StatTable>
 		);
 
 	return Utils.isEmpty(json) ?
