@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
-import { Accordion, Box, Progress, 
-	ProgressBar, StatCell, StatPair, StatRow, StatTable } from 'components';
+import { Accordion } from 'components';
+import { Box, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
 import { SPEEDUHC as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
-import { HypixelLeveling } from 'utils/hypixel';
+import { HypixelLeveling, getMostPlayed } from 'utils/hypixel';
 
 /*
 * Stats accordion for Speed UHC
@@ -25,18 +25,8 @@ export const SpeedUHC = memo((props) => {
 		wl : Utils.ratio(json.wins, json.losses),
 	}
 
-	const mostPlayedMode = (() => {
-		let mostPlayed = null;
-		let mostPlays = 0;
-		for (const mode of consts.MODES) {
-			const plays = Utils.default0(json[`wins${mode.id}`]) + Utils.default0(json[`losses${mode.id}`])
-			if (plays > mostPlays && mode.id) {
-				mostPlays = plays;
-				mostPlayed = mode.name;
-			}
-		}
-		return mostPlayed;
-	})();
+	const mostPlayedMode = getMostPlayed(consts.MODES,
+		({id}) => Utils.add(json[`wins${id}`], json[`losses${id}`]));
 
 	function scoreToStar(score) {
 		const title = consts.TITLES;
@@ -92,7 +82,7 @@ export const SpeedUHC = memo((props) => {
 	})();
 
 	const table = (
-		<StatTable>
+		<Table>
 			<thead>
 				<tr>
 					<th>Mode</th>
@@ -108,19 +98,19 @@ export const SpeedUHC = memo((props) => {
 			{
 				consts.MODES.map(({id, name}) =>
 					Boolean(Utils.add(json[`wins${id}`], json[`deaths${id}`])) &&
-					<StatRow key={id} id={id} isHighlighted={name === mostPlayedMode}>
-						<StatCell>{name}</StatCell>
-						<StatCell>{json[`kills${id}`]}</StatCell>
-						<StatCell>{json[`deaths${id}`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`kills${id}`],json[`deaths${id}`])}</StatCell>
-						<StatCell>{json[`wins${id}`]}</StatCell>
-						<StatCell>{json[`losses${id}`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`wins${id}`],json[`losses${id}`])}</StatCell>
-					</StatRow>
+					<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
+						<Cell>{name}</Cell>
+						<Cell>{json[`kills${id}`]}</Cell>
+						<Cell>{json[`deaths${id}`]}</Cell>
+						<Cell>{Utils.ratio(json[`kills${id}`],json[`deaths${id}`])}</Cell>
+						<Cell>{json[`wins${id}`]}</Cell>
+						<Cell>{json[`losses${id}`]}</Cell>
+						<Cell>{Utils.ratio(json[`wins${id}`],json[`losses${id}`])}</Cell>
+					</Row>
 					)
 			}
 			</tbody>
-		</StatTable>
+		</Table>
 		);
 
 	return Utils.isEmpty(json) ?
@@ -135,21 +125,21 @@ export const SpeedUHC = memo((props) => {
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
-					<StatPair title="Score">{json.score}</StatPair>
-					<StatPair title="Title" color="white">{title}</StatPair>
-					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
-					<StatPair title="Salt">{json.salt}</StatPair>
+					<Pair title="Score">{json.score}</Pair>
+					<Pair title="Title" color="white">{title}</Pair>
+					<Pair title="Coins" color="gold">{json.coins}</Pair>
+					<Pair title="Salt">{json.salt}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Kills">{json.kills}</StatPair>
-					<StatPair title="Deaths">{json.deaths}</StatPair>
-					<StatPair title="Kill/Death Ratio">{ratios.kd}</StatPair>
+					<Pair title="Kills">{json.kills}</Pair>
+					<Pair title="Deaths">{json.deaths}</Pair>
+					<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Wins">{json.wins}</StatPair>
-					<StatPair title="Losses">{json.losses}</StatPair>
-					<StatPair title="Win/Loss Ratio">{ratios.wl}</StatPair>
-					<StatPair title="Winstreak">{json.winstreak}</StatPair>
+					<Pair title="Wins">{json.wins}</Pair>
+					<Pair title="Losses">{json.losses}</Pair>
+					<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
+					<Pair title="Winstreak">{json.winstreak}</Pair>
 				</div>
 			</div>
 			<div className="overflow-x mb-3">

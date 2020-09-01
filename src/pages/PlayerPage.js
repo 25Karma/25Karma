@@ -16,11 +16,7 @@ export function PlayerPage(props) {
 	* Loads different JSX depending on the states
 	*/
 	if (context.success === false) {
-		const config = {
-			...context,
-			player: context.slug,
-		}
-		return <FrontPage config={config} />
+		return <FrontPage config={context} />
 	}
 	else {
 		return (

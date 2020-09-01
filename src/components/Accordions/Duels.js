@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
-import { Accordion, Box, HorizontalLine, StatCell, 
-	StatPair, StatRow, StatTable } from 'components';
+import { Accordion, HorizontalLine } from 'components';
+import { Box, Cell, Pair, Row, Table } from 'components/Stats';
 import { DUELS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
+import { getMostPlayed } from 'utils/hypixel';
 
 /*
 * Stats accordion for Duels
@@ -14,6 +15,9 @@ export const Duels = memo((props) => {
 	
 	const { player } = useHypixelContext();
 	const json = Utils.traverse(player,'stats.Duels') || {};
+
+	const mostPlayedMode = getMostPlayed(consts.MODES, 
+		({id}) => Utils.add(json[`${id}wins`], json[`${id}losses`]));
 
 	const division = (() => {
 		for (const div of consts.DIVISIONS.slice().reverse()) {
@@ -53,31 +57,17 @@ export const Duels = memo((props) => {
 		ahm : Utils.ratio(json.bow_hits,json.bow_shots),
 	}
 
-	const mostPlayedMode = (() => {
-		let mostPlayed = '§7-';
-		let mostPlays = 0;
-		for (const mode of consts.MODES) {
-			const plays = Utils.default0(json[`${mode.id}wins`]) + Utils.default0(json[`${mode.id}losses`])
-			// The mode.id part is so that the 'Overall' category is ignored
-			if (plays > mostPlays && mode.id) {
-				mostPlays = plays;
-				mostPlayed = mode.name;
-			}
-		}
-		return mostPlayed;
-	})();
-
 	const header = (
 		<React.Fragment>
 			<Box title="Division" color={division.color}>{division.name}</Box>
 			<Box title="Wins">{json.wins}</Box>
 			<Box title="WL">{ratios.wl}</Box>
-			<Box title="Most Played">{`§f${mostPlayedMode}`}</Box>
+			<Box title="Most Played" color="white">{mostPlayedMode.name || '§7-'}</Box>
 		</React.Fragment>
 		);
 
 	const table = (
-		<StatTable>
+		<Table>
 			<thead>
 				<tr>
 					<th>Mode</th>
@@ -95,21 +85,21 @@ export const Duels = memo((props) => {
 			{
 				consts.MODES.map(({id, name}) => 
 					Boolean(Utils.add(json[`${id}wins`], json[`${id}losses`])) &&
-					<StatRow key={id} id={id} isHighlighted={name === mostPlayedMode}>
-						<StatCell>{name}</StatCell>
-						<StatCell>{json[`${id}kills`]}</StatCell>
-						<StatCell>{json[`${id}deaths`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`${id}_kills`],json[`${id}deaths`])}</StatCell>
-						<StatCell>{json[`${id}wins`]}</StatCell>
-						<StatCell>{json[`${id}losses`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`${id}wins`],json[`${id}losses`])}</StatCell>
-						<StatCell>{Utils.ratio(json[`${id}melee_hits`],json[`${id}melee_swings`])}</StatCell>
-						<StatCell>{Utils.ratio(json[`${id}bow_hits`],json[`${id}bow_shots`])}</StatCell>
-					</StatRow>
+					<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
+						<Cell>{name}</Cell>
+						<Cell>{json[`${id}kills`]}</Cell>
+						<Cell>{json[`${id}deaths`]}</Cell>
+						<Cell>{Utils.ratio(json[`${id}_kills`],json[`${id}deaths`])}</Cell>
+						<Cell>{json[`${id}wins`]}</Cell>
+						<Cell>{json[`${id}losses`]}</Cell>
+						<Cell>{Utils.ratio(json[`${id}wins`],json[`${id}losses`])}</Cell>
+						<Cell>{Utils.ratio(json[`${id}melee_hits`],json[`${id}melee_swings`])}</Cell>
+						<Cell>{Utils.ratio(json[`${id}bow_hits`],json[`${id}bow_shots`])}</Cell>
+					</Row>
 					)
 			}
 			</tbody>
-		</StatTable>
+		</Table>
 		);
 
 	return Utils.isEmpty(json) ?
@@ -118,30 +108,30 @@ export const Duels = memo((props) => {
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="h-flex my-3">
 				<div className="flex-1">
-					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
-					<StatPair title="Loot Chests">{json.duels_chests}</StatPair>
+					<Pair title="Coins" color="gold">{json.coins}</Pair>
+					<Pair title="Loot Chests">{json.duels_chests}</Pair>
 					<br/>
 					<br/>
-					<StatPair title="Kills">{stats.kills}</StatPair>
-					<StatPair title="Deaths">{stats.deaths}</StatPair>
-					<StatPair title="Kill/Death Ratio">{ratios.kd}</StatPair>
+					<Pair title="Kills">{stats.kills}</Pair>
+					<Pair title="Deaths">{stats.deaths}</Pair>
+					<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
 					<br/>
-					<StatPair title="Melee Swings">{json.melee_swings}</StatPair>
-					<StatPair title="Melee Hits">{json.melee_hits}</StatPair>
-					<StatPair title="Melee Hit Accuracy" percentage>{ratios.mhm}</StatPair>
+					<Pair title="Melee Swings">{json.melee_swings}</Pair>
+					<Pair title="Melee Hits">{json.melee_hits}</Pair>
+					<Pair title="Melee Hit Accuracy" percentage>{ratios.mhm}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Best Winstreak">{json.best_overall_winstreak}</StatPair>
-					<StatPair title="Current Winstreak">{json.current_winstreak}</StatPair>
-					<StatPair title="Overall Division" color={division.color}>{division.name}</StatPair>
+					<Pair title="Best Winstreak">{json.best_overall_winstreak}</Pair>
+					<Pair title="Current Winstreak">{json.current_winstreak}</Pair>
+					<Pair title="Overall Division" color={division.color}>{division.name}</Pair>
 					<br/>
-					<StatPair title="Wins">{json.wins}</StatPair>
-					<StatPair title="Losses">{json.losses}</StatPair>
-					<StatPair title="Win/Loss Ratio">{ratios.wl}</StatPair>
+					<Pair title="Wins">{json.wins}</Pair>
+					<Pair title="Losses">{json.losses}</Pair>
+					<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
 					<br/>
-					<StatPair title="Arrows Shot">{json.bow_shots}</StatPair>
-					<StatPair title="Arrows Hit">{json.bow_hits}</StatPair>
-					<StatPair title="Arrow Hit Accuracy" percentage>{ratios.ahm}</StatPair>
+					<Pair title="Arrows Shot">{json.bow_shots}</Pair>
+					<Pair title="Arrows Hit">{json.bow_hits}</Pair>
+					<Pair title="Arrow Hit Accuracy" percentage>{ratios.ahm}</Pair>
 				</div>
 			</div>
 			

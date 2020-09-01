@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
-import { Accordion, Box, HorizontalLine, Progress, 
-	ProgressBar, StatCell, StatPair, StatRow, StatTable } from 'components';
+import { Accordion, HorizontalLine } from 'components';
+import { Box, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
 import { BEDWARS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
-import { HypixelLeveling } from 'utils/hypixel';
+import { HypixelLeveling, getMostPlayed } from 'utils/hypixel';
 
 /*
 * Stats accordion for Bed Wars
@@ -27,6 +27,9 @@ export const BedWars = memo((props) => {
 		wl : Utils.ratio(json.wins_bedwars,json.losses_bedwars),
 		bbl : Utils.ratio(json.beds_broken_bedwars,json.beds_lost_bedwars)
 	}
+
+	const mostPlayedMode = getMostPlayed(consts.MODES,
+		({id}) => Utils.add(json[`${id}wins_bedwars`], json[`${id}losses_bedwars`]));
 
 	function xpToLevel(xp) {
 		let remainingXP = xp;
@@ -61,20 +64,6 @@ export const BedWars = memo((props) => {
 			if (pres.level <= Math.floor(level)) return {color: pres.color, name: pres.name}
 		}
 	}
-
-	const mostPlayedMode = (() => {
-		let mostPlayed = null;
-		let mostPlays = 0;
-		for (const mode of consts.MODES) {
-			const plays = Utils.default0(json[`${mode.id}wins_bedwars`]) + Utils.default0(json[`${mode.id}losses_bedwars`])
-			// The mode.id part is so that the 'Overall' category is ignored
-			if (plays > mostPlays && mode.id) {
-				mostPlays = plays;
-				mostPlayed = mode.name;
-			}
-		}
-		return mostPlayed;
-	})();
 
 	const header = (
 		<React.Fragment>
@@ -118,25 +107,25 @@ export const BedWars = memo((props) => {
 			}
 			rowList.push(
 				Boolean(Utils.add(json[`${id}wins_bedwars`], json[`${id}losses_bedwars`])) &&
-				<StatRow key={id} id={id} isHighlighted={name === mostPlayedMode}>
-					<StatCell>{name}</StatCell>
-					<StatCell>{json[`${id}kills_bedwars`]}</StatCell>
-					<StatCell>{json[`${id}deaths_bedwars`]}</StatCell>
-					<StatCell>{Utils.ratio(json[`${id}kills_bedwars`],json[`${id}deaths_bedwars`])}</StatCell>
-					<StatCell>{json[`${id}final_kills_bedwars`]}</StatCell>
-					<StatCell>{json[`${id}final_deaths_bedwars`]}</StatCell>
-					<StatCell>{Utils.ratio(json[`${id}final_kills_bedwars`],json[`${id}final_deaths_bedwars`])}</StatCell>
-					<StatCell>{json[`${id}wins_bedwars`]}</StatCell>
-					<StatCell>{json[`${id}losses_bedwars`]}</StatCell>
-					<StatCell>{Utils.ratio(json[`${id}wins_bedwars`],json[`${id}losses_bedwars`])}</StatCell>
-					<StatCell>{json[`${id}beds_broken_bedwars`]}</StatCell>
-					<StatCell>{json[`${id}beds_lost_bedwars`]}</StatCell>
-					<StatCell>{Utils.ratio(json[`${id}beds_broken_bedwars`],json[`${id}beds_lost_bedwars`])}</StatCell>
-				</StatRow>
+				<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
+					<Cell>{name}</Cell>
+					<Cell>{json[`${id}kills_bedwars`]}</Cell>
+					<Cell>{json[`${id}deaths_bedwars`]}</Cell>
+					<Cell>{Utils.ratio(json[`${id}kills_bedwars`],json[`${id}deaths_bedwars`])}</Cell>
+					<Cell>{json[`${id}final_kills_bedwars`]}</Cell>
+					<Cell>{json[`${id}final_deaths_bedwars`]}</Cell>
+					<Cell>{Utils.ratio(json[`${id}final_kills_bedwars`],json[`${id}final_deaths_bedwars`])}</Cell>
+					<Cell>{json[`${id}wins_bedwars`]}</Cell>
+					<Cell>{json[`${id}losses_bedwars`]}</Cell>
+					<Cell>{Utils.ratio(json[`${id}wins_bedwars`],json[`${id}losses_bedwars`])}</Cell>
+					<Cell>{json[`${id}beds_broken_bedwars`]}</Cell>
+					<Cell>{json[`${id}beds_lost_bedwars`]}</Cell>
+					<Cell>{Utils.ratio(json[`${id}beds_broken_bedwars`],json[`${id}beds_lost_bedwars`])}</Cell>
+				</Row>
 				);
 		}
 		return (
-			<StatTable>
+			<Table>
 				<thead>
 					<tr>
 						<th></th>
@@ -162,7 +151,7 @@ export const BedWars = memo((props) => {
 				<tbody>
 					{rowList}
 				</tbody>
-			</StatTable>
+			</Table>
 			);
 	})();
 
@@ -178,32 +167,32 @@ export const BedWars = memo((props) => {
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
-					<StatPair title="Level">{leveling.level}</StatPair>
-					<StatPair title="Prestige" color={prestigeColor}>{prestigeName}</StatPair>
-					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
+					<Pair title="Level">{leveling.level}</Pair>
+					<Pair title="Prestige" color={prestigeColor}>{prestigeName}</Pair>
+					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<br/>
-					<StatPair title="Winstreak">{json.winstreak}</StatPair>
-					<StatPair title="Wins">{json.wins_bedwars}</StatPair>
-					<StatPair title="Losses">{json.losses_bedwars}</StatPair>
-					<StatPair title="Win/Loss Ratio">{ratios.wl}</StatPair>
+					<Pair title="Winstreak">{json.winstreak}</Pair>
+					<Pair title="Wins">{json.wins_bedwars}</Pair>
+					<Pair title="Losses">{json.losses_bedwars}</Pair>
+					<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
 					<br/>
-					<StatPair title="Beds Broken">{json.beds_broken_bedwars}</StatPair>
-					<StatPair title="Beds Lost">{json.beds_lost_bedwars}</StatPair>
-					<StatPair title="Beds Broken/Lost Ratio">{ratios.bbl}</StatPair>
+					<Pair title="Beds Broken">{json.beds_broken_bedwars}</Pair>
+					<Pair title="Beds Lost">{json.beds_lost_bedwars}</Pair>
+					<Pair title="Beds Broken/Lost Ratio">{ratios.bbl}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Kills">{json.kills_bedwars}</StatPair>
-					<StatPair title="Deaths">{json.deaths_bedwars}</StatPair>
-					<StatPair title="Kill/Death Ratio">{ratios.kd}</StatPair>
-					<StatPair title="Final Kills">{json.final_kills_bedwars}</StatPair>
-					<StatPair title="Final Deaths">{json.final_deaths_bedwars}</StatPair>
-					<StatPair title="Final Kill/Death Ratio">{ratios.fkd}</StatPair>
+					<Pair title="Kills">{json.kills_bedwars}</Pair>
+					<Pair title="Deaths">{json.deaths_bedwars}</Pair>
+					<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
+					<Pair title="Final Kills">{json.final_kills_bedwars}</Pair>
+					<Pair title="Final Deaths">{json.final_deaths_bedwars}</Pair>
+					<Pair title="Final Kill/Death Ratio">{ratios.fkd}</Pair>
 					<br/>
-					<StatPair title="Iron Collected">{json.iron_resources_collected_bedwars}</StatPair>
-					<StatPair title="Gold Collected">{json.gold_resources_collected_bedwars}</StatPair>
-					<StatPair title="Diamonds Collected">{json.diamond_resources_collected_bedwars}</StatPair>
-					<StatPair title="Emeralds Collected">{json.emerald_resources_collected_bedwars}</StatPair>
-					<StatPair title="Wrapped Presents Collected">{json.wrapped_present_resources_collected_bedwars}</StatPair>
+					<Pair title="Iron Collected">{json.iron_resources_collected_bedwars}</Pair>
+					<Pair title="Gold Collected">{json.gold_resources_collected_bedwars}</Pair>
+					<Pair title="Diamonds Collected">{json.diamond_resources_collected_bedwars}</Pair>
+					<Pair title="Emeralds Collected">{json.emerald_resources_collected_bedwars}</Pair>
+					<Pair title="Wrapped Presents Collected">{json.wrapped_present_resources_collected_bedwars}</Pair>
 				</div>
 			</div>
 			
@@ -217,13 +206,13 @@ export const BedWars = memo((props) => {
 
 			<div className="h-flex my-3">
 				<div className="flex-1">
-					<StatPair title="Times Drowned">{json.drowning_deaths_bedwars}</StatPair>
-					<StatPair title="Deaths to Fire">{Utils.default0(json.fire_tick_deaths_bedwars)+Utils.default0(json.fire_deaths_bedwars)}</StatPair>
-					<StatPair title="Deaths to Suffocation">{Utils.default0(json.suffocation_deaths_bedwars)+Utils.default0(json.suffocation_final_deaths_bedwars)}</StatPair>
+					<Pair title="Times Drowned">{json.drowning_deaths_bedwars}</Pair>
+					<Pair title="Deaths to Fire">{Utils.default0(json.fire_tick_deaths_bedwars)+Utils.default0(json.fire_deaths_bedwars)}</Pair>
+					<Pair title="Deaths to Suffocation">{Utils.default0(json.suffocation_deaths_bedwars)+Utils.default0(json.suffocation_final_deaths_bedwars)}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Loot Chests">{json.bedwars_boxes}</StatPair>
-					<StatPair title="Total Shop Purchases">{json._items_purchased_bedwars}</StatPair>
+					<Pair title="Loot Chests">{json.bedwars_boxes}</Pair>
+					<Pair title="Total Shop Purchases">{json._items_purchased_bedwars}</Pair>
 				</div>
 			</div>
 		</Accordion>

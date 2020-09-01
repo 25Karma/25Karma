@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import { Accordion, Box, HorizontalLine, Progress, 
-	ProgressBar, StatCell, StatPair, StatRow, StatTable } from 'components';
+import { Accordion, HorizontalLine } from 'components';
+import { Box, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
 import { BUILDBATTLE as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -77,7 +77,7 @@ export const BuildBattle = memo((props) => {
 	})();
 
 	const table = (
-		<StatTable>
+		<Table>
 			<thead>
 				<tr>
 					<th>Mode</th>
@@ -88,14 +88,14 @@ export const BuildBattle = memo((props) => {
 			{
 				consts.MODES.map(({id, name}) => 
 					Boolean(json[`wins${id}`]) &&
-					<StatRow key={id} id={id}>
-						<StatCell>{name}</StatCell>
-						<StatCell>{json[`wins${id}`]}</StatCell>
-					</StatRow>
+					<Row key={id} id={id}>
+						<Cell>{name}</Cell>
+						<Cell>{json[`wins${id}`]}</Cell>
+					</Row>
 					)
 			}
 			</tbody>
-		</StatTable>
+		</Table>
 		);
 
 	return Utils.isEmpty(json) ?
@@ -110,18 +110,18 @@ export const BuildBattle = memo((props) => {
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
-					<StatPair title="Score">{json.score}</StatPair>
-					<StatPair title="Title" color={titleColor}>{title}</StatPair>
-					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
+					<Pair title="Score">{json.score}</Pair>
+					<Pair title="Title" color={titleColor}>{title}</Pair>
+					<Pair title="Coins" color="gold">{json.coins}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Wins">{json.wins}</StatPair>
-					<StatPair title="Losses">{losses}</StatPair>
-					<StatPair title="Win/Loss Ratio">{Utils.ratio(json.wins/losses)}</StatPair>
+					<Pair title="Wins">{json.wins}</Pair>
+					<Pair title="Losses">{losses}</Pair>
+					<Pair title="Win/Loss Ratio">{Utils.ratio(json.wins/losses)}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Correct Guesses">{json.correct_guesses}</StatPair>
-					<StatPair title="Super Votes">{json.super_votes}</StatPair>
+					<Pair title="Correct Guesses">{json.correct_guesses}</Pair>
+					<Pair title="Super Votes">{json.super_votes}</Pair>
 				</div>
 			</div>
 			

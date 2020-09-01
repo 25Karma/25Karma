@@ -9,7 +9,7 @@ import { formatNum } from 'utils';
 * @param {string} props.color 		The color of the stat (title will always be white)
 * @param {boolean} props.percentage Whether the stat should be displayed as a percentage
 */
-export function StatPair(props) {
+export function Pair(props) {
 	const { title, children, color, percentage } = props;
 
 	function renderChildren() {

@@ -15,7 +15,7 @@ export function GuildTag(props) {
 	const tag = [...guild.tag].map(char => char+'\uFE0E').join('');
 
 	return (
-		<MinecraftText size={size} className="pr-2">
+		<MinecraftText size={size}>
 			{`${Utils.toColorCode(guild.tagColor || 'gray')}[${tag}]`}
 		</MinecraftText>
 		);

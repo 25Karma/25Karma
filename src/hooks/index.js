@@ -1,2 +1,2 @@
-export * from './useAPI.js';
-export * from './useHypixelContext.js';
+export * from './useAPI'
+export * from './useHypixelContext'

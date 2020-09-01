@@ -52,18 +52,18 @@ export function ratio(num, denom) {
 /*
 * Traverses down an object path safely
 *
-* @param {Object} json 	The Object to traverse
-* @param {string} path 	The path to follow (period-separated)
-* @return {any} 		Returns the value at the path, or an 
-*						empty Object if the path does not exist at any point
+* @param {Object} json 		The Object to traverse
+* @param {string} path 		The path to follow (period-separated)
+* @param {any} defaultValue Object to return if the traversal fails - default undefined
+* @return {any} 			Returns the value at the path, or the default value
 */
-export function traverse(json, path, defaultValue) {
+export function traverse(json, path, defaultValue = undefined) {
 	const paths = path.split('.');
 	for (const p of paths) {
-		if (json === undefined) return (defaultValue || undefined);
+		if (json === undefined) return defaultValue;
 		json = json[p];
 	}
-	if (json === undefined) return (defaultValue || undefined);
+	if (json === undefined) return defaultValue;
 	return json;
 }
 
@@ -120,7 +120,17 @@ export function capitalize(str) {
 * @return {boolean} 	Whether or not it is empty
 */
 export function isEmpty(obj) {
-	return Object.keys(obj).length === 0 && obj.constructor === Object
+	return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
+
+/*
+* Checks if a value is an Object
+*
+* @param {any} val 	The value to check
+* @return {boolean} Whether or not it is an Object
+*/
+export function isObject(val) {
+	return typeof val === 'object' && val !== null;
 }
 
 /*

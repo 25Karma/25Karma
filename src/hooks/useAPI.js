@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import p from 'properties.js';
+import p from 'constants/site';
 
 /*
 * Makes an API call to Mojang to get data on a player
@@ -10,6 +10,7 @@ import p from 'properties.js';
 */
 export function useAPI(slug, type) {
 	const [data, setData] = useState({});
+	const href = window.location.href;
 	
 	useEffect(() => {
 		async function getData(slug) {
@@ -17,7 +18,9 @@ export function useAPI(slug, type) {
 			return fetch(url)
 				.then((response) => response.json())
 				.then((json) => {
-					setData(json);
+					if(window.location.href === href){
+						setData(json);
+					}
 				});
 		}
 		
@@ -25,7 +28,7 @@ export function useAPI(slug, type) {
 		if (slug) {
 			getData(slug);
 		}
-	}, [type, slug]);
+	}, [type, href, slug]);
 
 	return data;
 }

@@ -3,7 +3,7 @@ import { GoPin } from 'react-icons/go';
 import { MdSettings } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import p from 'properties.js';
+import p from 'constants/site';
 import { Collapsible, MinecraftText, ReactIcon, Searchbar, Settings } from 'components';
 
 /*

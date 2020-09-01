@@ -105,7 +105,7 @@ export function Settings(props) {
 						ref={pinnedPlayerInput}
 						style={{width:'15rem'}}
 						type="text" 
-						placeholder="ex. Technoblade" 
+						placeholder="ex. gamerboy80" 
 						defaultValue={Cookies.get('pinnedPlayer')}/>
 					<div className="pl-2 ml-auto">
 						<Button type="error" onClick={clearCookies}>

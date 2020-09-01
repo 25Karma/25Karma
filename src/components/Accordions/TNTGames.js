@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import { Accordion, Box, HorizontalLine, ProgressBar, 
-	Progress, StatCell, StatPair, StatTitle, StatTable } from 'components';
+import { Accordion, HorizontalLine } from 'components';
+import { Box, Cell, Pair, ProgressBar, Progress, Title, Table } from 'components/Stats';
 import { TNTGAMES as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -28,12 +28,12 @@ export const TNTGames = memo((props) => {
 		if (Utils.isEmpty(wizardStats)) return null;
 		else return (
 			<tr key={wizard.id}>
-				<StatCell color={wizard.color}>{wizard.name}</StatCell>
-				<StatCell>{wizardStats.kills}</StatCell>
-				<StatCell>{wizardStats.deaths}</StatCell>
-				<StatCell>{wizardStats.assists}</StatCell>
-				<StatCell>{Utils.ratio(wizardStats.kills, wizardStats.deaths)}</StatCell>
-				<StatCell>
+				<Cell color={wizard.color}>{wizard.name}</Cell>
+				<Cell>{wizardStats.kills}</Cell>
+				<Cell>{wizardStats.deaths}</Cell>
+				<Cell>{wizardStats.assists}</Cell>
+				<Cell>{Utils.ratio(wizardStats.kills, wizardStats.deaths)}</Cell>
+				<Cell>
 					<ProgressBar>
 						<Progress 
 							proportion={Utils.ratio(wizardStats.explode, 7)}
@@ -41,8 +41,8 @@ export const TNTGames = memo((props) => {
 							{Utils.romanize(wizardStats.explode || 0)}
 						</Progress>
 					</ProgressBar>
-				</StatCell>
-				<StatCell>
+				</Cell>
+				<Cell>
 					<ProgressBar>
 						<Progress 
 							proportion={Utils.ratio(wizardStats.regen, 7)}
@@ -50,7 +50,7 @@ export const TNTGames = memo((props) => {
 							{Utils.romanize(wizardStats.regen || 0)}
 						</Progress>
 					</ProgressBar>
-				</StatCell>
+				</Cell>
 			</tr>
 			);
 	}
@@ -62,7 +62,7 @@ export const TNTGames = memo((props) => {
 		);
 
 	const wizardsTable = (
-		<StatTable>
+		<Table>
 			<thead>
 				<tr>
 					<th>Wizard</th>
@@ -77,7 +77,7 @@ export const TNTGames = memo((props) => {
 			<tbody>
 				{consts.WIZARDS.map(renderWizardRow)}
 			</tbody>
-		</StatTable>
+		</Table>
 		);
 
 	return Utils.isEmpty(json) ?
@@ -85,40 +85,40 @@ export const TNTGames = memo((props) => {
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="mt-3">
-				<StatPair title="Coins" color="gold">{json.coins}</StatPair>
-				<StatPair title="Total Wins">{json.wins}</StatPair>
+				<Pair title="Coins" color="gold">{json.coins}</Pair>
+				<Pair title="Total Wins">{json.wins}</Pair>
 			</div>
 			<div className="h-flex my-3">
 				<div className="flex-1">
 					<div className="font-bold underline mb-1">TNT Run</div>
-					<StatPair title="Wins">{json.wins_tntrun}</StatPair>
-					<StatPair title="Record Time">{Utils.secondsToHms(json.record_tntrun)}</StatPair>
+					<Pair title="Wins">{json.wins_tntrun}</Pair>
+					<Pair title="Record Time">{Utils.secondsToHms(json.record_tntrun)}</Pair>
 					<br />
 					<div className="font-bold underline mb-1">PVP Run</div>
-					<StatPair title="Wins">{json.wins_pvprun}</StatPair>
-					<StatPair title="Kills">{json.kills_pvprun}</StatPair>
-					<StatPair title="Record Time">{Utils.secondsToHms(json.record_pvprun)}</StatPair>
+					<Pair title="Wins">{json.wins_pvprun}</Pair>
+					<Pair title="Kills">{json.kills_pvprun}</Pair>
+					<Pair title="Record Time">{Utils.secondsToHms(json.record_pvprun)}</Pair>
 				</div>
 				<div className="flex-1">
 					<div className="font-bold underline mb-1">TNT Tag</div>
-					<StatPair title="Wins">{json.wins_tntag}</StatPair>
-					<StatPair title="Kills">{json.kills_tntag}</StatPair>
+					<Pair title="Wins">{json.wins_tntag}</Pair>
+					<Pair title="Kills">{json.kills_tntag}</Pair>
 					<br />
 					<div className="font-bold underline mb-1">Bow Spleef</div>
-					<StatPair title="Wins">{json.wins_bowspleef}</StatPair>
-					<StatPair title="Losses">{json.deaths_bowspleef}</StatPair>
-					<StatPair title="Win/Loss Ratio">{Utils.ratio(json.wins_bowspleef, json.deaths_bowspleef)}</StatPair>
+					<Pair title="Wins">{json.wins_bowspleef}</Pair>
+					<Pair title="Losses">{json.deaths_bowspleef}</Pair>
+					<Pair title="Win/Loss Ratio">{Utils.ratio(json.wins_bowspleef, json.deaths_bowspleef)}</Pair>
 				</div>
 			</div>
 
 			<HorizontalLine />
 
 			<div className="my-3">
-				<StatTitle>Wizards</StatTitle>
-				<StatPair title="Wins">{json.wins_capture}</StatPair>
-				<StatPair title="Kills">{json.kills_capture}</StatPair>
-				<StatPair title="Deaths">{json.deaths_capture}</StatPair>
-				<StatPair title="Kill/Death Ratio">{Utils.ratio(json.kills_capture, json.deaths_capture)}</StatPair>
+				<Title>Wizards</Title>
+				<Pair title="Wins">{json.wins_capture}</Pair>
+				<Pair title="Kills">{json.kills_capture}</Pair>
+				<Pair title="Deaths">{json.deaths_capture}</Pair>
+				<Pair title="Kill/Death Ratio">{Utils.ratio(json.kills_capture, json.deaths_capture)}</Pair>
 				<div className="overflow-x mt-3">
 					{wizardsTable}
 				</div>

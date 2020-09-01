@@ -1,7 +1,7 @@
 import React from 'react';
 import { Banner, MinecraftText, Navbar, 
 	PageLayout, Tips, RecentSearches, Searchbar } from 'components';
-import properties from 'properties.js';
+import properties from 'constants/site';
 
 /*
 * The frontpage of the site
@@ -24,14 +24,14 @@ export function FrontPage(props) {
 			banner = (
 				<Banner type="error"
 					title='Player not found. '
-					description={`A player with the name "${config.player}" does not exist.`}/>
+					description={`A player with the name "${config.slug}" does not exist.`}/>
 				);
 			break;
 		case ('HYPIXEL_PLAYER_DNE'):
 			banner = (
 				<Banner type="error"
 					title='Player not found. '
-					description={`The player "${config.player}" has never played on Hypixel.`}/>
+					description={`The player "${config.slug}" has never played on Hypixel.`}/>
 				);
 			break;
 		case ('HYPIXEL_ACCESS_DENIED'):
@@ -76,7 +76,7 @@ export function FrontPage(props) {
 						</MinecraftText>
 					</p>
 					<div className="py-1">
-						<Searchbar defaultValue={config.player || ''}/>
+						<Searchbar defaultValue={config.slug || ''}/>
 					</div>
 					<div className="pl-2 h-flex align-items-start">
 						<RecentSearches />

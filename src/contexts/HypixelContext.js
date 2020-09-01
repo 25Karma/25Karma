@@ -2,7 +2,7 @@ import React from 'react';
 import Cookies from 'js-cookie';
 import { useParams } from 'react-router-dom';
 import { useAPI } from 'hooks';
-import properties from 'properties.js';
+import properties from 'constants/site';
 
 export const HypixelContext = React.createContext({});
 

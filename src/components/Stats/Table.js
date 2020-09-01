@@ -1,6 +1,6 @@
 import React from 'react';
-import './StatTable.css';
+import './Table.css';
 
-export function StatTable(props) {
+export function Table(props) {
 	return <table className="stattable">{props.children}</table>
 }

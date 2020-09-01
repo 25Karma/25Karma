@@ -1,10 +1,11 @@
 import React, { memo } from 'react';
 import { FaExternalLinkAlt } from 'react-icons/fa';
-import { Accordion, Box, Button, ExternalLink, 
-	HorizontalLine, ReactIcon, StatCell, StatPair, StatRow, StatTable } from 'components';
+import { Accordion, Button, ExternalLink, HorizontalLine, ReactIcon } from 'components';
+import { Box, Cell, Pair, Row, Table } from 'components/Stats';
 import { BLITZSG as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
+import { getMostPlayed } from 'utils/hypixel';
 
 /*
 * Stats accordion for Blitz Survival Games
@@ -21,18 +22,8 @@ export const BlitzSG = memo((props) => {
 		kd: Utils.ratio(json.kills, json.deaths),
 		kg: Utils.ratio(json.kills, gamesPlayed),
 	};
-	const mostPlayedKit = (() => {
-		let mostPlayed = null;
-		let mostTime = 0;
-		for (const {id, name} of consts.KITS) {
-			const playTime = Utils.default0(json[`time_played_${id}`])
-			if (playTime > mostTime) {
-				mostPlayed = name;
-				mostTime = playTime;
-			}
-		}
-		return mostPlayed;
-	})();
+	const mostPlayedKit = getMostPlayed(consts.KITS, 
+		({id}) => Utils.default0(json[`time_played_${id}`]));
 
 	function wins(kit) {
 		return Utils.add(json[`wins_${kit}`], json[`wins_teams_${kit}`]);
@@ -66,14 +57,14 @@ export const BlitzSG = memo((props) => {
 
 	const header = (
 		<React.Fragment>
-			<Box title="Main" color={mostPlayedKit && 'white'}>{mostPlayedKit || '-'}</Box>
+			<Box title="Main" color={mostPlayedKit.name && 'white'}>{mostPlayedKit.name || '-'}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="Wins">{totalWins}</Box>
 		</React.Fragment>
 	);
 
 	const kitsTable = (
-		<StatTable>
+		<Table>
 			<thead>
 				<tr>
 					<th>Kit</th>
@@ -89,23 +80,23 @@ export const BlitzSG = memo((props) => {
 			<tbody>
 				{consts.KITS.map(({id, name}) =>
 					(Boolean(json[`time_played_${id}`]) || Boolean(json[id])) &&
-					<StatRow key={id} isHighlighted={name === mostPlayedKit}>
-						<StatCell color={kitLevel(id) === 'X' && 'darkred'}>{`${name} ${kitLevel(id)}`}</StatCell>
-						<StatCell>{json[`exp_${id}`]}</StatCell>
-						<StatCell>{prestige(id)}</StatCell>
-						<StatCell>{json[`kills_${id}`]}</StatCell>
-						<StatCell>{wins(id)}</StatCell>
-						<StatCell>{losses(id)}</StatCell>
-						<StatCell>{Utils.ratio(wins(id), losses(id))}</StatCell>
-						<StatCell>{Utils.secondsToHms(json[`time_played_${id}`])}</StatCell>
-					</StatRow>
+					<Row key={id} isHighlighted={id === mostPlayedKit.id}>
+						<Cell color={kitLevel(id) === 'X' && 'darkred'}>{`${name} ${kitLevel(id)}`}</Cell>
+						<Cell>{json[`exp_${id}`]}</Cell>
+						<Cell>{prestige(id)}</Cell>
+						<Cell>{json[`kills_${id}`]}</Cell>
+						<Cell>{wins(id)}</Cell>
+						<Cell>{losses(id)}</Cell>
+						<Cell>{Utils.ratio(wins(id), losses(id))}</Cell>
+						<Cell>{Utils.secondsToHms(json[`time_played_${id}`])}</Cell>
+					</Row>
 				)}
 			</tbody>
-		</StatTable>
+		</Table>
 		);
 
 	const modesTable = (
-		<StatTable>
+		<Table>
 			<thead>
 				<tr>
 					<th>Mode</th>
@@ -116,14 +107,14 @@ export const BlitzSG = memo((props) => {
 			<tbody>
 				{consts.MODES.map(({id, name}) => 
 					(Boolean(json[`wins_${id}`]) || Boolean(json[`kills_${id}`])) &&
-					<StatRow key={id}>
-						<StatCell>{name}</StatCell>
-						<StatCell>{json[`kills_${id}`]}</StatCell>
-						<StatCell>{json[`wins_${id}`] || '-'}</StatCell>
-					</StatRow>
+					<Row key={id}>
+						<Cell>{name}</Cell>
+						<Cell>{json[`kills_${id}`]}</Cell>
+						<Cell>{json[`wins_${id}`] || '-'}</Cell>
+					</Row>
 				)}
 			</tbody>
-		</StatTable>
+		</Table>
 		);
 
 	return Utils.isEmpty(json) ?
@@ -132,19 +123,19 @@ export const BlitzSG = memo((props) => {
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="h-flex mt-3 mb-2">
 				<div className="flex-1">
-					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
-					<StatPair title="Damage Dealt">{json.damage}</StatPair>
-					<StatPair title="Damage Taken">{json.damage_taken}</StatPair>
+					<Pair title="Coins" color="gold">{json.coins}</Pair>
+					<Pair title="Damage Dealt">{json.damage}</Pair>
+					<Pair title="Damage Taken">{json.damage_taken}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Kills">{json.kills}</StatPair>
-					<StatPair title="Deaths">{json.deaths}</StatPair>
-					<StatPair title="Kill/Death Ratio">{ratios.kd}</StatPair>
+					<Pair title="Kills">{json.kills}</Pair>
+					<Pair title="Deaths">{json.deaths}</Pair>
+					<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Wins">{totalWins}</StatPair>
-					<StatPair title="Games Played">{gamesPlayed}</StatPair>
-					<StatPair title="Kill/Game Ratio">{ratios.kg}</StatPair>
+					<Pair title="Wins">{totalWins}</Pair>
+					<Pair title="Games Played">{gamesPlayed}</Pair>
+					<Pair title="Kill/Game Ratio">{ratios.kg}</Pair>
 				</div>
 			</div>
 			<div className="mb-3">

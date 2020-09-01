@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaCaretLeft, FaCaretRight } from 'react-icons/fa';
 import { ExternalLink, ReactIcon } from 'components';
-import p from 'properties.js';
+import p from 'constants/site';
 
 export function Tips(props) {
 	const proTips = [

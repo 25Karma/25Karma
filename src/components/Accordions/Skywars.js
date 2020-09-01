@@ -1,13 +1,12 @@
 import React, { useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
-import { Accordion, Banner, Box, Button, 
-	Crafatar, HorizontalLine, Progress, ProgressBar, 
-	StatCell, StatPair, StatRow, StatTable } from 'components';
+import { Accordion, Banner, Button, Crafatar, HorizontalLine } from 'components';
+import { Box, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
 import { SKYWARS as consts } from 'constants/hypixel';  
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
-import { HypixelLeveling } from 'utils/hypixel';
+import { HypixelLeveling, getMostPlayed } from 'utils/hypixel';
 
 /*
 * Stats accordion for Skywars
@@ -30,6 +29,9 @@ export const SkyWars = memo((props) => {
 		wl : Utils.ratio(json.wins, json.losses),
 		kw : Utils.ratio(json.kills, json.wins)
 	}
+
+	const mostPlayedMode = getMostPlayed(consts.MODES,
+		({id}) => Utils.add(json[`wins${id}`], json[`losses${id}`]));
 
 	// State for the head collection 'View' button
 	const [headButtonState, setHeadButtonState] = useState(false);
@@ -75,20 +77,6 @@ export const SkyWars = memo((props) => {
 		return icons[icon];
 	})();
 
-	const mostPlayedMode = (() => {
-		let mostPlayed = null;
-		let mostPlays = 0;
-		for (const mode of consts.MODES) {
-			const plays = Utils.default0(json[`wins${mode.id}`]) + Utils.default0(json[`losses${mode.id}`])
-			// The mode.id part is so that the 'Overall' category is ignored
-			if (plays > mostPlays && mode.id) {
-				mostPlays = plays;
-				mostPlayed = mode.name;
-			}
-		}
-		return mostPlayed;
-	})();
-
 	const header = (
 		<React.Fragment>
 			<Box title="Level" color={prestigeColor}>
@@ -125,7 +113,7 @@ export const SkyWars = memo((props) => {
 		);
 
 	const table = (
-		<StatTable>
+		<Table>
 			<thead>
 				<tr>
 					<th>Mode</th>
@@ -141,19 +129,19 @@ export const SkyWars = memo((props) => {
 			{
 				consts.MODES.map(({id, name}) => 
 					Boolean(Utils.add(json[`wins${id}`], json[`losses${id}`])) &&
-					<StatRow key={id} id={id} isHighlighted={name === mostPlayedMode}>
-						<StatCell>{name}</StatCell>
-						<StatCell>{json[`kills${id}`]}</StatCell>
-						<StatCell>{json[`deaths${id}`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`kills${id}`],json[`deaths${id}`])}</StatCell>
-						<StatCell>{json[`wins${id}`]}</StatCell>
-						<StatCell>{json[`losses${id}`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`wins${id}`],json[`losses${id}`])}</StatCell>
-					</StatRow>
+					<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
+						<Cell>{name}</Cell>
+						<Cell>{json[`kills${id}`]}</Cell>
+						<Cell>{json[`deaths${id}`]}</Cell>
+						<Cell>{Utils.ratio(json[`kills${id}`],json[`deaths${id}`])}</Cell>
+						<Cell>{json[`wins${id}`]}</Cell>
+						<Cell>{json[`losses${id}`]}</Cell>
+						<Cell>{Utils.ratio(json[`wins${id}`],json[`losses${id}`])}</Cell>
+					</Row>
 					)
 			}
 			</tbody>
-		</StatTable>
+		</Table>
 	);
 	
 	// Data used by the 'Total Heads Gathered' section
@@ -214,46 +202,46 @@ export const SkyWars = memo((props) => {
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
-					<StatPair title="Level">{leveling.level}</StatPair>
-					<StatPair title="Prestige" color={prestigeColor}>{`${prestigeName} ${prestigeIcon}`}</StatPair>
-					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
-					<StatPair title="Tokens">{json.cosmetic_tokens}</StatPair>
+					<Pair title="Level">{leveling.level}</Pair>
+					<Pair title="Prestige" color={prestigeColor}>{`${prestigeName} ${prestigeIcon}`}</Pair>
+					<Pair title="Coins" color="gold">{json.coins}</Pair>
+					<Pair title="Tokens">{json.cosmetic_tokens}</Pair>
 					<br/>
 					<br/>
-					<StatPair title="Blocks Placed">{json.blocks_placed}</StatPair>
-					<StatPair title="Blocks Broken">{json.blocks_broken}</StatPair>
-					<StatPair title="Chests Opened">{json.chests_opened}</StatPair>
-					<StatPair title="Arrows Hit">{json.arrows_hit}</StatPair>
-					<StatPair title="Arrows Shot">{json.arrows_shot}</StatPair>
-					<StatPair title="Arrow Hit Accuracy" percentage>{ratios.ahm}</StatPair>
+					<Pair title="Blocks Placed">{json.blocks_placed}</Pair>
+					<Pair title="Blocks Broken">{json.blocks_broken}</Pair>
+					<Pair title="Chests Opened">{json.chests_opened}</Pair>
+					<Pair title="Arrows Hit">{json.arrows_hit}</Pair>
+					<Pair title="Arrows Shot">{json.arrows_shot}</Pair>
+					<Pair title="Arrow Hit Accuracy" percentage>{ratios.ahm}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Kills">{json.kills}</StatPair>
-					<StatPair title="Deaths">{json.deaths}</StatPair>
-					<StatPair title="Assists">{json.assists}</StatPair>
-					<StatPair title="Kill/Death Ratio">{ratios.kd}</StatPair>
+					<Pair title="Kills">{json.kills}</Pair>
+					<Pair title="Deaths">{json.deaths}</Pair>
+					<Pair title="Assists">{json.assists}</Pair>
+					<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
 					<br/>
 					<br/>
-					<StatPair title="Melee Kills">{json.melee_kills}</StatPair>
-					<StatPair title="Void Kills">{json.void_kills}</StatPair>
-					<StatPair title="Bow Kills">{json.bow_kills}</StatPair>
-					<StatPair title="Mob Kills">{json.mob_kills}</StatPair>
-					<StatPair title="Eggs Thrown">{json.egg_thrown}</StatPair>
-					<StatPair title="Pearls Thrown">{json.enderpearls_thrown}</StatPair>
+					<Pair title="Melee Kills">{json.melee_kills}</Pair>
+					<Pair title="Void Kills">{json.void_kills}</Pair>
+					<Pair title="Bow Kills">{json.bow_kills}</Pair>
+					<Pair title="Mob Kills">{json.mob_kills}</Pair>
+					<Pair title="Eggs Thrown">{json.egg_thrown}</Pair>
+					<Pair title="Pearls Thrown">{json.enderpearls_thrown}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Wins">{json.wins}</StatPair>
-					<StatPair title="Lab Wins">{json.wins_lab}</StatPair>
-					<StatPair title="Losses">{json.losses}</StatPair>
-					<StatPair title="Win/Loss Ratio">{ratios.wl}</StatPair>
-					<StatPair title="Kill/Win Ratio">{ratios.kw}</StatPair>
+					<Pair title="Wins">{json.wins}</Pair>
+					<Pair title="Lab Wins">{json.wins_lab}</Pair>
+					<Pair title="Losses">{json.losses}</Pair>
+					<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
+					<Pair title="Kill/Win Ratio">{ratios.kw}</Pair>
 					<br/>
-					<StatPair title="Heads">{json.heads}</StatPair>
-					<StatPair title="Corruption">{`${Utils.default0(json.angel_of_death_level)}%`}</StatPair>
-					<StatPair title="Total Souls">{json.souls_gathered}</StatPair>
-					<StatPair title="Current Souls">{json.souls}</StatPair>
-					<StatPair title="Paid Souls">{json.paid_souls}</StatPair>
-					<StatPair title="Soul Well Uses">{json.soul_well}</StatPair>
+					<Pair title="Heads">{json.heads}</Pair>
+					<Pair title="Corruption">{`${Utils.default0(json.angel_of_death_level)}%`}</Pair>
+					<Pair title="Total Souls">{json.souls_gathered}</Pair>
+					<Pair title="Current Souls">{json.souls}</Pair>
+					<Pair title="Paid Souls">{json.paid_souls}</Pair>
+					<Pair title="Soul Well Uses">{json.soul_well}</Pair>
 				</div>
 			</div>
 			
@@ -266,7 +254,7 @@ export const SkyWars = memo((props) => {
 			<HorizontalLine />
 
 			<div className="mb-1 mt-3">
-				<StatPair title="Total Heads Gathered">{json.heads}</StatPair>
+				<Pair title="Total Heads Gathered">{json.heads}</Pair>
 			</div>
 			<div className="mb-3">
 				{headProgress}

@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import { Accordion, Box, HorizontalLine, Progress, 
-	ProgressBar, StatCell, StatPair, StatTable } from 'components';
+import { Accordion, HorizontalLine } from 'components';
+import { Box, Cell, Pair, Progress, ProgressBar, Table } from 'components/Stats';
 import { UHC as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -92,7 +92,7 @@ export const UHC = memo((props) => {
 	})();
 
 	const table = (
-		<StatTable>
+		<Table>
 			<thead>
 				<tr>
 					<th>Mode</th>
@@ -109,18 +109,18 @@ export const UHC = memo((props) => {
 				consts.MODES.map(mode =>
 					Boolean(Utils.add(json[`wins${mode.id}`], json[`deaths${mode.id}`])) &&
 					<tr key={mode.id}>
-						<StatCell>{mode.name}</StatCell>
-						<StatCell>{json[`kills${mode.id}`]}</StatCell>
-						<StatCell>{json[`deaths${mode.id}`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`kills${mode.id}`],json[`deaths${mode.id}`])}</StatCell>
-						<StatCell>{json[`wins${mode.id}`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`kills${mode.id}`],json[`wins${mode.id}`])}</StatCell>
-						<StatCell>{json[`heads_eaten${mode.id}`]}</StatCell>
+						<Cell>{mode.name}</Cell>
+						<Cell>{json[`kills${mode.id}`]}</Cell>
+						<Cell>{json[`deaths${mode.id}`]}</Cell>
+						<Cell>{Utils.ratio(json[`kills${mode.id}`],json[`deaths${mode.id}`])}</Cell>
+						<Cell>{json[`wins${mode.id}`]}</Cell>
+						<Cell>{Utils.ratio(json[`kills${mode.id}`],json[`wins${mode.id}`])}</Cell>
+						<Cell>{json[`heads_eaten${mode.id}`]}</Cell>
 					</tr>
 					)
 			}
 			</tbody>
-		</StatTable>
+		</Table>
 		);
 		
 	return Utils.isEmpty(json) ?
@@ -135,22 +135,22 @@ export const UHC = memo((props) => {
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
-					<StatPair title="Score">{leveling.xp}</StatPair>
-					<StatPair title="Title" color={titleColor}>{title}</StatPair>
-					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
+					<Pair title="Score">{leveling.xp}</Pair>
+					<Pair title="Title" color={titleColor}>{title}</Pair>
+					<Pair title="Coins" color="gold">{json.coins}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Kills">{kills}</StatPair>
-					<StatPair title="Deaths">{deaths}</StatPair>
-					<StatPair title="Kill/Death Ratio">{ratios.kd}</StatPair>
+					<Pair title="Kills">{kills}</Pair>
+					<Pair title="Deaths">{deaths}</Pair>
+					<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Wins">{wins}</StatPair>
-					<StatPair title="Kill/Win Ratio">{ratios.kw}</StatPair>
-					<StatPair title="Heads Eaten">{heads}</StatPair>
-					<StatPair title="Ultimates Crafted">
+					<Pair title="Wins">{wins}</Pair>
+					<Pair title="Kill/Win Ratio">{ratios.kw}</Pair>
+					<Pair title="Heads Eaten">{heads}</Pair>
+					<Pair title="Ultimates Crafted">
 						{Utils.default0(json.ultimates_crafted) + Utils.default0(json.ultimates_crafted_solo)}
-					</StatPair>
+					</Pair>
 				</div>
 			</div>
 			

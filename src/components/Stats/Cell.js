@@ -6,9 +6,10 @@ import { formatNum } from 'utils';
 *
 * @param {string} props.children 	The value of the stat 
 * @param {string} props.color 		The color of the stat - default white
+* @param {boolean} props.shrink 	Whether the stat should only take up the minimum width
 * @param {boolean} props.percentage Whether the stat should be displayed as a percentage
 */
-export function StatCell(props) {
+export function Cell(props) {
 	function renderChildren() {
 		if (props.children === undefined) return 0;
 		else if (isNaN(props.children)) return props.children;
@@ -18,7 +19,12 @@ export function StatCell(props) {
 		}
 	}
 
+	const classNames = [
+		props.color && `c-${props.color}`,
+		props.shrink && 'td-shrink',
+	].filter(n => n);
+
 	return (
-		<td className={props.color ? `c-${props.color}` : null}>{renderChildren()}</td>
+		<td className={classNames.length > 0 ? classNames.join(' ') : undefined}>{renderChildren()}</td>
 		);
 }

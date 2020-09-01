@@ -2,8 +2,8 @@ import React from 'react';
 import './PlayerCard.css';
 import dateFormat from 'dateformat';
 import { FaExternalLinkAlt } from 'react-icons/fa';
-import { Box, Button, ExternalLink, HorizontalLine, 
-	ReactIcon, SocialMedia, StatPair, StatTitle } from 'components';
+import { Button, ExternalLink, HorizontalLine, ReactIcon, SocialMedia } from 'components';
+import { Box, Pair, Title } from 'components/Stats';
 import { HYPIXEL as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -43,14 +43,14 @@ export function PlayerCard(props) {
 	const loginDates = ( 
 		<React.Fragment>
 			{json.firstLogin &&
-				<StatPair title="First Login">
+				<Pair title="First Login">
 					{dateFormat(new Date(json.firstLogin), 'yyyy/mm/dd, h:MM TT Z')}
-				</StatPair>
+				</Pair>
 			}
 			{json.lastLogin &&
-				<StatPair title="Last Login">
+				<Pair title="Last Login">
 					{dateFormat(new Date(json.lastLogin), 'yyyy/mm/dd, h:MM TT Z')}
-				</StatPair>
+				</Pair>
 			}
 			<br/>
 		</React.Fragment>
@@ -59,16 +59,16 @@ export function PlayerCard(props) {
 	const guildInfo = (guild &&
 		<React.Fragment>
 			<HorizontalLine className="mt-3"/>
-			<StatTitle>Guild</StatTitle>
-			<StatPair title="Name" color={guild.tagColor}>{guild.name}</StatPair>
-			<StatPair title="Members">{guild.members}</StatPair>
+			<Title>Guild</Title>
+			<Pair title="Name" color={guild.tagColor}>{guild.name}</Pair>
+			<Pair title="Members">{guild.members}</Pair>
 		</React.Fragment>
 		);
 
 	const socialMedia = (socialMediaLinks && !Utils.isEmpty(socialMediaLinks) &&
 		<React.Fragment>
 			<HorizontalLine className="mt-3"/>
-			<StatTitle>Social Media</StatTitle>
+			<Title>Social Media</Title>
 			<SocialMedia links={socialMediaLinks} />
 		</React.Fragment>
 		);
@@ -84,11 +84,11 @@ export function PlayerCard(props) {
 				</Box>
 			</div>
 			<HorizontalLine className="mb-3"/>
-			<StatPair title="Coin Multiplier">{`${multiplier.value} (${multiplier.name})`}</StatPair>
-			<StatPair title="Achievement Points">{json.achievementPoints}</StatPair>
-			<StatPair title="Quests Completed">{json.questsCompleted}</StatPair>
+			<Pair title="Coin Multiplier">{`${multiplier.value} (${multiplier.name})`}</Pair>
+			<Pair title="Achievement Points">{json.achievementPoints}</Pair>
+			<Pair title="Quests Completed">{json.questsCompleted}</Pair>
 			<br />
-			<StatPair title="Friends">{friends}</StatPair>
+			<Pair title="Friends">{friends}</Pair>
 			<br />
 			{loginDates}
 			<ExternalLink href={`https://sky.lea.moe/stats/${json.uuid}`}>

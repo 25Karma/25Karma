@@ -1,1 +1,1 @@
-export * from './HypixelContext.js';
+export * from './HypixelContext'

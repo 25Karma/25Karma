@@ -20,7 +20,7 @@ export function RecentSearches(props) {
 
 	// If the cookie is empty or doesn't exist, render a suggestion
 	if (array === undefined || array.length === 0) {
-		const suggestedPlayer = "gamerboy80";
+		const suggestedPlayer = "Technoblade";
 		return (
 			<React.Fragment>
 				<div className="pt-2">

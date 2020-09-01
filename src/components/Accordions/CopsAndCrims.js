@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import { Accordion, Box, HorizontalLine, Progress, 
-	ProgressBar, StatCell, StatPair, StatTitle, StatTable } from 'components';
+import { Accordion, HorizontalLine } from 'components';
+import { Box, Cell, Pair, Progress, ProgressBar, Title, Table } from 'components/Stats';
 import { COPSANDCRIMS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -42,7 +42,7 @@ export const CopsAndCrims = memo((props) => {
 		);
 
 	const table = (
-		<StatTable>
+		<Table>
 			<thead>
 				<tr>
 					<th>Mode</th>
@@ -57,17 +57,17 @@ export const CopsAndCrims = memo((props) => {
 			<tbody>
 				{consts.MODES.map(({id, name}) =>
 					<tr key={id}>
-						<StatCell>{name}</StatCell>
-						<StatCell>{json[`kills${id}`]}</StatCell>
-						<StatCell>{json[`deaths${id}`]}</StatCell>
-						<StatCell>{Utils.ratio(json[`kills${id}`], json[`deaths${id}`])}</StatCell>
-						<StatCell>{json[`cop_kills${id}`]}</StatCell>
-						<StatCell>{json[`criminal_kills${id}`]}</StatCell>
-						<StatCell>{json[`game_wins${id}`]}</StatCell>
+						<Cell>{name}</Cell>
+						<Cell>{json[`kills${id}`]}</Cell>
+						<Cell>{json[`deaths${id}`]}</Cell>
+						<Cell>{Utils.ratio(json[`kills${id}`], json[`deaths${id}`])}</Cell>
+						<Cell>{json[`cop_kills${id}`]}</Cell>
+						<Cell>{json[`criminal_kills${id}`]}</Cell>
+						<Cell>{json[`game_wins${id}`]}</Cell>
 					</tr>
 				)}
 			</tbody>
-		</StatTable>
+		</Table>
 		);
 
 	return Utils.isEmpty(json) ?
@@ -76,21 +76,21 @@ export const CopsAndCrims = memo((props) => {
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="h-flex my-3">
 				<div className="flex-1">
-					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
+					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<br />
-					<StatPair title="Kills">{total('kills')}</StatPair>
-					<StatPair title="Assists">{total('assists')}</StatPair>
-					<StatPair title="Deaths">{total('deaths')}</StatPair>
-					<StatPair title="Kill/Death Ratio">{ratios.kd}</StatPair>
+					<Pair title="Kills">{total('kills')}</Pair>
+					<Pair title="Assists">{total('assists')}</Pair>
+					<Pair title="Deaths">{total('deaths')}</Pair>
+					<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Game Wins">{total('game_wins')}</StatPair>
-					<StatPair title="Round Wins">{json.round_wins}</StatPair>
+					<Pair title="Game Wins">{total('game_wins')}</Pair>
+					<Pair title="Round Wins">{json.round_wins}</Pair>
 					<br />
-					<StatPair title="Bombs Planted">{json.bombs_planted}</StatPair>
-					<StatPair title="Bombs Defused">{json.bombs_defused}</StatPair>
-					<StatPair title="Shots Fired">{json.shots_fired}</StatPair>
-					<StatPair title="Headshots">{json.headshot_kills}</StatPair>
+					<Pair title="Bombs Planted">{json.bombs_planted}</Pair>
+					<Pair title="Bombs Defused">{json.bombs_defused}</Pair>
+					<Pair title="Shots Fired">{json.shots_fired}</Pair>
+					<Pair title="Headshots">{json.headshot_kills}</Pair>
 				</div>
 			</div>
 			
@@ -102,7 +102,7 @@ export const CopsAndCrims = memo((props) => {
 
 			<HorizontalLine />
 
-			<StatTitle>Weapons</StatTitle>
+			<Title>Weapons</Title>
 			<div className="h-flex justify-content-center flex-wrap overflow-x mb-3">
 				{consts.GUNS.map(gun => <Gun gun={gun} json={json} key={gun.id}/>)}
 			</div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import './StatRow.css';
+import './Row.css';
 
 /*
 * Contains a row of StatCells in a table
@@ -8,11 +8,15 @@ import './StatRow.css';
 * @param {string} props.id 				Used to identify whether the row is the 'Overall' row
 * @param {string} props.children 	
 */
-export function StatRow(props) {
+export function Row(props) {
 	const highlightColor = 'c-pink';
-	const className = `${props.isHighlighted && highlightColor} ${props.id === '' && 'statrow-bold'}`;
+	const classNames = [
+		props.isHighlighted && highlightColor,
+		props.id === '' && 'statrow-bold',
+	].filter(n => n);
+	
 	return (
-		<tr className={className}>
+		<tr className={classNames.length > 0 ? classNames.join(' ') : undefined}>
 			{props.children}
 		</tr>
 		);

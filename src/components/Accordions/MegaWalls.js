@@ -1,10 +1,11 @@
 import React, { memo } from 'react';
 import { FaExternalLinkAlt } from 'react-icons/fa';
-import { Accordion, Box, Button, ExternalLink, 
-	HorizontalLine, ReactIcon, StatCell, StatPair, StatRow, StatTable } from 'components';
+import { Accordion, Button, ExternalLink, HorizontalLine, ReactIcon } from 'components';
+import { Box, Cell, Pair, Row, Table } from 'components/Stats';
 import { MEGAWALLS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
+import { getMostPlayed } from 'utils/hypixel';
 
 /*
 * Stats accordion for Mega Walls
@@ -21,39 +22,18 @@ export const MegaWalls = memo((props) => {
 		wl: Utils.ratio(json.wins, json.losses),
 	};
 
-	const mostPlayedClass = (() => {
-		let mostPlayed = {};
-		let mostPlays = 0;
-		for (const c of consts.CLASSES) {
-			const plays = Utils.add(json[`${c.id}_wins`], json[`${c.id}_losses`])
-			if (plays > mostPlays) {
-				mostPlays = plays;
-				mostPlayed = c;
-			}
-		}
-		return mostPlayed;
-	})();
+	const mostPlayedClass = getMostPlayed(consts.CLASSES,
+		({id}) => Utils.add(json[`${id}_wins`], json[`${id}_losses`]));
 
-	const mostPlayedMode = (() => {
-		let mostPlayed = null;
-		let mostPlays = 0;
-		for (const mode of consts.MODES) {
-			const plays = Utils.default0(json[`wins${mode.id}`]) + Utils.default0(json[`losses${mode.id}`])
-			// The mode.id part is so that the 'Overall' category is ignored
-			if (plays > mostPlays && mode.id) {
-				mostPlays = plays;
-				mostPlayed = mode.name;
-			}
-		}
-		return mostPlayed;
-	})();
+	const mostPlayedMode = getMostPlayed(consts.MODES,
+		({id}) => Utils.add(json[`wins${id}`], json[`losses${id}`]));
 
 	function classLevels(id) {
 		const classData = Utils.traverse(json, `classes.${id}`, {});
 		return (
 			<React.Fragment>
-				<StatCell>{Utils.romanize(Utils.default0(classData.prestige))}</StatCell>
-				<StatCell>{classData.enderchest_rows}</StatCell>
+				<Cell>{Utils.romanize(Utils.default0(classData.prestige))}</Cell>
+				<Cell>{classData.enderchest_rows}</Cell>
 			</React.Fragment>
 			)
 	}
@@ -68,7 +48,7 @@ export const MegaWalls = memo((props) => {
 		);
 
 	const classesTable = (
-		<StatTable>
+		<Table>
 			<thead>
 				<tr>
 					<th></th>
@@ -94,27 +74,27 @@ export const MegaWalls = memo((props) => {
 				{
 					consts.CLASSES.map(({id,name,difficulty}) => 
 						Boolean(Utils.add(json[`${id}_wins`], json[`${id}_losses`])) &&
-						<StatRow key={id} isHighlighted={id === mostPlayedClass.id}>
-							<StatCell color={consts.DIFFICULTIES[difficulty]}>{name}</StatCell>
-							<StatCell>{json[`${id}_kills`]}</StatCell>
-							<StatCell>{json[`${id}_deaths`]}</StatCell>
-							<StatCell>{Utils.ratio(json[`${id}_kills`], json[`${id}_deaths`])}</StatCell>
-							<StatCell>{json[`${id}_final_kills`]}</StatCell>
-							<StatCell>{json[`${id}_final_deaths`]}</StatCell>
-							<StatCell>{Utils.ratio(json[`${id}_final_kills`], json[`${id}_final_deaths`])}</StatCell>
-							<StatCell>{json[`${id}_wins`]}</StatCell>
-							<StatCell>{json[`${id}_losses`]}</StatCell>
-							<StatCell>{Utils.ratio(json[`${id}_wins`], json[`${id}_losses`])}</StatCell>
+						<Row key={id} isHighlighted={id === mostPlayedClass.id}>
+							<Cell color={consts.DIFFICULTIES[difficulty]}>{name}</Cell>
+							<Cell>{json[`${id}_kills`]}</Cell>
+							<Cell>{json[`${id}_deaths`]}</Cell>
+							<Cell>{Utils.ratio(json[`${id}_kills`], json[`${id}_deaths`])}</Cell>
+							<Cell>{json[`${id}_final_kills`]}</Cell>
+							<Cell>{json[`${id}_final_deaths`]}</Cell>
+							<Cell>{Utils.ratio(json[`${id}_final_kills`], json[`${id}_final_deaths`])}</Cell>
+							<Cell>{json[`${id}_wins`]}</Cell>
+							<Cell>{json[`${id}_losses`]}</Cell>
+							<Cell>{Utils.ratio(json[`${id}_wins`], json[`${id}_losses`])}</Cell>
 							{classLevels(id)}
-						</StatRow>
+						</Row>
 						)
 				}
 			</tbody>
-		</StatTable>
+		</Table>
 		);
 
 	const modesTable = (
-		<StatTable>
+		<Table>
 			<thead>
 				<tr>
 					<th>Mode</th>
@@ -129,19 +109,19 @@ export const MegaWalls = memo((props) => {
 			<tbody>
 				{
 					consts.MODES.map(({id, name}) => Boolean(Utils.add(json[`kills${id}`], json[`deaths${id}`])) &&
-						<StatRow key={id} id={id} isHighlighted={name === mostPlayedMode}>
-							<StatCell>{name}</StatCell>
-							<StatCell>{json[`kills${id}`]}</StatCell>
-							<StatCell>{json[`deaths${id}`]}</StatCell>
-							<StatCell>{Utils.ratio(json[`kills${id}`], json[`deaths${id}`])}</StatCell>
-							<StatCell>{json[`wins${id}`]}</StatCell>
-							<StatCell>{json[`losses${id}`]}</StatCell>
-							<StatCell>{Utils.ratio(json[`wins${id}`], json[`losses${id}`])}</StatCell>
-						</StatRow>
+						<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
+							<Cell>{name}</Cell>
+							<Cell>{json[`kills${id}`]}</Cell>
+							<Cell>{json[`deaths${id}`]}</Cell>
+							<Cell>{Utils.ratio(json[`kills${id}`], json[`deaths${id}`])}</Cell>
+							<Cell>{json[`wins${id}`]}</Cell>
+							<Cell>{json[`losses${id}`]}</Cell>
+							<Cell>{Utils.ratio(json[`wins${id}`], json[`losses${id}`])}</Cell>
+						</Row>
 						)
 				}
 			</tbody>
-		</StatTable>
+		</Table>
 		);
 
 	return Utils.isEmpty(json) ?
@@ -150,26 +130,26 @@ export const MegaWalls = memo((props) => {
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="mt-3 mb-2 h-flex">
 				<div className="flex-1">
-					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
-					<StatPair title="Wither Damage Dealt">{Utils.add(json.witherDamage, json.wither_damage)}</StatPair>
+					<Pair title="Coins" color="gold">{json.coins}</Pair>
+					<Pair title="Wither Damage Dealt">{Utils.add(json.witherDamage, json.wither_damage)}</Pair>
 					<br />
 					<br />
-					<StatPair title="Wins">{json.wins}</StatPair>
-					<StatPair title="Practice Wins">{json.wins_practice}</StatPair>
-					<StatPair title="Losses">{json.losses}</StatPair>
-					<StatPair title="Practice Losses">{json.losses_practice}</StatPair>
-					<StatPair title="Win/Loss Ratio">{ratios.wl}</StatPair>
+					<Pair title="Wins">{json.wins}</Pair>
+					<Pair title="Practice Wins">{json.wins_practice}</Pair>
+					<Pair title="Losses">{json.losses}</Pair>
+					<Pair title="Practice Losses">{json.losses_practice}</Pair>
+					<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Kills">{json.kills}</StatPair>
-					<StatPair title="Assists">{json.assists}</StatPair>
-					<StatPair title="Deaths">{json.deaths}</StatPair>
-					<StatPair title="Kill/Death Ratio">{ratios.kd}</StatPair>
+					<Pair title="Kills">{json.kills}</Pair>
+					<Pair title="Assists">{json.assists}</Pair>
+					<Pair title="Deaths">{json.deaths}</Pair>
+					<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
 					<br />
-					<StatPair title="Final Kills">{json.final_kills}</StatPair>
-					<StatPair title="Final Assists">{json.final_assists}</StatPair>
-					<StatPair title="Final Deaths">{json.final_deaths}</StatPair>
-					<StatPair title="Final Kill/Death Ratio">{ratios.fkd}</StatPair>
+					<Pair title="Final Kills">{json.final_kills}</Pair>
+					<Pair title="Final Assists">{json.final_assists}</Pair>
+					<Pair title="Final Deaths">{json.final_deaths}</Pair>
+					<Pair title="Final Kill/Death Ratio">{ratios.fkd}</Pair>
 				</div>
 			</div>
 			<div className="mb-3">

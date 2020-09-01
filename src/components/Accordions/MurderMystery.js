@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
-import { Accordion, Box, HorizontalLine, StatCell, 
-	StatPair, StatRow, StatTable } from 'components';
+import { Accordion, HorizontalLine } from 'components';
+import { Box, Cell, Pair, Row, Table } from 'components/Stats';
 import { MURDERMYSTERY as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
+import { getMostPlayed } from 'utils/hypixel';
 
 /*
 * Stats accordion for Murder Mystery
@@ -21,19 +22,8 @@ export const MurderMystery = memo((props) => {
 	const fastestDetectiveWin = json.quickest_detective_win_time_seconds;
 	const fastestMurdererWin = json.quickest_murderer_win_time_seconds;
 
-	const mostPlayedMode = (() => {
-		let mostPlayed = null;
-		let mostPlays = 0;
-		for (const mode of consts.MODES) {
-			const plays = Utils.default0(json[`games${mode.id}`]);
-			// The mode.id part is so that the 'Overall' category is ignored_
-			if (plays > mostPlays && mode.id) {
-				mostPlays = plays;
-				mostPlayed = mode.name;
-			}
-		}
-		return mostPlayed;
-	})();
+	const mostPlayedMode = getMostPlayed(consts.MODES, 
+		({id}) => Utils.default0(json[`games${id}`]));
 	
 	const header = (
 		<React.Fragment>
@@ -54,20 +44,20 @@ export const MurderMystery = memo((props) => {
 			}
 			rowList.push(
 				Boolean(json[`games${id}`]) &&
-				<StatRow key={id} id={id} isHighlighted={name === mostPlayedMode}>
-					<StatCell>{name}</StatCell>
-					<StatCell>{json[`kills${id}`]}</StatCell>
-					<StatCell>{json[`bow_kills${id}`]}</StatCell>
-					<StatCell>{json[`knife_kills${id}`]}</StatCell>
-					<StatCell>{json[`thrown_knife_kills${id}`]}</StatCell>
-					<StatCell>{json[`wins${id}`]}</StatCell>
-					<StatCell>{losses}</StatCell>
-					<StatCell>{Utils.ratio(json[`wins${id}`], losses)}</StatCell>
-				</StatRow>
+				<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
+					<Cell>{name}</Cell>
+					<Cell>{json[`kills${id}`]}</Cell>
+					<Cell>{json[`bow_kills${id}`]}</Cell>
+					<Cell>{json[`knife_kills${id}`]}</Cell>
+					<Cell>{json[`thrown_knife_kills${id}`]}</Cell>
+					<Cell>{json[`wins${id}`]}</Cell>
+					<Cell>{losses}</Cell>
+					<Cell>{Utils.ratio(json[`wins${id}`], losses)}</Cell>
+				</Row>
 				);
 		}
 		return (
-			<StatTable>
+			<Table>
 				<thead>
 					<tr>
 						<th>Mode</th>
@@ -83,7 +73,7 @@ export const MurderMystery = memo((props) => {
 				<tbody>
 					{rowList}
 				</tbody>
-			</StatTable>
+			</Table>
 			);
 	})();
 
@@ -92,22 +82,22 @@ export const MurderMystery = memo((props) => {
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="mt-3">
-				<StatPair title="Coins" color="gold">{json.coins}</StatPair>
+				<Pair title="Coins" color="gold">{json.coins}</Pair>
 			</div>
 			<div className="h-flex mb-3">
 				<div className="flex-1">
-					<StatPair title="Kills">{json.kills}</StatPair>
-					<StatPair title="Kills as Murderer">{json.kills_as_murderer}</StatPair>
-					<StatPair title="Thrown Knife Kills">{json.thrown_knife_kills}</StatPair>
-					<StatPair title="Deaths">{json.deaths}</StatPair>
-					<StatPair title="Murder Weapon" color="red">{knifeSkin || '<unknown>'}</StatPair>
+					<Pair title="Kills">{json.kills}</Pair>
+					<Pair title="Kills as Murderer">{json.kills_as_murderer}</Pair>
+					<Pair title="Thrown Knife Kills">{json.thrown_knife_kills}</Pair>
+					<Pair title="Deaths">{json.deaths}</Pair>
+					<Pair title="Murder Weapon" color="red">{knifeSkin || '<unknown>'}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Wins">{json.wins}</StatPair>
-					<StatPair title="Losses">{losses}</StatPair>
-					<StatPair title="Win/Loss Ratio">{Utils.ratio(json.wins/losses)}</StatPair>
-					<StatPair title="Fastest Detective Win">{Utils.secondsToHms(fastestDetectiveWin)}</StatPair>
-					<StatPair title="Fastest Murderer Win">{Utils.secondsToHms(fastestMurdererWin)}</StatPair>
+					<Pair title="Wins">{json.wins}</Pair>
+					<Pair title="Losses">{losses}</Pair>
+					<Pair title="Win/Loss Ratio">{Utils.ratio(json.wins/losses)}</Pair>
+					<Pair title="Fastest Detective Win">{Utils.secondsToHms(fastestDetectiveWin)}</Pair>
+					<Pair title="Fastest Murderer Win">{Utils.secondsToHms(fastestMurdererWin)}</Pair>
 				</div>
 			</div>
 			

@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
-import { Accordion, Box, HorizontalLine, StatPair, StatTitle } from 'components';
+import { Accordion, HorizontalLine } from 'components';
+import { Box, Pair, Title } from 'components/Stats';
 import { TURBOKARTRACERS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -108,29 +109,29 @@ export const TurboKartRacers = memo((props) => {
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="h-flex my-3">
 				<div className="flex-1">
-					<StatPair title="Coins" color="gold">{json.coins}</StatPair>
-					<StatPair title="Grand Prix Tokens" color="aqua">{json.grand_prix_tokens}</StatPair>
+					<Pair title="Coins" color="gold">{json.coins}</Pair>
+					<Pair title="Grand Prix Tokens" color="aqua">{json.grand_prix_tokens}</Pair>
 					<br />
-					<StatPair title="Wins">{json.wins}</StatPair>
-					<StatPair title="Gold Trophies" color="gold">{trophies.gold}</StatPair>
-					<StatPair title="Silver Trophies" color="white">{trophies.silver}</StatPair>
-					<StatPair title="Bronze Trophies" color="brown">{trophies.bronze}</StatPair>
+					<Pair title="Wins">{json.wins}</Pair>
+					<Pair title="Gold Trophies" color="gold">{trophies.gold}</Pair>
+					<Pair title="Silver Trophies" color="white">{trophies.silver}</Pair>
+					<Pair title="Bronze Trophies" color="brown">{trophies.bronze}</Pair>
 				</div>
 				<div className="flex-1">
-					<StatPair title="Coins Picked Up">{json.coins_picked_up}</StatPair>
-					<StatPair title="Powerups Picked Up">{json.box_pickups}</StatPair>
-					<StatPair title="Laps Completed">{json.laps_completed}</StatPair>
-					<StatPair title="Blue Torpedoes Hit">{json.blue_torpedo_hit}</StatPair>
+					<Pair title="Coins Picked Up">{json.coins_picked_up}</Pair>
+					<Pair title="Powerups Picked Up">{json.box_pickups}</Pair>
+					<Pair title="Laps Completed">{json.laps_completed}</Pair>
+					<Pair title="Blue Torpedoes Hit">{json.blue_torpedo_hit}</Pair>
 					<br />
-					<StatPair title="Banana Hits Sent">{json.banana_hits_sent}</StatPair>
-					<StatPair title="Banana Hits Received">{json.banana_hits_received}</StatPair>
-					<StatPair title="Banana Sent/Received Ratio">{Utils.ratio(json.banana_hits_sent, json.banana_hits_received)}</StatPair>
+					<Pair title="Banana Hits Sent">{json.banana_hits_sent}</Pair>
+					<Pair title="Banana Hits Received">{json.banana_hits_received}</Pair>
+					<Pair title="Banana Sent/Received Ratio">{Utils.ratio(json.banana_hits_sent, json.banana_hits_received)}</Pair>
 				</div>
 			</div>
 			
 			<HorizontalLine />
 
-			<StatTitle>Current Kart</StatTitle>
+			<Title>Current Kart</Title>
 			<div className="h-flex overflow-x mb-3">
 				{currentKart}
 			</div>
