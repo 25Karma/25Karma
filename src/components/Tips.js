@@ -15,6 +15,7 @@ export function Tips(props) {
 			The SkyBlock Stats button on the player stats page brings you
 			to <ExternalLink href="https://sky.lea.moe">sky.lae.moe</ExternalLink>!
 		</React.Fragment>,
+		"The pink row in a table indicates your most played class/mode!"
 	]
 	const [tipIndex, setTipIndex] = useState(Math.floor(Math.random()*proTips.length));
 

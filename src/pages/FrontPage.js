@@ -1,5 +1,5 @@
 import React from 'react';
-import { Banner, MinecraftText, Navbar, 
+import { Banner, ExternalLink, MinecraftText, Navbar, 
 	PageLayout, Tips, RecentSearches, Searchbar } from 'components';
 import properties from 'constants/site';
 
@@ -24,7 +24,13 @@ export function FrontPage(props) {
 			banner = (
 				<Banner type="error"
 					title='Player not found. '
-					description={`A player with the name "${config.slug}" does not exist.`}/>
+					description={
+							<span>
+								A player with the name "
+								<ExternalLink href={`https://namemc.com/search?q=${config.slug}`}>{config.slug}</ExternalLink>
+								" does not exist.
+							</span>
+					}/>
 				);
 			break;
 		case ('HYPIXEL_PLAYER_DNE'):

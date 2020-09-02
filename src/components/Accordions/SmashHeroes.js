@@ -29,7 +29,8 @@ export const SmashHeroes = memo((props) => {
 		<React.Fragment>
 			<Box title="Main" color={consts.DIFFICULTY[mostPlayedHero.difficulty-1]}>{mostPlayedHero.name || '-'}</Box>
 			<Box title="Level">{`§b${Utils.default0(json.smashLevel)}§6\u2736`}</Box>
-			<Box title="Wins">{json.wins}</Box>
+			<Box title="KD">{ratios.kd}</Box>
+			<Box title="WL">{ratios.wl}</Box>
 		</React.Fragment>
 		);
 
@@ -82,7 +83,7 @@ export const SmashHeroes = memo((props) => {
 					<Row key={id} id={id} isHighlighted={id === mostPlayedHero.id}>
 						<Cell shrink>
 							<Span color={consts.DIFFICULTY[difficulty-1]}>{name}</Span>
-							<Span color="white">{' Lv'}</Span>
+							<Span color="gray">{' Lv'}</Span>
 							<Span color="aqua">{json[`lastLevel_${id}`]}</Span>
 							{json[`pg_${id}`] &&
 								<Span 
