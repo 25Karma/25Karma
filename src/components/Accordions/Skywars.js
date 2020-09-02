@@ -205,7 +205,7 @@ export const SkyWars = memo((props) => {
 					<Pair title="Level">{leveling.level}</Pair>
 					<Pair title="Prestige" color={prestigeColor}>{`${prestigeName} ${prestigeIcon}`}</Pair>
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
-					<Pair title="Tokens">{json.cosmetic_tokens}</Pair>
+					<Pair title="Tokens" color="darkgreen">{json.cosmetic_tokens}</Pair>
 					<br/>
 					<br/>
 					<Pair title="Blocks Placed">{json.blocks_placed}</Pair>
@@ -239,7 +239,7 @@ export const SkyWars = memo((props) => {
 					<Pair title="Heads">{json.heads}</Pair>
 					<Pair title="Corruption">{`${Utils.default0(json.angel_of_death_level)}%`}</Pair>
 					<Pair title="Total Souls">{json.souls_gathered}</Pair>
-					<Pair title="Current Souls">{json.souls}</Pair>
+					<Pair title="Current Souls" color="aqua">{json.souls}</Pair>
 					<Pair title="Paid Souls">{json.paid_souls}</Pair>
 					<Pair title="Soul Well Uses">{json.soul_well}</Pair>
 				</div>

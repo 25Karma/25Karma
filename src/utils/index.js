@@ -178,17 +178,17 @@ export function timeSince(date) {
 * @return {string} 	The formatted string
 */
 export function secondsToHms(d) {
-		if (d === undefined) return "-";
-		d = Number(d);
-		var h = Math.floor(d / 3600);
-		var m = Math.floor(d % 3600 / 60);
-		var s = Math.floor(d % 3600 % 60);
+	if (d === undefined) return "-";
+	d = Number(d);
+	var h = Math.floor(d / 3600);
+	var m = Math.floor(d % 3600 / 60);
+	var s = Math.floor(d % 3600 % 60);
 
-		var hDisplay = h > 0 ? h + "h, " : "";
-		var mDisplay = m > 0 ? m + "m, " : "";
-		var sDisplay = s > 0 ? s + "s" : "";
-		return hDisplay + mDisplay + sDisplay; 
-	}
+	var hDisplay = h > 0 ? formatNum(h) + "h" : null;
+	var mDisplay = m > 0 ? formatNum(m) + "m" : null;
+	var sDisplay = s > 0 ? formatNum(s) + "s" : null;
+	return [hDisplay, mDisplay, sDisplay].filter(n => n).join(', '); 
+}
 
 /*
 * Converts a color string into its corresponding Minecraft color code
