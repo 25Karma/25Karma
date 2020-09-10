@@ -32,6 +32,7 @@ div, span, p, a, ul, input, button, footer {
 	font-family: Helvetica;
 }
 
+p { line-height: 1.4; }
 input::selection {
 	background: #f5f;
 }

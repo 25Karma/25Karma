@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Accordion } from 'components';
-import { Box, Pair } from 'components/Stats';
+import { Box, Br, Pair } from 'components/Stats';
 import { PIT as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -88,7 +88,7 @@ export const Pit = memo((props) => {
 					<Pair title="Lifetime Gold" color="gold">{stats.cash_earned}</Pair>
 					<Pair title="XP" color="aqua">{profile.xp}</Pair>
 					<Pair title="Renown" color="yellow">{profile.renown}</Pair>
-					<br />
+					<Br />
 					<Pair title="Playtime">{Utils.secondsToHms(Utils.default0(stats.playtime_minutes)*60)}</Pair>
 					<Pair title="Kill+Assists/Hour">
 						{Utils.ratio(Utils.add(stats.kills, stats.assists), Utils.default0(stats.playtime_minutes)/60)}
@@ -99,7 +99,7 @@ export const Pit = memo((props) => {
 					<Pair title="XP/Hour" color="aqua">
 						{Utils.ratio(profile.xp, Utils.default0(stats.playtime_minutes)/60)}
 					</Pair>
-					<br />
+					<Br />
 					<Pair title="Kills">{stats.kills}</Pair>
 					<Pair title="Assists">{stats.assists}</Pair>
 					<Pair title="Deaths">{stats.deaths}</Pair>
@@ -115,15 +115,15 @@ export const Pit = memo((props) => {
 					<Pair title="Bow Damage Dealt">{stats.bow_damage_dealt}</Pair>
 					<Pair title="Bow Damage Taken">{stats.bow_damage_received}</Pair>
 					<Pair title="Damage Dealt/Taken Ratio">{ratios.ddt}</Pair>
-					<br />
+					<Br />
 					<Pair title="Sword Hits">{stats.sword_hits}</Pair>
 					<Pair title="Sword Swings">{stats.left_clicks}</Pair>
 					<Pair title="Sword Hit Accuracy" percentage>{ratios.shm}</Pair>
-					<br />
+					<Br />
 					<Pair title="Arrows Hit">{stats.arrow_hits}</Pair>
 					<Pair title="Arrows Shot">{stats.arrows_fired}</Pair>
 					<Pair title="Arrow Hit Accuracy" percentage>{ratios.ahm}</Pair>
-					<br />
+					<Br />
 					<Pair title="Contracts Completed">{stats.contracts_completed}</Pair>
 					<Pair title="Jumps into Pit">{stats.jumped_into_pit}</Pair>
 					<Pair title="Launcher Launches">{stats.launched_by_launchers}</Pair>
@@ -138,12 +138,12 @@ export const Pit = memo((props) => {
 					<Pair title="Diamond Items Purchased">{stats.diamond_items_purchased}</Pair>
 					<Pair title="Blocks Placed">{stats.blocks_placed}</Pair>
 					<Pair title="Blocks Broken">{stats.blocks_broken}</Pair>
-					<br />
+					<Br />
 					<Pair title="Tier 1 Mystics Enchanted">{stats.enchanted_tier1}</Pair>
 					<Pair title="Tier 2 Mystics Enchanted">{stats.enchanted_tier2}</Pair>
 					<Pair title="Tier 3 Mystics Enchanted">{stats.enchanted_tier3}</Pair>
 					<Pair title="Dark Pants Created">{stats.dark_pants_crated}</Pair>
-					<br />
+					<Br />
 					<Pair title="Wheat Farmed">{stats.wheat_farmed}</Pair>
 					<Pair title="Fished Anything">{stats.fished_anything}</Pair>
 					<Pair title="Fished Fish">{stats.fishes_fished}</Pair>

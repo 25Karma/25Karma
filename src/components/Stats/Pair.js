@@ -22,11 +22,11 @@ export function Pair(props) {
 	}
 
 	return (
-		<div style={{paddingBottom: '0.25rem'}}>
+		<p>
 			<span className="font-bold">{`${title}: `}</span>
 			<span className={`c-${color || 'gray'}`}>
 				{renderChildren()}
 			</span>
-		</div>
+		</p>
 		);
 }

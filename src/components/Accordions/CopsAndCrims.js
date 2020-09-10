@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
-import { Box, Cell, Pair, Progress, ProgressBar, Title, Table } from 'components/Stats';
+import { Box, Br, Cell, Pair, Progress, ProgressBar, Title, Table } from 'components/Stats';
 import { COPSANDCRIMS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -77,7 +77,8 @@ export const CopsAndCrims = memo((props) => {
 			<div className="h-flex my-3">
 				<div className="flex-1">
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
-					<br />
+					<Br />
+					<Br />
 					<Pair title="Kills">{total('kills')}</Pair>
 					<Pair title="Assists">{total('assists')}</Pair>
 					<Pair title="Deaths">{total('deaths')}</Pair>
@@ -86,7 +87,7 @@ export const CopsAndCrims = memo((props) => {
 				<div className="flex-1">
 					<Pair title="Game Wins">{total('game_wins')}</Pair>
 					<Pair title="Round Wins">{json.round_wins}</Pair>
-					<br />
+					<Br />
 					<Pair title="Bombs Planted">{json.bombs_planted}</Pair>
 					<Pair title="Bombs Defused">{json.bombs_defused}</Pair>
 					<Pair title="Shots Fired">{json.shots_fired}</Pair>

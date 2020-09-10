@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
-import { Box, Cell, Pair, Row, Table } from 'components/Stats';
+import { Box, Br, Cell, Pair, Row, Table } from 'components/Stats';
 import { QUAKECRAFT as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -86,7 +86,7 @@ export const Quakecraft = memo((props) => {
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="my-3">
 				<Pair title="Coins" color="gold">{json.coins}</Pair>
-				<br />
+				<Br />
 				<Pair title="Highest Killstreak">{json.highest_killstreak}</Pair>
 				<Pair title="Dash Cooldown">
 					{json.dash_cooldown ? Number(json.dash_cooldown)+1 : 0}

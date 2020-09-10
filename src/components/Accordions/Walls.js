@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Accordion } from 'components';
-import { Box, Pair } from 'components/Stats';
+import { Box, Br, Pair } from 'components/Stats';
 import { WALLS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -32,11 +32,11 @@ export const Walls = memo((props) => {
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="my-3">
 				<Pair title="Coins" color="gold">{json.coins}</Pair>
-				<br />
+				<Br />
 				<Pair title="Kills">{json.kills}</Pair>
 				<Pair title="Deaths">{json.deaths}</Pair>
 				<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
-				<br />
+				<Br />
 				<Pair title="Wins">{json.wins}</Pair>
 				<Pair title="Losses">{json.losses}</Pair>
 				<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>

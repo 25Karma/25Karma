@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
-import { Box, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
+import { Box, Br, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
 import { BEDWARS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -170,12 +170,12 @@ export const BedWars = memo((props) => {
 					<Pair title="Level">{leveling.level}</Pair>
 					<Pair title="Prestige" color={prestigeColor}>{prestigeName}</Pair>
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
-					<br/>
+					<Br/>
 					<Pair title="Winstreak">{json.winstreak}</Pair>
 					<Pair title="Wins">{json.wins_bedwars}</Pair>
 					<Pair title="Losses">{json.losses_bedwars}</Pair>
 					<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
-					<br/>
+					<Br/>
 					<Pair title="Beds Broken">{json.beds_broken_bedwars}</Pair>
 					<Pair title="Beds Lost">{json.beds_lost_bedwars}</Pair>
 					<Pair title="Beds Broken/Lost Ratio">{ratios.bbl}</Pair>
@@ -187,7 +187,7 @@ export const BedWars = memo((props) => {
 					<Pair title="Final Kills">{json.final_kills_bedwars}</Pair>
 					<Pair title="Final Deaths">{json.final_deaths_bedwars}</Pair>
 					<Pair title="Final Kill/Death Ratio">{ratios.fkd}</Pair>
-					<br/>
+					<Br/>
 					<Pair title="Iron Collected">{json.iron_resources_collected_bedwars}</Pair>
 					<Pair title="Gold Collected">{json.gold_resources_collected_bedwars}</Pair>
 					<Pair title="Diamonds Collected">{json.diamond_resources_collected_bedwars}</Pair>

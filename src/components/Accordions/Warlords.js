@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { Accordion, Button, ExternalLink, HorizontalLine, ReactIcon } from 'components';
-import { Box, Cell, Pair, Progress, ProgressBar, Span, Row, Table } from 'components/Stats';
+import { Box, Br, Cell, Pair, Progress, ProgressBar, Span, Row, Table } from 'components/Stats';
 import { WARLORDS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -98,6 +98,7 @@ export const Warlords = memo((props) => {
 			</thead>
 			<tbody>
 				{consts.MODES.map(({id, name}) =>
+					Boolean(json[`wins${id}`]) &&
 					<Row key={id} id={id}>
 						<Cell>{name}</Cell>
 						<Cell>{json[`wins${id}`]}</Cell>
@@ -116,11 +117,11 @@ export const Warlords = memo((props) => {
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Pair title="Magic Dust" color="aqua">{json.magic_dust}</Pair>
 					<Pair title="Void Shards" color="pink">{json.void_shards}</Pair>
-					<br />
+					<Br />
 					<Pair title="Wins">{json.wins}</Pair>
 					<Pair title="Losses">{json.losses}</Pair>
 					<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
-					<br />
+					<Br />
 					<ExternalLink href={`https://gen.plancke.io/warlords/class/${mojang.uuid}.png`}>
 						<Button>
 							<span className="font-bold pr-1">Class Levels</span>
@@ -134,7 +135,7 @@ export const Warlords = memo((props) => {
 					<Pair title="Assist/Kill Ratio">{ratios.ak}</Pair>
 					<Pair title="Deaths">{json.deaths}</Pair>
 					<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
-					<br />
+					<Br />
 					<Pair title="Flags Captured">{json.flag_conquer_self}</Pair>
 					<Pair title="Flags Returned">{json.flag_returns}</Pair>
 				</div>

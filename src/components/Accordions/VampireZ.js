@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Accordion } from 'components';
-import { Box, Pair } from 'components/Stats';
+import { Box, Br, Pair } from 'components/Stats';
 import { VAMPIREZ as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -36,14 +36,14 @@ export const VampireZ = memo((props) => {
 			<div className="h-flex mt-2 mb-3">
 				<div className="flex-1">
 					<Pair title="Wins as Vampire">{json.vampire_wins}</Pair>
-					<br />
+					<Br />
 					<Pair title="Vampire Kills">{json.vampire_kills}</Pair>
 					<Pair title="Deaths as Vampire">{json.vampire_deaths}</Pair>
 					<Pair title="Kill/Death Ratio as Vampire">{ratios.kdv}</Pair>
 				</div>
 				<div className="flex-1">
 					<Pair title="Wins as Human">{json.human_wins}</Pair>
-					<br />
+					<Br />
 					<Pair title="Human Kills">{json.human_kills}</Pair>
 					<Pair title="Deaths as Human">{json.human_deaths}</Pair>
 					<Pair title="Kill/Death Ratio as Human">{ratios.kdh}</Pair>

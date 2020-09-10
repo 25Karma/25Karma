@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
-import { Box, Cell, Pair, ProgressBar, Progress, Title, Table } from 'components/Stats';
+import { Box, Br, Cell, Pair, ProgressBar, Progress, Title, Table } from 'components/Stats';
 import { TNTGAMES as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -93,7 +93,7 @@ export const TNTGames = memo((props) => {
 					<div className="font-bold underline mb-1">TNT Run</div>
 					<Pair title="Wins">{json.wins_tntrun}</Pair>
 					<Pair title="Record Time">{Utils.secondsToHms(json.record_tntrun)}</Pair>
-					<br />
+					<Br />
 					<div className="font-bold underline mb-1">PVP Run</div>
 					<Pair title="Wins">{json.wins_pvprun}</Pair>
 					<Pair title="Kills">{json.kills_pvprun}</Pair>
@@ -103,7 +103,7 @@ export const TNTGames = memo((props) => {
 					<div className="font-bold underline mb-1">TNT Tag</div>
 					<Pair title="Wins">{json.wins_tntag}</Pair>
 					<Pair title="Kills">{json.kills_tntag}</Pair>
-					<br />
+					<Br />
 					<div className="font-bold underline mb-1">Bow Spleef</div>
 					<Pair title="Wins">{json.wins_bowspleef}</Pair>
 					<Pair title="Losses">{json.deaths_bowspleef}</Pair>

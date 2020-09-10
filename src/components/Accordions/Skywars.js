@@ -2,7 +2,7 @@ import React, { useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import { Accordion, Banner, Button, Crafatar, HorizontalLine } from 'components';
-import { Box, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
+import { Box, Br, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
 import { SKYWARS as consts } from 'constants/hypixel';  
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -29,6 +29,12 @@ export const SkyWars = memo((props) => {
 		wl : Utils.ratio(json.wins, json.losses),
 		kw : Utils.ratio(json.kills, json.wins)
 	}
+	// // Not 100% accurate - will leave it out until I figure out a better way
+	// const totalShards = Utils.add(...Object.entries(json).map(([k,v]) => {
+	// 	if (k.includes('shard_kit_')) {
+	// 		return v;
+	// 	}
+	// }));
 
 	const mostPlayedMode = getMostPlayed(consts.MODES,
 		({id}) => Utils.add(json[`wins${id}`], json[`losses${id}`]));
@@ -143,6 +149,15 @@ export const SkyWars = memo((props) => {
 			</tbody>
 		</Table>
 	);
+	const shardProgress = (
+		<ProgressBar 
+			dataTip={`${Utils.default0(json.shard)}/20,000 Shards`}>
+			<Progress
+				proportion={Utils.ratio(json.shard, 20000)}
+				color="aqua"
+				dataTip={`${Utils.default0(json.shard)}/20,000 Shards`} />
+		</ProgressBar>
+	);
 	
 	// Data used by the 'Total Heads Gathered' section
 	const headProgress = (() => {
@@ -206,8 +221,8 @@ export const SkyWars = memo((props) => {
 					<Pair title="Prestige" color={prestigeColor}>{`${prestigeName} ${prestigeIcon}`}</Pair>
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Pair title="Tokens" color="darkgreen">{json.cosmetic_tokens}</Pair>
-					<br/>
-					<br/>
+					<Br/>
+					<Br/>
 					<Pair title="Blocks Placed">{json.blocks_placed}</Pair>
 					<Pair title="Blocks Broken">{json.blocks_broken}</Pair>
 					<Pair title="Chests Opened">{json.chests_opened}</Pair>
@@ -220,8 +235,8 @@ export const SkyWars = memo((props) => {
 					<Pair title="Deaths">{json.deaths}</Pair>
 					<Pair title="Assists">{json.assists}</Pair>
 					<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
-					<br/>
-					<br/>
+					<Br/>
+					<Br/>
 					<Pair title="Melee Kills">{json.melee_kills}</Pair>
 					<Pair title="Void Kills">{json.void_kills}</Pair>
 					<Pair title="Bow Kills">{json.bow_kills}</Pair>
@@ -235,7 +250,7 @@ export const SkyWars = memo((props) => {
 					<Pair title="Losses">{json.losses}</Pair>
 					<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
 					<Pair title="Kill/Win Ratio">{ratios.kw}</Pair>
-					<br/>
+					<Br/>
 					<Pair title="Heads">{json.heads}</Pair>
 					<Pair title="Corruption">{`${Utils.default0(json.angel_of_death_level)}%`}</Pair>
 					<Pair title="Total Souls">{json.souls_gathered}</Pair>
@@ -253,21 +268,35 @@ export const SkyWars = memo((props) => {
 			
 			<HorizontalLine />
 
-			<div className="mb-1 mt-3">
-				<Pair title="Total Heads Gathered">{json.heads}</Pair>
-			</div>
-			<div className="mb-3">
-				{headProgress}
-			</div>
-			<div className="font-bold pb-2">Prestigious Head Collection</div>
-			<div className="h-flex flex-wrap pb-3">
-			{
-				headButtonState ?
-				prestigiousHeadCollection :
-				<Button onClick={()=>{setHeadButtonState(true)}}>
-					<span className="font-bold">View</span>
-				</Button>
-			}
+			<div className="my-3">
+				<div className="mb-1 font-bold">Shard Progress</div>
+				<div className="mb-2">
+					{shardProgress}
+				</div>
+				<div className="h-flex mb-3">
+					<div className="flex-1">
+						<Pair title="Shards" color="aqua">{json.shard}</Pair>
+					</div>
+					<div className="flex-1">
+						<Pair title="Opals" color="blue">{json.opals}</Pair>
+					</div>
+				</div>
+				<div className="mb-1">
+					<Pair title="Total Heads Gathered">{json.heads}</Pair>
+				</div>
+				<div className="mb-3">
+					{headProgress}
+				</div>
+				<div className="font-bold mb-2">Prestigious Head Collection</div>
+				<div className="h-flex flex-wrap">
+				{
+					headButtonState ?
+					prestigiousHeadCollection :
+					<Button onClick={()=>{setHeadButtonState(true)}}>
+						<span className="font-bold">View</span>
+					</Button>
+				}
+				</div>
 			</div>
 		</Accordion>
 });

@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { Accordion, Button, ExternalLink, HorizontalLine, ReactIcon } from 'components';
-import { Box, Cell, Pair, Row, Table } from 'components/Stats';
+import { Box, Br, Cell, Pair, Row, Table } from 'components/Stats';
 import { MEGAWALLS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -132,8 +132,8 @@ export const MegaWalls = memo((props) => {
 				<div className="flex-1">
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Pair title="Wither Damage Dealt">{Utils.add(json.witherDamage, json.wither_damage)}</Pair>
-					<br />
-					<br />
+					<Br />
+					<Br />
 					<Pair title="Wins">{json.wins}</Pair>
 					<Pair title="Practice Wins">{json.wins_practice}</Pair>
 					<Pair title="Losses">{json.losses}</Pair>
@@ -145,7 +145,7 @@ export const MegaWalls = memo((props) => {
 					<Pair title="Assists">{json.assists}</Pair>
 					<Pair title="Deaths">{json.deaths}</Pair>
 					<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
-					<br />
+					<Br />
 					<Pair title="Final Kills">{json.final_kills}</Pair>
 					<Pair title="Final Assists">{json.final_assists}</Pair>
 					<Pair title="Final Deaths">{json.final_deaths}</Pair>

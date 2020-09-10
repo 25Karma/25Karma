@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
-import { Box, Pair, Title } from 'components/Stats';
+import { Box, Br, Pair, Title } from 'components/Stats';
 import { TURBOKARTRACERS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -111,7 +111,7 @@ export const TurboKartRacers = memo((props) => {
 				<div className="flex-1">
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Pair title="Grand Prix Tokens" color="aqua">{json.grand_prix_tokens}</Pair>
-					<br />
+					<Br />
 					<Pair title="Wins">{json.wins}</Pair>
 					<Pair title="Gold Trophies" color="gold">{trophies.gold}</Pair>
 					<Pair title="Silver Trophies" color="white">{trophies.silver}</Pair>
@@ -122,7 +122,7 @@ export const TurboKartRacers = memo((props) => {
 					<Pair title="Powerups Picked Up">{json.box_pickups}</Pair>
 					<Pair title="Laps Completed">{json.laps_completed}</Pair>
 					<Pair title="Blue Torpedoes Hit">{json.blue_torpedo_hit}</Pair>
-					<br />
+					<Br />
 					<Pair title="Banana Hits Sent">{json.banana_hits_sent}</Pair>
 					<Pair title="Banana Hits Received">{json.banana_hits_received}</Pair>
 					<Pair title="Banana Sent/Received Ratio">{Utils.ratio(json.banana_hits_sent, json.banana_hits_received)}</Pair>

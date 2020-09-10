@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
-import { Box, Cell, Pair, Row, Table } from 'components/Stats';
+import { Box, Br, Cell, Pair, Row, Table } from 'components/Stats';
 import { DUELS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
 import * as Utils from 'utils';
@@ -110,12 +110,12 @@ export const Duels = memo((props) => {
 				<div className="flex-1">
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Pair title="Loot Chests">{json.duels_chests}</Pair>
-					<br/>
-					<br/>
+					<Br/>
+					<Br/>
 					<Pair title="Kills">{stats.kills}</Pair>
 					<Pair title="Deaths">{stats.deaths}</Pair>
 					<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
-					<br/>
+					<Br/>
 					<Pair title="Melee Swings">{json.melee_swings}</Pair>
 					<Pair title="Melee Hits">{json.melee_hits}</Pair>
 					<Pair title="Melee Hit Accuracy" percentage>{ratios.mhm}</Pair>
@@ -124,11 +124,11 @@ export const Duels = memo((props) => {
 					<Pair title="Best Winstreak">{json.best_overall_winstreak}</Pair>
 					<Pair title="Current Winstreak">{json.current_winstreak}</Pair>
 					<Pair title="Overall Division" color={division.color}>{division.name}</Pair>
-					<br/>
+					<Br/>
 					<Pair title="Wins">{json.wins}</Pair>
 					<Pair title="Losses">{json.losses}</Pair>
 					<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
-					<br/>
+					<Br/>
 					<Pair title="Arrows Shot">{json.bow_shots}</Pair>
 					<Pair title="Arrows Hit">{json.bow_hits}</Pair>
 					<Pair title="Arrow Hit Accuracy" percentage>{ratios.ahm}</Pair>
