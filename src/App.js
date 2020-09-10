@@ -8,27 +8,25 @@ function App() {
 	const pinnedPlayer = Cookies.get('pinnedPlayer');
 
 	return (
-		<div className="h-100">
-			<Switch>
-				<Route exact path="/">
-					{ pinnedPlayer ? 
-						<Redirect to={`/player/${pinnedPlayer}`} /> : 
-						<Redirect to={`/frontpage`} /> 
-					}
-				</Route>
-				<Route path="/frontpage">
-					<FrontPage />
-				</Route>
-				<Route path="/player/:slug">
-					<HypixelContextProvider>
-						<PlayerPage />
-					</HypixelContextProvider>
-				</Route>
-				<Route default>
-					<NotFoundPage />
-				</Route>
-			</Switch>
-		</div>
+		<Switch>
+			<Route exact path="/">
+				{ pinnedPlayer ? 
+					<Redirect to={`/player/${pinnedPlayer}`} /> : 
+					<Redirect to={`/frontpage`} /> 
+				}
+			</Route>
+			<Route path="/frontpage">
+				<FrontPage />
+			</Route>
+			<Route path="/player/:slug">
+				<HypixelContextProvider>
+					<PlayerPage />
+				</HypixelContextProvider>
+			</Route>
+			<Route default>
+				<NotFoundPage />
+			</Route>
+		</Switch>
 		);
 }
 

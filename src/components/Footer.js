@@ -18,7 +18,7 @@ export function Footer(props) {
 			</span>
 			<span className="text-right">
 				{`Made with ❤️ by `}
-				<Link to="/player/amos283086" className="link">Amos Yu</Link>.
+				<Link to="/player/HCCF" className="link">Amos Yu</Link>.
 			</span>
 		</footer>
 		);

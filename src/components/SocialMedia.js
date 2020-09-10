@@ -10,11 +10,11 @@ import { Banner, ExternalLink, ReactIcon } from 'components';
 export function SocialMedia(props) {
 	const consts = {
 		SOCIALMEDIA: {
-			DISCORD: {icon: FaDiscord, color: 'gray'},
-			HYPIXEL: {icon: 'HypixelLogo', color: 'gold'},
-			TWITCH: {icon: FaTwitch, color: 'purple'},
-			TWITTER: {icon: FaTwitter, color: 'aqua'},
-			YOUTUBE: {icon: FaYoutube, color: 'red'},
+			DISCORD: {icon: FaDiscord, color: '#7289da'},
+			HYPIXEL: {icon: 'HypixelLogo', color: '#ffaa00'},
+			TWITCH: {icon: FaTwitch, color: '#9147ff'},
+			TWITTER: {icon: FaTwitter, color: '#1da1f2'},
+			YOUTUBE: {icon: FaYoutube, color: '#ff0000'},
 		},
 	}
 
@@ -28,11 +28,10 @@ export function SocialMedia(props) {
 		if (s) {
 			if (k === 'DISCORD') {
 				socialMediaIcons.push(
-					<span key={k} className="pr-2">
+					<span key={k} className="pr-2" style={{color: s.color}}>
 						<button onClick={()=>{setBannerShown(true)}}>
 							<ReactIcon 
 								icon={s.icon} 
-								color={s.color}
 								clickable />
 						</button>
 					</span>
@@ -47,11 +46,10 @@ export function SocialMedia(props) {
 			}
 			else {
 				socialMediaIcons.push(
-					<span key={k} className="pr-2">
+					<span key={k} className="pr-2" style={{color: s.color}}>
 						<ExternalLink href={v}>
 							<ReactIcon 
 								icon={s.icon} 
-								color={s.color} 
 								clickable />
 						</ExternalLink>
 					</span>

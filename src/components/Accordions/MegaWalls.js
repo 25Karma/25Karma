@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
-import { FaExternalLinkAlt } from 'react-icons/fa';
-import { Accordion, Button, ExternalLink, HorizontalLine, ReactIcon } from 'components';
+import { Accordion, Button, ExternalLink, HorizontalLine } from 'components';
 import { Box, Br, Cell, Pair, Row, Table } from 'components/Stats';
 import { MEGAWALLS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
@@ -155,8 +154,7 @@ export const MegaWalls = memo((props) => {
 			<div className="mb-3">
 				<ExternalLink href={`https://gen.plancke.io/mw/${mojang.uuid}/2.png`}>
 					<Button>
-						<span className="font-bold pr-1">Class Skins and Levels</span>
-						<ReactIcon icon={FaExternalLinkAlt} size="sm" />
+						<span className="font-bold">Class Skins and Levels</span>
 					</Button>
 				</ExternalLink>
 			</div>

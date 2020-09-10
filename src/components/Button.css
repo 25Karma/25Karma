@@ -3,6 +3,7 @@
 	transition: all 0.1s;
 	user-select: none;
 	border: 1px solid var(--theme-border);
+	font-size: 1rem;
 }
 .btn-default { background-color: rgba(0,0,0,0.2); }
 .btn-default:hover { background-color: rgba(0,0,0,0.5); }

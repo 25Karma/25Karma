@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
-import { FaExternalLinkAlt } from 'react-icons/fa';
-import { Accordion, Button, ExternalLink, HorizontalLine, ReactIcon } from 'components';
+import { Accordion, Button, ExternalLink, HorizontalLine } from 'components';
 import { Box, Br, Cell, Pair, Progress, ProgressBar, Span, Row, Table } from 'components/Stats';
 import { WARLORDS as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
@@ -124,8 +123,7 @@ export const Warlords = memo((props) => {
 					<Br />
 					<ExternalLink href={`https://gen.plancke.io/warlords/class/${mojang.uuid}.png`}>
 						<Button>
-							<span className="font-bold pr-1">Class Levels</span>
-							<ReactIcon icon={FaExternalLinkAlt} size="sm" />
+							<span className="font-bold">Class Levels</span>
 						</Button>
 					</ExternalLink>
 				</div>

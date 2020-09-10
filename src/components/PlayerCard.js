@@ -1,8 +1,7 @@
 import React from 'react';
 import './PlayerCard.css';
 import dateFormat from 'dateformat';
-import { FaExternalLinkAlt } from 'react-icons/fa';
-import { Button, ExternalLink, HorizontalLine, ReactIcon, SocialMedia } from 'components';
+import { Button, ExternalLink, HorizontalLine, SocialMedia } from 'components';
 import { Box, Pair, Title } from 'components/Stats';
 import { HYPIXEL as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
@@ -93,8 +92,7 @@ export function PlayerCard(props) {
 			{loginDates}
 			<ExternalLink href={`https://sky.lea.moe/stats/${json.uuid}`}>
 				<Button>
-					<span className="font-bold pr-1">SkyBlock Stats</span>
-					<ReactIcon icon={FaExternalLinkAlt} size="sm" />
+					<span className="font-bold">SkyBlock Stats</span>
 				</Button>
 			</ExternalLink>
 			{guildInfo}

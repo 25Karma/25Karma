@@ -138,8 +138,8 @@ export function Settings(props) {
 					cookies</ExternalLink> on your computer. They are accessible to you and to you only. 
 					You can clear the cookies used by this site at any time by clicking the Clear Cookies button.
 				</p>
+				<ReactTooltip />
 			</div>
-			<ReactTooltip />
 		</div>
 		);
 }

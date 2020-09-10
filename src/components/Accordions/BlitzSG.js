@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
-import { FaExternalLinkAlt } from 'react-icons/fa';
-import { Accordion, Button, ExternalLink, HorizontalLine, ReactIcon } from 'components';
+import { Accordion, Button, ExternalLink, HorizontalLine } from 'components';
 import { Box, Cell, Pair, Row, Table } from 'components/Stats';
 import { BLITZSG as consts } from 'constants/hypixel';
 import { useHypixelContext } from 'hooks';
@@ -141,8 +140,7 @@ export const BlitzSG = memo((props) => {
 			<div className="mb-3">
 				<ExternalLink href={`https://gen.plancke.io/blitz/${mojang.uuid}/3.png`}>
 					<Button>
-						<span className="font-bold pr-1">Kit Levels</span>
-						<ReactIcon icon={FaExternalLinkAlt} size="sm" />
+						<span className="font-bold">Kit Levels</span>
 					</Button>
 				</ExternalLink>
 			</div>

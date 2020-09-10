@@ -22,12 +22,12 @@ html { font-size: 13px; background: var(--theme-primary);}
 /* Cap it off at a width of 1280px */
 @media (min-width: 1240px) { html { font-size: 15px; } }
 
-body { margin: 0; }
+body { margin: 0; color: var(--theme-text); }
 div, span, p, a, ul, input, button, footer { 
 	padding: 0;
 	margin: 0;
 	text-decoration: none; 
-	color: var(--theme-text); 
+	color: inherit; 
 	box-sizing: border-box; 
 	font-family: Helvetica;
 }
@@ -46,7 +46,7 @@ button:focus {
 	outline-width: 0;
 }
 
-#root {height: 100vh; overflow-x: hidden;}
+#root { min-height: 100vh; overflow-x: hidden; }
 .align-items-center { align-items: center; }
 .align-items-end { align-items: flex-end; }
 .align-items-start { align-items: flex-start; }
@@ -81,8 +81,8 @@ button:focus {
 .justify-content-end { justify-content: flex-end; }
 .justify-content-start { justify-content: flex-start; }
 .justify-content-stretch { justify-content: stretch; }
-.link:hover { color: var(--theme-text); text-decoration: underline solid var(--theme-text); }
-.link { color: var(--theme-text); text-decoration: underline dotted var(--theme-text); }
+.link { text-decoration: underline dotted var(--theme-text); }
+.link:hover { text-decoration: underline solid var(--theme-text); }
 .m-0 { margin: 0; }
 .m-1 { margin: 0.5rem; }
 .m-2 { margin: 1rem; }

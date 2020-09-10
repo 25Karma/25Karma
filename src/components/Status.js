@@ -1,6 +1,5 @@
 import React from 'react';
 import { FaSignal } from 'react-icons/fa';
-import ReactTooltip from 'react-tooltip';
 import { ReactIcon } from 'components';
 import { HYPIXEL } from 'constants/hypixel';
 import * as Utils from 'utils';
@@ -42,7 +41,6 @@ export function Status(props) {
 				icon={FaSignal} 
 				color={status.online ? 'green' : 'darkgray'}
 				size={props.size} />
-			<ReactTooltip />
 		</span>
 		);
 }

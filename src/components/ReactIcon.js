@@ -12,7 +12,7 @@ import { IconContext } from 'react-icons';
 */
 export function ReactIcon(props) {
 	const { icon, size, color, clickable } = props;
-	const className = `reacticon-${size || 'md'} ${clickable && 'reacticon-clickable'} c-${color || 'white'}`;
+	const className = `reacticon-${size || 'md'} ${clickable && 'reacticon-clickable'} ${color ? 'c-'+color : null}`;
 	const Icon = icon === 'HypixelLogo' ? HypixelLogo : icon;
 
 	return (

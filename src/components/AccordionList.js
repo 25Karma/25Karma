@@ -107,15 +107,16 @@ export function AccordionList(props) {
 				<button 
 					className="mr-2" 
 					onClick={()=>{setShowLine(!showLine)}}
+					data-place="left"
 					data-tip={(showLine ? 'Hide' : 'Show') + ' line spacer'}>
 					<ReactIcon 
 						icon={showLine ? RiCheckboxIndeterminateFill : RiCheckboxIndeterminateLine} 
 						clickable />
-					<ReactTooltip />
 				</button>
 				<button onClick={() => {setAccordionList(alphabetizeList)}}>
 					<ReactIcon icon={FaSortAlphaDown} clickable />
 				</button>
+				<ReactTooltip />
 			</div>
 			<Droppable droppableId="playerStatsDroppable">
 				{provided => (
