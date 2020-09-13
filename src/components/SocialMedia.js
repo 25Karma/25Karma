@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaDiscord, FaTwitch, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaDiscord, FaInstagram, FaTwitch, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { Banner, ExternalLink, ReactIcon } from 'components';
 
 /*
@@ -12,6 +12,7 @@ export function SocialMedia(props) {
 		SOCIALMEDIA: {
 			DISCORD: {icon: FaDiscord, color: '#7289da'},
 			HYPIXEL: {icon: 'HypixelLogo', color: '#ffaa00'},
+			INSTAGRAM: {icon: FaInstagram, color: '#e1306c'},
 			TWITCH: {icon: FaTwitch, color: '#9147ff'},
 			TWITTER: {icon: FaTwitter, color: '#1da1f2'},
 			YOUTUBE: {icon: FaYoutube, color: '#ff0000'},

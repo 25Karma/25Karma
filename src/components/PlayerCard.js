@@ -60,7 +60,7 @@ export function PlayerCard(props) {
 			<HorizontalLine className="mt-3"/>
 			<Title>Guild</Title>
 			<Pair title="Name" color={guild.tagColor}>{guild.name}</Pair>
-			<Pair title="Members">{guild.members}</Pair>
+			<Pair title="Members">{guild.members.length}</Pair>
 		</React.Fragment>
 		);
 

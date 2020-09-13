@@ -13,7 +13,7 @@ export const HypixelContext = React.createContext({});
 */
 export function HypixelContextProvider(props) {
 	const { slug } = useParams();
-	let response = useAPI(slug, 'stats');
+	let response = useAPI(slug, 'player');
 
 	if (response.success) {
 		document.title = `${response.mojang.username} | ${properties.documentTitle}`;

@@ -14,7 +14,7 @@ export function useAPI(slug, type) {
 	
 	useEffect(() => {
 		async function getData(slug) {
-			const url = `${p.API}player/${type || 'stats'}/${slug}`;
+			const url = `${p.API}${type || 'player'}/${slug}`;
 			return fetch(url)
 				.then((response) => response.json())
 				.then((json) => {
