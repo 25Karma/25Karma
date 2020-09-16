@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Accordion, Button, ExternalLink, HorizontalLine } from 'components';
 import { Box, Cell, Pair, Row, Span, Table } from 'components/Stats';
 import { SMASHHEROES as consts } from 'constants/hypixel';
-import { useHypixelContext } from 'hooks';
+import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 import { getMostPlayed } from 'utils/hypixel';
 
@@ -13,7 +13,7 @@ import { getMostPlayed } from 'utils/hypixel';
 */
 export const SmashHeroes = memo((props) => {
 
-	const { mojang, player } = useHypixelContext();
+	const { mojang, player } = useAPIContext();
 	const json = Utils.traverse(player, 'stats.SuperSmash', {});
 	const ratios = {
 		kd: Utils.ratio(json.kills, json.deaths),

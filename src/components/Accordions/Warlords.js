@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Accordion, Button, ExternalLink, HorizontalLine } from 'components';
 import { Box, Br, Cell, Pair, Progress, ProgressBar, Span, Row, Table } from 'components/Stats';
 import { WARLORDS as consts } from 'constants/hypixel';
-import { useHypixelContext } from 'hooks';
+import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 import { getMostPlayed } from 'utils/hypixel';
 
@@ -12,7 +12,7 @@ import { getMostPlayed } from 'utils/hypixel';
 * @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
 */
 export const Warlords = memo((props) => {
-	const { mojang, player } = useHypixelContext();
+	const { mojang, player } = useAPIContext();
 	const json = Utils.traverse(player, 'stats.Battleground', {});
 	const ratios = {
 		ak: Utils.ratio(json.assists, json.kills),

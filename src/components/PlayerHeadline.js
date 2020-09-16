@@ -1,12 +1,12 @@
 import React from 'react';
 import { Crafatar, ExternalLink, GuildTag, PlayerName, Status } from 'components';
-import { useHypixelContext } from 'hooks';
+import { useAPIContext } from 'hooks';
 
 /*
 * Displays face, username, and status of the player in the Hypixel Context
 */
 export function PlayerHeadline(props) {
-	const { mojang, player, guild, status } = useHypixelContext();
+	const { mojang, player, guild, status } = useAPIContext();
 	
 
 	return (

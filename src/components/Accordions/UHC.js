@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
 import { Box, Cell, Pair, Progress, ProgressBar, Table } from 'components/Stats';
 import { UHC as consts } from 'constants/hypixel';
-import { useHypixelContext } from 'hooks';
+import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 import { HypixelLeveling } from 'utils/hypixel';
 
@@ -14,7 +14,7 @@ import { HypixelLeveling } from 'utils/hypixel';
 export const UHC = memo((props) => {
 
 	// Get the player's API data for UHC
-	const { player } = useHypixelContext();
+	const { player } = useAPIContext();
 	const json = Utils.traverse(player,'stats.UHC') || {};
 
 	const leveling = new HypixelLeveling(scoreToStar, starToScore, Utils.default0(json.score));

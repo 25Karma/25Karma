@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
 import { Box, Br, Cell, Pair, Row, Table } from 'components/Stats';
 import { DUELS as consts } from 'constants/hypixel';
-import { useHypixelContext } from 'hooks';
+import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 import { getMostPlayed } from 'utils/hypixel';
 
@@ -13,7 +13,7 @@ import { getMostPlayed } from 'utils/hypixel';
 */
 export const Duels = memo((props) => {
 	
-	const { player } = useHypixelContext();
+	const { player } = useAPIContext();
 	const json = Utils.traverse(player,'stats.Duels') || {};
 
 	const mostPlayedMode = getMostPlayed(consts.MODES, 

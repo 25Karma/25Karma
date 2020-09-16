@@ -13,7 +13,7 @@ export function Tips(props) {
 		"Clicking on a player's avatar brings you to their profile on NameMC.",
 		<React.Fragment>
 			The SkyBlock Stats button on the player stats page brings you
-			to <ExternalLink href="https://sky.lea.moe">sky.lae.moe</ExternalLink>!
+			to <ExternalLink href="https://sky.shiiyu.moe">sky.shiiyu.moe</ExternalLink>!
 		</React.Fragment>,
 		"The pink row in a table indicates your most played class/mode!"
 	]
@@ -26,7 +26,7 @@ export function Tips(props) {
 		setTipIndex((tipIndex+1)%proTips.length);
 	}
 	return (
-		<span className="h-flex align-items-center justify-content-center mx-auto" style={{maxWidth:'40rem'}}>
+		<span className="h-flex align-items-center justify-content-center mx-auto" style={{maxWidth:'42rem'}}>
 			<button onClick={previousTip}>
 				<ReactIcon icon={FaCaretLeft} clickable />
 			</button>

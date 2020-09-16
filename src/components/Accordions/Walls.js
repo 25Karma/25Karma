@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Accordion } from 'components';
 import { Box, Br, Pair } from 'components/Stats';
 import { WALLS as consts } from 'constants/hypixel';
-import { useHypixelContext } from 'hooks';
+import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 
 /*
@@ -12,7 +12,7 @@ import * as Utils from 'utils';
 */
 export const Walls = memo((props) => {
 	
-	const { player } = useHypixelContext();
+	const { player } = useAPIContext();
 	const json = Utils.traverse(player, 'stats.Walls', {});
 	const ratios = {
 		kd: Utils.ratio(json.kills, json.deaths),

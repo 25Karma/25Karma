@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
 import { Box, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
 import { BUILDBATTLE as consts } from 'constants/hypixel';
-import { useHypixelContext } from 'hooks';
+import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 import { HypixelLeveling } from 'utils/hypixel';
 
@@ -14,7 +14,7 @@ import { HypixelLeveling } from 'utils/hypixel';
 export const BuildBattle = memo((props) => {
 
 	// Get the player's API data for SkyWars
-	const { player } = useHypixelContext();
+	const { player } = useAPIContext();
 	const json = Utils.traverse(player,'stats.BuildBattle') || {};
 	const losses = Utils.default0(json.games_played) - Utils.default0(json.wins);
 	const leveling = new HypixelLeveling(scoreToStar, starToScore, Utils.default0(json.score));

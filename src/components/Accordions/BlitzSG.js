@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Accordion, Button, ExternalLink, HorizontalLine } from 'components';
 import { Box, Cell, Pair, Row, Table } from 'components/Stats';
 import { BLITZSG as consts } from 'constants/hypixel';
-import { useHypixelContext } from 'hooks';
+import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 import { getMostPlayed } from 'utils/hypixel';
 
@@ -13,7 +13,7 @@ import { getMostPlayed } from 'utils/hypixel';
 */
 export const BlitzSG = memo((props) => {
 
-	const { mojang, player } = useHypixelContext();
+	const { mojang, player } = useAPIContext();
 	const json = Utils.traverse(player, 'stats.HungerGames', {});
 	const totalWins = Utils.add(json.wins_solo_normal, json.wins_teams_normal);
 	const gamesPlayed = Utils.add(totalWins, json.deaths);

@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
 import { Box, Br, Pair, Title } from 'components/Stats';
 import { TURBOKARTRACERS as consts } from 'constants/hypixel';
-import { useHypixelContext } from 'hooks';
+import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 
 /*
@@ -12,7 +12,7 @@ import * as Utils from 'utils';
 */
 export const TurboKartRacers = memo((props) => {
 
-	const { player } = useHypixelContext();
+	const { player } = useAPIContext();
 	const json = Utils.traverse(player, 'stats.GingerBread') || {};
 
 	const trophies = {

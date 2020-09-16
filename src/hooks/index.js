@@ -1,2 +1,1 @@
-export * from './useAPI'
-export * from './useHypixelContext'
+export * from './useAPIContext'

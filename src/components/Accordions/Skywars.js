@@ -4,7 +4,7 @@ import ReactTooltip from 'react-tooltip';
 import { Accordion, Banner, Button, Crafatar, HorizontalLine } from 'components';
 import { Box, Br, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
 import { SKYWARS as consts } from 'constants/hypixel';  
-import { useHypixelContext } from 'hooks';
+import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 import { HypixelLeveling, getMostPlayed } from 'utils/hypixel';
 
@@ -16,7 +16,7 @@ import { HypixelLeveling, getMostPlayed } from 'utils/hypixel';
 export const SkyWars = memo((props) => {
 
 	// Get the player's API data for SkyWars
-	const { player } = useHypixelContext();
+	const { player } = useAPIContext();
 	const json = Utils.traverse(player,'stats.SkyWars') || {};
 
 	const leveling = new HypixelLeveling(xpToLevel, levelToXP,

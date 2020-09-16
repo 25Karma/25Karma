@@ -12,7 +12,7 @@ export function GuildTag(props) {
 	const { guild, size } = props;
 	if (!guild || !guild.tag) return null;
 
-	const tag = [...guild.tag].map(char => char+'\uFE0E').join('');
+	const tag = [...guild.tag].map(char => char === '§' ? char : char+'\uFE0E').join('');
 
 	return (
 		<MinecraftText size={size}>

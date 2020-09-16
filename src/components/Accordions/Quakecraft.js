@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
 import { Box, Br, Cell, Pair, Row, Table } from 'components/Stats';
 import { QUAKECRAFT as consts } from 'constants/hypixel';
-import { useHypixelContext } from 'hooks';
+import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 
 /*
@@ -12,7 +12,7 @@ import * as Utils from 'utils';
 */
 export const Quakecraft = memo((props) => {
 
-	const { player } = useHypixelContext();
+	const { player } = useAPIContext();
 	const json = Utils.traverse(player, 'stats.Quake', {});
 	const ratios = {
 		kd: Utils.ratio(total('kills'), total('deaths')),

@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
 import { Box, Br, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
 import { BEDWARS as consts } from 'constants/hypixel';
-import { useHypixelContext } from 'hooks';
+import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 import { HypixelLeveling, getMostPlayed } from 'utils/hypixel';
 
@@ -14,7 +14,7 @@ import { HypixelLeveling, getMostPlayed } from 'utils/hypixel';
 export const BedWars = memo((props) => {
 	
 	// The player's API data for Bed Wars
-	const { player } = useHypixelContext();
+	const { player } = useAPIContext();
 	const json = Utils.traverse(player,'stats.Bedwars') || {};
 
 	const leveling = new HypixelLeveling(xpToLevel, levelToXP, 

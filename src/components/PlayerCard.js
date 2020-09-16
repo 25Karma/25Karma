@@ -4,7 +4,7 @@ import dateFormat from 'dateformat';
 import { Button, ExternalLink, HorizontalLine, SocialMedia } from 'components';
 import { Box, Pair, Title } from 'components/Stats';
 import { HYPIXEL as consts } from 'constants/hypixel';
-import { useHypixelContext } from 'hooks';
+import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 import { getPlayerRank } from 'utils/hypixel';
 
@@ -13,7 +13,7 @@ import { getPlayerRank } from 'utils/hypixel';
 */
 export function PlayerCard(props) {
 	
-	const { friends, player, guild } = useHypixelContext();
+	const { friends, player, guild } = useAPIContext();
 	const json = player || {};
 	const networkLevel = Utils.formatNum(calculateNetworkLevel(json.networkExp));
 	const multiplier = (() => {
@@ -90,7 +90,7 @@ export function PlayerCard(props) {
 			<Pair title="Friends">{friends}</Pair>
 			<br />
 			{loginDates}
-			<ExternalLink href={`https://sky.lea.moe/stats/${json.uuid}`}>
+			<ExternalLink href={`https://sky.shiiyu.moe/stats/${json.uuid}`}>
 				<Button>
 					<span className="font-bold">SkyBlock Stats</span>
 				</Button>

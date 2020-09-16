@@ -13,7 +13,7 @@ export function MinecraftText(props) {
 
 	function parseMinecraftText(str) {
 		// Binds each minecraft formatting character to a css color class
-		const colorClasses = {
+		const colorNames = {
 			'0': 'black',
 			'1': 'darkblue',
 			'2': 'darkgreen',
@@ -51,12 +51,13 @@ export function MinecraftText(props) {
 			// We use toLocaleString instead of parseInt (https://stackoverflow.com/a/9429565)
 			if (!isNaN(num)) text = formatNum(num);
 
-			const colorClass = colorClasses[colorCode];
-			spans.push(<span key={key++} className={`font-minecraft c-${colorClass}`}>
+			const colorName = colorNames[colorCode];
+			const colorClass = colorName ? 'c-'+colorName : '';
+			spans.push(<span key={key++} className={`font-minecraft ${colorClass}`}>
 				{text}</span>);
 		}
 		return (
-			<span className={`font-${props.size || 'md'} ${props.className}`}>
+			<span className={`font-${props.size || 'md'} ${props.className || ''}`}>
 				{spans.map(span => span)}
 			</span>
 			);

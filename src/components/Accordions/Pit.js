@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Accordion } from 'components';
 import { Box, Br, Pair } from 'components/Stats';
 import { PIT as consts } from 'constants/hypixel';
-import { useHypixelContext } from 'hooks';
+import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 
 /*
@@ -12,7 +12,7 @@ import * as Utils from 'utils';
 */
 export const Pit = memo((props) => {
 
-	const { player } = useHypixelContext();
+	const { player } = useAPIContext();
 	const stats = Utils.traverse(player, 'stats.Pit.pit_stats_ptl', {});
 	const profile = Utils.traverse(player, 'stats.Pit.profile', {});
 	const ratios = {

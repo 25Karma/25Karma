@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
 import { Box, Cell, Pair, Row, Table } from 'components/Stats';
 import { ARENABRAWL as consts } from 'constants/hypixel';
-import { useHypixelContext } from 'hooks';
+import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 import { getMostPlayed } from 'utils/hypixel';
 
@@ -13,7 +13,7 @@ import { getMostPlayed } from 'utils/hypixel';
 */
 export const ArenaBrawl = memo((props) => {
 
-	const { player } = useHypixelContext();
+	const { player } = useAPIContext();
 	const json = Utils.traverse(player, 'stats.Arena', {});
 	const ratios = {
 		kd: Utils.ratio(total('kills'), total('deaths')),

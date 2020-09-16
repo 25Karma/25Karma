@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
 import { Box, Br, Cell, Pair, Table, Title } from 'components/Stats';
 import { ARCADE as consts } from 'constants/hypixel';
-import { useHypixelContext } from 'hooks';
+import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 
 /*
@@ -13,7 +13,7 @@ import * as Utils from 'utils';
 export const Arcade = memo((props) => {
 
 	// The player's API data for Arcade Games
-	const { player } = useHypixelContext();
+	const { player } = useAPIContext();
 	const json = Utils.traverse(player,'stats.Arcade') || {};
 	
 	const totalWins = Object.entries(json)
