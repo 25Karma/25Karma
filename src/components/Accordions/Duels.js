@@ -57,6 +57,14 @@ export const Duels = memo((props) => {
 		ahm : Utils.ratio(json.bow_hits,json.bow_shots),
 	}
 
+	function kills(id) {
+		return id.includes('bridge') ? json[`${id}bridge_kills`] : json[`${id}kills`];
+	} 
+
+	function deaths(id) {
+		return id.includes('bridge') ? json[`${id}bridge_deaths`] : json[`${id}deaths`];
+	} 
+
 	const header = (
 		<React.Fragment>
 			<Box title="Division" color={division.color}>{division.name}</Box>
@@ -87,9 +95,9 @@ export const Duels = memo((props) => {
 					Boolean(Utils.add(json[`${id}wins`], json[`${id}losses`])) &&
 					<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
 						<Cell>{name}</Cell>
-						<Cell>{json[`${id}kills`]}</Cell>
-						<Cell>{json[`${id}deaths`]}</Cell>
-						<Cell>{Utils.ratio(json[`${id}_kills`],json[`${id}deaths`])}</Cell>
+						<Cell>{kills(id)}</Cell>
+						<Cell>{deaths(id)}</Cell>
+						<Cell>{Utils.ratio(kills(id),deaths(id))}</Cell>
 						<Cell>{json[`${id}wins`]}</Cell>
 						<Cell>{json[`${id}losses`]}</Cell>
 						<Cell>{Utils.ratio(json[`${id}wins`],json[`${id}losses`])}</Cell>

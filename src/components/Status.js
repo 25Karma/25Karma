@@ -35,7 +35,7 @@ export function Status(props) {
 
 	return (
 		<span 
-			className="cursor-help ml-2"
+			className="cursor-help pl-2"
 			data-tip={getStatusDataTip()}>
 			<ReactIcon 
 				icon={FaSignal} 
