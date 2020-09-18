@@ -23,8 +23,9 @@ export const Duels = memo((props) => {
 		for (const div of consts.DIVISIONS.slice().reverse()) {
 			const dat = json[`all_modes_${div.name.toLowerCase()}_title_prestige`];
 			if (dat !== undefined) {
+				const roman = Utils.romanize(dat);
 				return {
-					name: `${div.name} ${Utils.romanize(dat)}`,
+					name: `${div.name} ${roman === 'I' ? '' : roman}`,
 					color: div.color,
 				};
 			}

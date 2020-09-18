@@ -2,10 +2,10 @@ import Cookies from 'js-cookie';
 import React from 'react';
 import { FaSortAlphaDown } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-
-import { AccordionList, LoadingSpinner, Navbar, PageLayout, 
-	PlayerCard, PlayerHeadline, ReactIcon } from 'components';
-import properties from 'constants/site';
+import { AccordionList, Crafatar, ExternalLink, GuildTag,
+	LoadingSpinner, Navbar, PageLayout, PlayerCard, PlayerName, 
+	ReactIcon, Status } from 'components';
+import { APP } from 'constants/app';
 import { FrontPage } from 'pages';
 import { useAPIContext } from 'hooks';
 
@@ -40,7 +40,7 @@ export function PlayerPage(props) {
 	
 	switch(context.success) {
 		case true:
-			document.title = `${context.mojang.username} | ${properties.documentTitle}`;
+			document.title = `${context.mojang.username} | ${APP.documentTitle}`;
 			// Log the player into recentSearches cookie
 			pushToRecentSearches(context.mojang.username);
 			return (
@@ -56,10 +56,10 @@ export function PlayerPage(props) {
 				center={<AccordionList />}/>
 			);
 		case false:
-			document.title = properties.documentTitle;
+			document.title = APP.documentTitle;
 			return <FrontPage config={context} />
 		default:
-			document.title = properties.documentTitle;
+			document.title = APP.documentTitle;
 			return (
 			<PageLayout
 				header={<Navbar searchbar />}
@@ -70,4 +70,26 @@ export function PlayerPage(props) {
 				}/>
 			);
 	}
+}
+
+/*
+* Displays face, username, and status of the player in the Hypixel Context
+*/
+function PlayerHeadline(props) {
+	const { mojang, player, guild, status } = useAPIContext();
+
+	return (
+		<div className="h-flex px-2 align-items-center">
+			{mojang.uuid &&
+				<ExternalLink href={`https://namemc.com/profile/${mojang.uuid}`}>
+					<Crafatar uuid={mojang.uuid} shadow />
+				</ExternalLink>
+			}
+			<div className="text-shadow pl-2">
+				<PlayerName username={mojang.username} player={player} size="xl" />
+				<GuildTag guild={guild} size="xl" />
+			</div>
+			<Status player={player} status={status} size="xl" />
+		</div>
+		);
 }

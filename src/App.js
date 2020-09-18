@@ -1,14 +1,14 @@
 import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { SiteContextProvider } from 'contexts';
-import { FrontPage, NotFoundPage, PlayerPage } from 'pages';
+import { AppContextProvider } from 'contexts';
+import { FrontPage, GuildPage, NotFoundPage, PlayerPage } from 'pages';
 
 function App() {
 	const pinnedPlayer = Cookies.get('pinnedPlayer');
 
 	return (
-		<SiteContextProvider>
+		<AppContextProvider>
 			<Switch>
 				<Route exact path="/">
 					{ pinnedPlayer ? 
@@ -18,9 +18,10 @@ function App() {
 				</Route>
 				<Route path="/frontpage"><FrontPage /></Route>
 				<Route path="/player/:slug"><PlayerPage /></Route>
+				<Route path="/guild/:slug"><GuildPage /></Route>
 				<Route default><NotFoundPage /></Route>
 			</Switch>
-		</SiteContextProvider>
+		</AppContextProvider>
 		);
 }
 

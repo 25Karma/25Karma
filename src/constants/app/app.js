@@ -1,4 +1,4 @@
-export default {
+export const APP = {
 	appName: "25Karma",
 	appNickname : "+25 Karma!",
 	appURL: "https://25karma.github.io/",

@@ -1,8 +1,7 @@
 import React from 'react';
-import './PlayerCard.css';
-import dateFormat from 'dateformat';
-import { Button, ExternalLink, HorizontalLine, SocialMedia } from 'components';
-import { Box, Pair, Title } from 'components/Stats';
+import { Link } from 'react-router-dom';
+import { Button, Card, ExternalLink, HorizontalLine, SocialMedia } from 'components';
+import { Br, Box, Pair, Title } from 'components/Stats';
 import { HYPIXEL as consts } from 'constants/hypixel';
 import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
@@ -31,7 +30,8 @@ export function PlayerCard(props) {
 				return {name: name, value: `×${value}`};
 			}
 		}
-		return {name: `Level ${Math.floor(networkLevel)}`, value: `×${m}`};
+		const name = m === 1 ? 'Default' : `Level ${Math.floor(networkLevel)}`;
+		return {name: name, value: `×${m}`};
 	})();
 	const socialMediaLinks = Utils.traverse(json, 'socialMedia.links');
 
@@ -43,15 +43,15 @@ export function PlayerCard(props) {
 		<React.Fragment>
 			{json.firstLogin &&
 				<Pair title="First Login">
-					{dateFormat(new Date(json.firstLogin), 'yyyy/mm/dd, h:MM TT Z')}
+					{Utils.dateFormat(json.firstLogin)}
 				</Pair>
 			}
 			{json.lastLogin &&
 				<Pair title="Last Login">
-					{dateFormat(new Date(json.lastLogin), 'yyyy/mm/dd, h:MM TT Z')}
+					{Utils.dateFormat(json.lastLogin)}
 				</Pair>
 			}
-			<br/>
+			<Br/>
 		</React.Fragment>
 		);
 	
@@ -61,6 +61,12 @@ export function PlayerCard(props) {
 			<Title>Guild</Title>
 			<Pair title="Name" color={guild.tagColor}>{guild.name}</Pair>
 			<Pair title="Members">{guild.members.length}</Pair>
+			<Br />
+			<Link to={`/guild/${json.uuid}`}>
+				<Button>
+					<span className="font-bold">View Guild</span>
+				</Button>
+			</Link>
 		</React.Fragment>
 		);
 
@@ -73,7 +79,7 @@ export function PlayerCard(props) {
 		);
 
 	return (
-		<div className="playercard px-2 pt-1 pb-3 my-1">
+		<Card className="px-2 pt-1 pb-3 my-1">
 			<div className="h-flex w-100 justify-content-center">
 				<Box title="Hypixel Level" color="white">
 					{networkLevel}
@@ -86,9 +92,9 @@ export function PlayerCard(props) {
 			<Pair title="Coin Multiplier">{`${multiplier.value} (${multiplier.name})`}</Pair>
 			<Pair title="Achievement Points">{json.achievementPoints}</Pair>
 			<Pair title="Quests Completed">{json.questsCompleted}</Pair>
-			<br />
+			<Br />
 			<Pair title="Friends">{friends}</Pair>
-			<br />
+			<Br />
 			{loginDates}
 			<ExternalLink href={`https://sky.shiiyu.moe/stats/${json.uuid}`}>
 				<Button>
@@ -97,6 +103,6 @@ export function PlayerCard(props) {
 			</ExternalLink>
 			{guildInfo}
 			{socialMedia}
-		</div>
+		</Card>
 		);
 }

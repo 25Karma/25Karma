@@ -1,3 +1,4 @@
+import npmDateFormat from 'dateformat';
 import Cookies from 'js-cookie';
 
 /*
@@ -188,6 +189,16 @@ export function secondsToHms(d) {
 	var mDisplay = m > 0 ? formatNum(m) + "m" : null;
 	var sDisplay = s > 0 ? formatNum(s) + "s" : null;
 	return [hDisplay, mDisplay, sDisplay].filter(n => n).join(', '); 
+}
+
+/*
+* Converts a date integer into a formatted string
+*
+* @param {number} num 	Date integer
+* @return {string} 		The formatted string
+*/
+export function dateFormat(num) {
+	return npmDateFormat(new Date(num), 'yyyy/mm/dd, h:MM TT Z');
 }
 
 /*

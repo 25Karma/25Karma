@@ -1,6 +1,6 @@
 import React from 'react';
 import { MinecraftText } from 'components';
-import { formatNum, toColorCode } from 'utils';
+import { toColorCode } from 'utils';
 
 /*
 * Displays data in minecraft font with a small title
@@ -12,8 +12,7 @@ import { formatNum, toColorCode } from 'utils';
 export function Box(props) {
 	function renderChildren() {
 		if (props.children === undefined) return 0;
-		else if (isNaN(props.children)) return props.children;
-		else return formatNum(props.children);
+		else return props.children;
 	}
 	function renderColor() {
 		if (props.color) return toColorCode(props.color);
@@ -23,7 +22,7 @@ export function Box(props) {
 	return (
 		<span className="v-flex align-items-center py-1 px-2">
 			<small className="nowrap">{props.title}</small>
-			<MinecraftText className="nowrap" font="md">
+			<MinecraftText className="nowrap" font="md" formatNum>
 				{`${renderColor()}${renderChildren()}` /* Text is gray by default */}
 			</MinecraftText>
 		</span>

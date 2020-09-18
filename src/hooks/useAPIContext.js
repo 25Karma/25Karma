@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-import { SiteContext } from 'contexts';
-import p from 'constants/site';
+import { AppContext } from 'contexts';
+import { APP } from 'constants/app';
 
 /*
 * Makes an API call to Mojang to get data on a player
@@ -10,13 +10,13 @@ import p from 'constants/site';
 * @return {JSON} 		JS object containing data fetched from the Hypixel API
 */
 export function useAPIContext(slug, type) {
-	const { APIContext, setAPIContext } = useContext(SiteContext);
+	const { APIContext, setAPIContext } = useContext(AppContext);
 	// Monitors the state of the API fetch, if a slug is provided
 	const [fetchStatus, setFetchStatus] = useState(false);
 	useEffect(() => {
 		async function fetchFromAPI() {
 			const href = window.location.href;
-			const url = `${p.API}${type}/${slug}`;
+			const url = `${APP.API}${type}/${slug}`;
 			return fetch(url)
 				.then((response) => response.json())
 				.then((json) => {

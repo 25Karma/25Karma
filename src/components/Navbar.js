@@ -3,7 +3,7 @@ import { GoPin } from 'react-icons/go';
 import { MdSettings } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import p from 'constants/site';
+import { APP } from 'constants/app';
 import { Collapsible, MinecraftText, ReactIcon, Searchbar, Settings } from 'components';
 
 /*
@@ -38,7 +38,7 @@ export function Navbar(props) {
 						<div className="flex-1 p-1 h-flex">
 							<Link className="p-1 text-shadow" to="/frontpage">
 								<MinecraftText font="md">
-									{"§d"+p.appNickname}
+									{"§d"+APP.appNickname}
 								</MinecraftText>
 							</Link>
 						</div>

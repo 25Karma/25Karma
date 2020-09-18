@@ -12,7 +12,7 @@ export function NotFoundPage(props) {
 			header={<Navbar />}
 			top={
 				<span className="text-shadow">
-						<MinecraftText size="xl">§cError 404</MinecraftText>
+						<MinecraftText size="xxl">§cError 404</MinecraftText>
 				</span>
 			}
 			center={

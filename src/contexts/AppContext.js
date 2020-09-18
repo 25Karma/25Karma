@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 
-export const SiteContext = React.createContext({});
+export const AppContext = React.createContext({});
 
 /*
 * Provider for the Hypixel Context
 *
 * @param {JSX} props.children 	
 */
-export function SiteContextProvider(props) {
+export function AppContextProvider(props) {
 	const [APIContext, setAPIContext] = useState({});
 
 	const value = {
 		APIContext, setAPIContext,
 	}
 
-	return <SiteContext.Provider value={value}>{props.children}</SiteContext.Provider>;
+	return <AppContext.Provider value={value}>{props.children}</AppContext.Provider>;
 }
 

@@ -7,6 +7,7 @@ import { formatNum } from 'utils';
 *
 * @param {string} props.size 		Font size, default 'md'
 * @param {string} props.className 	Classes to apply - intended for padding/margin use only
+* @param {boolean} props.formatNum 	Whether we should format the text if it is a number
 * @param {string} props.children 	Minecraft color-formatted text to display
 */
 export function MinecraftText(props) {
@@ -49,7 +50,7 @@ export function MinecraftText(props) {
 			const num = Number(text);
 			// If the whole string can be converted to a number, format the number by adding commas
 			// We use toLocaleString instead of parseInt (https://stackoverflow.com/a/9429565)
-			if (!isNaN(num)) text = formatNum(num);
+			if (!isNaN(num) && props.formatNum) text = formatNum(num);
 
 			const colorName = colorNames[colorCode];
 			const colorClass = colorName ? 'c-'+colorName : '';

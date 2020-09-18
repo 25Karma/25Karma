@@ -1,0 +1,29 @@
+.list {
+	border-collapse: separate;
+	border-spacing: 0 1rem;
+}
+
+.list th {
+	text-align: left;
+	padding: 0 0.75rem;
+	white-space: nowrap;
+}
+
+.list td {
+	border: 1px solid var(--theme-border);
+	border-style: solid none;
+	padding: 0.75rem;
+	vertical-align: middle;
+	white-space: nowrap;
+	background: var(--theme-secondary);
+}
+.list td:first-child {
+	border-left-style: solid;
+	border-top-left-radius: 0.25rem; 
+	border-bottom-left-radius: 0.25rem;
+}
+.list td:last-child {
+	border-right-style: solid;
+	border-bottom-right-radius: 0.25rem; 
+	border-top-right-radius: 0.25rem; 
+}
