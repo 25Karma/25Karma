@@ -12,7 +12,7 @@ import { getPlayerRank } from 'utils/hypixel';
 */
 export function PlayerCard(props) {
 	
-	const { friends, player, guild } = useAPIContext();
+	const { friends, player, guild, mojang } = useAPIContext();
 	const json = player || {};
 	const networkLevel = Utils.formatNum(calculateNetworkLevel(json.networkExp));
 	const multiplier = (() => {
@@ -62,7 +62,7 @@ export function PlayerCard(props) {
 			<Pair title="Name" color={guild.tagColor}>{guild.name}</Pair>
 			<Pair title="Members">{guild.members.length}</Pair>
 			<Br />
-			<Link to={`/guild/${json.uuid}`}>
+			<Link to={`/guild/${mojang.username}`}>
 				<Button>
 					<span className="font-bold">View Guild</span>
 				</Button>

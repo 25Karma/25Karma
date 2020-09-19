@@ -15,6 +15,7 @@
     "react-loading": "^2.0.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
+    "react-string-replace": "^0.4.4",
     "react-tooltip": "^4.2.7"
   },
   "homepage": "https://25karma.github.io/",

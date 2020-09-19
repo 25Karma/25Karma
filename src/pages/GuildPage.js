@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import reactStringReplace from 'react-string-replace';
 import { Card, Crafatar, ExternalLink, GuildTag, 
 	HorizontalLine, List, LoadingSpinner, MinecraftText,
 	Navbar, PageLayout, PlayerName } from 'components';
@@ -53,7 +54,7 @@ export function GuildPage(props) {
 * The card on the left side of the page that contains info about the guild
 */
 function GuildCard(props) {
-	const { guild } = useAPIContext();
+	const { slug, guild } = useAPIContext();
 	const hasTag = Boolean(guild.tag);
 	const hasDesc = Boolean(guild.description);
 	const preferredGames = guild.preferredGames || [];
@@ -74,18 +75,26 @@ function GuildCard(props) {
 
 	return (
 		<Card className="p-2 pb-3">
-			{ hasTag && 
+			{hasTag && 
 				<div className="w-100 text-center text-shadow mb-1">
-					<GuildTag guild={guild} size="xl" />
+					<GuildTag username={slug} guild={guild} size="xl" />
 				</div> 
 			}
-			{ hasDesc && <div className="w-100 text-center mb-3">{guild.description}</div> }
-
-			{ (hasTag || hasDesc) && <HorizontalLine className="mb-3" /> }
+			{hasDesc && 
+				<div className="w-100 text-center mb-3">
+					{reactStringReplace(
+						guild.description, 
+						// https://stackoverflow.com/a/48769624
+						/(?:(?:https?|ftp):\/\/)?([\w/\-?=%.]+\.[\w/\-?=%.]+)/g,
+						(match, i) => <ExternalLink href={match} key={i}>{match}</ExternalLink>
+					)}
+				</div> 
+			}
+			{(hasTag || hasDesc) && <HorizontalLine className="mb-3" />}
 
 			<Pair title="Created">{Utils.dateFormat(guild.created)}</Pair>
 			<Pair title="Level">{xpToLevel(guild.exp)}</Pair>
-			<Pair title="Legacy Rank">{guild.legacyRanking ? guild.legacyRanking+1 : '-'}</Pair>
+			<Pair title="Legacy Rank">{guild.legacyRanking !== undefined ? guild.legacyRanking+1 : '-'}</Pair>
 			<Br />
 			<Pair title="Members">{guild.members.length}</Pair>
 			<Pair title="Publicly Listed">{guild.publiclyListed ? 'Yes' : 'No'}</Pair>
@@ -192,7 +201,7 @@ function GuildMemberList(props) {
 							</ExternalLink>
 						</td>
 						<td className="text-shadow">
-							<Link to={`/player/${data.uuid}`}>
+							<Link to={`/player/${data.username}`}>
 								<PlayerName username={data.username} player={data} size="lg"></PlayerName>
 							</Link>
 						</td>

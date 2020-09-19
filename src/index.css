@@ -54,7 +54,7 @@ button:focus {
 .align-items-stretch { align-items: stretch; }
 .bg-cover { background-size: cover; }
 .bg-fixed { background-attachment: fixed; }
-.box-shadow { box-shadow: 0 0.25rem 0.25rem black; }
+.box-shadow { box-shadow: 0 0.25rem 0.25rem var(--theme-shadow); }
 .container { margin-right: auto; margin-left: auto; max-width: 1000px; padding: 0 1rem; width: 100%; }
 .cursor-grab:hover { cursor: -webkit-grab; cursor: grab; }
 .cursor-grabbing:hover { cursor: -webkit-grabbing; cursor: grabbing; }
@@ -83,8 +83,7 @@ button:focus {
 .justify-content-end { justify-content: flex-end; }
 .justify-content-start { justify-content: flex-start; }
 .justify-content-stretch { justify-content: stretch; }
-.link { text-decoration: underline dotted var(--theme-text); }
-.link:hover { text-decoration: underline solid var(--theme-text); }
+.link { text-decoration: underline solid var(--theme-text); }
 .m-0 { margin: 0; }
 .m-1 { margin: 0.5rem; }
 .m-2 { margin: 1rem; }

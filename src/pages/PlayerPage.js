@@ -87,7 +87,7 @@ function PlayerHeadline(props) {
 			}
 			<div className="text-shadow pl-2">
 				<PlayerName username={mojang.username} player={player} size="xl" />
-				<GuildTag guild={guild} size="xl" />
+				<GuildTag guild={guild} username={mojang.username} size="xl" />
 			</div>
 			<Status player={player} status={status} size="xl" />
 		</div>
