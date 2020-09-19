@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MinecraftText } from 'components';
 import * as Utils from 'utils';
 
@@ -15,8 +16,10 @@ export function GuildTag(props) {
 	const tag = [...guild.tag].map(char => char === '§' ? char : char+'\uFE0E').join('');
 
 	return (
-		<MinecraftText size={size}>
-			{`${Utils.toColorCode(guild.tagColor || 'gray')}[${tag}]`}
-		</MinecraftText>
+		<Link to={`/guild/${guild.members[0].uuid}`}>
+			<MinecraftText size={size}>
+				{`${Utils.toColorCode(guild.tagColor || 'gray')}[${tag}]`}
+			</MinecraftText>
+		</Link>
 		);
 }

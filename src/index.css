@@ -5,10 +5,11 @@
 
 :root {
 	--theme-text: white;
-	--theme-secondary: #222;
-	--theme-primary: #333;
+	--theme-secondary: #2b2b2b;
+	--theme-primary: #3b3b3b;
 	--theme-input-placeholder: #777;
-	--theme-border: #111;
+	--theme-border: #1b1b1b;
+	--theme-shadow: #1b1b1b;
 }
 
 /* 
@@ -145,7 +146,7 @@ button:focus {
 .td-shrink { width: 1%; white-space: nowrap; }
 .text-center { text-align: center; }
 .text-right { text-align: right; }
-.text-shadow { text-shadow: 0rem 0.25rem 0.25rem black; }
+.text-shadow { text-shadow: 0rem 0.25rem 0.25rem var(--theme-shadow); }
 .top-0 { top: 0; }
 .underline { text-decoration: underline; }
 .user-select-none { user-select: none; }
