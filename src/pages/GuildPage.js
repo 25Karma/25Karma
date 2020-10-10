@@ -54,7 +54,7 @@ export function GuildPage(props) {
 * The card on the left side of the page that contains info about the guild
 */
 function GuildCard(props) {
-	const { slug, guild } = useAPIContext();
+	const { guild } = useAPIContext();
 	const hasTag = Boolean(guild.tag);
 	const hasDesc = Boolean(guild.description);
 	const preferredGames = guild.preferredGames || [];
@@ -77,7 +77,7 @@ function GuildCard(props) {
 		<Card className="p-2 pb-3">
 			{hasTag && 
 				<div className="w-100 text-center text-shadow mb-1">
-					<GuildTag username={slug} guild={guild} size="xl" />
+					<GuildTag guild={guild} size="xl" />
 				</div> 
 			}
 			{hasDesc && 

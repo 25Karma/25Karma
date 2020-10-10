@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import React from 'react';
 import { FaSortAlphaDown } from 'react-icons/fa';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AccordionList, Crafatar, ExternalLink, GuildTag,
 	LoadingSpinner, Navbar, PageLayout, PlayerCard, PlayerName, 
 	ReactIcon, Status } from 'components';
@@ -87,7 +87,9 @@ function PlayerHeadline(props) {
 			}
 			<div className="text-shadow pl-2">
 				<PlayerName username={mojang.username} player={player} size="xl" />
-				<GuildTag guild={guild} username={mojang.username} size="xl" />
+				<Link to={`/guild/${mojang.username}`}>
+					<GuildTag guild={guild} size="xl" />
+				</Link>
 			</div>
 			<Status player={player} status={status} size="xl" />
 		</div>

@@ -19,8 +19,7 @@ export const BedWars = memo((props) => {
 
 	const leveling = new HypixelLeveling(xpToLevel, levelToXP, 
 		Utils.default0(json.Experience) + Utils.default0(json.Experience_new));
-	const prestigeColor = getPrestige(leveling.level).color;
-	const prestigeName = getPrestige(leveling.level).name;
+	const prestige = getPrestige(leveling.level);
 	const ratios = {
 		kd : Utils.ratio(json.kills_bedwars,json.deaths_bedwars),
 		fkd : Utils.ratio(json.final_kills_bedwars,json.final_deaths_bedwars),
@@ -60,14 +59,30 @@ export const BedWars = memo((props) => {
 	}
 
 	function getPrestige(level) {
-		for (const pres of consts.PRESTIGES.slice().reverse()) {
-			if (pres.level <= Math.floor(level)) return {color: pres.color, name: pres.name}
-		}
+		const levelFloor = Math.floor(level);
+		const prestige = (() => {
+			for (const pres of consts.PRESTIGES.slice().reverse()) {
+				if (pres.level <= levelFloor) return pres;
+			}
+		})();
+		const prestigeIcon = (() => {
+			for (const icon of consts.PRESTIGE_ICONS.slice().reverse()) {
+				if (icon.level <= levelFloor) return icon.symbol;
+			}
+		})();
+
+		const tag = `[${levelFloor}${prestigeIcon}]`;
+		const coloredTag = tag.split('').map((char, index) => {
+			const color = prestige.colormap[index];
+			return color ? `§${color}${char}` : char;
+		}).join('');
+
+		return {tag: coloredTag, ...prestige};
 	}
 
 	const header = (
 		<React.Fragment>
-			<Box title="Level" color={prestigeColor}>{`[${leveling.levelFloor}✫]`}</Box>
+			<Box title="Level">{prestige.tag}</Box>
 			<Box title="WS">{json.winstreak}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="FKD">{ratios.fkd}</Box>
@@ -86,7 +101,7 @@ export const BedWars = memo((props) => {
 					dataTip={`${leveling.xpAboveLevel}/${leveling.levelTotalXP} XP`}>
 					<Progress 
 						proportion={leveling.proportionAboveLevel}
-						color={prestigeColor}
+						color={prestige.color}
 						dataTip={`${leveling.xpAboveLevel}/${leveling.levelTotalXP} XP`} />
 				</ProgressBar>
 			</div>
@@ -168,7 +183,7 @@ export const BedWars = memo((props) => {
 			<div className="h-flex mb-3">
 				<div className="flex-1">
 					<Pair title="Level">{leveling.level}</Pair>
-					<Pair title="Prestige" color={prestigeColor}>{prestigeName}</Pair>
+					<Pair title="Prestige" color={prestige.color}>{prestige.name}</Pair>
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Br/>
 					<Pair title="Winstreak">{json.winstreak}</Pair>
