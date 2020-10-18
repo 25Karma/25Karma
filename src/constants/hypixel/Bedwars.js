@@ -13,7 +13,7 @@ export const BEDWARS = {
 			{level: 700, colormap: 'd', color: 'pink', name: 'Crystal'},
 			{level: 800, colormap: '9', color: 'blue', name: 'Opal'},
 			{level: 900, colormap: '5', color: 'purple', name: 'Amethyst'},
-			{level: 1000, colormap: 'cfeabd5', color: 'rainbow', name: 'Rainbow'},
+			{level: 1000, colormap: 'c6eabd5', color: 'rainbow', name: 'Rainbow'},
 			{level: 1100, colormap: '7ffff77', color: 'white', name: 'Iron Prime'},
 			{level: 1200, colormap: '7eeee67', color: 'yellow', name: 'Gold Prime'},
 			{level: 1300, colormap: '7bbbb37', color: 'aqua', name: 'Diamond Prime'},

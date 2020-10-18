@@ -18,6 +18,7 @@ export const MURDERMYSTERY = {
 		knife_skin_chewed_bush : "Chewed Up Bush",
 		knife_skin_easter_basket : "Easter Basket",
 		knife_skin_feather : "Feather",
+		knife_skin_glistening_melon : "Glistening Melon",
 		knife_skin_gold_digger : "Gold Digger",
 		knife_skin_apple : "Healthy Treat",
 		undefined : "Iron Sword",
