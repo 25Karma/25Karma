@@ -69,6 +69,7 @@ button:focus {
 .font-bold { font-weight: bold; }
 .font-lg { font-size: 1.75rem; }
 .font-md { font-size: 1.25rem; }
+.font-md:hover { font-size: 1.4rem; }
 .font-minecraft { font-family: Minecraft;}
 .font-sm { font-size: 1rem; }
 .font-xl { font-size: 2.5rem; }

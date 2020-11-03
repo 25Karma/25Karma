@@ -40,6 +40,7 @@ export function AccordionList(props) {
 					return getCookie();
 				}
 			}
+			
 			return {list, showLine};
 		}
 	}
@@ -67,9 +68,18 @@ export function AccordionList(props) {
 
 	function toJSX() {
 		let accordions = [];
+		const list=Array.from(accordionList);
+		// If Page has anchor, then move the accordion to top
+		const args=window.location.hash.split("/")
+		if(args[2]){
+			const anchor=list.findIndex(x=>x.toLowerCase()===args[2].replace(/%20/g,"").toLowerCase());
+			if(anchor!==-1){
+				list.unshift(list.splice(anchor,1)[0]);
+			}
+		}
 		// For react-beautiful-dnd, Draggable components require an integer index prop
 		let index = 0;
-		for (const str of accordionList) {
+		for (const str of list) {
 			const props = {key: index, index: index};
 			index++;
 			if (str === 'HorizontalLine') {

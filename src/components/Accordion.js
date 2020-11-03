@@ -12,10 +12,12 @@ import { Collapsible, HorizontalLine, MinecraftText, ReactIcon } from 'component
 * @param {JSX} props.children 	The contents of the collapsible area
 */
 export function Accordion(props) {
+	const args=window.location.hash.split("/")
+	const cop=args.length>2&&decodeURIComponent(args[2]).toLowerCase()===props.title.toLowerCase()
 	return (
-		<Draggable key={props.title} draggableId={props.title} index={props.index}>
+		<Draggable propskey={props.title} draggableId={props.title} index={props.index}>
 		{dProvided => (
-			<Collapsible>
+			<Collapsible collapse={cop}>
 			{cProvided => (
 				<div 
 					className="py-1"
@@ -26,7 +28,7 @@ export function Accordion(props) {
 							<div 
 								className="h-flex align-items-center flex-1 cursor-pointer overflow-hidden pl-2" 
 								{...cProvided.collapseButtonProps}>
-								<div className="py-2">
+								<div className="py-2" >
 								<MinecraftText font="md">{props.title}</MinecraftText>
 								</div>
 								<div className="h-flex flex-1 justify-content-center px-3">

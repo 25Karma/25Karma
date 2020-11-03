@@ -8,11 +8,10 @@ import { useRef, useState, useEffect } from 'react';
 * @param {function} props.children 	The JSX to render
 */
 export function Collapsible(props) {
-	const [isCollapsed, setCollapsed] = useState(true);
-	const [collapsibleHeight, setCollapsibleHeight] = useState(0);
+	const [isCollapsed, setCollapsed] = useState(!props.collapse);
+	const [collapsibleHeight, setCollapsibleHeight] = useState(props.collapse?"none":0);
 	const collapsibleRef = useRef('collapsible');
 	const duration = 500;
-
 	const provided = {
 		collapsibleProps : {
 			ref : collapsibleRef,
@@ -20,15 +19,15 @@ export function Collapsible(props) {
 				maxHeight: collapsibleHeight,
 				overflow: 'hidden',
 				transition: `max-height ${duration}ms`,
-				display: 'none',
+				display: props.collapse?'block':'none',
 			}
 		},
 		collapseButtonProps : {
 			onClick : toggleCollapsed,
 		}
 	}
-
 	function toggleCollapsed() {
+
 		// You can't transition smoothly from max-height:0; to max-height:none;
 		// To solve this, we employ an intermediate value (the height of the div)
 		collapsibleRef.current.style.display = 'block';
