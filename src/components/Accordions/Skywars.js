@@ -7,7 +7,6 @@ import { SKYWARS as consts } from 'constants/hypixel';
 import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 import { HypixelLeveling, getMostPlayed } from 'utils/hypixel';
-
 /*
 * Stats accordion for Skywars
 *
