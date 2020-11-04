@@ -142,34 +142,37 @@ export function isObject(val) {
 */
 export function timeSince(date) {
 
-	var seconds = Math.floor((new Date() - date) / 1000);
+	const seconds = Math.floor((new Date() - date) / 1000);
+	const timeStrings = [];
 
 	if (seconds < 0) {
 		return '0 seconds';
 	}
 
-	var interval = seconds / 31536000;
+	let interval = seconds / 31536000;
 
 	if (interval > 1) {
-		return `${Math.floor(interval)} year${Math.floor(interval) === 1 ? '' : 's'}`;
+		timeStrings.push(`${Math.floor(interval)} year${Math.floor(interval) === 1 ? '' : 's'}`);
 	}
-	interval = seconds / 2592000;
+	interval = (seconds / 2592000) % 12;
 	if (interval > 1) {
-		return `${Math.floor(interval)} month${Math.floor(interval) === 1 ? '' : 's'}`;
+		timeStrings.push(`${Math.floor(interval)} month${Math.floor(interval) === 1 ? '' : 's'}`);
 	}
-	interval = seconds / 86400;
+	interval = (seconds / 86400) % 30;
 	if (interval > 1) {
-		return `${Math.floor(interval)} day${Math.floor(interval) === 1 ? '' : 's'}`;
+		timeStrings.push(`${Math.floor(interval)} day${Math.floor(interval) === 1 ? '' : 's'}`);
 	}
-	interval = seconds / 3600;
+	interval = (seconds / 3600) % 24;
 	if (interval > 1) {
-		return `${Math.floor(interval)} hour${Math.floor(interval) === 1 ? '' : 's'}`;
+		timeStrings.push(`${Math.floor(interval)} hour${Math.floor(interval) === 1 ? '' : 's'}`);
 	}
-	interval = seconds / 60;
+	interval = (seconds / 60) % 60;
 	if (interval > 1) {
-		return `${Math.floor(interval)} minute${Math.floor(interval) === 1 ? '' : 's'}`;
+		timeStrings.push(`${Math.floor(interval)} minute${Math.floor(interval) === 1 ? '' : 's'}`);
 	}
-	return `${Math.floor(seconds)} second${Math.floor(seconds) === 1 ? '' : 's'}`;
+	timeStrings.push(`${Math.floor(seconds % 60)} second${Math.floor(seconds % 60) === 1 ? '' : 's'}`);
+
+	return timeStrings.slice(0,2).join(' and ');
 }
 
 /*
