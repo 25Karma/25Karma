@@ -38,11 +38,13 @@ export function Collapsible(props) {
 	// Runs when collapsedHeight is set to its intermediate value by toggleCollapsed()
 	useEffect(() => {
 		if (collapsibleHeight !== 0 && collapsibleHeight !== 'none') {
+			// Opening the collapsible
 			if (isCollapsed) {
 				setTimeout(() => {
 					setCollapsibleHeight('none');
 				}, duration);
 			}
+			// Closing the collapsible
 			else {
 				setTimeout(() => {
 					collapsibleRef.current.style.display = 'none';

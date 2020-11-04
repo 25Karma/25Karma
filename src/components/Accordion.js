@@ -1,6 +1,7 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { MdDragHandle } from 'react-icons/md';
+import LazyLoad from 'react-lazyload';
 import './Accordion.css';
 import { Collapsible, HorizontalLine, MinecraftText, ReactIcon } from 'components';
 
@@ -37,15 +38,17 @@ export function Accordion(props) {
 								<ReactIcon icon={MdDragHandle} clickable />
 							</button>
 						</div>
-						<div {...cProvided.collapsibleProps}>
-							<div className="accordion-body px-2">
-								<HorizontalLine />
-								{props.children ?
-									props.children : 
-									<div className="my-2">{`No stats to display for ${props.title}.`}</div>
-								}
+						<LazyLoad once>
+							<div {...cProvided.collapsibleProps}>
+									<div className="accordion-body px-2">
+										<HorizontalLine />
+										{props.children ?
+											props.children : 
+											<div className="my-2">{`No stats to display for ${props.title}.`}</div>
+										}
+										</div>
 							</div>
-						</div>
+						</LazyLoad>
 					</div>
 				</div>
 				)}
