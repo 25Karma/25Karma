@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { AppContextProvider } from 'contexts';
 import { FrontPage, GuildPage, NotFoundPage, PlayerPage } from 'pages';
@@ -10,7 +10,7 @@ function App() {
 
 	return (
 		<AppContextProvider>
-			<Router>
+			<Router hashType="noslash">
 				<Switch>
 					<Route exact path="/">
 						{ pinnedPlayer ? 

@@ -119,6 +119,11 @@ function Tips(props) {
 			Have a suggestion? Message me on the Hypixel
 			Forums <ExternalLink href={APP.hypixelForums}>here</ExternalLink>.
 		</React.Fragment>,
+		<React.Fragment>
+			Interested in how this site was 
+			built? <ExternalLink href="https://github.com/25karma">Check out the code
+			on GitHub.</ExternalLink>
+		</React.Fragment>,
 		"Clicking on a player's avatar brings you to their profile on NameMC.",
 		<React.Fragment>
 			The SkyBlock Stats button on the player stats page brings you
