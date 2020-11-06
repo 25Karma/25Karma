@@ -19,7 +19,7 @@
     "react-string-replace": "^0.4.4",
     "react-tooltip": "^4.2.7"
   },
-  "homepage": "https://25karma.xyz/",
+  "homepage": "https://25karma.xyz",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
