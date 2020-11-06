@@ -127,12 +127,16 @@ export const BedWars = memo((props) => {
 					<Cell>{json[`${id}kills_bedwars`]}</Cell>
 					<Cell>{json[`${id}deaths_bedwars`]}</Cell>
 					<Cell>{Utils.ratio(json[`${id}kills_bedwars`],json[`${id}deaths_bedwars`])}</Cell>
+
 					<Cell>{json[`${id}final_kills_bedwars`]}</Cell>
 					<Cell>{json[`${id}final_deaths_bedwars`]}</Cell>
 					<Cell>{Utils.ratio(json[`${id}final_kills_bedwars`],json[`${id}final_deaths_bedwars`])}</Cell>
+
 					<Cell>{json[`${id}wins_bedwars`]}</Cell>
 					<Cell>{json[`${id}losses_bedwars`]}</Cell>
 					<Cell>{Utils.ratio(json[`${id}wins_bedwars`],json[`${id}losses_bedwars`])}</Cell>
+					<Cell>{json[`${id}winstreak`]}</Cell>
+
 					<Cell>{json[`${id}beds_broken_bedwars`]}</Cell>
 					<Cell>{json[`${id}beds_lost_bedwars`]}</Cell>
 					<Cell>{Utils.ratio(json[`${id}beds_broken_bedwars`],json[`${id}beds_lost_bedwars`])}</Cell>
@@ -158,8 +162,9 @@ export const BedWars = memo((props) => {
 						<th>Wins</th>
 						<th>Losses</th>
 						<th>WL</th>
-						<th>Beds Broken</th>
-						<th>Beds Lost</th>
+						<th>WS</th>
+						<th>BB</th>
+						<th>BL</th>
 						<th>BBL</th>
 					</tr>
 				</thead>

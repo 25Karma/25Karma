@@ -10,8 +10,8 @@ import { useRef, useState, useEffect } from 'react';
 export function Collapsible(props) {
 	const [isCollapsed, setCollapsed] = useState(true);
 	const [collapsibleHeight, setCollapsibleHeight] = useState(0);
+	const [duration, setDuration] = useState(0);
 	const collapsibleRef = useRef('collapsible');
-	const duration = 500;
 
 	const provided = {
 		collapsibleProps : {
@@ -33,6 +33,7 @@ export function Collapsible(props) {
 		// To solve this, we employ an intermediate value (the height of the div)
 		collapsibleRef.current.style.display = 'block';
 		setCollapsibleHeight(collapsibleRef.current.scrollHeight+'px');
+		setDuration(collapsibleRef.current.scrollHeight/2+300);
 	}
 	
 	// Runs when collapsedHeight is set to its intermediate value by toggleCollapsed()

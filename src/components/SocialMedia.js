@@ -64,9 +64,7 @@ export function SocialMedia(props) {
 			<div>
 				{socialMediaIcons}
 			</div>
-			<div className="v-flex align-items-center">
-				{bannerShown && discordBanner}
-			</div>
+			{bannerShown && discordBanner}
 		</React.Fragment>
 		);
 }

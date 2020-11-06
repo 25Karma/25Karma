@@ -114,6 +114,7 @@ export function FrontPage(props) {
 
 function Tips(props) {
 	const tips = [
+		"🚨 Hey! Have you read all these tips yet? 🚨",
 		"Pro tip: Customize this site by clicking on the gear button in the top-right corner.",
 		<React.Fragment>
 			Have a suggestion? Message me on the Hypixel
