@@ -14,7 +14,7 @@ export function PlayerCard(props) {
 	
 	const { friends, player, guild, mojang } = useAPIContext();
 	const json = player || {};
-	const networkLevel = Utils.formatNum(calculateNetworkLevel(json.networkExp));
+	const networkLevel = calculateNetworkLevel(json.networkExp);
 	const multiplier = (() => {
 		let m = null;
 		for (const {level, value} of consts.MULTIPLIER.slice().reverse()) {
@@ -82,7 +82,7 @@ export function PlayerCard(props) {
 		<Card className="px-2 pt-1 pb-3 my-1">
 			<div className="h-flex w-100 justify-content-center">
 				<Box title="Hypixel Level" color="white">
-					{networkLevel}
+					{Utils.formatNum(networkLevel)}
 				</Box>
 				<Box title="Karma" color="pink">
 					{json.karma}
