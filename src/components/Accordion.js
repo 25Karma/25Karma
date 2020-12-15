@@ -24,13 +24,11 @@ export function Accordion(props) {
 					{...dProvided.draggableProps}>
 					<div className="accordion">
 						<div className="accordion-header"> 
-							<div 
-								className="h-flex align-items-center flex-1 cursor-pointer overflow-hidden pl-2" 
-								{...cProvided.collapseButtonProps}>
-								<div className="py-2">
-								<MinecraftText font="md">{props.title}</MinecraftText>
-								</div>
-								<div className="h-flex flex-1 justify-content-center px-3">
+							<div className="accordion-collapse-button" {...cProvided.collapseButtonProps}>
+								<MinecraftText font="md" className="flex-1 py-2">
+									{props.title}
+								</MinecraftText>
+								<div className="h-flex flex-2 px-2 overflow-hidden">
 									{props.header}
 								</div>
 							</div>

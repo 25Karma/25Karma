@@ -61,9 +61,8 @@ button:focus {
 .cursor-help:hover { cursor: help; }
 .cursor-pointer:hover { cursor: pointer; }
 .flex-1 { flex: 1; }
-.flex-grow-1 { flex-grow: 1; }
-.flex-grow-2 { flex-grow: 2; }
-.flex-grow-3 { flex-grow: 3; }
+.flex-2 { flex: 2; }
+.flex-3 { flex: 3; }
 .flex-wrap { flex-wrap: wrap; }
 .flex-nowrap { flex-wrap: nowrap; }
 .font-bold { font-weight: bold; }

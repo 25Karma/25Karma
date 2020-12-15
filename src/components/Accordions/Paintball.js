@@ -20,7 +20,10 @@ export const Paintball = memo((props) => {
 	}
 
 	const header = (
-		<Box title="KD">{ratios.kd}</Box>
+		<React.Fragment>
+			<Box title="KD">{ratios.kd}</Box>
+			<Box title="Wins">{json.wins}</Box>
+		</React.Fragment>
 		);
 
 	return Utils.isEmpty(json) ?

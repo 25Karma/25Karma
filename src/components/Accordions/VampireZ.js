@@ -21,8 +21,10 @@ export const VampireZ = memo((props) => {
 
 	const header = (
 		<React.Fragment>
-			<Box title="KD as Vampire">{ratios.kdv}</Box>
-			<Box title="KD as Human">{ratios.kdh}</Box>
+			<Box title="Vampire KD">{ratios.kdv}</Box>
+			<Box title="Human KD">{ratios.kdh}</Box>
+			<Box title="Vampire Wins">{json.vampire_wins}</Box>
+			<Box title="Human Wins">{json.human_wins}</Box>
 		</React.Fragment>
 		);
 

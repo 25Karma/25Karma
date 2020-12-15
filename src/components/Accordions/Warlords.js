@@ -32,6 +32,7 @@ export const Warlords = memo((props) => {
 		<React.Fragment>
 			<Box title="Main" color={mostPlayedClass.id && 'gold'}>{mostPlayedClass.name || '-'}</Box>
 			<Box title="KD">{ratios.kd}</Box>
+			<Box title="Wins">{json.wins}</Box>
 			<Box title="WL">{ratios.wl}</Box>
 		</React.Fragment>
 		);

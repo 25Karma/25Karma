@@ -30,6 +30,7 @@ export const ArenaBrawl = memo((props) => {
 	const header = (
 		<React.Fragment>
 			<Box title="KD">{ratios.kd}</Box>
+      <Box title="Wins">{total('wins')}</Box>
 			<Box title="WL">{ratios.wl}</Box>
 		</React.Fragment>
 		);

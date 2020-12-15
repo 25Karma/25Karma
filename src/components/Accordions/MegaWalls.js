@@ -42,7 +42,8 @@ export const MegaWalls = memo((props) => {
 			<Box title="Main" color={consts.DIFFICULTIES[mostPlayedClass.difficulty]}>{mostPlayedClass.name || '-'}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="FKD">{ratios.fkd}</Box>
-			<Box title="WL">{ratios.wl}</Box>
+			<Box title="Wins">{json.wins}</Box>
+      <Box title="WL">{ratios.wl}</Box>
 		</React.Fragment>
 		);
 

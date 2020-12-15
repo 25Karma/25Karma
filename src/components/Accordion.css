@@ -12,3 +12,13 @@
 	user-select: none;
 	width: 100%;
 }
+
+.accordion-collapse-button {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	flex: 1;
+	cursor: pointer;
+	overflow: hidden;
+	padding-left: 1rem;
+}

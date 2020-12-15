@@ -95,30 +95,42 @@ export const Arcade = memo((props) => {
 					<Pair title="Wins">{json.wins_dayone}</Pair>
 					<Pair title="Kills">{json.kills_dayone}</Pair>
 					<Pair title="Headshots">{json.headshots_dayone}</Pair>
-					<Pair title="Melee Weapon">
-						{Utils.capitalize((json.melee_weapon || '-').split('_').join(' '))}
+					<Pair title="Melee Weapon"> 
+						{Utils.capitalize((json.melee_weapon || '-').split('_').join(' '))} 
 					</Pair>
 					<Br />
+
 					<div className="font-bold underline mb-1">Bounty Hunters</div>
 					<Pair title="Wins">{json.wins_oneinthequiver}</Pair>
 					<Pair title="Kills">{json.kills_oneinthequiver}</Pair>
 					<Pair title="Deaths">{json.deaths_oneinthequiver}</Pair>
 					<Pair title="Kill/Death Ratio">{Utils.ratio(json.kills_oneinthequiver, json.deaths_oneinthequiver)}</Pair>
 					<Br />
+					<Br />
+					<Br />
+					<Br />
+
 					<div className="font-bold underline mb-1">Creeper Attack</div>
 					<Pair title="Max Wave">{json.max_wave}</Pair>
 					<Br />
+
 					<div className="font-bold underline mb-1">Dragon Wars</div>
 					<Pair title="Wins">{json.wins_dragonwars2}</Pair>
 					<Pair title="Kills">{json.kills_dragonwars2}</Pair>
 					<Br />
+
 					<div className="font-bold underline mb-1">Easter Simulator</div>
 					<Pair title="Wins">{json.wins_easter_simulator}</Pair>
 					<Pair title="Eggs Found">{json.eggs_found_easter_simulator}</Pair>
 					<Br />
+					<Br />
+
 					<div className="font-bold underline mb-1">Ender Spleef</div>
 					<Pair title="Wins">{json.wins_ender}</Pair>
 					<Br />
+					<Br />
+					<Br />
+
 					<div className="font-bold underline mb-1">Farm Hunt</div>
 					<Pair title="Wins">{json.wins_farm_hunt}</Pair>
 					<Pair title="Poop Collected">{json.poop_collected}</Pair>
@@ -130,6 +142,7 @@ export const Arcade = memo((props) => {
 					<Pair title="Kicks">{json.kicks_soccer}</Pair>
 					<Pair title="Powerkicks">{json.powerkicks_soccer}</Pair>
 					<Br />
+
 					<div className="font-bold underline mb-1">Galaxy Wars</div>
 					<Pair title="Wins">{json.sw_game_wins}</Pair>
 					<Pair title="Kills">{json.sw_kills}</Pair>
@@ -139,43 +152,65 @@ export const Arcade = memo((props) => {
 					<Pair title="Kill/Death Ratio">{Utils.ratio(json.sw_wins, json.sw_deaths)}</Pair>
 					<Pair title="Shots Fired">{json.sw_shots_fired}</Pair>
 					<Br />
+
 					<div className="font-bold underline mb-1">Grinch Simulator</div>
 					<Pair title="Wins">{json.wins_grinch}</Pair>
 					<Br />
+
 					<div className="font-bold underline mb-1">Hide and Seek</div>
 					<Pair title="Wins as Seeker">{json.seeker_wins_hide_and_seek}</Pair>
 					<Pair title="Wins as Hider">{json.hider_wins_hide_and_seek}</Pair>
 					<Br />
+
 					<div className="font-bold underline mb-1">Hole in the Wall</div>
 					<Pair title="Wins">{json.wins_hole_in_the_wall}</Pair>
 					<Pair title="Highest Score Qualifications">{json.hitw_record_q}</Pair>
 					<Pair title="Highest Score Finals">{json.hitw_record_f}</Pair>
 					<Br />
+
 					<div className="font-bold underline mb-1">Hypixel Says</div>
 					<Pair title="Wins">{json.wins_simon_says}</Pair>
 					<Pair title="Rounds">{json.rounds_simon_says}</Pair>
-				</div>
-				<div className="flex-1">
+					<Br />
+					<Br />
+					
 					<div className="font-bold underline mb-1">Party Games 1</div>
 					<Pair title="Wins">{json.wins_party}</Pair>
 					<Br />
+				</div>
+				<div className="flex-1">
 					<div className="font-bold underline mb-1">Party Games 2</div>
 					<Pair title="Wins">{json.wins_party_2}</Pair>
 					<Br />
+					<Br />
+					<Br />
+					<Br />
+
 					<div className="font-bold underline mb-1">Party Games 3</div>
 					<Pair title="Wins">{json.wins_party_3}</Pair>
 					<Br />
+					<Br />
+					<Br />
+					<Br />
+					<Br />
+					<Br />
+					<Br />
+
 					<div className="font-bold underline mb-1">Pixel Painters</div>
 					<Pair title="Wins">{json.wins_draw_their_thing}</Pair>
 					<Br />
+
 					<div className="font-bold underline mb-1">Santa Says</div>
 					<Pair title="Wins">{json.wins_santa_says}</Pair>
 					<Pair title="Rounds">{json.rounds_santa_says}</Pair>
 					<Br />
+
 					<div className="font-bold underline mb-1">Santa Simulator</div>
 					<Pair title="Presents Delivered">{json.delivered_santa_simulator}</Pair>
 					<Pair title="Times Spotted">{json.spotted_santa_simulator}</Pair>
 					<Br />
+					<Br />
+
 					<div className="font-bold underline mb-1">Scuba Simulator</div>
 					<Pair title="Wins">{json.wins_scuba_simulator}</Pair>
 					<Pair title="Items Found">{json.items_found_scuba_simulator}</Pair>

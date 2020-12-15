@@ -42,7 +42,7 @@ export function Navbar(props) {
 								</MinecraftText>
 							</Link>
 						</div>
-						<div className="flex-1 py-1 flex-grow-3">
+						<div className="flex-1 py-1 flex-3">
 							{props.searchbar && <Searchbar />}
 						</div>
 						<div className="flex-1 p-1 text-right">
