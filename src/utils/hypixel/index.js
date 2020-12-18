@@ -1,3 +1,5 @@
+import * as Utils from 'utils';
+
 export * from './HypixelLeveling'
 
 export function getPlayerRank(playerdata) {
@@ -25,4 +27,19 @@ export function getMostPlayed(jsonarray, totalplays) {
 		}
 	}
 	return mostPlayed;
+}
+
+export function getGuildMemberRank(member, ranks) {
+	if (ranks === undefined) {
+		ranks = [];
+	}
+	if (member.rank === 'Guild Master' || member.rank === 'GUILDMASTER') {
+		return {name: 'Guild Master', tag: 'GM', priority: 1000};
+	}
+	for (const rank of ranks) {
+		if (member.rank.toLowerCase() === rank.name.toLowerCase()) {
+			return rank;
+		}
+	}
+	return {name: Utils.capitalize(member.rank), priority: 999};
 }

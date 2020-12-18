@@ -14,6 +14,7 @@ export const Arcade = memo((props) => {
 
 	// The player's API data for Arcade Games
 	const { player } = useAPIContext();
+	const achievements = Utils.traverse(player, 'achievements', {});
 	const json = Utils.traverse(player,'stats.Arcade') || {};
 	
 	const totalWins = Object.entries(json)
@@ -89,8 +90,8 @@ export const Arcade = memo((props) => {
 			<div className="my-3">
 				<Pair title="Arcade Coins" color="gold">{json.coins}</Pair>
 			</div>
-			<div className="h-flex mb-3">
-				<div className="flex-1">
+			<div className="h-flex flex-wrap mb-2">
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Blocking Dead</div>
 					<Pair title="Wins">{json.wins_dayone}</Pair>
 					<Pair title="Kills">{json.kills_dayone}</Pair>
@@ -99,50 +100,67 @@ export const Arcade = memo((props) => {
 						{Utils.capitalize((json.melee_weapon || '-').split('_').join(' '))} 
 					</Pair>
 					<Br />
+				</div>
 
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Bounty Hunters</div>
 					<Pair title="Wins">{json.wins_oneinthequiver}</Pair>
 					<Pair title="Kills">{json.kills_oneinthequiver}</Pair>
 					<Pair title="Deaths">{json.deaths_oneinthequiver}</Pair>
 					<Pair title="Kill/Death Ratio">{Utils.ratio(json.kills_oneinthequiver, json.deaths_oneinthequiver)}</Pair>
 					<Br />
-					<Br />
-					<Br />
-					<Br />
+				</div>
 
+				<div style={{width: '33%'}}>
+					<div className="font-bold underline mb-1">Capture The Wool</div>
+					<Pair title="Kills">{achievements.arcade_ctw_slayer}</Pair>
+					<Pair title="Wool Captures">{achievements.arcade_ctw_oh_sheep}</Pair>
+					<Br />
+				</div>
+
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Creeper Attack</div>
 					<Pair title="Max Wave">{json.max_wave}</Pair>
 					<Br />
+				</div>
 
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Dragon Wars</div>
 					<Pair title="Wins">{json.wins_dragonwars2}</Pair>
 					<Pair title="Kills">{json.kills_dragonwars2}</Pair>
 					<Br />
+				</div>
 
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Easter Simulator</div>
 					<Pair title="Wins">{json.wins_easter_simulator}</Pair>
 					<Pair title="Eggs Found">{json.eggs_found_easter_simulator}</Pair>
 					<Br />
-					<Br />
+				</div>
 
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Ender Spleef</div>
 					<Pair title="Wins">{json.wins_ender}</Pair>
 					<Br />
-					<Br />
-					<Br />
+				</div>
 
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Farm Hunt</div>
 					<Pair title="Wins">{json.wins_farm_hunt}</Pair>
 					<Pair title="Poop Collected">{json.poop_collected}</Pair>
+					<Br />
 				</div>
-				<div className="flex-1">
+
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Football</div>
 					<Pair title="Wins">{json.wins_soccer}</Pair>
 					<Pair title="Goals">{json.goals_soccer}</Pair>
 					<Pair title="Kicks">{json.kicks_soccer}</Pair>
 					<Pair title="Powerkicks">{json.powerkicks_soccer}</Pair>
 					<Br />
+				</div>
 
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Galaxy Wars</div>
 					<Pair title="Wins">{json.sw_game_wins}</Pair>
 					<Pair title="Kills">{json.sw_kills}</Pair>
@@ -152,75 +170,90 @@ export const Arcade = memo((props) => {
 					<Pair title="Kill/Death Ratio">{Utils.ratio(json.sw_wins, json.sw_deaths)}</Pair>
 					<Pair title="Shots Fired">{json.sw_shots_fired}</Pair>
 					<Br />
+				</div>
 
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Grinch Simulator</div>
-					<Pair title="Wins">{json.wins_grinch}</Pair>
+					<Pair title="Wins">{json.wins_grinch_simulator_v2}</Pair>
+					<Pair title="Presents Stolen">{json.gifts_grinch_simulator_v2}</Pair>
 					<Br />
+				</div>
 
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Hide and Seek</div>
 					<Pair title="Wins as Seeker">{json.seeker_wins_hide_and_seek}</Pair>
 					<Pair title="Wins as Hider">{json.hider_wins_hide_and_seek}</Pair>
 					<Br />
+				</div>
 
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Hole in the Wall</div>
 					<Pair title="Wins">{json.wins_hole_in_the_wall}</Pair>
 					<Pair title="Highest Score Qualifications">{json.hitw_record_q}</Pair>
 					<Pair title="Highest Score Finals">{json.hitw_record_f}</Pair>
 					<Br />
+				</div>
 
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Hypixel Says</div>
 					<Pair title="Wins">{json.wins_simon_says}</Pair>
 					<Pair title="Rounds">{json.rounds_simon_says}</Pair>
 					<Br />
-					<Br />
-					
+				</div>
+
+				<div style={{width: '33%'}}>					
 					<div className="font-bold underline mb-1">Party Games 1</div>
 					<Pair title="Wins">{json.wins_party}</Pair>
 					<Br />
 				</div>
-				<div className="flex-1">
+
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Party Games 2</div>
 					<Pair title="Wins">{json.wins_party_2}</Pair>
 					<Br />
-					<Br />
-					<Br />
-					<Br />
+				</div>
 
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Party Games 3</div>
 					<Pair title="Wins">{json.wins_party_3}</Pair>
 					<Br />
-					<Br />
-					<Br />
-					<Br />
-					<Br />
-					<Br />
-					<Br />
+				</div>
 
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Pixel Painters</div>
 					<Pair title="Wins">{json.wins_draw_their_thing}</Pair>
 					<Br />
+				</div>
 
-					<div className="font-bold underline mb-1">Santa Says</div>
-					<Pair title="Wins">{json.wins_santa_says}</Pair>
-					<Pair title="Rounds">{json.rounds_santa_says}</Pair>
-					<Br />
-
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Santa Simulator</div>
 					<Pair title="Presents Delivered">{json.delivered_santa_simulator}</Pair>
 					<Pair title="Times Spotted">{json.spotted_santa_simulator}</Pair>
 					<Br />
-					<Br />
+				</div>
 
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Scuba Simulator</div>
 					<Pair title="Wins">{json.wins_scuba_simulator}</Pair>
 					<Pair title="Items Found">{json.items_found_scuba_simulator}</Pair>
 					<Pair title="Total Points">{json.total_points_scuba_simulator}</Pair>
 					<Br />
+				</div>
+
+				<div style={{width: '33%'}}>
+					<div className="font-bold underline mb-1">Simon Says</div>
+					<Pair title="Wins">{json.wins_simon_says}</Pair>
+					<Pair title="Rounds">{json.rounds_simon_says}</Pair>
+					<Br />
+				</div>
+
+				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Throw Out</div>
 					<Pair title="Wins">{json.wins_throw_out}</Pair>
 					<Pair title="Kills">{json.kills_throw_out}</Pair>
 					<Pair title="Deaths">{json.deaths_throw_out}</Pair>
 					<Pair title="Kill/Death Ratio">{Utils.ratio(json.kills_throw_out, json.deaths_throw_out)}</Pair>
+					<Br />
 				</div>
 			</div>
 

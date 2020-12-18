@@ -181,21 +181,21 @@ button:focus {
 }
 
 /* background colors */
-.bg-darkred { background-color: #a00; }
-.bg-red { background-color: #f55; }
-.bg-gold { background-color: #fa0; }
-.bg-yellow { background-color: #ff5; }
-.bg-darkgreen { background-color: #0a0; }
-.bg-green { background-color: #5f5; }
-.bg-aqua { background-color: #5ff; }
-.bg-darkaqua { background-color: #0aa; }
-.bg-darkblue { background-color: #00a; }
-.bg-blue { background-color: #55f; }
-.bg-pink { background-color: #f5f; }
-.bg-purple { background-color: #a0a }
-.bg-white { background-color: #fff; }
-.bg-gray { background-color: #aaa; }
-.bg-darkgray { background-color: #555; }
-.bg-black { background-color: #000; }
+.bg-darkred, .bg-DARK_RED { background-color: #a00; }
+.bg-red, .bg-RED { background-color: #f55; }
+.bg-gold, .bg-GOLD { background-color: #fa0; }
+.bg-yellow, .bg-YELLOW { background-color: #ff5; }
+.bg-darkgreen, .bg-DARK_GREEN { background-color: #0a0; }
+.bg-green, .bg-GREEN { background-color: #5f5; }
+.bg-aqua, .bg-AQUA { background-color: #5ff; }
+.bg-darkaqua, .bg-DARK_AQUA { background-color: #0aa; }
+.bg-darkblue, .bg-DARK_BLUE { background-color: #00a; }
+.bg-blue, .bg-BLUE { background-color: #55f; }
+.bg-pink, .bg-LIGHT_PURPLE { background-color: #f5f; }
+.bg-purple, .bg-DARK_PURPLE { background-color: #a0a }
+.bg-white, .bg-WHITE { background-color: #fff; }
+.bg-gray, .bg-GRAY { background-color: #aaa; }
+.bg-darkgray, .bg-DARK_GRAY { background-color: #555; }
+.bg-black, .bg-BLACK { background-color: #000; }
 .bg-brown { background-color: #963; }
 .bg-rainbow { background: repeating-linear-gradient(to right, #f55, #fa0, #ff5, #5f5, #5ff, #f5f, #a0a, #f55 16rem); }

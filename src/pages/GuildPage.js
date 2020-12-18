@@ -4,12 +4,13 @@ import reactStringReplace from 'react-string-replace';
 import { Card, Crafatar, ExternalLink, GuildTag, 
 	HorizontalLine, List, LoadingSpinner, MinecraftText,
 	Navbar, PageLayout, PlayerName } from 'components';
-import { Br, Pair, Title } from 'components/Stats';
+import { Br, Pair, Progress, ProgressBar, Title } from 'components/Stats';
 import { APP } from 'constants/app';
 import { GUILD, HYPIXEL } from 'constants/hypixel';
 import { FrontPage } from 'pages';
 import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
+import { getGuildMemberRank, HypixelLeveling } from 'utils/hypixel';
 
 /*
 * Page that displays the stats of a guild
@@ -61,6 +62,8 @@ function GuildCard(props) {
 	const achievements = guild.achievements || {};
 	const gameXp = guild.guildExpByGameType || {};
 
+	const leveling = new HypixelLeveling(xpToLevel, levelToXP, guild.exp);
+
 	function xpToLevel(xp) {
 		let xpRemaining = xp;
 		let level = 0;
@@ -71,6 +74,14 @@ function GuildCard(props) {
 			xpToLevelUp = GUILD.EXP[level > 14 ? 14 : level];
 		}
 		return level + xpRemaining/xpToLevelUp;
+	}
+
+	function levelToXP(lvl) {
+		let xp = 0;
+		for (let i = 0; i < lvl; i++) {
+			xp += GUILD.EXP[i > 14 ? 14 : i];
+		}
+		return xp;
 	}
 
 	return (
@@ -91,9 +102,27 @@ function GuildCard(props) {
 				</div> 
 			}
 			{(hasTag || hasDesc) && <HorizontalLine className="mb-3" />}
-
+			<div className="mb-1 font-bold">Leveling Progress</div>
+			<div className="w-100 h-flex">
+				<span className="pr-1">
+					{leveling.levelFloor}
+				</span>
+				<div className="flex-1">
+					<ProgressBar 
+						dataTip={`${leveling.xpAboveLevel}/${leveling.levelTotalXP} GEXP`}>
+						<Progress 
+							proportion={leveling.proportionAboveLevel}
+							color={guild.tagColor || 'white'}
+							dataTip={`${leveling.xpAboveLevel}/${leveling.levelTotalXP} GEXP`} />
+					</ProgressBar>
+				</div>
+				<span className="pl-1">
+					{leveling.levelCeiling}
+				</span>
+			</div>
+			<Br />
+			<Pair title="Level">{leveling.level}</Pair>
 			<Pair title="Created">{Utils.dateFormat(guild.created)}</Pair>
-			<Pair title="Level">{xpToLevel(guild.exp)}</Pair>
 			<Pair title="Legacy Rank">{guild.legacyRanking !== undefined ? guild.legacyRanking+1 : '-'}</Pair>
 			<Br />
 			<Pair title="Members">{guild.members.length}</Pair>
@@ -160,23 +189,11 @@ function GuildMemberList(props) {
 			case 'joined': 
 				return filteredMembers.sort((a,b) => a.joined > b.joined ? 1 : -1);
 			case 'rank': 
-				return filteredMembers.sort((a,b) => getRank(a).priority < getRank(b).priority ? 1 : -1);
+				return filteredMembers.sort((a,b) => 
+					getGuildMemberRank(a, guild.ranks).priority < getGuildMemberRank(b, guild.ranks).priority ? 1 : -1);
 			default: 
 				return filteredMembers;
 		}
-	}
-
-	function getRank(member) {
-		const ranks = guild.ranks || [];
-		if (member.rank === 'Guild Master' || member.rank === 'GUILDMASTER') {
-			return {name: 'Guild Master', priority: 1000};
-		}
-		for (const rank of ranks) {
-			if (member.rank.toLowerCase() === rank.name.toLowerCase()) {
-				return rank;
-			}
-		}
-		return {name: Utils.capitalize(member.rank), priority: 999};
 	}
 
 	return (
@@ -205,7 +222,7 @@ function GuildMemberList(props) {
 								<PlayerName username={data.username} player={data} size="lg"></PlayerName>
 							</Link>
 						</td>
-						<td>{getRank(member).name}</td>
+						<td>{getGuildMemberRank(member, guild.ranks).name}</td>
 						<td>{Utils.dateFormat(member.joined)}</td>
 					</tr>
 				})}

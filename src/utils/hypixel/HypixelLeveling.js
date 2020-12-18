@@ -22,9 +22,9 @@ export class HypixelLeveling {
 	/* 
 	* @constructor
 	*
-	* @param {function} xpToStar 	Function that converts xp to level
-	* @param {function} starToXP 	Function that converts level to xp
-	* @param {number} playerXP 		How much xp the player has
+	* @param {function} xpToLevel Function that converts xp to level
+	* @param {function} levelToXP Function that converts level to xp (level is always integer value)
+	* @param {number} playerXP	  How much xp the player has
 	*/
 	constructor(xpToLevel, levelToXP, playerXP) {
 		this.xp = playerXP;

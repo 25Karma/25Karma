@@ -14,10 +14,11 @@ export const Quakecraft = memo((props) => {
 
 	const { player } = useAPIContext();
 	const json = Utils.traverse(player, 'stats.Quake', {});
+	const godlikes = Utils.traverse(player, 'achievements.quake_godlikes');
 	const ratios = {
 		kd: Utils.ratio(total('kills'), total('deaths')),
-		hk: Utils.ratio(total('headshots'), total('kills')),
-		ks: Utils.ratio(total('kills'), total('shots_fired')),
+		hk: Utils.ratio(total('headshots'), total('kills_since_update_feb_2017')),
+		ks: Utils.ratio(total('kills_since_update_feb_2017'), total('shots_fired')),
 	}
 
 	function total(stat) {
@@ -60,8 +61,8 @@ export const Quakecraft = memo((props) => {
 						<Cell>{json[`killstreaks${id}`]}</Cell>
 						<Cell>{json[`headshots${id}`]}</Cell>
 						<Cell>{json[`shots_fired${id}`]}</Cell>
-						<Cell>{Utils.ratio(json[`headshots${id}`], json[`kills${id}`])}</Cell>
-						<Cell>{Utils.ratio(json[`kills${id}`], json[`shots_fired${id}`])}</Cell>
+						<Cell>{Utils.ratio(json[`headshots${id}`], json[`kills_since_update_feb_2017${id}`])}</Cell>
+						<Cell>{Utils.ratio(json[`kills_since_update_feb_2017${id}`], json[`shots_fired${id}`])}</Cell>
 					</Row>
 				)}
 				{
@@ -90,6 +91,7 @@ export const Quakecraft = memo((props) => {
 			<div className="my-3">
 				<Pair title="Coins" color="gold">{json.coins}</Pair>
 				<Br />
+				<Pair title="Godlikes">{godlikes}</Pair>
 				<Pair title="Highest Killstreak">{json.highest_killstreak}</Pair>
 				<Pair title="Dash Cooldown">
 					{json.dash_cooldown ? Number(json.dash_cooldown)+1 : 0}

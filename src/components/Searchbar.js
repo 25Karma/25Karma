@@ -28,14 +28,26 @@ export function Searchbar(props) {
 	
 	/*
 	* Searches for a player based on the text currently in the input
+	* Users can submit a tag after the player name to navigate to different pages (ex. "Technoblade#guild")
 	*/
 	function search() {
-		const player = refInput.current.value;
+		// Split input value into its arguments and trim whitespace
+		const inputValues = refInput.current.value.split('#').map(n => n.trim());
+		const player = inputValues[0];
+		const tag = inputValues[1].toLowerCase();
 		if (player !== '') {
 			// Clear the input
 			refInput.current.value = '';
-			// Redirect page
-			history.push(`/player/${player}`);
+			// Redirect page based on tag
+			if (tag === 'guild' || tag === 'g') {
+				history.push(`/guild/${player}`);
+			}
+			else if (tag === 'friends' || tag === 'f') {
+				history.push(`/friends/${player}`);
+			}
+			else {
+				history.push(`/player/${player}`);
+			}
 		}
 	}
 
