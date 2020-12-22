@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FaCaretLeft, FaCaretRight } from 'react-icons/fa';
-import { Banner, ExternalLink, MinecraftText, Navbar, 
+import { ExternalLink, MinecraftText, Navbar, 
 	PageLayout, ReactIcon, RecentSearches, Searchbar } from 'components';
 import { APP } from 'constants/app';
+import { AppContext } from 'contexts';
 
 /*
 * The frontpage of the site
@@ -18,65 +19,67 @@ export function FrontPage(props) {
 	document.title = APP.documentTitle;
 
 	// Set the banner according to the config
-	let banner = null;
-	switch (config.reason) {
-		case ('MOJANG_CALL_FAILED'):
-		case ('MOJANG_PLAYER_DNE'):
-			banner = (
-				<Banner type="error"
-					title='Player not found. '
-					description={
+	const { setBanner } = useContext(AppContext);
+	useEffect(() => {
+		switch (config.reason) {
+			case ('MOJANG_CALL_FAILED'):
+			case ('MOJANG_PLAYER_DNE'):
+				setBanner({
+					style: 'error',
+					title: 'Player not found.',
+					description: (
 						<span>
 							The player "
 							<ExternalLink href={`https://namemc.com/search?q=${config.slug}`}>{config.slug}</ExternalLink>
 							" does not exist.
 						</span>
-					}/>
-				);
-			break;
-		case ('HYPIXEL_PLAYER_DNE'):
-			banner = (
-				<Banner type="error"
-					title='Player not found. '
-					description={
+						)
+				});
+				break;
+			case ('HYPIXEL_PLAYER_DNE'):
+				setBanner({
+					style: 'error',
+					title: 'Player not found.',
+					description: (
 						<span>
 							The player "
 							<ExternalLink href={`https://namemc.com/search?q=${config.slug}`}>{config.slug}</ExternalLink>
 							" has never played on Hypixel.
 						</span>
-					}/>
-				);
-			break;
-		case ('HYPIXEL_GUILD_DNE'):
-			banner = (
-				<Banner type="error"
-					title='Guild not found. '
-					description={`The player "${config.slug}" is not in a guild.`}/>
-				);
-			break;
-		case ('HYPIXEL_ACCESS_DENIED'):
-			banner = (
-				<Banner type="error"
-					title='Access denied. '
-					description={`The call to the Hypixel API was denied due to '${config.cause}'.`}/>
-				);
-			break;
-		case ('HYPIXEL_API_DOWN'):
-			banner = (
-				<Banner type="error"
-					title='Hypixel API Error. '
-					description={`The Hypixel API is not responding. Is it down?`}/>
-				);
-			break;
-		case ('RATELIMITED'):
-			banner = (
-				<Banner type="error"
-					title='Woah there! '
-					description={`You've sent too many requests recently! Try again in a few minutes.`}/>
-				);
-			break;
-		default: break;
-	}
+						)
+				});
+				break;
+			case ('HYPIXEL_GUILD_DNE'):
+				setBanner({
+					style: 'error',
+					title: 'Guild not found.',
+					description: `The player "${config.slug}" is not in a guild.`
+				});
+				break;
+			case ('HYPIXEL_ACCESS_DENIED'):
+				setBanner({
+					style: 'error',
+					title: 'Access denied.',
+					description: `The call to the Hypixel API was denied due to '${config.cause}'.`
+				});
+				break;
+			case ('HYPIXEL_API_DOWN'):
+				setBanner({
+					style: 'error',
+					title: 'Hypixel API Error.',
+					description: `The Hypixel API is not responding. Is it down?`
+				});
+				break;
+			case ('RATELIMITED'):
+				setBanner({
+					style: 'error',
+					title: 'Woah there!',
+					description: `You've sent too many requests recently! Try again in a few minutes.`
+				});
+				break;
+			default: break;
+		}
+	}, [config, setBanner])
 	
 	return (
 		<PageLayout
@@ -100,9 +103,6 @@ export function FrontPage(props) {
 					</div>
 					<div className="pl-2 h-flex align-items-start">
 						<RecentSearches />
-					</div>
-					<div className="mx-auto">
-						{banner}
 					</div>
 					<div className="pt-5 pb-2">
 						<Tips />

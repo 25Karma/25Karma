@@ -1,16 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
-import { AppContext } from 'contexts';
+import { APIContext } from 'contexts';
 import { APP } from 'constants/app';
 
 /*
-* Makes an API call to Mojang to get data on a player
+* Makes an API call to Mojang to get data on a player, or returns the current context
 *
 * @param {string} slug 	The username or UUID of the player
 * @param {string} type 	Name of endpoint
 * @return {JSON} 		JS object containing data fetched from the Hypixel API
 */
 export function useAPIContext(slug, type) {
-	const { APIContext, setAPIContext } = useContext(AppContext);
+	const { APIData, setAPIData } = useContext(APIContext);
 	// Monitors the state of the API fetch, if a slug is provided
 	const [fetchStatus, setFetchStatus] = useState(false);
 	useEffect(() => {
@@ -21,23 +21,23 @@ export function useAPIContext(slug, type) {
 				.then((response) => response.json())
 				.then((json) => {
 					if(window.location.href === href){
-						setAPIContext(json);
+						setAPIData(json);
 						setFetchStatus(true);
 					}
 				});
 		}
 		if (slug) {
-			setAPIContext({});
+			setAPIData({});
 			fetchFromAPI();
 		}
-	}, [slug, type, setAPIContext])
+	}, [slug, type, setAPIData])
 	
 	// If we are fetching new data from the API, we don't want to return the old data from the context
 	// We return an empty JS object until the new data has been fetched
 	if (slug) {
-		return fetchStatus ? APIContext : {};
+		return fetchStatus ? APIData : {};
 	}
 	else {
-		return APIContext;
+		return APIData;
 	}
 }

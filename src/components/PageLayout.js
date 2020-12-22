@@ -1,6 +1,6 @@
 import React from 'react';
 import './PageLayout.css';
-import { Footer } from 'components';
+import { Banner, Footer } from 'components';
 
 /*
 * Width-aware container to layout the page, contains a header and a body
@@ -37,6 +37,7 @@ export function PageLayout(props) {
 				}
 			</div>
 			<Footer />
+			<Banner />
 		</React.Fragment>
 		);
 }

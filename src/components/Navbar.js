@@ -22,7 +22,7 @@ export function Navbar(props) {
 		const p = Cookies.get('pinnedPlayer');
 		if (p) {
 			return (
-				<Link className="font-md" to={`/player/${p}`}>
+				<Link className="font-md" to={`/search/${p}`}>
 					<ReactIcon icon={GoPin} clickable />
 				</Link>
 				);

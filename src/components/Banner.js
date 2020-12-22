@@ -1,76 +1,79 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import './Banner.css';
-import { MdReport, MdInfoOutline } from 'react-icons/md';
+import { FaDiscord } from 'react-icons/fa';
+import { MdClose, MdReport, MdInfoOutline } from 'react-icons/md';
 import { ReactIcon } from 'components';
+import { AppContext } from 'contexts';
+import * as Utils from 'utils';
 
 /*
-* A popup banner to display a message
+* A popup banner to display a message at the bottom of the screen
+* Retrieves banner data from the App context
 *
-* @param {string} props.type 		The theme of the banner to display
-* @param {string} props.title 		Text to show in bold in the banner
-* @param {string} props.description Text to show after the title 
-* @param {boolean} props.expire 	Have the banner fade out after 5 seconds
-* @param {function} props.onExpiry 	Parent's function that runs once the banner has fully faded out
 */
 export function Banner(props) {
-	
-	const bannerRef = useRef('banner');
-	const onExpiry = props.onExpiry;
-	const expire = props.expire;
-	const styleHidden = {
-		opacity: '0',
-		maxHeight: '0px',
-		transition: 'opacity 0.5s, max-height 0.5s 0.5s'
+	const { banner } = useContext(AppContext);
+	const [bannerVisibility, setBannerVisibility] = useState('hidden');
+	const bannerStyle = getStyle(banner.style);
+
+	const styleStates = {
+		hidden: { transform: "translateY(100%)" },
+		shown: { transform: "translateY(0)" },
 	}
-	var styleShown = {
-		opacity: '1',
-		maxHeight: null,
-		transition: 'opacity 0.5s 0.5s, max-height 0.5s'
-	}
-	const [style, setStyle] = useState(styleHidden);
 	
-	/*
-	* Returns a symbol based on the banner type
-	* Currently supports types 'error' and 'info' only
-	*/
-	function getSymbol() {
-		if (props.type === "error") {
-			return <ReactIcon icon={MdReport} />;
+	// Returns styling information about the banner
+	function getStyle(style) {
+		const bannerStyles = {
+			info: { icon: MdInfoOutline, color: "rgb(40,70,200)" },
+			error: { icon: MdReport, color: "rgb(200,50,50)" },
+			discord: { icon: FaDiscord, color: "#7289da" }
 		}
-		else if (props.type === "info") {
-			return <ReactIcon icon={MdInfoOutline} />;
+		if (style === undefined) {
+			return bannerStyles.info;
 		}
+		return bannerStyles[style];
 	}
 
+	const willExpire = banner.expire || false;
 	useEffect(() => {
-		// Must dynamically calculate the full banner height and add it to the style
-		// since we cannot transition from height:0; to height:auto;
-		styleShown.maxHeight = bannerRef.current.scrollHeight+'px';
-		setStyle(styleShown)
-		if (expire) {
-			setTimeout(function () {
-				setStyle(styleHidden)
-			}, 5000);
-			setTimeout(function () {
-				if (onExpiry) {
-					onExpiry();
-				}
-			}, 6000);
+		let timeoutID;
+		if (!Utils.isEmpty(banner)) {
+			setBannerVisibility('shown');
 		}
-	}, []);
+		if (willExpire) {
+			timeoutID = setTimeout(close, 5000);
+		}
+		// useEffect should clean up the timeout so that it doesn't leak
+		return () => {
+			clearTimeout(timeoutID);
+		}
+	}, [banner, willExpire])
 
-	return (
-		<div ref={bannerRef} style={style}>
-			<div className="pt-2"></div>
-			<div  
-				className={`banner banner-${props.type}`}>
-				<div className="py-1 px-3">
-					<span className="font-md pr-1">
-						{getSymbol()}
-					</span>
-					<span className="font-bold">{props.title}</span>
-					<span>{props.description}</span>
-				</div>
+	// Wipes banner on page change
+	const location = useLocation();
+	useEffect(close, [location.pathname]);
+
+	function close() {
+		setBannerVisibility('hidden');
+	}
+
+	return !Utils.isEmpty(banner) && (
+		<div className="banner-wrapper" style={styleStates[bannerVisibility]}>
+			<div className="container v-flex align-items-center">
+			<div className="banner mb-4 p-2" style={{backgroundColor: bannerStyle.color}}>
+				<span>
+					<ReactIcon icon={bannerStyle.icon}/>
+				</span>
+				<span className="px-2">
+					<span className="font-bold">{banner.title}</span>
+					<span>&nbsp;</span>
+					<span>{banner.description}</span>
+				</span>
+				<button onClick={close}>
+					<ReactIcon icon={MdClose} clickable /> 
+				</button>
+			</div>
 			</div>
 		</div>
 		)

@@ -86,6 +86,8 @@ button:focus {
 .m-0 { margin: 0; }
 .m-1 { margin: 0.5rem; }
 .m-2 { margin: 1rem; }
+.m-3 { margin: 2rem; }
+.m-4 { margin: 4rem; }
 .mb-1 { margin-bottom: 0.5rem; }
 .mb-2 { margin-bottom: 1rem; }
 .mb-3 { margin-bottom: 2rem; }
@@ -112,6 +114,7 @@ button:focus {
 .overflow-x { overflow-x: auto; }
 .overflow-y { overflow-y: auto; }
 .nowrap { white-space: nowrap; }
+.nopointer { pointer-events: none; }
 .position-absolute { position: absolute; }
 .position-relative { position: relative; }
 .p-1 { padding: 0.5rem; }

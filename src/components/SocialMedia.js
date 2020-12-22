@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { FaDiscord, FaInstagram, FaTwitch, FaTwitter, FaYoutube } from 'react-icons/fa';
-import { Banner, ExternalLink, ReactIcon } from 'components';
+import { ExternalLink, ReactIcon } from 'components';
+import { AppContext } from 'contexts';
 
 /*
 * Displays a person's social media as a row of icons
@@ -20,8 +21,7 @@ export function SocialMedia(props) {
 	}
 
 	const { links } = props;
-	let discordBanner = null;
-	const [bannerShown, setBannerShown] = useState(false);
+	const { setBanner } = useContext(AppContext);
 
 	let socialMediaIcons = [];
 	for (const [k,v] of Object.entries(links)) {
@@ -30,19 +30,12 @@ export function SocialMedia(props) {
 			if (k === 'DISCORD') {
 				socialMediaIcons.push(
 					<span key={k} className="pr-2" style={{color: s.color}}>
-						<button onClick={()=>{setBannerShown(true)}}>
+						<button onClick={() => {displayDiscordBanner(v)}}>
 							<ReactIcon 
 								icon={s.icon} 
 								clickable />
 						</button>
 					</span>
-					);
-				discordBanner = (
-				<Banner
-					type="info"
-					title={v}
-					expire
-					onExpiry={()=>{setBannerShown(false)}} />
 					);
 			}
 			else {
@@ -59,12 +52,18 @@ export function SocialMedia(props) {
 		}
 	}
 
+	function displayDiscordBanner(discordTag) {
+		setBanner({
+			style: 'discord',
+			title: discordTag
+		});
+	}
+
 	return (
 		<React.Fragment>
 			<div>
 				{socialMediaIcons}
 			</div>
-			{bannerShown && discordBanner}
 		</React.Fragment>
 		);
 }

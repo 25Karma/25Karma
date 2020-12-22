@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import ReactTooltip from 'react-tooltip';
 import Cookies from 'js-cookie';
 import './Settings.css';
-import { Banner, Button, ExternalLink } from 'components';
+import { Button, ExternalLink } from 'components';
+import { AppContext } from 'contexts';
 
 /*
 * Gets/sets cookies based on user's site preferences
@@ -14,7 +15,7 @@ export function Settings(props) {
 	// Refs used by setCookies() to locate inputs
 	const pinnedPlayerInput = useRef('pinnedPlayer');
 	const decimalInput = useRef('decimal');
-	const [banner, setBanner] = useState(null);
+	const { setBanner } = useContext(AppContext);
 
 	/*
 	* Sets cookies related to user preferences
@@ -23,7 +24,12 @@ export function Settings(props) {
 		// Check that decimal places input is valid
 		const decimalString = parseDecimalInput(decimalInput.current.value);
 		if (decimalString === false) {
-			setBanner("DecimalPlaceError");
+			setBanner({
+				style: 'error',
+				title: 'Invalid Entry.',
+				description: '"Decimal Places" must be an integer between 0 and 8.', 
+				expire: true
+			});
 			return;
 		}
 		// If all is well, set the cookies
@@ -39,7 +45,11 @@ export function Settings(props) {
 		Object.keys(Cookies.get()).forEach((cookie) => {
 			Cookies.remove(cookie);
 		});
-		setBanner("ClearCookiesInfo");
+		setBanner({
+			style: 'info',
+			title: 'Your cookies were cleared.',
+			description: 'You may reload the page, or click Save Settings if this was a mistake.',
+		});
 	}
 	
 	/*
@@ -59,36 +69,6 @@ export function Settings(props) {
 		const num = parseInt(str);
 		if (isNaN(num) || num < 0 || num > 8) return false;
 		return num;
-	}
-	
-	/*
-	* Renders a banner according to the banner state
-	*
-	* @return {JSX} The banner object, or nothing is the banner state is null
-	*/
-	function renderBanner() {
-		// If the input to 'Decimal Places' is not valid
-		if (banner === "DecimalPlaceError") {
-			return (
-				<Banner type="error"
-					title='Invalid Entry. '
-					description='"Decimal Places" must be an integer between 0 and 8.' 
-					expire
-					onExpiry={()=>{setBanner(null)}}
-					/>
-				);
-		}
-		// If the user clicked 'Clear Cookies'
-		else if (banner === "ClearCookiesInfo") {
-			return (
-				<Banner type="info"
-					title='Your cookies were cleared. '
-					description='You may reload the page, or click Save Settings if this was a mistake.' 
-					expire
-					onExpiry={()=>{setBanner(null)}}
-					/>
-				);
-		}
 	}
 
 	return (
@@ -131,7 +111,6 @@ export function Settings(props) {
 				</div>
 				<div className="v-flex align-items-center pb-3">
 					<Button onClick={setCookies}><span className="font-bold">Save Settings</span></Button>
-					{renderBanner()}
 				</div>
 				<p>
 					Your preferences are stored as <ExternalLink href="http://www.whatarecookies.com/">
