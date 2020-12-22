@@ -6,9 +6,9 @@ import { getPlayerRank } from 'utils/hypixel';
 /*
 * Hypixel player username with rank & colors in Minecraft font
 *
-* @param {string} props.username 	Player's username
-* @param {Object} props.player 	 	Player data JSON object
-* @param {string} props.size 		Font size
+* @param {string} props.username    Player's username
+* @param {Object} props.player      Player data JSON object
+* @param {string} props.size        Font size
 */
 export function PlayerName(props) {
 

@@ -2,9 +2,10 @@ import Cookies from 'js-cookie';
 import React from 'react';
 import { FaSortAlphaDown } from 'react-icons/fa';
 import { Link, useParams } from 'react-router-dom';
-import { AccordionList, Crafatar, ExternalLink, GuildTag,
-	LoadingSpinner, Navbar, PageLayout, PlayerCard, PlayerName, 
+import { Crafatar, ExternalLink, GuildTag, LoadingSpinner, 
+	Navbar, PageLayout, PlayerCard, PlayerName,
 	ReactIcon, Status } from 'components';
+import { AccordionList } from './components';
 import { APP } from 'constants/app';
 import { FrontPage } from 'pages';
 import { useAPIContext } from 'hooks';

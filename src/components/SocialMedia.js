@@ -6,7 +6,7 @@ import { AppContext } from 'contexts';
 /*
 * Displays a person's social media as a row of icons
 *
-* @param {Object} props.links 	An Object from player.socialMedia.links
+* @param {Object} props.links    An Object from player.socialMedia.links
 */
 export function SocialMedia(props) {
 	const consts = {

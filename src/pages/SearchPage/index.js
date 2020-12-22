@@ -4,7 +4,7 @@ import { Redirect, useParams } from 'react-router-dom';
 /*
 * Default destination for all searches
 * Will redirect to the appropriate stats page based on the search slug
-* Users can submit a tag after the player name to navigate to different pages (ex. "Technoblade#guild")
+* Users can submit a tag after the player name to navigate to different pages (ex. "Technoblade guild")
 */
 export function SearchPage(props) {
 	const { slug } = useParams();

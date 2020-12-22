@@ -5,7 +5,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { FaSortAlphaDown } from 'react-icons/fa';
 import { RiCheckboxIndeterminateFill, RiCheckboxIndeterminateLine } from 'react-icons/ri';
 import { ReactIcon, HorizontalLine as HLine } from 'components';
-import * as Accordions from 'components/Accordions';
+import * as Accordions from './Accordions';
 
 export function AccordionList(props) {
 

@@ -3,10 +3,10 @@ import React from 'react';
 /*
 * Component that fills a ProgressBar
 *
-* @param {string} props.proportion 	Proportion of the ProgressBar - value from 0 to 1
-* @param {string} props.color 		Color of the component
-* @param {string} props.children 	Text on the component
-* @param {string} props.dataTip 	Text to show on hover (react-tooltip)
+* @param {string} props.proportion    Proportion of the ProgressBar - value from 0 to 1
+* @param {string} props.color         Color of the component
+* @param {string} props.children      Text on the component
+* @param {string} props.dataTip       Text to show on hover (react-tooltip)
 */
 export function Progress(props) {
 	const lightBackgrounds = ['white', 'yellow', 'green', 'gray', 'WHITE', 'YELLOW', 'GREEN', 'GRAY'];

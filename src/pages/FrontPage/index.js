@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { FaCaretLeft, FaCaretRight } from 'react-icons/fa';
-import { ExternalLink, MinecraftText, Navbar, 
-	PageLayout, ReactIcon, RecentSearches, Searchbar } from 'components';
+import React, { useEffect, useContext } from 'react';
+import { ExternalLink, MinecraftText, Navbar, PageLayout, Searchbar } from 'components';
+import { RecentSearches, Tips } from './components';
 import { APP } from 'constants/app';
 import { AppContext } from 'contexts';
 
 /*
 * The frontpage of the site
 *
-* @param {JSX} props.config 	The frontpage will load banners and other components differently 
-*								depending on the config. The config must contain a reason 
-*								for the error. Other optional properties will be provided in the
-*								config depending on the reason.
+* @param {JSX} props.config     The frontpage will load banners and other components differently 
+*                               depending on the config. The config must contain a reason 
+*                               for the error. Other optional properties will be provided in the
+*                               config depending on the reason.
 */
 export function FrontPage(props) {
 
@@ -109,47 +108,5 @@ export function FrontPage(props) {
 					</div>
 				</React.Fragment>
 			}/>
-		);
-}
-
-function Tips(props) {
-	const tips = [
-		"🚨 Hey! Have you read all these tips yet? 🚨",
-		"Customize this site by clicking on the gear button in the top-right corner.",
-		<React.Fragment>
-			Have a 
-			suggestion? <ExternalLink href={APP.hypixelForums}>
-				Message me on the Hypixel Forums. </ExternalLink>
-		</React.Fragment>,
-		<React.Fragment>
-			Interested in how this site was 
-			built? <ExternalLink href="https://github.com/25karma">Check out the code
-			on GitHub.</ExternalLink>
-		</React.Fragment>,
-		"Clicking on a player's avatar brings you to their profile on NameMC.",
-		<React.Fragment>
-			The SkyBlock Stats button on the player stats page brings you
-			to <ExternalLink href="https://sky.shiiyu.moe">sky.shiiyu.moe</ExternalLink>!
-		</React.Fragment>,
-		"The pink row in a table indicates your most played class/mode!"
-	]
-	const [tipIndex, setTipIndex] = useState(Math.floor(Math.random()*tips.length));
-
-	function previousTip() {
-		setTipIndex((tipIndex+tips.length-1)%tips.length);
-	}
-	function nextTip() {
-		setTipIndex((tipIndex+1)%tips.length);
-	}
-	return (
-		<span className="h-flex align-items-center justify-content-center mx-auto" style={{maxWidth:'42rem'}}>
-			<button onClick={previousTip}>
-				<ReactIcon icon={FaCaretLeft} clickable />
-			</button>
-			<p className="px-2 mx-auto">{tips[tipIndex]}</p>
-			<button onClick={nextTip}>
-				<ReactIcon icon={FaCaretRight} clickable />
-			</button>
-		</span>
 		);
 }

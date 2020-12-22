@@ -9,7 +9,7 @@ import { getMostPlayed } from 'utils/hypixel';
 /*
 * Stats accordion for Mega Walls
 *
-* @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
+* @param {number} props.index    The order in which to display the row (used by react-beautiful-dnd)
 */
 export const Warlords = memo((props) => {
 	const { mojang, player } = useAPIContext();

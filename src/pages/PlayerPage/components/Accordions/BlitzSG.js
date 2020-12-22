@@ -9,7 +9,7 @@ import { getMostPlayed } from 'utils/hypixel';
 /*
 * Stats accordion for Blitz Survival Games
 *
-* @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
+* @param {number} props.index    The order in which to display the row (used by react-beautiful-dnd)
 */
 export const BlitzSG = memo((props) => {
 

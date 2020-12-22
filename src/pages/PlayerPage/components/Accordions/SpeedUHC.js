@@ -9,7 +9,7 @@ import { HypixelLeveling, getMostPlayed } from 'utils/hypixel';
 /*
 * Stats accordion for Speed UHC
 *
-* @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
+* @param {number} props.index    The order in which to display the row (used by react-beautiful-dnd)
 */
 export const SpeedUHC = memo((props) => {
 

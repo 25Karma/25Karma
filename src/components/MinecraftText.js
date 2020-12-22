@@ -5,10 +5,10 @@ import { formatNum } from 'utils';
 * §§§§§§§§§§§§§§§§§§§§§§§§§§§
 * Parses minecraft-formatted text and displays it in a minecraft font
 *
-* @param {string} props.size 		Font size, default 'md'
-* @param {string} props.className 	Classes to apply - intended for padding/margin use only
-* @param {boolean} props.formatNum 	Whether we should format the text if it is a number
-* @param {string} props.children 	Minecraft color-formatted text to display
+* @param {string} props.size         Font size, default 'md'
+* @param {string} props.className    Classes to apply - intended for padding/margin use only
+* @param {boolean} props.formatNum   Whether we should format the text if it is a number
+* @param {string} props.children     Minecraft color-formatted text to display
 */
 export function MinecraftText(props) {
 

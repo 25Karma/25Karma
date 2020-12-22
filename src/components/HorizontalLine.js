@@ -3,7 +3,7 @@ import React from 'react';
 /*
 * A horizontal line that spans the full width of its container
 *
-* @param {string} props.className 	CSS classes for tweaking padding and margins
+* @param {string} props.className    CSS classes for tweaking padding and margins
 */
 export function HorizontalLine(props) {
 	const { className } = props;

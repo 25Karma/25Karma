@@ -9,7 +9,7 @@ import { Collapsible, MinecraftText, ReactIcon, Searchbar, Settings } from 'comp
 /*
 * Navbar that appears at the top of the page
 *
-* @param {boolean} props.searchbar 	Whether or not to display the Searchbar component
+* @param {boolean} props.searchbar   Whether or not to display the Searchbar component
 */
 export function Navbar(props) {
 	

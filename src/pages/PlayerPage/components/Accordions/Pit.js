@@ -8,7 +8,7 @@ import * as Utils from 'utils';
 /*
 * Stats accordion for the Hypixel Pit
 *
-* @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
+* @param {number} props.index    The order in which to display the row (used by react-beautiful-dnd)
 */
 export const Pit = memo((props) => {
 

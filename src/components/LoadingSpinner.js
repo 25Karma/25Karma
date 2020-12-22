@@ -4,7 +4,7 @@ import ReactLoading from 'react-loading';
 /*
 * Loading spinner with text underneath
 *
-* @param {string} props.text 	The text to display underneath the spinner
+* @param {string} props.text    The text to display underneath the spinner
 */
 export function LoadingSpinner(props) {
 	return (

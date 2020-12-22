@@ -8,7 +8,7 @@ import { ReactIcon } from 'components';
 * Styled input with search button
 *
 *
- @param {string} props.defaultValue 	The default value of the searchbar
+ @param {string} props.defaultValue   The default value of the searchbar
 */
 export function Searchbar(props) {
 

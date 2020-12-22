@@ -8,7 +8,7 @@ import { AppContext } from 'contexts';
 /*
 * Gets/sets cookies based on user's site preferences
 *
-* @param {function} props.toggle 	Function that is run when 'Save Settings' is clicked
+* @param {function} props.toggle   Function that is run when 'Save Settings' is clicked
 */
 export function Settings(props) {
 	

@@ -5,9 +5,9 @@ import ReactTooltip from 'react-tooltip';
 /*
 * A progress bar, accurate to 0.1%
 *
-* @param {string} props.height 	Height of the progress bar - default 1rem
-* @param {JSX} props.children 	List of Progress components
-* @param {string} props.dataTip Text to show on hover (react-tooltip)
+* @param {string} props.height     Height of the progress bar - default 1rem
+* @param {JSX} props.children      List of Progress components
+* @param {string} props.dataTip    Text to show on hover (react-tooltip)
 */
 export function ProgressBar(props) {
 

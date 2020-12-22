@@ -4,8 +4,8 @@ import './Row.css';
 /*
 * Contains a row of StatCells in a table
 *
-* @param {boolean} props.isHighlighted 	Whether to display the row in the highlighted color
-* @param {string} props.id 				Used to identify whether the row is the 'Overall' row
+* @param {boolean} props.isHighlighted    Whether to display the row in the highlighted color
+* @param {string} props.id                Used to identify whether the row is the 'Overall' row
 * @param {string} props.children 	
 */
 export function Row(props) {

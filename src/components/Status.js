@@ -7,9 +7,9 @@ import * as Utils from 'utils';
 /*
 * Displays a "signal" icon with a player's online status as a tooltip
 *
-* @param {Object} props.status 	JSON object from the Hypixel API 'status' endpoint
-* @param {Object} props.player 	JSON object from the Hypixel API 'player' endpoint
-* @param {string} props.size 	Size of the icon, default 'md'
+* @param {Object} props.status    JSON object from the Hypixel API 'status' endpoint
+* @param {Object} props.player    JSON object from the Hypixel API 'player' endpoint
+* @param {string} props.size      Size of the icon, default 'md'
 */
 export function Status(props) {
 	const games = HYPIXEL.GAMES;

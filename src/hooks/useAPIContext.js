@@ -5,9 +5,9 @@ import { APP } from 'constants/app';
 /*
 * Makes an API call to Mojang to get data on a player, or returns the current context
 *
-* @param {string} slug 	The username or UUID of the player
-* @param {string} type 	Name of endpoint
-* @return {JSON} 		JS object containing data fetched from the Hypixel API
+* @param {string} slug    The username or UUID of the player
+* @param {string} type    Name of endpoint
+* @return {JSON}          JS object containing data fetched from the Hypixel API
 */
 export function useAPIContext(slug, type) {
 	const { APIData, setAPIData } = useContext(APIContext);

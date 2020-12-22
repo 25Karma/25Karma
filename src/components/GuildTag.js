@@ -5,8 +5,8 @@ import * as Utils from 'utils';
 /*
 * Hypixel guild tag in Minecraft font
 *
-* @param {string} props.guild 		Guild JSON from the Hypixel API
-* @param {string} props.size 		Font size
+* @param {string} props.guild    Guild JSON from the Hypixel API
+* @param {string} props.size     Font size
 */
 export function GuildTag(props) {
 	const { guild, size } = props;

@@ -4,8 +4,8 @@ import Cookies from 'js-cookie';
 /*
 * Returns 1 if the number is zero
 *
-* @param {number} number 	The number to check
-* @return {number} 			1 if number is 0, otherwise the number itself
+* @param {number} number    The number to check
+* @return {number}          1 if number is 0, otherwise the number itself
 */
 export function set1If0(number) {
 	if (number === 0) {
@@ -17,8 +17,8 @@ export function set1If0(number) {
 /*
 * Returns 0 if the value passed is falsy
 *
-* @param {any} val 	The value to check
-* @return {any} 	0 if val is falsy, otherwise val itself
+* @param {any} val    The value to check
+* @return {any}       0 if val is falsy, otherwise val itself
 */
 export function default0(val) {
 	if (!val || val === undefined || isNaN(val)) return 0;
@@ -28,8 +28,8 @@ export function default0(val) {
 /*
 * Safely adds numbers that could be undefined
 *
-* @param {number} arguments A dynamic amount of parameters to add
-* @return {number} 			The sum of the parameters
+* @param {number} arguments    A dynamic amount of parameters to add
+* @return {number}             The sum of the parameters
 */
 export function add() {
 	return Array.from(arguments).reduce((a, b) => default0(a) + default0(b), 0);
@@ -42,9 +42,9 @@ export function subtract(a, b) {
 /*
 * Calculates a ratio safely
 *
-* @param {number} num 	The numerator of the ratio
-* @param {number} denom The denominator of the ratio
-* @return {number} 		The calculated ratio
+* @param {number} num      The numerator of the ratio
+* @param {number} denom    The denominator of the ratio
+* @return {number}         The calculated ratio
 */
 export function ratio(num, denom) {
 	return default0(num)/set1If0(default0(denom));
@@ -53,10 +53,10 @@ export function ratio(num, denom) {
 /*
 * Traverses down an object path safely
 *
-* @param {Object} json 		The Object to traverse
-* @param {string} path 		The path to follow (period-separated)
-* @param {any} defaultValue Object to return if the traversal fails - default undefined
-* @return {any} 			Returns the value at the path, or the default value
+* @param {Object} json         The Object to traverse
+* @param {string} path         The path to follow (period-separated)
+* @param {any} defaultValue    Object to return if the traversal fails - default undefined
+* @return {any}                Returns the value at the path, or the default value
 */
 export function traverse(json, path, defaultValue = undefined) {
 	const paths = path.split('.');
@@ -71,8 +71,8 @@ export function traverse(json, path, defaultValue = undefined) {
 /*
 * Adds commas to a large number and strips decimal places to user preference
 *
-* @param {number} num 	The number to format
-* @return {string} 		The comma-separated, decimal-stripped number
+* @param {number} num    The number to format
+* @return {string}       The comma-separated, decimal-stripped number
 */
 export function formatNum(num) {
 	const decimal = Cookies.get('decimal') || 2;
@@ -86,8 +86,8 @@ export function formatNum(num) {
 /*
 * Converts number to its roman numeral form (https://stackoverflow.com/a/9083076)
 *
-* @param {number} num 	The number to convert
-* @return {string} 		The number in roman numeral form
+* @param {number} num    The number to convert
+* @return {string}       The number in roman numeral form
 */
 export function romanize(num) {
 	if (isNaN(num)) return NaN;
@@ -107,8 +107,8 @@ export function romanize(num) {
 /*
 * Capitalizes the first character in a string and makes all following characters lowercase
 *
-* @param {string} str 	The string to format
-* @return {string} 		The properly capitalized string
+* @param {string} str    The string to format
+* @return {string}       The properly capitalized string
 */
 export function capitalize(str) {
 	return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -117,8 +117,8 @@ export function capitalize(str) {
 /*
 * Checks if an Object is empty
 *
-* @param {Object} obj 	The object to check
-* @return {boolean} 	Whether or not it is empty
+* @param {Object} obj    The object to check
+* @return {boolean}      Whether or not it is empty
 */
 export function isEmpty(obj) {
 	return Object.keys(obj).length === 0 && obj.constructor === Object;
@@ -127,8 +127,8 @@ export function isEmpty(obj) {
 /*
 * Checks if a value is an Object
 *
-* @param {any} val 	The value to check
-* @return {boolean} Whether or not it is an Object
+* @param {any} val     The value to check
+* @return {boolean}    Whether or not it is an Object
 */
 export function isObject(val) {
 	return typeof val === 'object' && val !== null;
@@ -137,8 +137,8 @@ export function isObject(val) {
 /*
 * Returns time since a date integer
 *
-* @param {number} date 	Date integer
-* @return {string} 		Time since the date
+* @param {number} date    Date integer
+* @return {string}        Time since the date
 */
 export function timeSince(date) {
 
@@ -178,8 +178,8 @@ export function timeSince(date) {
 /*
 * Converts an integer amount of seconds into the form (x)h, (y)m, (z)s
 *
-* @param {any} d 	Amount of seconds
-* @return {string} 	The formatted string
+* @param {any} d      Amount of seconds
+* @return {string}    The formatted string
 */
 export function secondsToHms(d) {
 	if (d === undefined) return "-";
@@ -197,8 +197,8 @@ export function secondsToHms(d) {
 /*
 * Converts a date integer into a formatted string
 *
-* @param {number} num 	Date integer
-* @return {string} 		The formatted string
+* @param {number} num    Date integer
+* @return {string}       The formatted string
 */
 export function dateFormat(num) {
 	return npmDateFormat(new Date(num), 'yyyy/mm/dd, h:MM TT Z');
@@ -207,8 +207,8 @@ export function dateFormat(num) {
 /*
 * Converts a color string into its corresponding Minecraft color code
 *
-* @param {string} str 	Name of the color
-* @return {char} 		Color code character, if not found defaults to white
+* @param {string} str    Name of the color
+* @return {char}         Color code character, if not found defaults to white
 */
 export function toColorCode(str) {
 	const colorClasses = {

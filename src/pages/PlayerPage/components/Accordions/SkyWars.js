@@ -1,9 +1,10 @@
-import React, { useState, memo } from 'react';
+import React, { useState, useEffect, useContext, memo } from 'react';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
-import { Accordion, Banner, Button, Crafatar, HorizontalLine } from 'components';
+import { Accordion, Button, Crafatar, HorizontalLine } from 'components';
 import { Box, Br, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
-import { SKYWARS as consts } from 'constants/hypixel';  
+import { SKYWARS as consts } from 'constants/hypixel';
+import { AppContext } from 'contexts';
 import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 import { HypixelLeveling, getMostPlayed } from 'utils/hypixel';
@@ -11,12 +12,13 @@ import { HypixelLeveling, getMostPlayed } from 'utils/hypixel';
 /*
 * Stats accordion for Skywars
 *
-* @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
+* @param {number} props.index    The order in which to display the row (used by react-beautiful-dnd)
 */
 export const SkyWars = memo((props) => {
 
 	// Get the player's API data for SkyWars
 	const { player } = useAPIContext();
+	const { setBanner } = useContext(AppContext);
 	const json = Utils.traverse(player,'stats.SkyWars') || {};
 
 	const leveling = new HypixelLeveling(xpToLevel, levelToXP,
@@ -185,10 +187,7 @@ export const SkyWars = memo((props) => {
 	const prestigiousHeadCollection = (() => {
 		const headArray = Utils.traverse(json,'head_collection.prestigious');
 		if (headArray === undefined || headArray.length === 0) {
-			return <Banner 
-				type="info" 
-				title="This player has no prestigious heads. 😔"
-				expire/>;
+			return null;
 		}
 		let imgList = [<ReactTooltip key="tooltip"/>];
 		let i = 0;
@@ -204,6 +203,17 @@ export const SkyWars = memo((props) => {
 		imgList.reverse();
 		return imgList;
 	})();
+
+	useEffect(() => {
+		const headArray = Utils.traverse(json,'head_collection.prestigious');
+		if (headButtonState && (headArray === undefined || headArray.length === 0)) {
+			setBanner({
+				style: "info",
+				title: "This player has no prestigious heads. 😔",
+				expire: true
+			});
+		}
+	}, [headButtonState, json, setBanner]);
 	
 	return Utils.isEmpty(json) ? 
 		<Accordion title={consts.TITLE} index={props.index} /> 

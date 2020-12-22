@@ -9,7 +9,7 @@ import { HypixelLeveling } from 'utils/hypixel';
 /*
 * Stats accordion for UHC
 *
-* @param {number} props.index 	The order in which to display the row (used by react-beautiful-dnd)
+* @param {number} props.index    The order in which to display the row (used by react-beautiful-dnd)
 */
 export const UHC = memo((props) => {
 
