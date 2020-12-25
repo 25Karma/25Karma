@@ -22,8 +22,8 @@ export function RecentSearches(props) {
 	if (array === undefined || array.length === 0) {
 		const suggestedPlayer = "Technoblade";
 		return (
-			<React.Fragment>
-				<div className="pt-2">
+			<div className="h-flex flex-wrap pt-2 pl-1">
+				<div className="pt-2 pl-2">
 					<MinecraftText>First time? Try searching</MinecraftText>
 				</div>
 				<div className="pl-2 py-1">
@@ -33,17 +33,17 @@ export function RecentSearches(props) {
 						</Button>
 					</Link>
 				</div>
-			</React.Fragment>
+			</div>
 		);
 	}
 	return (
 		<React.Fragment>
-			<div className="pt-2 nowrap">
-				<MinecraftText size="sm">Recent searches</MinecraftText>
+			<div className="pt-3 pl-2 ml-1">
+				<MinecraftText>Recent searches</MinecraftText>
 			</div>
 			<div className="h-flex flex-wrap">
 				{array.slice(0, showAllRecents ? array.length : 5).map((a) => (
-					<div key={a} className="pl-2 py-1">
+					<div key={a} className="px-1 py-1">
 						<Link to={`/player/${a}`}>
 							<Button>
 								<span className="font-xs">{a}</span>
@@ -52,7 +52,7 @@ export function RecentSearches(props) {
 					</div>
 				))}
 				{array.length > 5 && !showAllRecents &&
-						<button className="pl-2" onClick={()=>{setShowAllRecents(true)}}>
+						<button onClick={()=>{setShowAllRecents(true)}}>
 							<ReactIcon icon={MdMoreHoriz} clickable />
 						</button>
 				}

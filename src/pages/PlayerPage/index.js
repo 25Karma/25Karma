@@ -82,7 +82,7 @@ function PlayerHeadline(props) {
 	return (
 		<div className="h-flex px-2 align-items-center">
 			{mojang.uuid &&
-				<ExternalLink href={`https://namemc.com/profile/${mojang.uuid}`}>
+				<ExternalLink href={`https://namemc.com/search?q=${mojang.uuid}`}>
 					<Crafatar uuid={mojang.uuid} shadow />
 				</ExternalLink>
 			}

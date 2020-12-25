@@ -2,9 +2,11 @@
 	border-radius: 0.25rem;
 	transition: all 0.1s;
 	user-select: none;
-	border: 1px solid var(--theme-border);
 	font-size: 1rem;
 }
+.btn-active { border: 1px solid var(--theme-border-highlighted); }
+.btn-inactive { border: 1px solid var(--theme-border); }
+
 .btn-default { background-color: rgba(0,0,0,0.2); }
 .btn-default:hover { background-color: rgba(0,0,0,0.5); }
 .btn-error { background-color: rgba(200,50,50,0.4); }

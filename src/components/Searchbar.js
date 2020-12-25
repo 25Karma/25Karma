@@ -9,6 +9,7 @@ import { ReactIcon } from 'components';
 *
 *
  @param {string} props.defaultValue   The default value of the searchbar
+ @param {string} props.tag            Tag to include at the end of the search query (ex. 'guild')
 */
 export function Searchbar(props) {
 
@@ -35,7 +36,14 @@ export function Searchbar(props) {
 			// Clear the input
 			refInput.current.value = '';
 			// Redirect page
-			history.push(`/search/${slug}`);
+			let query;
+			if (props.tag) {
+				query = encodeURIComponent(`${slug} ${props.tag}`);
+			}
+			else {
+				query = encodeURIComponent(slug);
+			}
+			history.push(`/search/${query}`);
 		}
 	}
 
