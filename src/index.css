@@ -11,6 +11,8 @@
 	--theme-border: #1b1b1b;
 	--theme-border-highlighted: #f0f;
 	--theme-shadow: #1b1b1b;
+	--theme-scrollbar-thumb: #1b1b1b;
+	--theme-scrollbar-track: #333;
 }
 
 /* 
@@ -46,6 +48,22 @@ button {
 }
 button:focus {
 	outline-width: 0;
+}
+
+/* Styled scrollbar */
+::-webkit-scrollbar { width: 1rem; height: 1rem; }
+::-webkit-scrollbar-track { 
+	box-shadow: inset 0 0 1rem 1rem var(--theme-scrollbar-track); 
+	border-radius: 0.5rem; 
+	border: solid 0.2rem transparent;
+}
+::-webkit-scrollbar-thumb {
+	box-shadow: inset 0 0 1rem 1rem var(--theme-scrollbar-thumb); 
+	border-radius: 0.5rem; 
+	border: solid 0.2rem transparent;
+}
+::-webkit-scrollbar-corner {
+	background: transparent;
 }
 
 #root { min-height: 100vh; overflow-x: hidden; }
