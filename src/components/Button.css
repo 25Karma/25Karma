@@ -3,6 +3,7 @@
 	transition: all 0.1s;
 	user-select: none;
 	font-size: 1rem;
+	transition: border 0.2s;
 }
 .btn-active { border: 1px solid var(--theme-border-highlighted); }
 .btn-inactive { border: 1px solid var(--theme-border); }

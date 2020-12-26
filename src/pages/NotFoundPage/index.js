@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MinecraftText, Navbar, PageLayout } from 'components';
+import { APP } from 'constants/app';
 
 /*
 * 404 page
 */
 export function NotFoundPage(props) {
-	document.title = '404 Page not found';
+	document.title = `Error 404 - ${APP.documentTitle}`;
 	return (
 		<PageLayout
 			header={<Navbar />}

@@ -1,0 +1,29 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Crafatar, ExternalLink, GuildTag, PlayerName, Status } from 'components';
+import { APP } from 'constants/app';
+import { useAPIContext } from 'hooks';
+
+/*
+* Displays face, username, and status of the player in the Hypixel Context
+*/
+export function PlayerHeadline(props) {
+	const { mojang, player, guild, status } = useAPIContext();
+
+	return (
+		<div className="h-flex px-2 align-items-center">
+			{mojang.uuid &&
+				<ExternalLink href={`${APP.nameMC}${mojang.uuid}`}>
+					<Crafatar uuid={mojang.uuid} shadow />
+				</ExternalLink>
+			}
+			<div className="text-shadow pl-2">
+				<PlayerName username={mojang.username} player={player} size="xl" />
+				<Link to={`/guild/${mojang.username}`}>
+					<GuildTag guild={guild} size="xl" />
+				</Link>
+			</div>
+			<Status player={player} status={status} size="xl" />
+		</div>
+		);
+}

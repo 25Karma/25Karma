@@ -17,7 +17,8 @@ export function GuildPage(props) {
 	
 	switch(context.success) {
 		case true:
-			document.title = `${guild.name} | ${APP.documentTitle}`;
+			Utils.pushToRecentSearches(context.mojang.username);
+			document.title = `${context.mojang.username}'s Guild - ${APP.documentTitle}`;
 			return (
 			<PageLayout
 				header={<Navbar searchbar />}
@@ -30,10 +31,9 @@ export function GuildPage(props) {
 				center={<GuildMemberList />} />
 			);
 		case false:
-			document.title = APP.documentTitle;
 			return <FrontPage config={context} />
 		default:
-			document.title = APP.documentTitle;
+			document.title = `Loading... - ${APP.documentTitle}`;
 			return (
 			<PageLayout
 				header={<Navbar searchbar />}

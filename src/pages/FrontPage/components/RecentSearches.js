@@ -52,7 +52,7 @@ export function RecentSearches(props) {
 					</div>
 				))}
 				{array.length > 5 && !showAllRecents &&
-						<button onClick={()=>{setShowAllRecents(true)}}>
+						<button className="px-1" onClick={()=>{setShowAllRecents(true)}}>
 							<ReactIcon icon={MdMoreHoriz} clickable />
 						</button>
 				}

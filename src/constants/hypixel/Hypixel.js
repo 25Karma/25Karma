@@ -44,6 +44,19 @@ export const HYPIXEL = {
 		{level: 200, value: 7},
 		{level: 250, value: 8},
 	],
+	RANKPRIORITY: [
+		undefined,
+		'NONE',
+		'VIP',
+		'VIP_PLUS',
+		'MVP',
+		'MVP_PLUS',
+		'SUPERSTAR',
+		'YOUTUBER',
+		'HELPER',
+		'MODERATOR',
+		'ADMIN'
+	],
 	RANKMULTIPLIER: {
 		VIP: {value: 2, name: 'VIP'},
 		VIP_PLUS: {value: 3, name: 'VIP+'},

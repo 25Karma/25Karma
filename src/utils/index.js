@@ -250,3 +250,29 @@ export function toColorCode(str) {
 	}
 	return '§' + (colorClasses[str] || 'f');
 }
+
+/*
+* Pushes a value to the recentSearches cookie
+*
+* @param {string} ele    Value to add to the recentSearches cookie
+*/
+export function pushToRecentSearches(ele) {
+	const str = String(ele);
+	let cookie = Cookies.get('recentSearches');
+	if (cookie === undefined) {
+		cookie = '[]';
+	}
+	const array = JSON.parse(cookie);
+	const maxLength = 30;
+	
+	// The new player name is put at the front of the queue
+	let newArray = [str];
+	// Subsequent player names are added after
+	for (const a of array) {
+		// To avoid repetitions in the queue
+		if (!newArray.includes(a)) {
+			newArray.push(a);
+		}
+	}
+	Cookies.set('recentSearches', JSON.stringify(newArray.slice(0,maxLength)), {expires:365});
+}

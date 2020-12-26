@@ -3,7 +3,8 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import { HashRouter as Router } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { APIContextProvider, AppContextProvider } from 'contexts';
-import { FrontPage, GuildPage, NotFoundPage, PlayerPage, SearchPage } from 'pages';
+import { FriendsPage, FrontPage, GuildPage, NotFoundPage, 
+	PlayerPage, SearchPage } from 'pages';
 
 function App() {
 	const pinnedPlayer = Cookies.get('pinnedPlayer');
@@ -23,6 +24,7 @@ function App() {
 					<Route path="/search/:slug"><SearchPage /></Route>
 					<Route path="/player/:slug"><PlayerPage /></Route>
 					<Route path="/guild/:slug"><GuildPage /></Route>
+					<Route path="/friends/:slug"><FriendsPage /></Route>
 					<Route default><NotFoundPage /></Route>
 				</Switch>
 			</Router>

@@ -9,6 +9,9 @@ import { getPlayerRank, getGuildMemberRank } from 'utils/hypixel';
 
 /*
 * Displays general Hypixel stats about the player in the Hypixel Context
+*
+* @param {string} props.page   The page that the PlayerCard is displayed on (ex. "player") -
+*                              this will change what info to display
 */
 export function PlayerCard(props) {
 	
@@ -55,29 +58,68 @@ export function PlayerCard(props) {
 		</React.Fragment>
 		);
 
-	function overallStats() {
-		return (
-			<React.Fragment>
-				<Pair title="Coin Multiplier">{`${multiplier.value} (${multiplier.name})`}</Pair>
-				<Pair title="Achievement Points">{json.achievementPoints}</Pair>
-				<Pair title="Quests Completed">{json.questsCompleted}</Pair>
-				<Br />
-				<Pair title="Total Coins" color="gold">
-					{Utils.add(...consts.TOTALCOINS.map(n => Utils.traverse(json, n)))}
-				</Pair>
-				<Pair title="Total Kills">
-					{Utils.add(...consts.TOTALKILLS.map(n => Utils.traverse(json, n)))}
-				</Pair>
-				<Pair title="Total Wins">
-					{Utils.add(...consts.TOTALWINS.map(n => Utils.traverse(json, n)))}
-				</Pair>
-				<Br />
-				<Pair title="Rewards Claimed">{json.totalRewards}</Pair>
-				<Pair title="Reward Streak">{json.rewardScore}</Pair>
-				<Pair title="Top Reward Streak">{json.rewardHighScore}</Pair>
-				<Br />
-			</React.Fragment>
-			);
+	function playerStatsButton() {
+		if (props.page !== "player") {
+			return (
+				<React.Fragment>
+					<Link to={`/player/${mojang.username}`}>
+						<Button>
+							<span className="font-bold">View Player Stats</span>
+						</Button>
+					</Link>
+					<Br />
+				</React.Fragment>
+				);
+		}
+	}
+
+	const overallStats = (
+		<React.Fragment>
+			<Pair title="Coin Multiplier">{`${multiplier.value} (${multiplier.name})`}</Pair>
+			<Pair title="Achievement Points">{json.achievementPoints}</Pair>
+			<Pair title="Quests Completed">{json.questsCompleted}</Pair>
+			<Br />
+			<Pair title="Total Coins" color="gold">
+				{Utils.add(...consts.TOTALCOINS.map(n => Utils.traverse(json, n)))}
+			</Pair>
+			<Pair title="Total Kills">
+				{Utils.add(...consts.TOTALKILLS.map(n => Utils.traverse(json, n)))}
+			</Pair>
+			<Pair title="Total Wins">
+				{Utils.add(...consts.TOTALWINS.map(n => Utils.traverse(json, n)))}
+			</Pair>
+			<Br />
+			<Pair title="Rewards Claimed">{json.totalRewards}</Pair>
+			<Pair title="Reward Streak">{json.rewardScore}</Pair>
+			<Pair title="Top Reward Streak">{json.rewardHighScore}</Pair>
+			<Br />
+		</React.Fragment>
+		);
+
+	function friendsInfo() {
+		// Only render friends button if we are not already on the friends page
+		if (props.page !== "friends") {
+			return (
+				<React.Fragment>
+					<Pair title="Friends">{friends}</Pair>
+					<Br />
+					<Link to={`/friends/${mojang.username}`}>
+						<Button>
+							<span className="font-bold">View Friends</span>
+						</Button>
+					</Link>
+					<Br />
+				</React.Fragment>
+				);
+		}
+		else {
+			return (
+				<React.Fragment>
+					<Pair title="Friends">{friends.length}</Pair>
+					<Br />
+				</React.Fragment>
+				);
+		}
 	}
 	
 	function guildInfo() {
@@ -132,9 +174,9 @@ export function PlayerCard(props) {
 				</Box>
 			</div>
 			<HorizontalLine className="mb-3"/>
-			{overallStats()}
-			<Pair title="Friends">{friends}</Pair>
-			<Br />
+			{playerStatsButton()}
+			{overallStats}
+			{friendsInfo()}
 			{loginDates}
 			<ExternalLink href={`https://sky.shiiyu.moe/stats/${json.uuid}`}>
 				<Button>

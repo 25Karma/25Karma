@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { FaUser, FaFlag } from 'react-icons/fa';
+import { FaUser, FaUsers, FaShieldAlt } from 'react-icons/fa';
 import { Button, ExternalLink, MinecraftText, Navbar, 
 	PageLayout, ReactIcon, Searchbar } from 'components';
 import { RecentSearches, Tips } from './components';
@@ -17,11 +17,12 @@ import { AppContext } from 'contexts';
 export function FrontPage(props) {
 
 	const config = props.config || {};
-	document.title = APP.documentTitle;
+	document.title = `Hypixel Player Stats - ${APP.documentTitle}`;
 
 	const searchTypes = [
 		{id: 'stats', name: 'Player', icon: FaUser },
-		{id: 'guild', name: 'Guild', icon: FaFlag },
+		{id: 'guild', name: 'Guild', icon: FaShieldAlt },
+		{id: 'friends', name: 'Friends', icon: FaUsers },
 	];
 	const [searchType, setSearchType] = useState(searchTypes[0].id);
 
@@ -110,7 +111,7 @@ export function FrontPage(props) {
 					</div>
 					<div className="py-1 h-flex flex-wrap justify-content-center">
 						{searchTypes.map(type =>
-							<div key={type.id} className="px-1 py-1"> 
+							<div key={type.id} className="px-1"> 
 								<Button 
 									active={searchType === type.id}
 									onClick={() => {setSearchType(type.id)}}

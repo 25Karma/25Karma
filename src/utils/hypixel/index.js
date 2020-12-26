@@ -1,6 +1,7 @@
 import * as Utils from 'utils';
+import { HYPIXEL } from 'constants/hypixel';
 
-export * from './HypixelLeveling'
+export * from './HypixelLeveling';
 
 /*
 * Returns the rank of a player based on the `player` JSON
@@ -19,6 +20,18 @@ export function getPlayerRank(playerdata) {
 		if (rank !== undefined && rank !== "NONE" && rank !== "NORMAL") return rank;
 	}
 	return "NONE";
+}
+
+/*
+* Returns the priority of the rank of a player based on the `player` JSON
+* The priority of a rank is the order in which it appears in tab in lobbies
+*
+* @param {Object} playerdata    The `player` JSON from the API
+* @return {Number}              The priority of the rank - from 0 (undefined) to 10 (ADMIN)
+*/
+export function getPlayerRankPriority(playerdata) {
+	const rank = getPlayerRank(playerdata);
+	return HYPIXEL.RANKPRIORITY.indexOf(rank);
 }
 
 /*

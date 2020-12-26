@@ -54,6 +54,7 @@ export function Collapsible(props) {
 			}
 			setCollapsed(!isCollapsed);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[collapsibleHeight]);
 
 	return props.children(provided);
