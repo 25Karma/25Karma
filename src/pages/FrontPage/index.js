@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { FaUser, FaUsers, FaShieldAlt } from 'react-icons/fa';
-import { Button, ExternalLink, MinecraftText, Navbar, 
-	PageLayout, ReactIcon, Searchbar } from 'components';
-import { RecentSearches, Tips } from './components';
+import React, { useEffect, useContext } from 'react';
+import { ExternalLink, MinecraftText, Navbar, PageLayout } from 'components';
+import { RecentSearches, Search, Tips } from './components';
 import { APP } from 'constants/app';
 import { AppContext } from 'contexts';
 
@@ -18,13 +16,6 @@ export function FrontPage(props) {
 
 	const config = props.config || {};
 	document.title = `Hypixel Player Stats - ${APP.documentTitle}`;
-
-	const searchTypes = [
-		{id: 'stats', name: 'Player', icon: FaUser },
-		{id: 'guild', name: 'Guild', icon: FaShieldAlt },
-		{id: 'friends', name: 'Friends', icon: FaUsers },
-	];
-	const [searchType, setSearchType] = useState(searchTypes[0].id);
 
 	// Set the banner according to the config
 	const { setBanner } = useContext(AppContext);
@@ -101,31 +92,9 @@ export function FrontPage(props) {
 			}
 			center={
 				<React.Fragment>
-					<div className="py-1 px-1">
-						<p className="pb-1 pl-2">
-							<MinecraftText size="md">
-								{`Search for the ${searchType} of a Hypixel player`}
-							</MinecraftText>
-						</p>
-						<Searchbar defaultValue={config.slug || ''} tag={searchType} />
-					</div>
-					<div className="py-1 h-flex flex-wrap justify-content-center">
-						{searchTypes.map(type =>
-							<div key={type.id} className="px-1"> 
-								<Button 
-									active={searchType === type.id}
-									onClick={() => {setSearchType(type.id)}}
-								>
-									<div className="overflow-hidden p-1" style={{width: "6rem"}}>
-										<ReactIcon icon={type.icon} size="lg" />
-										<div className="pt-1">{type.name}</div>
-									</div>
-								</Button>
-							</div>
-						)}
-					</div>
+					<Search defaultValue={config.slug} />
 					<RecentSearches />
-					<div className="pt-5 pb-2 px-1">
+					<div className="pt-5 pb-2">
 						<Tips />
 					</div>
 				</React.Fragment>

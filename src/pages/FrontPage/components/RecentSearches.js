@@ -38,12 +38,12 @@ export function RecentSearches(props) {
 	}
 	return (
 		<React.Fragment>
-			<div className="pt-3 pl-2 ml-1">
+			<div className="pt-3 pl-2">
 				<MinecraftText>Recent searches</MinecraftText>
 			</div>
 			<div className="h-flex flex-wrap">
 				{array.slice(0, showAllRecents ? array.length : 5).map((a) => (
-					<div key={a} className="px-1 py-1">
+					<div key={a} className="pr-2 py-1">
 						<Link to={`/player/${a}`}>
 							<Button>
 								<span className="font-xs">{a}</span>
@@ -52,7 +52,7 @@ export function RecentSearches(props) {
 					</div>
 				))}
 				{array.length > 5 && !showAllRecents &&
-						<button className="px-1" onClick={()=>{setShowAllRecents(true)}}>
+						<button onClick={()=>{setShowAllRecents(true)}}>
 							<ReactIcon icon={MdMoreHoriz} clickable />
 						</button>
 				}
