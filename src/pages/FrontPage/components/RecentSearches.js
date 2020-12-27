@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import { MdMoreHoriz } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { Button, MinecraftText, ReactIcon } from 'components';
+import { APP } from 'constants/app';
 
 /*
 *  Renders JSX containing recent searches if there are any
@@ -20,16 +21,15 @@ export function RecentSearches(props) {
 
 	// If the cookie is empty or doesn't exist, render a suggestion
 	if (array === undefined || array.length === 0) {
-		const suggestedPlayer = "Technoblade";
 		return (
 			<div className="h-flex flex-wrap pt-2 pl-1">
 				<div className="pt-2 pl-2">
 					<MinecraftText>First time? Try searching</MinecraftText>
 				</div>
 				<div className="pl-2 py-1">
-					<Link to={`/player/${suggestedPlayer}`}>
+					<Link to={`/player/${APP.suggestedPlayers[0]}`}>
 						<Button>
-							<span className="font-xs">{suggestedPlayer}</span>
+							<span className="font-xs">{APP.suggestedPlayers[0]}</span>
 						</Button>
 					</Link>
 				</div>

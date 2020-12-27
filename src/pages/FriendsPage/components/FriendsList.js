@@ -15,11 +15,11 @@ export function FriendsList(props) {
 
 	// List of names that will be progressively fetched from the API
 	const [names, setNames] = useState({});
-	const totalNames = Object.keys(names).length;
+	const [totalNames, setTotalNames] = useState(0);
 
 	const initialLoadAmount = 20;
 	const loadIncrement = 50;
-	const [loadAmount, setLoadAmount] = useState(initialLoadAmount);
+	const [loadAmount, setLoadAmount] = useState(Math.min(initialLoadAmount, totalFriendCount));
 
 	// Decides whether the friend's UUID is uuidSender or uuidReceiver
 	// Reason that I use useCallback - https://stackoverflow.com/a/56492329/12191708
@@ -33,7 +33,7 @@ export function FriendsList(props) {
 		const abortController = new AbortController();
 		// Used to clean up timeout
 		let fetchTimeoutID;
-		console.log(loadAmount)
+
 		async function fetchFriendNameByIndex(index) {
 			if (index < loadAmount) {
 				const uuid = getFriendUUID(friends[index]);
@@ -41,8 +41,9 @@ export function FriendsList(props) {
 					signal: abortController.signal
 				});
 				const json = await response.json();
-				if (json.success) {
+				if (json.success || json.reason === 'HYPIXEL_PLAYER_DNE') {
 					setNames(oldNames => ({ ...oldNames, [uuid]: json }));
+					setTotalNames(n => n+1);
 					fetchTimeoutID = setTimeout(() => {
 						fetchFriendNameByIndex(index+1);
 					}, 200);
@@ -100,11 +101,11 @@ export function FriendsList(props) {
 				{title: "Name", sortHandler: sortAlphabetically},
 				{title: "Friends Since", sortHandler: sortByFriendshipStartDate, initial: true},
 				]}
-				items={friends.filter(f => names[getFriendUUID(f)])}>
+				items={friends.filter(f => Utils.traverse(names, `${getFriendUUID(f)}.success`, false))}>
 				{(friend) => {
 					const data = names[getFriendUUID(friend)];
 					return (
-						<tr key={data.uuid}>
+						<tr key={friend._id}>
 							<td className="td-shrink">
 								<ExternalLink href={`${APP.nameMC}${data.uuid}`}>
 									<Crafatar uuid={data.uuid} size="lg" shadow />

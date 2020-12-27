@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, ExternalLink, HorizontalLine, SocialMedia } from 'components';
 import { Br, Box, Pair, Title } from 'components/Stats';
+import { APP } from 'constants/app';
 import { HYPIXEL as consts } from 'constants/hypixel';
 import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
@@ -136,7 +137,10 @@ export function PlayerCard(props) {
 					<Pair title="Name" color={guild.tagColor}>{guild.name}</Pair>
 					<Pair title="Members">{guild.members.length}</Pair>
 					<Br />
-					<Pair title="Rank">{rank.name + (rank.tag ? ` [${rank.tag}]` : '')}</Pair>
+					<Pair title="Rank">
+						<span>{rank.name}</span>
+						{rank.tag && <span className={`c-${guild.tagColor}`}>{` [${rank.tag}]`}</span>}
+					</Pair>
 					<Pair title="Daily GEXP">{dailyGEXP}</Pair>
 					<Pair title="Weekly GEXP">{weeklyGEXP}</Pair>
 					<Pair title="Joined">{Utils.dateFormat(member.joined)}</Pair>
@@ -178,7 +182,7 @@ export function PlayerCard(props) {
 			{overallStats}
 			{friendsInfo()}
 			{loginDates}
-			<ExternalLink href={`https://sky.shiiyu.moe/stats/${json.uuid}`}>
+			<ExternalLink href={`${APP.skyblock}${json.uuid}`}>
 				<Button>
 					<span className="font-bold">SkyBlock Stats</span>
 				</Button>

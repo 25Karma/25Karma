@@ -3,6 +3,7 @@ import ReactTooltip from 'react-tooltip';
 import Cookies from 'js-cookie';
 import './Settings.css';
 import { Button, ExternalLink } from 'components';
+import { APP } from 'constants/app';
 import { AppContext } from 'contexts';
 
 /*
@@ -85,7 +86,7 @@ export function Settings(props) {
 						ref={pinnedPlayerInput}
 						style={{width:'15rem'}}
 						type="text" 
-						placeholder="ex. gamerboy80" 
+						placeholder={`ex. ${APP.suggestedPlayers[1]}`}
 						defaultValue={Cookies.get('pinnedPlayer')}/>
 					<div className="pl-2 ml-auto">
 						<Button type="error" onClick={clearCookies}>

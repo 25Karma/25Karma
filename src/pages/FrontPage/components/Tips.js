@@ -15,6 +15,7 @@ export function Tips(props) {
 			suggestion? <ExternalLink href={APP.hypixelForums}>
 				Message me on the Hypixel Forums. </ExternalLink>
 		</React.Fragment>,
+		`Try searching "${APP.suggestedPlayers[2]} friends" or simply "${APP.suggestedPlayers[2]} f" in the search bar!`,
 		<React.Fragment>
 			Interested in how this site was 
 			built? <ExternalLink href="https://github.com/25karma">Check out the code

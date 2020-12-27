@@ -16,7 +16,7 @@ export function GuildMemberList(props) {
 
 	// List of names that will be progressively fetched from the API
 	const [names, setNames] = useState({});
-	const totalNames = Object.keys(names).length;
+	const [totalNames, setTotalNames] = useState(0);
 
 	useEffect(() => {
 		// Used to clean up fetch
@@ -33,6 +33,7 @@ export function GuildMemberList(props) {
 				const json = await response.json();
 				if (json.success) {
 					setNames(oldNames => ({ ...oldNames, [uuid]: json }));
+					setTotalNames(n => n+1);
 					fetchTimeoutID = setTimeout(() => {
 						fetchGuildMemberNameByIndex(index+1);
 					}, 200);
@@ -113,7 +114,7 @@ export function GuildMemberList(props) {
 				{(member) => {
 					const data = names[member.uuid];
 					return (
-						<tr key={data.uuid}>
+						<tr key={member.joined}>
 							<td className="td-shrink">
 								<ExternalLink href={`${APP.nameMC}${data.uuid}`}>
 									<Crafatar uuid={data.uuid} size="lg" shadow />
