@@ -26,6 +26,7 @@ export const MURDERMYSTERY = {
 		undefined : "Iron Sword",
 		knife_skin_mouse_trap : "Mouse Trap",
 		knife_skin_mvp : "MVP Diamond Sword",
+		knife_skin_none : "Iron Sword",
 		knife_skin_prickly : "Prickly",
 		knife_skin_pumpkin_pie : "Pumpkin Pie",
 		random_cosmetic : "Random",

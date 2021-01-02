@@ -153,7 +153,6 @@ export const HYPIXEL = {
 		'stats.Arcade.wins_party_3',
 		'stats.Arcade.wins_draw_their_thing',
 		'stats.Arcade.wins_scuba_simulator',
-		'stats.Arcade.wins_simon_says',
 		'stats.Arcade.wins_throw_out',
 		'stats.Arcade.wins_mini_walls',
 		'stats.Arena.wins_1v1',

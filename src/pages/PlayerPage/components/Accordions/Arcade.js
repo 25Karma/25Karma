@@ -241,13 +241,6 @@ export const Arcade = memo((props) => {
 				</div>
 
 				<div style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Simon Says</div>
-					<Pair title="Wins">{json.wins_simon_says}</Pair>
-					<Pair title="Rounds">{json.rounds_simon_says}</Pair>
-					<Br />
-				</div>
-
-				<div style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Throw Out</div>
 					<Pair title="Wins">{json.wins_throw_out}</Pair>
 					<Pair title="Kills">{json.kills_throw_out}</Pair>
