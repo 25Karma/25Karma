@@ -31,12 +31,10 @@ export const SkyWars = memo((props) => {
 		wl : Utils.ratio(json.wins, json.losses),
 		kw : Utils.ratio(json.kills, json.wins)
 	}
-	// // Not 100% accurate - will leave it out until I figure out a better way
-	// const totalShards = Utils.add(...Object.entries(json).map(([k,v]) => {
-	// 	if (k.includes('shard_kit_')) {
-	// 		return v;
-	// 	}
-	// }));
+	
+	const opalsEarned = Utils.traverse(player, 'achievements.skywars_opal_obsession');
+	const totalOpals = Utils.add(opalsEarned, Math.max(0, consts.PRESTIGES.findIndex(n => n.name === prestigeName)-1));
+	const totalShards = Utils.add(opalsEarned*20000, json.shard);
 
 	const mostPlayedMode = getMostPlayed(consts.MODES,
 		({id}) => Utils.add(json[`wins${id}`], json[`losses${id}`]));
@@ -286,9 +284,11 @@ export const SkyWars = memo((props) => {
 				<div className="h-flex mb-3">
 					<div className="flex-1">
 						<Pair title="Shards" color="aqua">{json.shard}</Pair>
+						<Pair title="Lifetime Shards" color="aqua">{totalShards}</Pair>
 					</div>
 					<div className="flex-1">
 						<Pair title="Opals" color="blue">{json.opals}</Pair>
+						<Pair title="Lifetime Opals" color="blue">{totalOpals}</Pair>
 					</div>
 				</div>
 				<div className="mb-1">

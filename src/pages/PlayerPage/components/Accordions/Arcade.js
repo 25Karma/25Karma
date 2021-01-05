@@ -89,7 +89,7 @@ export const Arcade = memo((props) => {
 			<div className="my-3">
 				<Pair title="Arcade Coins" color="gold">{json.coins}</Pair>
 			</div>
-			<div className="h-flex flex-wrap mb-2">
+			<div className="h-flex flex-wrap">
 				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Blocking Dead</div>
 					<Pair title="Wins">{json.wins_dayone}</Pair>

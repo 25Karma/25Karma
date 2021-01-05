@@ -55,6 +55,10 @@ export function GuildMemberList(props) {
 		}
 	}, [guildMembers, totalMembers]);
 
+	function weeklyGEXP(member) {
+		return Object.values(member.expHistory).reduce((a,b) => a+b);
+	}
+
 	function sortAlphabetically(memberList, polarity) {
 		return memberList.sort((a,b) => {
 			const aRank = getPlayerRankPriority(names[a.uuid]);
@@ -97,6 +101,11 @@ export function GuildMemberList(props) {
 		});
 	}
 
+	function sortByGEXP(memberList, polarity) {
+		return memberList.sort((a,b) => weeklyGEXP(a) < weeklyGEXP(b) ?
+			polarity : -polarity);
+	}
+
 	function sortByJoinDate(memberList, polarity) {
 		return memberList.sort((a,b) => a.joined > b.joined ? 
 			polarity : -polarity);
@@ -108,6 +117,7 @@ export function GuildMemberList(props) {
 				{},
 				{title: "Name", sortHandler: sortAlphabetically},
 				{title: "Rank", sortHandler: sortByGuildRank, initial: true},
+				{title: "Weekly GEXP", sortHandler: sortByGEXP},
 				{title: "Joined Since", sortHandler: sortByJoinDate},
 				]}
 				items={guildMembers.filter(m => names[m.uuid])}>
@@ -126,6 +136,7 @@ export function GuildMemberList(props) {
 								</Link>
 							</td>
 							<td>{getGuildMemberRank(member, guild.ranks).name}</td>
+							<td>{weeklyGEXP(member)}</td>
 							<td>{Utils.dateFormat(member.joined)}</td>
 						</tr>
 						);
