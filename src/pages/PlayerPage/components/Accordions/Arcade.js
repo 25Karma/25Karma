@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
 import { Box, Br, Cell, Pair, Table, Title } from 'components/Stats';
-import { ARCADE as consts } from 'constants/hypixel';
+import { ARCADE as consts, HYPIXEL } from 'constants/hypixel';
 import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 
@@ -17,11 +17,8 @@ export const Arcade = memo((props) => {
 	const achievements = Utils.traverse(player, 'achievements', {});
 	const json = Utils.traverse(player,'stats.Arcade') || {};
 	
-	const totalWins = Object.entries(json)
-		// The point of substring() is to filter out 'prop_hunt_hider_wins_hide_and_seek' from the
-		// total wins since it is a duplicate of 'hider_wins_hide_and_seek' (same for seekers)
-		.map(e => e[0].substring(0,16).includes('wins_') ? e[1] : 0)
-		.reduce((a, b) => a + b, 0);
+	const totalWins = Utils.add(...HYPIXEL.TOTALWINS.filter(i => i.includes('Arcade')
+		).map(n => Utils.traverse(player, n)));
 	
 	const header = (
 		<Box title="Wins">{totalWins}</Box>
@@ -39,6 +36,7 @@ export const Arcade = memo((props) => {
 					<th>Zombies Killed</th>
 					<th>Deaths</th>
 					<th>Best Round</th>
+					<th>Wins</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -54,6 +52,7 @@ export const Arcade = memo((props) => {
 						<Cell>{json[`zombie_kills_zombies_${id}`]}</Cell>
 						<Cell>{json[`deaths_zombies_${id}`]}</Cell>
 						<Cell>{json[`best_round_zombies_${id}`]}</Cell>
+						<Cell>{json[`wins_zombies_${id}`]}</Cell>
 					</tr>
 					)
 			}
@@ -91,7 +90,7 @@ export const Arcade = memo((props) => {
 				<Pair title="Arcade Coins" color="gold">{json.coins}</Pair>
 			</div>
 			<div className="h-flex flex-wrap mb-2">
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Blocking Dead</div>
 					<Pair title="Wins">{json.wins_dayone}</Pair>
 					<Pair title="Kills">{json.kills_dayone}</Pair>
@@ -99,68 +98,59 @@ export const Arcade = memo((props) => {
 					<Pair title="Melee Weapon"> 
 						{Utils.capitalize((json.melee_weapon || '-').split('_').join(' '))} 
 					</Pair>
-					<Br />
 				</div>
 
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Bounty Hunters</div>
 					<Pair title="Wins">{json.wins_oneinthequiver}</Pair>
 					<Pair title="Kills">{json.kills_oneinthequiver}</Pair>
 					<Pair title="Deaths">{json.deaths_oneinthequiver}</Pair>
 					<Pair title="Kill/Death Ratio">{Utils.ratio(json.kills_oneinthequiver, json.deaths_oneinthequiver)}</Pair>
-					<Br />
 				</div>
 
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Capture The Wool</div>
 					<Pair title="Kills">{achievements.arcade_ctw_slayer}</Pair>
 					<Pair title="Wool Captures">{achievements.arcade_ctw_oh_sheep}</Pair>
-					<Br />
 				</div>
 
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Creeper Attack</div>
-					<Pair title="Max Wave">{json.max_wave}</Pair>
-					<Br />
+					<Pair title="Best Wave">{json.max_wave}</Pair>
 				</div>
 
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Dragon Wars</div>
 					<Pair title="Wins">{json.wins_dragonwars2}</Pair>
 					<Pair title="Kills">{json.kills_dragonwars2}</Pair>
-					<Br />
 				</div>
 
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Easter Simulator</div>
 					<Pair title="Wins">{json.wins_easter_simulator}</Pair>
 					<Pair title="Eggs Found">{json.eggs_found_easter_simulator}</Pair>
-					<Br />
 				</div>
 
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Ender Spleef</div>
 					<Pair title="Wins">{json.wins_ender}</Pair>
-					<Br />
 				</div>
 
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Farm Hunt</div>
 					<Pair title="Wins">{json.wins_farm_hunt}</Pair>
 					<Pair title="Poop Collected">{json.poop_collected}</Pair>
-					<Br />
 				</div>
 
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Football</div>
 					<Pair title="Wins">{json.wins_soccer}</Pair>
 					<Pair title="Goals">{json.goals_soccer}</Pair>
 					<Pair title="Kicks">{json.kicks_soccer}</Pair>
 					<Pair title="Powerkicks">{json.powerkicks_soccer}</Pair>
-					<Br />
 				</div>
 
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Galaxy Wars</div>
 					<Pair title="Wins">{json.sw_game_wins}</Pair>
 					<Pair title="Kills">{json.sw_kills}</Pair>
@@ -169,84 +159,68 @@ export const Arcade = memo((props) => {
 					<Pair title="Deaths">{json.sw_deaths}</Pair>
 					<Pair title="Kill/Death Ratio">{Utils.ratio(json.sw_wins, json.sw_deaths)}</Pair>
 					<Pair title="Shots Fired">{json.sw_shots_fired}</Pair>
-					<Br />
 				</div>
 
-				<div style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Grinch Simulator</div>
+				<div className="pb-3" style={{width: '33%'}}>
+					<div className="font-bold underline mb-1">Grinch Simulator v2</div>
 					<Pair title="Wins">{json.wins_grinch_simulator_v2}</Pair>
 					<Pair title="Presents Stolen">{json.gifts_grinch_simulator_v2}</Pair>
-					<Br />
 				</div>
 
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
+					<div className="font-bold underline mb-1">Halloween Simulator</div>
+					<Pair title="Wins">{json.wins_halloween_simulator}</Pair>
+					<Pair title="Candy Found">{json.candy_found_halloween_simulator}</Pair>
+				</div>
+
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Hide and Seek</div>
 					<Pair title="Wins as Seeker">{json.seeker_wins_hide_and_seek}</Pair>
 					<Pair title="Wins as Hider">{json.hider_wins_hide_and_seek}</Pair>
-					<Br />
 				</div>
 
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Hole in the Wall</div>
 					<Pair title="Wins">{json.wins_hole_in_the_wall}</Pair>
 					<Pair title="Highest Score Qualifications">{json.hitw_record_q}</Pair>
 					<Pair title="Highest Score Finals">{json.hitw_record_f}</Pair>
-					<Br />
 				</div>
 
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Hypixel Says</div>
 					<Pair title="Wins">{json.wins_simon_says}</Pair>
 					<Pair title="Rounds">{json.rounds_simon_says}</Pair>
-					<Br />
 				</div>
 
-				<div style={{width: '33%'}}>					
-					<div className="font-bold underline mb-1">Party Games 1</div>
-					<Pair title="Wins">{json.wins_party}</Pair>
-					<Br />
+				<div className="pb-3" style={{width: '33%'}}>					
+					<div className="font-bold underline mb-1">Party Games</div>
+					<Pair title="Wins">{Utils.add(json.wins_party, json.wins_party_2, json.wins_party_3)}</Pair>
 				</div>
 
-				<div style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Party Games 2</div>
-					<Pair title="Wins">{json.wins_party_2}</Pair>
-					<Br />
-				</div>
-
-				<div style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Party Games 3</div>
-					<Pair title="Wins">{json.wins_party_3}</Pair>
-					<Br />
-				</div>
-
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Pixel Painters</div>
 					<Pair title="Wins">{json.wins_draw_their_thing}</Pair>
-					<Br />
 				</div>
 
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Santa Simulator</div>
 					<Pair title="Presents Delivered">{json.delivered_santa_simulator}</Pair>
 					<Pair title="Times Spotted">{json.spotted_santa_simulator}</Pair>
-					<Br />
 				</div>
 
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Scuba Simulator</div>
 					<Pair title="Wins">{json.wins_scuba_simulator}</Pair>
 					<Pair title="Items Found">{json.items_found_scuba_simulator}</Pair>
 					<Pair title="Total Points">{json.total_points_scuba_simulator}</Pair>
-					<Br />
 				</div>
 
-				<div style={{width: '33%'}}>
+				<div className="pb-3" style={{width: '33%'}}>
 					<div className="font-bold underline mb-1">Throw Out</div>
 					<Pair title="Wins">{json.wins_throw_out}</Pair>
 					<Pair title="Kills">{json.kills_throw_out}</Pair>
 					<Pair title="Deaths">{json.deaths_throw_out}</Pair>
 					<Pair title="Kill/Death Ratio">{Utils.ratio(json.kills_throw_out, json.deaths_throw_out)}</Pair>
-					<Br />
 				</div>
 			</div>
 
@@ -278,7 +252,14 @@ export const Arcade = memo((props) => {
 			<HorizontalLine />
 
 			<Title>Zombies</Title>
-			<div className="h-flex mb-2">
+			<div className="h-flex mb-3">
+				<div className="flex-1">
+					<Pair title="Wins">{json.wins_zombies}</Pair>
+					<Br/>
+					<Pair title="Rounds Survived">{json.total_rounds_survived_zombies}</Pair>
+					<Pair title="Best Round">{json.best_round_zombies}</Pair>
+					<Pair title="Zombies Killed">{json.zombie_kills_zombies}</Pair>
+				</div>
 				<div className="flex-1">
 					<Pair title="Bullets Hit">{json.bullets_hit_zombies}</Pair>
 					<Pair title="Bullets Shot">{json.bullets_shot_zombies}</Pair>
@@ -287,14 +268,14 @@ export const Arcade = memo((props) => {
 					<Pair title="Headshot Accuracy" percentage>{Utils.ratio(json.headshots_zombies, json.bullets_hit_zombies)}</Pair>
 				</div>
 				<div className="flex-1">
-					<Pair title="Times Knocked Down">{json.times_knocked_down_zombies}</Pair>
 					<Pair title="Players Revived">{json.players_revived_zombies}</Pair>
+					<Pair title="Times Knocked Down">{json.times_knocked_down_zombies}</Pair>
+					<Br/>
 					<Pair title="Doors Opened">{json.doors_opened_zombies}</Pair>
 					<Pair title="Windows Repaired">{json.windows_repaired_zombies}</Pair>
-					<Pair title="Zombies Killed">{json.zombie_kills_zombies}</Pair>
 				</div>
 			</div>
-			<div className="overflow-x mb-2">
+			<div className="overflow-x mb-3">
 				{zombiesMapTable}
 			</div>
 			<div className="overflow-x mb-3" style={{width: '50%'}}>
