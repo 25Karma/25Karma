@@ -10,7 +10,7 @@ import { getPlayerRankPriority, getGuildMemberRank } from 'utils/hypixel';
 * The list of players displayed at the center of the page
 */
 export function GuildMemberList(props) {
-	const { guild } = useAPIContext();
+	const { guild, names: cachedNames } = useAPIContext();
 	const guildMembers = Utils.traverse(guild, 'members', []);
 	const totalMembers = guild.members.length;
 
@@ -27,12 +27,19 @@ export function GuildMemberList(props) {
 		async function fetchGuildMemberNameByIndex(index) {
 			if (index < totalMembers) {
 				const uuid = guildMembers[index].uuid;
+				// First check if the name data was sent in the original request
+				if (cachedNames[uuid] !== undefined) {
+					setNames(oldNames => ({ ...oldNames, [uuid]: cachedNames[uuid] }));
+					setTotalNames(n => n+1);
+					return fetchGuildMemberNameByIndex(index+1);
+				}
+				// If not, fetch the name data
 				const response = await fetch(`${APP.API}name/${uuid}`, {
 					signal: abortController.signal
 				});
 				const json = await response.json();
 				if (json.success) {
-					setNames(oldNames => ({ ...oldNames, [uuid]: json }));
+					setNames(oldNames => ({ ...oldNames, [uuid]: json.name }));
 					setTotalNames(n => n+1);
 					fetchTimeoutID = setTimeout(() => {
 						fetchGuildMemberNameByIndex(index+1);
@@ -53,7 +60,7 @@ export function GuildMemberList(props) {
 			abortController.abort();
 			clearTimeout(fetchTimeoutID);
 		}
-	}, [guildMembers, totalMembers]);
+	}, [guildMembers, totalMembers, cachedNames]);
 
 	function weeklyGEXP(member) {
 		return Object.values(member.expHistory).reduce((a,b) => a+b);

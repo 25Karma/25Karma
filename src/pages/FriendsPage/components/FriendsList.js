@@ -10,7 +10,7 @@ import { getPlayerRankPriority } from 'utils/hypixel';
 * The list of players displayed at the center of the page
 */
 export function FriendsList(props) {
-	const { friends, mojang } = useAPIContext();
+	const { friends, mojang, names: cachedNames } = useAPIContext();
 	const totalFriendCount = friends.length;
 
 	// List of names that will be progressively fetched from the API
@@ -37,21 +37,28 @@ export function FriendsList(props) {
 		async function fetchFriendNameByIndex(index) {
 			if (index < loadAmount) {
 				const uuid = getFriendUUID(friends[index]);
+				// First check if the name data was sent in the original request
+				if (cachedNames[uuid] !== undefined) {
+					setNames(oldNames => ({ ...oldNames, [uuid]: cachedNames[uuid] }));
+					setTotalNames(n => n+1);
+					return fetchFriendNameByIndex(index+1);
+				}
+				// If not, fetch the name data
 				const response = await fetch(`${APP.API}name/${uuid}`, {
 					signal: abortController.signal
 				});
 				const json = await response.json();
-				if (json.success || json.reason === 'HYPIXEL_PLAYER_DNE') {
-					setNames(oldNames => ({ ...oldNames, [uuid]: json }));
+				if (json.reason === 'RATELIMITED') {
+					fetchTimeoutID = setTimeout(() => {
+						fetchFriendNameByIndex(index);
+					}, 20000);
+				}
+				else {
+					setNames(oldNames => ({ ...oldNames, [uuid]: json.name }));
 					setTotalNames(n => n+1);
 					fetchTimeoutID = setTimeout(() => {
 						fetchFriendNameByIndex(index+1);
 					}, 200);
-				}
-				else {
-					fetchTimeoutID = setTimeout(() => {
-						fetchFriendNameByIndex(index);
-					}, 20000);
 				}
 			}
 		}
@@ -101,7 +108,7 @@ export function FriendsList(props) {
 				{title: "Name", sortHandler: sortAlphabetically},
 				{title: "Friends Since", sortHandler: sortByFriendshipStartDate, initial: true},
 				]}
-				items={friends.filter(f => Utils.traverse(names, `${getFriendUUID(f)}.success`, false))}>
+				items={friends.filter(f => names[`${getFriendUUID(f)}`])}>
 				{(friend) => {
 					const data = names[getFriendUUID(friend)];
 					return (
