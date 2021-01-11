@@ -45,12 +45,12 @@ export function PlayerCard(props) {
 
 	const loginDates = ( 
 		<React.Fragment>
-			{json.firstLogin &&
+			{json.firstLogin !== undefined &&
 				<Pair title="First Login">
 					{Utils.dateFormat(json.firstLogin)}
 				</Pair>
 			}
-			{json.lastLogin &&
+			{json.lastLogin !== undefined &&
 				<Pair title="Last Login">
 					{Utils.dateFormat(json.lastLogin)}
 				</Pair>

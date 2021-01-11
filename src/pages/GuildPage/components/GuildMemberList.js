@@ -27,6 +27,7 @@ export function GuildMemberList(props) {
 		async function fetchGuildMemberNameByIndex(index) {
 			if (index < totalMembers) {
 				const uuid = guildMembers[index].uuid;
+
 				// First check if the name data was sent in the original request
 				if (cachedNames[uuid] !== undefined) {
 					setNames(oldNames => ({ ...oldNames, [uuid]: cachedNames[uuid] }));
@@ -38,17 +39,17 @@ export function GuildMemberList(props) {
 					signal: abortController.signal
 				});
 				const json = await response.json();
-				if (json.success) {
+				if (json.reason === 'RATELIMITED') {
+					fetchTimeoutID = setTimeout(() => {
+						fetchGuildMemberNameByIndex(index);
+					}, 20000);
+				}
+				else {
 					setNames(oldNames => ({ ...oldNames, [uuid]: json.name }));
 					setTotalNames(n => n+1);
 					fetchTimeoutID = setTimeout(() => {
 						fetchGuildMemberNameByIndex(index+1);
 					}, 200);
-				}
-				else {
-					fetchTimeoutID = setTimeout(() => {
-						fetchGuildMemberNameByIndex(index);
-					}, 20000);
 				}
 			}
 		}

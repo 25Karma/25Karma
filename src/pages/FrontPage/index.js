@@ -66,7 +66,12 @@ export function FrontPage(props) {
 				setBanner({
 					style: 'error',
 					title: 'Hypixel API Error.',
-					description: `The Hypixel API is not responding. Is it down?`
+					description: (
+						<span>
+							The Hypixel API is not responding. <ExternalLink href={APP.hypixelStatusPage}>
+							Is it down?</ExternalLink>
+						</span>
+						)
 				});
 				break;
 			case ('RATELIMITED'):
