@@ -127,9 +127,14 @@ export function PlayerCard(props) {
 		if (guild) {
 			const member = guild.members.find(m => m.uuid === mojang.uuid.replaceAll('-', ''));
 			const rank = getGuildMemberRank(member, guild.ranks);
-			const dailyGEXP = member.expHistory[Object.keys(member.expHistory).reduce((a, b) =>
-				new Date(a) > new Date(b) ? a : b)];
-			const weeklyGEXP = Utils.add(...Object.values(member.expHistory));
+
+			let dailyGEXP = 0;
+			let weeklyGEXP = 0;
+			if (member.expHistory) {
+				dailyGEXP = member.expHistory[Object.keys(member.expHistory).reduce((a, b) =>
+					new Date(a) > new Date(b) ? a : b)];
+				weeklyGEXP = Utils.add(...Object.values(member.expHistory));
+			}
 			return (
 				<React.Fragment>
 					<HorizontalLine className="mt-3"/>
