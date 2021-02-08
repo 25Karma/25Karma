@@ -18,7 +18,7 @@ export function FriendsList(props) {
 	const [totalNames, setTotalNames] = useState(0);
 
 	const initialLoadAmount = 20;
-	const loadIncrement = 50;
+	const loadIncrement = 100;
 	const [loadAmount, setLoadAmount] = useState(Math.min(initialLoadAmount, totalFriendCount));
 
 	// Decides whether the friend's UUID is uuidSender or uuidReceiver

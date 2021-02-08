@@ -8,5 +8,5 @@ export const APP = {
 	hypixelStatusPage: "https://status.hypixel.net/",
 	nameMC: "https://namemc.com/search?q=",
 	skyblock: "https://sky.shiiyu.moe/stats/",
-	suggestedPlayers: ["Technoblade", "gamerboy80", "ascend3d"],
+	suggestedPlayers: ["Technoblade", "gamerboy80", "AgentKid"],
 }

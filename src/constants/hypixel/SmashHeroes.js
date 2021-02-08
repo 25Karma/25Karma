@@ -18,7 +18,7 @@ export const SMASHHEROES = {
 		{id: 'PUG', name: 'Pug', difficulty: 2},
 		{id: 'SANIC', name: 'Sanic', difficulty: 2},
 		{id: 'SERGEANT_SHIELD', name: 'Sgt. Shield', difficulty: 3},
-		{id: 'SHOOP_DA_WOOP', name: 'Shoop', difficulty: 3},
+		{id: 'SHOOP_DA_WHOOP', name: 'Shoop', difficulty: 3},
 		{id: 'SKULLFIRE', name: 'Skullfire', difficulty: 3},
 		{id: 'SPODERMAN', name: 'Spooderman', difficulty: 4},
 		{id: 'TINMAN', name: 'Tinman', difficulty: 1},
