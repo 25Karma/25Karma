@@ -64,7 +64,12 @@ export function GuildMemberList(props) {
 	}, [guildMembers, totalMembers, cachedNames]);
 
 	function weeklyGEXP(member) {
-		return Utils.formatNum(Object.values(member.expHistory).reduce((a,b) => a+b));
+		if (member.expHistory) {
+			return Utils.formatNum(Object.values(member.expHistory).reduce((a,b) => a+b));
+		}
+		else {
+			return 0;
+		}
 	}
 
 	function sortAlphabetically(memberList, polarity) {
