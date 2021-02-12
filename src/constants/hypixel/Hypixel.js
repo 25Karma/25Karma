@@ -106,6 +106,7 @@ export const HYPIXEL = {
 		'stats.MCGO.kills',
 		'stats.MCGO.kills_deathmatch',
 		'stats.Duels.kills',
+		'stats.Duels.bridge_kills',
 		'stats.Walls3.kills',
 		'stats.Walls3.final_kills',
 		'stats.MurderMystery.kills',
