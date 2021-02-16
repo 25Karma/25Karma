@@ -65,7 +65,7 @@ export function GuildMemberList(props) {
 
 	function weeklyGEXP(member) {
 		if (member.expHistory) {
-			return Utils.formatNum(Object.values(member.expHistory).reduce((a,b) => a+b));
+			return Object.values(member.expHistory).reduce((a,b) => a+b);
 		}
 		else {
 			return 0;
@@ -149,7 +149,7 @@ export function GuildMemberList(props) {
 								</Link>
 							</td>
 							<td>{getGuildMemberRank(member, guild.ranks).name}</td>
-							<td>{weeklyGEXP(member)}</td>
+							<td>{Utils.formatNum(weeklyGEXP(member))}</td>
 							<td>{Utils.dateFormat(member.joined)}</td>
 						</tr>
 						);

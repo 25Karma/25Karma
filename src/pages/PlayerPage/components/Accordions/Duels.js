@@ -19,20 +19,7 @@ export const Duels = memo((props) => {
 	const mostPlayedMode = getMostPlayed(consts.MODES, 
 		({id}) => Utils.add(json[`${id}wins`], json[`${id}losses`]));
 
-	const division = (() => {
-		for (const div of consts.DIVISIONS.slice().reverse()) {
-			const dat = json[`all_modes_${div.name.toLowerCase()}_title_prestige`];
-			if (dat !== undefined) {
-				const roman = Utils.romanize(dat);
-				return {
-					name: `${div.name} ${roman === 'I' ? '' : roman}`,
-					color: div.color,
-				};
-			}
-		}
-		// If the player has no division
-		return {name: '-', color: 'gray'};
-	})();
+	const division = getDivision('all_modes');
 
 	const stats = (() => {
 		let totalDeaths = 0, totalKills = 0;
@@ -58,6 +45,22 @@ export const Duels = memo((props) => {
 		ahm : Utils.ratio(json.bow_hits,json.bow_shots),
 	}
 
+	function getDivision(duelType) {
+		for (const div of consts.DIVISIONS.slice().reverse()) {
+			const dat = json[`${duelType}_${div.name.toLowerCase()}_title_prestige`];
+			if (dat !== undefined) {
+				const roman = Utils.romanize(dat);
+				return {
+					name: `${div.name} ${roman === 'I' ? '' : roman}`,
+					level: roman,
+					color: div.color,
+				};
+			}
+		}
+		// If the player has no division
+		return {name: '-', level: '-', color: 'gray'};
+	}
+
 	function kills(id) {
 		return id.includes('bridge') ? json[`${id}bridge_kills`] : json[`${id}kills`];
 	} 
@@ -80,6 +83,7 @@ export const Duels = memo((props) => {
 			<thead>
 				<tr>
 					<th>Mode</th>
+					<th>Div</th>
 					<th>Kills</th>
 					<th>Deaths</th>
 					<th>KD</th>
@@ -92,20 +96,26 @@ export const Duels = memo((props) => {
 			</thead>
 			<tbody>
 			{
-				consts.MODES.map(({id, name}) => 
-					Boolean(Utils.add(json[`${id}wins`], json[`${id}losses`])) &&
-					<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
-						<Cell>{name}</Cell>
-						<Cell>{kills(id)}</Cell>
-						<Cell>{deaths(id)}</Cell>
-						<Cell>{Utils.ratio(kills(id),deaths(id))}</Cell>
-						<Cell>{json[`${id}wins`]}</Cell>
-						<Cell>{json[`${id}losses`]}</Cell>
-						<Cell>{Utils.ratio(json[`${id}wins`],json[`${id}losses`])}</Cell>
-						<Cell>{Utils.ratio(json[`${id}melee_hits`],json[`${id}melee_swings`])}</Cell>
-						<Cell>{Utils.ratio(json[`${id}bow_hits`],json[`${id}bow_shots`])}</Cell>
-					</Row>
-					)
+				consts.MODES.map(({id, name, divisionId}) => {
+					const modeDivision = getDivision(divisionId);
+					if (Boolean(Utils.add(json[`${id}wins`], json[`${id}losses`]))) {
+						return (
+							<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
+								<Cell>{name}</Cell>
+								<Cell color={modeDivision.color}>{modeDivision.level}</Cell>
+								<Cell>{kills(id)}</Cell>
+								<Cell>{deaths(id)}</Cell>
+								<Cell>{Utils.ratio(kills(id),deaths(id))}</Cell>
+								<Cell>{json[`${id}wins`]}</Cell>
+								<Cell>{json[`${id}losses`]}</Cell>
+								<Cell>{Utils.ratio(json[`${id}wins`],json[`${id}losses`])}</Cell>
+								<Cell>{Utils.ratio(json[`${id}melee_hits`],json[`${id}melee_swings`])}</Cell>
+								<Cell>{Utils.ratio(json[`${id}bow_hits`],json[`${id}bow_shots`])}</Cell>
+							</Row>
+							)
+					}
+					else return null;
+				})
 			}
 			</tbody>
 		</Table>
