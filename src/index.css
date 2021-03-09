@@ -73,6 +73,7 @@ button:focus {
 .align-items-stretch { align-items: stretch; }
 .bg-cover { background-size: cover; }
 .bg-fixed { background-attachment: fixed; }
+.border { border: 1px solid var(--theme-border); }
 .box-shadow { box-shadow: 0 0.25rem 0.25rem var(--theme-shadow); }
 .container { margin-right: auto; margin-left: auto; max-width: 1000px; padding: 0 1rem; width: 100%; }
 .cursor-grab:hover { cursor: -webkit-grab; cursor: grab; }
@@ -200,6 +201,7 @@ button:focus {
 .c-brown { color: #963; }
 .c-rainbow { 
 	background-image: linear-gradient(to left, #a0a, #f5f, #5ff, #5f5, #ff5, #fa0, #f55);   
+	background-clip: text;
 	-webkit-background-clip: text;
 	color: transparent; 
 }

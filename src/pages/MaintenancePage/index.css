@@ -1,0 +1,6 @@
+.maintenancepage-message {
+    font-size: 1.25rem;
+    border: 1px solid var(--theme-border);
+    border-radius: 0.25rem;
+    background-color: var(--theme-secondary);
+}

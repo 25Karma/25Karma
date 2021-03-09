@@ -7,6 +7,12 @@ export const APP = {
 	hypixelForums: "https://hypixel.net/members/2249818/",
 	hypixelStatusPage: "https://status.hypixel.net/",
 	nameMC: "https://namemc.com/search?q=",
+	maintenance: {
+		enabled: false,
+		at: "2021/02/28, 3:09 PM EDT",
+		eta: "a few weeks",
+		memo: "API changes.",
+	},
 	skyblock: "https://sky.shiiyu.moe/stats/",
 	suggestedPlayers: ["Technoblade", "gamerboy80", "AgentKid"],
 }

@@ -2,8 +2,9 @@ import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { HashRouter as Router } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { APP as consts } from 'constants/app';
 import { APIContextProvider, AppContextProvider } from 'contexts';
-import { FriendsPage, FrontPage, GuildPage, NotFoundPage, 
+import { FriendsPage, FrontPage, GuildPage, NotFoundPage, MaintenancePage,
 	PlayerPage, SearchPage } from 'pages';
 
 function App() {
@@ -13,6 +14,11 @@ function App() {
 		<AppContextProvider>
 		<APIContextProvider>
 			<Router hashType="noslash">
+			{consts.maintenance.enabled ?
+				<Switch>
+					<Route default><MaintenancePage /></Route>
+				</Switch>
+				:
 				<Switch>
 					<Route exact path="/">
 						{ pinnedPlayer ? 
@@ -27,6 +33,7 @@ function App() {
 					<Route path="/friends/:slug"><FriendsPage /></Route>
 					<Route default><NotFoundPage /></Route>
 				</Switch>
+			}
 			</Router>
 		</APIContextProvider>
 		</AppContextProvider>
