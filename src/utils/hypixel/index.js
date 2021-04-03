@@ -76,3 +76,29 @@ export function getGuildMemberRank(member, ranks) {
 	}
 	return {name: Utils.capitalize(member.rank), priority: 999};
 }
+
+/*
+* Returns the daily GEXP earned by a member of a guild
+*
+* @param {Object} member          Data of the member from the `members` array of the API
+* @return {number}                The daily GEXP of the member
+*/
+export function getGuildMemberDailyGEXP(member) {
+	return member.expHistory[Object.keys(member.expHistory).reduce((a, b) =>
+		new Date(a) > new Date(b) ? a : b)];
+}
+
+/*
+* Returns the weekly GEXP earned by a member of a guild
+*
+* @param {Object} member          Data of the member from the `members` array of the API
+* @return {number}                The weekly GEXP of the member
+*/
+export function getGuildMemberWeeklyGEXP(member) {
+	if (member.expHistory) {
+		return Object.values(member.expHistory).reduce((a,b) => a+b);
+	}
+	else {
+		return 0;
+	}
+}

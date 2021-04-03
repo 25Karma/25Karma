@@ -7,7 +7,6 @@ import { ReactIcon } from 'components';
 /*
 * Styled input with search button
 *
-*
 * @param {string} props.defaultValue   The default value of the searchbar
 * @param {string} props.tag            Tag to include at the end of the search query (ex. 'guild')
 */

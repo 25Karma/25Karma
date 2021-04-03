@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Crafatar, ExternalLink, LoadingSpinner, PlayerName, SortableList } from 'components';
+import { MdFileDownload } from 'react-icons/md';
+import { Button, Crafatar, ExternalLink, LoadingSpinner, PlayerName, 
+	ReactIcon, SortableList } from 'components';
 import { APP } from 'constants/app';
 import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
-import { getPlayerRankPriority, getGuildMemberRank } from 'utils/hypixel';
+import { getPlayerRankPriority, getGuildMemberRank, getGuildMemberDailyGEXP, getGuildMemberWeeklyGEXP } from 'utils/hypixel';
 
 /*
 * The list of players displayed at the center of the page
@@ -63,15 +65,6 @@ export function GuildMemberList(props) {
 		}
 	}, [guildMembers, totalMembers, cachedNames]);
 
-	function weeklyGEXP(member) {
-		if (member.expHistory) {
-			return Object.values(member.expHistory).reduce((a,b) => a+b);
-		}
-		else {
-			return 0;
-		}
-	}
-
 	function sortAlphabetically(memberList, polarity) {
 		return memberList.sort((a,b) => {
 			const aRank = getPlayerRankPriority(names[a.uuid]);
@@ -115,13 +108,33 @@ export function GuildMemberList(props) {
 	}
 
 	function sortByGEXP(memberList, polarity) {
-		return memberList.sort((a,b) => weeklyGEXP(a) < weeklyGEXP(b) ?
+		return memberList.sort((a,b) => getGuildMemberWeeklyGEXP(a) < getGuildMemberWeeklyGEXP(b) ?
 			polarity : -polarity);
 	}
 
 	function sortByJoinDate(memberList, polarity) {
 		return memberList.sort((a,b) => a.joined > b.joined ? 
 			polarity : -polarity);
+	}
+
+	function exportGuildXLSX() {
+		const filename = `${guild.name} Guild Stats`;
+		const rowsByName = sortAlphabetically(guildMembers.filter(m => names[m.uuid]), 1);
+		const rowsByGuildRank = sortByGuildRank(rowsByName.slice().reverse(), 1);
+		const rowsByGEXP = sortByGEXP(rowsByName.slice(), 1);
+		const columns = [
+			{title: "Username",     from: (m) => names[m.uuid].username},
+			{title: "UUID",         from: (m) => m.uuid},
+			{title: "Rank",         from: (m) => getGuildMemberRank(m, guild.ranks).name},
+			{title: "Daily GEXP",   from: (m) => getGuildMemberDailyGEXP(m)},
+			{title: "Weekly GEXP",  from: (m) => getGuildMemberWeeklyGEXP(m)},
+			{title: "Joined Since", from: (m) => Utils.dateFormat(m.joined)},
+		]
+		Utils.exportXLSX(filename, 
+			{title: "Sorted by Guild Rank", rows: rowsByGuildRank, columns},
+			{title: "Sorted by GEXP",       rows: rowsByGEXP, columns},
+			{title: "Sorted by Name",       rows: rowsByName, columns}
+			);
 	}
 
 	return (
@@ -149,17 +162,24 @@ export function GuildMemberList(props) {
 								</Link>
 							</td>
 							<td>{getGuildMemberRank(member, guild.ranks).name}</td>
-							<td>{Utils.formatNum(weeklyGEXP(member))}</td>
+							<td>{Utils.formatNum(getGuildMemberWeeklyGEXP(member))}</td>
 							<td>{Utils.dateFormat(member.joined)}</td>
 						</tr>
 						);
 				}}
 			</SortableList>
-			{totalNames < totalMembers &&
+			{totalNames < totalMembers ?
 				<LoadingSpinner 
 					className="pt-2"
 					text={`Loaded ${totalNames} out of ${totalMembers} players.`} 
 				/>
+				:
+				<div className="pt-2 text-center">
+					<Button onClick={exportGuildXLSX}>
+						<span className="font-bold pr-1">Download as .xlsx</span>
+						<ReactIcon icon={MdFileDownload} />
+					</Button>
+				</div>
 			}
 		</React.Fragment>
 		);

@@ -22,7 +22,7 @@ export function MaintenancePage(props) {
         center={
             <React.Fragment>
                 <div className="maintenancepage-message mt-3 p-2">
-                    <p>Hello!</p>
+                    <p className="font-bold">Hello!</p>
                     <p>
                         {`
                         Unfortunately, 25Karma has been under maintenance since 
@@ -33,7 +33,7 @@ export function MaintenancePage(props) {
                 </div>
                 {Boolean(data.memo) &&
                     <React.Fragment> 
-                        <p className="pl-2 font-md mt-3 mb-1">A note from the developer</p>
+                        <p className="pl-2 font-bold mt-3 mb-1">A note from the developer</p>
                         <div className="maintenancepage-message p-2">
                             <p>{data.memo}</p>
                             <br />

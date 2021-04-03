@@ -1,5 +1,8 @@
-import npmDateFormat from 'dateformat';
-import Cookies from 'js-cookie';
+import { formatNum } from './js-cookie';
+
+export * from './dateformat';
+export * from './exceljs';
+export * from './js-cookie';
 
 /*
 * Returns 1 if the number is zero
@@ -66,21 +69,6 @@ export function traverse(json, path, defaultValue = undefined) {
 	}
 	if (json === undefined) return defaultValue;
 	return json;
-}
-
-/*
-* Adds commas to a large number and strips decimal places to user preference
-*
-* @param {number} num    The number to format
-* @return {string}       The comma-separated, decimal-stripped number
-*/
-export function formatNum(num) {
-	const decimal = Cookies.get('decimal') || 2;
-	num = default0(num);
-	return num.toLocaleString('en', {   
-			minimumFractionDigits: 0,
-			maximumFractionDigits: decimal,
-		});
 }
 
 /*
@@ -195,16 +183,6 @@ export function secondsToHms(d) {
 }
 
 /*
-* Converts a date integer into a formatted string
-*
-* @param {number} num    Date integer
-* @return {string}       The formatted string
-*/
-export function dateFormat(num) {
-	return npmDateFormat(new Date(num), 'yyyy/mm/dd, h:MM TT Z');
-}
-
-/*
 * Converts a color string into its corresponding Minecraft color code
 *
 * @param {string} str    Name of the color
@@ -249,30 +227,4 @@ export function toColorCode(str) {
 		'WHITE' : 'f'
 	}
 	return '§' + (colorClasses[str] || 'f');
-}
-
-/*
-* Pushes a value to the recentSearches cookie
-*
-* @param {string} ele    Value to add to the recentSearches cookie
-*/
-export function pushToRecentSearches(ele) {
-	const str = String(ele);
-	let cookie = Cookies.get('recentSearches');
-	if (cookie === undefined) {
-		cookie = '[]';
-	}
-	const array = JSON.parse(cookie);
-	const maxLength = 30;
-	
-	// The new player name is put at the front of the queue
-	let newArray = [str];
-	// Subsequent player names are added after
-	for (const a of array) {
-		// To avoid repetitions in the queue
-		if (!newArray.includes(a)) {
-			newArray.push(a);
-		}
-	}
-	Cookies.set('recentSearches', JSON.stringify(newArray.slice(0,maxLength)), {expires:365});
 }

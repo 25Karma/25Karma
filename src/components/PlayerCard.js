@@ -6,7 +6,7 @@ import { APP } from 'constants/app';
 import { HYPIXEL as consts } from 'constants/hypixel';
 import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
-import { getPlayerRank, getGuildMemberRank } from 'utils/hypixel';
+import { getPlayerRank, getGuildMemberRank, getGuildMemberDailyGEXP, getGuildMemberWeeklyGEXP } from 'utils/hypixel';
 
 /*
 * Displays general Hypixel stats about the player in the Hypixel Context
@@ -131,9 +131,8 @@ export function PlayerCard(props) {
 			let dailyGEXP = 0;
 			let weeklyGEXP = 0;
 			if (member.expHistory) {
-				dailyGEXP = member.expHistory[Object.keys(member.expHistory).reduce((a, b) =>
-					new Date(a) > new Date(b) ? a : b)];
-				weeklyGEXP = Utils.add(...Object.values(member.expHistory));
+				dailyGEXP = getGuildMemberDailyGEXP(member);
+				weeklyGEXP = getGuildMemberWeeklyGEXP(member);
 			}
 			return (
 				<React.Fragment>
