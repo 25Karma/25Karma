@@ -31,6 +31,12 @@ export const SkyWars = memo((props) => {
 		wl : Utils.ratio(json.wins, json.losses),
 		kw : Utils.ratio(json.kills, json.wins)
 	}
+
+	const corruptionChance = Utils.add(
+		json.angel_of_death_level,
+		json.angels_offering,
+		json.packages.includes('favor_of_the_angel') && 1
+	)
 	
 	const opalsEarned = Utils.traverse(player, 'achievements.skywars_opal_obsession');
 	const totalOpals = Utils.add(opalsEarned, Math.max(0, consts.PRESTIGES.findIndex(n => n.name === prestigeName)-1));
@@ -260,7 +266,7 @@ export const SkyWars = memo((props) => {
 					<Pair title="Kill/Win Ratio">{ratios.kw}</Pair>
 					<Br/>
 					<Pair title="Heads">{json.heads}</Pair>
-					<Pair title="Corruption">{`${Utils.default0(json.angel_of_death_level)}%`}</Pair>
+					<Pair title="Corruption">{`${corruptionChance}%`}</Pair>
 					<Pair title="Total Souls">{json.souls_gathered}</Pair>
 					<Pair title="Current Souls" color="aqua">{json.souls}</Pair>
 					<Pair title="Paid Souls">{json.paid_souls}</Pair>
