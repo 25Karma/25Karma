@@ -86,13 +86,18 @@ export const BuildBattle = memo((props) => {
 			</thead>
 			<tbody>
 			{
-				consts.MODES.map(({id, name}) => 
-					Boolean(json[`wins${id}`]) &&
-					<Row key={id} id={id}>
-						<Cell>{name}</Cell>
-						<Cell>{json[`wins${id}`]}</Cell>
-					</Row>
-					)
+				consts.MODES.map(({id, name}) => { 
+					const winsForMode = Utils.add(json[`wins${id}`], json[`wins${id}_latest`]);
+					if (Boolean(winsForMode)) {
+						return (
+							<Row key={id} id={id}>
+								<Cell>{name}</Cell>
+								<Cell>{winsForMode}</Cell>
+							</Row>
+						)
+					}
+					return null;
+				})
 			}
 			</tbody>
 		</Table>

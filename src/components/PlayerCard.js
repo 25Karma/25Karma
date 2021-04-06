@@ -125,7 +125,7 @@ export function PlayerCard(props) {
 	
 	function guildInfo() {
 		if (guild) {
-			const member = guild.members.find(m => m.uuid === mojang.uuid.replaceAll('-', ''));
+			const member = guild.members.find(m => m.uuid === mojang.uuid.replace(/-/g, ''));
 			const rank = getGuildMemberRank(member, guild.ranks);
 
 			let dailyGEXP = 0;

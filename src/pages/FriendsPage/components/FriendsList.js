@@ -24,7 +24,7 @@ export function FriendsList(props) {
 	// Decides whether the friend's UUID is uuidSender or uuidReceiver
 	// Reason that I use useCallback - https://stackoverflow.com/a/56492329/12191708
 	const getFriendUUID = useCallback((friendData) => {
-		const playerUUID = mojang.uuid.replaceAll('-', '');
+		const playerUUID = mojang.uuid.replace(/-/g, '');
 		return friendData.uuidSender === playerUUID ? friendData.uuidReceiver : friendData.uuidSender;
 	}, [mojang.uuid]);
 
