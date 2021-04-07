@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
-import { Box, Cell, Pair, Row, Table } from 'components/Stats';
+import { Box, Br, Cell, Pair, Row, Table } from 'components/Stats';
 import { MURDERMYSTERY as consts } from 'constants/hypixel';
 import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
@@ -53,6 +53,7 @@ export const MurderMystery = memo((props) => {
 					<Cell>{json[`wins${id}`]}</Cell>
 					<Cell>{losses}</Cell>
 					<Cell>{Utils.ratio(json[`wins${id}`], losses)}</Cell>
+					<Cell>{json[`coins_pickedup${id}`]}</Cell>
 				</Row>
 				);
 		}
@@ -68,6 +69,7 @@ export const MurderMystery = memo((props) => {
 						<th>Wins</th>
 						<th>Losses</th>
 						<th>WL</th>
+						<th>Gold Collected</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -81,18 +83,19 @@ export const MurderMystery = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="mt-3">
-				<Pair title="Coins" color="gold">{json.coins}</Pair>
-			</div>
-			<div className="h-flex mb-3">
+			<div className="h-flex mb-3 mt-3">
 				<div className="flex-1">
+					<Pair title="Coins" color="gold">{json.coins}</Pair>
+					<Br />
 					<Pair title="Kills">{json.kills}</Pair>
 					<Pair title="Kills as Murderer">{json.kills_as_murderer}</Pair>
 					<Pair title="Thrown Knife Kills">{json.thrown_knife_kills}</Pair>
 					<Pair title="Deaths">{json.deaths}</Pair>
-					<Pair title="Murder Weapon" color="red">{knifeSkin || '<unknown>'}</Pair>
+					<Pair title="Kill/Death Ratio">{Utils.ratio(json.kills, json.deaths)}</Pair>
 				</div>
 				<div className="flex-1">
+					<Pair title="Murder Weapon" color="red">{knifeSkin || '<unknown>'}</Pair>
+					<Br />
 					<Pair title="Wins">{json.wins}</Pair>
 					<Pair title="Losses">{losses}</Pair>
 					<Pair title="Win/Loss Ratio">{Utils.ratio(json.wins/losses)}</Pair>
