@@ -30,6 +30,10 @@ export const BedWars = memo((props) => {
 	const mostPlayedMode = getMostPlayed(consts.MODES,
 		({id}) => Utils.add(json[`${id}wins_bedwars`], json[`${id}losses_bedwars`]));
 
+	const mostPlayedPracticeMode = getMostPlayed(consts.PRACTICEMODES,
+		({id}) => Utils.add(Utils.traverse(json, `practice,${id}.successful_attempts`), 
+		Utils.traverse(json, `practice.${id}.failed_attempts`)));
+
 	function xpToLevel(xp) {
 		let remainingXP = xp;
 		let lvl = 0;
@@ -175,6 +179,69 @@ export const BedWars = memo((props) => {
 			);
 	})();
 
+	const practiceTable = (
+		<Table>
+			<thead>
+				<tr>
+					<th>Practice Mode</th>
+					<th>Blocks Placed</th>
+					<th>Successes</th>
+					<th>Fails</th>
+					<th>Success Rate</th>
+				</tr>
+			</thead>
+			<tbody>
+			{
+				consts.PRACTICEMODES.map(({id, name}) => {
+					const modeJson = Utils.traverse(json, `practice.${id}`, {});
+					const modeAttempts = Utils.add(modeJson.successful_attempts, modeJson.failed_attempts);
+					return Boolean(modeAttempts) &&
+						<Row key={id} id={id} isHighlighted={id === mostPlayedPracticeMode.id}>
+							<Cell>{name}</Cell>
+							<Cell>{modeJson.blocks_placed}</Cell>
+							<Cell>{modeJson.successful_attempts}</Cell>
+							<Cell>{modeJson.failed_attempts}</Cell>
+							<Cell percentage>{Utils.ratio(modeJson.successful_attempts, modeAttempts)}</Cell>
+						</Row>
+				})
+			}
+			</tbody>
+		</Table>
+	)
+
+	const bridgingRecordTable = (
+		<Table>
+			<thead>
+				<tr>
+					<th>Bridging Personal Bests</th>
+					{
+						consts.PRACTICEBRIDGING.bridging_distance.map((distance) => 
+							<th key={distance}>{`${distance} Block`}</th>
+						)
+					}
+				</tr>
+			</thead>
+			<tbody>
+			{
+				consts.PRACTICEBRIDGING.angle.map(({id: angleId, name: angleName}) =>
+					consts.PRACTICEBRIDGING.elevation.map(({id: eleId, name: eleName}) =>
+						Utils.traverse(json, 'practice.records', false) &&
+						<Row key={eleId}>
+							<Cell >{`${angleName} ${eleName}`}</Cell>
+							{
+								consts.PRACTICEBRIDGING.bridging_distance.map((distance) => {
+									const personalBest = Utils.traverse(json, `practice.records.bridging_distance_${distance}:elevation_${eleId}:angle_${angleId}:`);
+									return <Cell key={distance}>{personalBest ? `${Utils.formatNum(personalBest/1000)}s` : '-'}</Cell>
+								})
+							}
+						</Row>
+					
+				))
+			}
+			</tbody>
+		</Table>
+	)
+
 	return Utils.isEmpty(json) ?
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
@@ -220,6 +287,15 @@ export const BedWars = memo((props) => {
 
 			<div className="overflow-x my-3">
 				{table}
+			</div>
+			
+			<HorizontalLine />
+
+			<div className="overflow-x mt-3 mb-2">
+				{practiceTable}
+			</div>
+			<div className="overflow-x mb-3">
+				{bridgingRecordTable}
 			</div>
 			
 			<HorizontalLine />

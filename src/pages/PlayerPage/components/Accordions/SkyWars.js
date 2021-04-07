@@ -35,7 +35,7 @@ export const SkyWars = memo((props) => {
 	const corruptionChance = Utils.add(
 		json.angel_of_death_level,
 		json.angels_offering,
-		json.packages.includes('favor_of_the_angel') && 1
+		Utils.traverse(json, 'packages', []).includes('favor_of_the_angel') && 1
 	)
 	
 	const opalsEarned = Utils.traverse(player, 'achievements.skywars_opal_obsession');
