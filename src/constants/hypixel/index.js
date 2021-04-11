@@ -1,6 +1,6 @@
 export * from './Arcade'
 export * from './ArenaBrawl'
-export * from './BedWars'
+export * from './Bedwars'
 export * from './BlitzSG'
 export * from './BuildBattle'
 export * from './CopsAndCrims'
