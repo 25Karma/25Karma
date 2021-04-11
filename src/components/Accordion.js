@@ -28,7 +28,7 @@ export function Accordion(props) {
 								<MinecraftText font="md" className="flex-1 py-2">
 									{props.title}
 								</MinecraftText>
-								<div className="h-flex flex-2 px-2 overflow-hidden">
+								<div className="h-flex flex-2 px-2 accordion-main-stats">
 									{props.header}
 								</div>
 							</div>

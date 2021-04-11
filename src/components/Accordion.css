@@ -22,3 +22,13 @@
 	overflow: hidden;
 	padding-left: 1rem;
 }
+
+.accordion-main-stats{
+	overflow-y: auto !important;
+	scrollbar-width: none;
+}
+
+.accordion-main-stats::-webkit-scrollbar {
+    width: 0rem;
+    height: 0rem;
+}
