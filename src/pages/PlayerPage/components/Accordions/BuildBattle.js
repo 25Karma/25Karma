@@ -122,7 +122,7 @@ export const BuildBattle = memo((props) => {
 				<div className="flex-1">
 					<Pair title="Wins">{json.wins}</Pair>
 					<Pair title="Losses">{losses}</Pair>
-					<Pair title="Win/Loss Ratio">{Utils.ratio(json.wins/losses)}</Pair>
+					<Pair title="Win/Loss Ratio">{Utils.ratio(json.wins, losses)}</Pair>
 				</div>
 				<div className="flex-1">
 					<Pair title="Correct Guesses">{json.correct_guesses}</Pair>
