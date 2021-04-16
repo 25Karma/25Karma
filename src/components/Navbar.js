@@ -3,7 +3,7 @@ import { GoPin } from 'react-icons/go';
 import { MdSettings } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { APP } from 'constants/app';
+import { APP, COOKIES } from 'constants/app';
 import { Collapsible, MinecraftText, ReactIcon, Searchbar, Settings } from 'components';
 
 /*
@@ -19,7 +19,7 @@ export function Navbar(props) {
 	* @return {JSX} A clickable pin icon that redirects to the pinned player's stats on click
 	*/
 	function renderPinnedPlayerButton() {
-		const p = Cookies.get('pinnedPlayer');
+		const p = Cookies.get(COOKIES.pinnedPlayer);
 		if (p) {
 			return (
 				<Link className="font-md" to={`/search/${p}`}>

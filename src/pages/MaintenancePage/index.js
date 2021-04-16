@@ -1,15 +1,14 @@
 import React from 'react';
 import './index.css';
 import { Navbar, MinecraftText, PageLayout } from 'components';
-import { APP } from 'constants/app';
+import { MAINTENANCE } from 'constants/app';
 import * as Utils from 'utils';
 
 /*
 * Page that displays to users that visit the site while it is under maintenance
 */
 export function MaintenancePage(props) {
-    const data = APP.maintenance;
-    const atDate = new Date(data.at);
+    const atDate = new Date(MAINTENANCE.at);
 
     return (
         <PageLayout
@@ -26,16 +25,16 @@ export function MaintenancePage(props) {
                     <p>
                         {`
                         Unfortunately, 25Karma has been under maintenance since 
-                        ${data.at} (${Utils.timeSince(atDate.getTime())} ago). I expect to 
-                        have the site back up and running in ${data.eta}, so check back soon!
+                        ${MAINTENANCE.at} (${Utils.timeSince(atDate.getTime())} ago). I expect to 
+                        have the site back up and running in ${MAINTENANCE.eta}, so check back soon!
                         `}
                     </p>
                 </div>
-                {Boolean(data.memo) &&
+                {Boolean(MAINTENANCE.memo) &&
                     <React.Fragment> 
                         <p className="pl-2 font-bold mt-3 mb-1">A note from the developer</p>
                         <div className="maintenancepage-message p-2">
-                            <p>{data.memo}</p>
+                            <p>{MAINTENANCE.memo}</p>
                             <br />
                             <i>-Amos</i>
                         </div>

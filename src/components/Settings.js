@@ -3,7 +3,7 @@ import ReactTooltip from 'react-tooltip';
 import Cookies from 'js-cookie';
 import './Settings.css';
 import { Button, ExternalLink } from 'components';
-import { APP } from 'constants/app';
+import { APP, COOKIES } from 'constants/app';
 import { AppContext } from 'contexts';
 
 /*
@@ -14,8 +14,8 @@ import { AppContext } from 'contexts';
 export function Settings(props) {
 	
 	// Refs used by setCookies() to locate inputs
-	const pinnedPlayerInput = useRef('pinnedPlayer');
-	const decimalInput = useRef('decimal');
+	const pinnedPlayerInput = useRef(COOKIES.pinnedPlayer);
+	const decimalInput = useRef(COOKIES.decimalPlaces);
 	const { setBanner } = useContext(AppContext);
 
 	/*
@@ -34,8 +34,8 @@ export function Settings(props) {
 			return;
 		}
 		// If all is well, set the cookies
-		Cookies.set('pinnedPlayer', pinnedPlayerInput.current.value, {expires:365});
-		Cookies.set('decimal', decimalString, {expires:365});
+		Cookies.set(COOKIES.pinnedPlayer, pinnedPlayerInput.current.value, {expires:365});
+		Cookies.set(COOKIES.decimalPlaces, decimalString, {expires:365});
 		props.toggle();
 	}
 	
@@ -43,7 +43,7 @@ export function Settings(props) {
 	* Clears all cookies - user preference cookies as well as others used by the app
 	*/
 	function clearCookies() {
-		Object.keys(Cookies.get()).forEach((cookie) => {
+		Object.values(COOKIES).forEach((cookie) => {
 			Cookies.remove(cookie);
 		});
 		setBanner({
@@ -87,7 +87,7 @@ export function Settings(props) {
 						style={{width:'15rem'}}
 						type="text" 
 						placeholder={`ex. ${APP.suggestedPlayers[1]}`}
-						defaultValue={Cookies.get('pinnedPlayer')}/>
+						defaultValue={Cookies.get(COOKIES.pinnedPlayer)}/>
 					<div className="pl-2 ml-auto">
 						<Button type="error" onClick={clearCookies}>
 							<span className="font-bold">Clear Cookies</span>
@@ -105,7 +105,7 @@ export function Settings(props) {
 						ref={decimalInput}
 						style={{width:'4rem'}}
 						type="number"  
-						defaultValue={Cookies.get('decimal') || '2'}
+						defaultValue={Cookies.get(COOKIES.decimalPlaces) || '2'}
 						min="0"
 						max="8"
 						step="1"/>

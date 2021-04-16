@@ -35,6 +35,13 @@ export function FrontPage(props) {
 						)
 				});
 				break;
+			case ('MOJANG_RATELIMITED'):
+				setBanner({
+					style: 'error',
+					title: 'Search failed.',
+					description: 'The Mojang API is currently overloaded. Try again in a few minutes.'
+				});
+				break;
 			case ('HYPIXEL_PLAYER_DNE'):
 				setBanner({
 					style: 'error',
@@ -78,7 +85,14 @@ export function FrontPage(props) {
 				setBanner({
 					style: 'error',
 					title: 'Woah there!',
-					description: `You've sent too many requests recently! Try again in a few minutes.`
+					description: "You've sent too many requests recently! Try again in a few minutes."
+				});
+				break;
+			case ('UNKNOWN'):
+				setBanner({
+					style: 'error',
+					title: 'Whaaaat?',
+					description: 'An unknown error occurred.'
 				});
 				break;
 			default: break;

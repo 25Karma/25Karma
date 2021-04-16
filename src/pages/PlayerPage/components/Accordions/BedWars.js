@@ -231,7 +231,7 @@ export const BedWars = memo((props) => {
 							{
 								consts.PRACTICEBRIDGING.bridging_distance.map((distance) => {
 									const personalBest = Utils.traverse(json, `practice.records.bridging_distance_${distance}:elevation_${eleId}:angle_${angleId}:`);
-									return <Cell key={distance}>{personalBest ? `${Utils.formatNum(personalBest/1000)}s` : '-'}</Cell>
+									return <Cell key={distance}>{personalBest !== undefined ? `${Utils.formatNum(personalBest/1000)}s` : '-'}</Cell>
 								})
 							}
 						</Row>
@@ -303,7 +303,7 @@ export const BedWars = memo((props) => {
 			<div className="h-flex my-3">
 				<div className="flex-1">
 					<Pair title="Projectile Kills">{Utils.add(json.projectile_kills_bedwars, json.projectile_final_kills_bedwars)}</Pair>
-					<Pair title="Times Drowned">{Utils.add(json.drowning_deaths_bedwars, json.drowning_final_deaths_bedwars)}</Pair>
+					<Pair title="Deaths to Drowning">{Utils.add(json.drowning_deaths_bedwars, json.drowning_final_deaths_bedwars)}</Pair>
 					<Pair title="Deaths to Fire">{Utils.default0(json.fire_tick_deaths_bedwars)+Utils.default0(json.fire_deaths_bedwars)}</Pair>
 					<Pair title="Deaths to Suffocation">{Utils.default0(json.suffocation_deaths_bedwars)+Utils.default0(json.suffocation_final_deaths_bedwars)}</Pair>
 				</div>

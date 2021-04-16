@@ -2,19 +2,19 @@ import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { HashRouter as Router } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { APP as consts } from 'constants/app';
+import { COOKIES, MAINTENANCE } from 'constants/app';
 import { APIContextProvider, AppContextProvider } from 'contexts';
 import { FriendsPage, FrontPage, GuildPage, NotFoundPage, MaintenancePage,
 	PlayerPage, SearchPage } from 'pages';
 
 function App() {
-	const pinnedPlayer = Cookies.get('pinnedPlayer');
+	const pinnedPlayer = Cookies.get(COOKIES.pinnedPlayer);
 	
 	return (
 		<AppContextProvider>
 		<APIContextProvider>
 			<Router hashType="noslash">
-			{consts.maintenance.enabled ?
+			{MAINTENANCE.enabled ?
 				<Switch>
 					<Route default><MaintenancePage /></Route>
 				</Switch>

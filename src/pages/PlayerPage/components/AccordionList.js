@@ -5,11 +5,12 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { FaSortAlphaDown } from 'react-icons/fa';
 import { RiCheckboxIndeterminateFill, RiCheckboxIndeterminateLine } from 'react-icons/ri';
 import { ReactIcon, HorizontalLine as HLine } from 'components';
+import { COOKIES } from 'constants/app';
 import * as Accordions from './Accordions';
 
 export function AccordionList(props) {
 
-	const cookieName = 'accordionList';
+	const cookieName = COOKIES.playerAccordions;
 	const cookie = getCookie();
 	const [accordionList, setAccordionList] = useState(cookie.list);
 	const [showLine, setShowLine] = useState(cookie.showLine);
@@ -99,7 +100,7 @@ export function AccordionList(props) {
 			showLine: showLine,
 		}
 		Cookies.set(cookieName, JSON.stringify(cookie), {expires:365});
-	}, [accordionList, showLine]);
+	}, [accordionList, showLine, cookieName]);
 
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>

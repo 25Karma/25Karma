@@ -3,14 +3,14 @@ import Cookies from 'js-cookie';
 import { MdMoreHoriz } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { Button, MinecraftText, ReactIcon } from 'components';
-import { APP } from 'constants/app';
+import { APP, COOKIES } from 'constants/app';
 
 /*
 *  Renders JSX containing recent searches if there are any
 *  If there are none, renders a suggestion
 */
 export function RecentSearches(props) {
-	let cookie = Cookies.get('recentSearches');
+	let cookie = Cookies.get(COOKIES.recentSearches);
 	if (cookie === undefined) {
 		cookie = '[]';
 	}

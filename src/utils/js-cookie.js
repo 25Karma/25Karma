@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie';
+import { COOKIES } from 'constants/app';
 import { default0 } from './index';
 
 /*
@@ -8,7 +9,7 @@ import { default0 } from './index';
 * @return {string}       The comma-separated, decimal-stripped number (ex. 32984.012974205 --> 32,984.01)
 */
 export function formatNum(num) {
-    const decimal = Cookies.get('decimal') || 2;
+    const decimal = Cookies.get(COOKIES.decimalPlaces) || 2;
 	num = default0(num);
 	return num.toLocaleString('en', {   
 			minimumFractionDigits: 0,
@@ -23,7 +24,7 @@ export function formatNum(num) {
 */
 export function pushToRecentSearches(ele) {
 	const str = String(ele);
-	let cookie = Cookies.get('recentSearches');
+	let cookie = Cookies.get(COOKIES.recentSearches);
 	if (cookie === undefined) {
 		cookie = '[]';
 	}
@@ -39,5 +40,5 @@ export function pushToRecentSearches(ele) {
 			newArray.push(a);
 		}
 	}
-	Cookies.set('recentSearches', JSON.stringify(newArray.slice(0,maxLength)), {expires:365});
+	Cookies.set(COOKIES.recentSearches, JSON.stringify(newArray.slice(0,maxLength)), {expires:365});
 }
