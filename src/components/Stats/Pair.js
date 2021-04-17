@@ -23,7 +23,7 @@ export function Pair(props) {
 
 	return (
 		<p>
-			<span className="font-bold">{`${title}: `}</span>
+			<span className="font-bold">{title}{': '}</span>
 			<span className={`c-${color || 'gray'}`}>
 				{renderChildren()}
 			</span>

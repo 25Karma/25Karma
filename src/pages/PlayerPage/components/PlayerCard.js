@@ -50,17 +50,17 @@ export function PlayerCard(props) {
 				{Utils.add(...consts.TOTALWINS.map(n => Utils.traverse(json, n)))}
 			</Pair>
 			<Br />
-			<Link className="link" to={`/achievements/${mojang.username}`}>
-				<Pair title="Achievement Points">{json.achievementPoints}</Pair>
-			</Link>
+			<Pair title={<Link to={`/achievements/${mojang.username}`} className="link">Achievement Points</Link>}>
+				{json.achievementPoints}
+			</Pair>
 			<Br />
-			<Link className="link" to={`/quests/${mojang.username}`}>
-				<Pair title="Quests Completed">{json.questsCompleted}</Pair>
-			</Link>
+			<Pair title={<Link to={`/quests/${mojang.username}`} className="link">Quests Completed</Link>}>
+				{json.questsCompleted}
+			</Pair>
 			<Br />
-			<Link to={`/friends/${mojang.username}`} className="link">
-				<Pair title="Friends">{friends}</Pair>
-			</Link>
+			<Pair title={<Link to={`/friends/${mojang.username}`} className="link">Friends</Link>}>
+				{friends}
+			</Pair>
 			<Br />
 			<Pair title="Rewards Claimed">{json.totalRewards}</Pair>
 			<Pair title="Reward Streak">{json.rewardScore}</Pair>

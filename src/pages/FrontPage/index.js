@@ -1,8 +1,8 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { ExternalLink, MinecraftText, PageLayout } from 'components';
 import { RecentSearches, Search, Tips } from './components';
 import { APP } from 'constants/app';
-import { AppContext } from 'contexts';
+import { useAppContext } from 'hooks';
 
 /*
 * The frontpage of the site
@@ -18,7 +18,7 @@ export function FrontPage(props) {
 	document.title = `Hypixel Player Stats - ${APP.documentTitle}`;
 
 	// Set the banner according to the config
-	const { setBanner } = useContext(AppContext);
+	const { setBanner } = useAppContext();
 	useEffect(() => {
 		switch (config.reason) {
 			case ('MOJANG_CALL_FAILED'):

@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import './Banner.css';
 import { FaDiscord } from 'react-icons/fa';
 import { MdClose, MdReport, MdInfoOutline } from 'react-icons/md';
 import { ReactIcon } from 'components';
-import { AppContext } from 'contexts';
+import { useAppContext } from 'hooks';
 import * as Utils from 'utils';
 
 /*
@@ -13,7 +13,7 @@ import * as Utils from 'utils';
 *
 */
 export function Banner(props) {
-	const { banner } = useContext(AppContext);
+	const { banner } = useAppContext();
 	const [bannerVisibility, setBannerVisibility] = useState('hidden');
 	const bannerStyle = getStyle(banner.style);
 

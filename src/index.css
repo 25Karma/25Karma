@@ -5,11 +5,12 @@
 
 :root {
 	--theme-text: white;
+	--theme-text-highlighted: #ccc;
 	--theme-secondary: #2b2b2b;
 	--theme-primary: #3b3b3b;
 	--theme-input-placeholder: #777;
 	--theme-border: #1b1b1b;
-	--theme-border-highlighted: #f0f;
+	--theme-border-highlighted: #f5f;
 	--theme-shadow: #1b1b1b;
 	--theme-scrollbar-thumb: #1b1b1b;
 	--theme-scrollbar-track: #333;
@@ -38,7 +39,7 @@ div, span, p, a, ul, input, button, footer {
 
 p { line-height: 1.4; }
 input::selection {
-	background: #f5f;
+	background: var(--theme-border-highlighted);
 }
 
 button {
@@ -102,7 +103,8 @@ button:focus {
 .justify-content-end { justify-content: flex-end; }
 .justify-content-start { justify-content: flex-start; }
 .justify-content-stretch { justify-content: stretch; }
-.link { text-decoration: underline solid var(--theme-text); }
+.link { color: var(--theme-text); text-decoration: underline solid var(--theme-text); } 
+.link:hover {color: var(--theme-text-highlighted); text-decoration: underline solid var(--theme-text-highlighted); }
 .m-0 { margin: 0; }
 .m-1 { margin: 0.5rem; }
 .m-2 { margin: 1rem; }

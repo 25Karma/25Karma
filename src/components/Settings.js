@@ -1,10 +1,10 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef } from 'react';
 import ReactTooltip from 'react-tooltip';
 import Cookies from 'js-cookie';
 import './Settings.css';
 import { Button, ExternalLink } from 'components';
 import { APP, COOKIES } from 'constants/app';
-import { AppContext } from 'contexts';
+import { useAppContext } from 'hooks';
 
 /*
 * Gets/sets cookies based on user's site preferences
@@ -16,7 +16,7 @@ export function Settings(props) {
 	// Refs used by setCookies() to locate inputs
 	const pinnedPlayerInput = useRef(COOKIES.pinnedPlayer);
 	const decimalInput = useRef(COOKIES.decimalPlaces);
-	const { setBanner } = useContext(AppContext);
+	const { setBanner } = useAppContext();
 
 	/*
 	* Sets cookies related to user preferences

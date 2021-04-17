@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { FaDiscord, FaInstagram, FaTwitch, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { ExternalLink, ReactIcon } from 'components';
-import { AppContext } from 'contexts';
+import { useAppContext } from 'hooks';
 
 /*
 * Displays a person's social media as a row of icons
@@ -21,7 +21,7 @@ export function SocialMedia(props) {
 	}
 
 	const { links } = props;
-	const { setBanner } = useContext(AppContext);
+	const { setBanner } = useAppContext();
 
 	let socialMediaIcons = [];
 	for (const [k,v] of Object.entries(links)) {
