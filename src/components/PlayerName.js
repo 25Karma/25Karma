@@ -49,7 +49,7 @@ export function PlayerName(props) {
 
 	return (
 		<MinecraftText size={props.size}>
-			{getNameWithRank(stats) + ' '}
+			{getNameWithRank(stats)}
 		</MinecraftText>
 		);
 }

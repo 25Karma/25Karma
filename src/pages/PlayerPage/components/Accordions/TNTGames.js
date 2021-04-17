@@ -90,21 +90,21 @@ export const TNTGames = memo((props) => {
 			</div>
 			<div className="h-flex my-3">
 				<div className="flex-1">
-					<div className="font-bold underline mb-1">TNT Run</div>
+					<p className="font-bold font-md mb-1">TNT Run</p>
 					<Pair title="Wins">{json.wins_tntrun}</Pair>
 					<Pair title="Record Time">{Utils.secondsToHms(json.record_tntrun)}</Pair>
 					<Br />
-					<div className="font-bold underline mb-1">PVP Run</div>
+					<p className="font-bold font-md mb-1">PVP Run</p>
 					<Pair title="Wins">{json.wins_pvprun}</Pair>
 					<Pair title="Kills">{json.kills_pvprun}</Pair>
 					<Pair title="Record Time">{Utils.secondsToHms(json.record_pvprun)}</Pair>
 				</div>
 				<div className="flex-1">
-					<div className="font-bold underline mb-1">TNT Tag</div>
+					<p className="font-bold font-md mb-1">TNT Tag</p>
 					<Pair title="Wins">{json.wins_tntag}</Pair>
 					<Pair title="Kills">{json.kills_tntag}</Pair>
 					<Br />
-					<div className="font-bold underline mb-1">Bow Spleef</div>
+					<p className="font-bold font-md mb-1">Bow Spleef</p>
 					<Pair title="Wins">{json.wins_bowspleef}</Pair>
 					<Pair title="Losses">{json.deaths_bowspleef}</Pair>
 					<Pair title="Win/Loss Ratio">{Utils.ratio(json.wins_bowspleef, json.deaths_bowspleef)}</Pair>

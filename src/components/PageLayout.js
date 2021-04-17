@@ -1,12 +1,12 @@
 import React from 'react';
 import './PageLayout.css';
-import { Banner, Footer } from 'components';
+import { Banner, Footer, Navbar } from 'components';
 
 /*
-* Width-aware container to layout the page, contains a header and a body
+* Width-aware container to layout the page
 * The body is separated into 4 parts: top, center, left, and right
 *
-* @param {JSX} props.header
+* @param {boolean} props.searchbar    Whether to include a searchbar in the Navbar
 * @param {JSX} props.top
 * @param {JSX} props.center
 * @param {JSX} props.left
@@ -15,7 +15,7 @@ import { Banner, Footer } from 'components';
 export function PageLayout(props) {
 	return (
 		<React.Fragment>
-			{props.header}
+			<Navbar searchbar={props.searchbar} />
 			{props.top &&
 				<div className="h-flex justify-content-center pt-4 pb-2">
 					{props.top}

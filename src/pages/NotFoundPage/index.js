@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MinecraftText, Navbar, PageLayout } from 'components';
+import { MinecraftText, PageLayout } from 'components';
 import { APP } from 'constants/app';
 
 /*
@@ -9,8 +9,7 @@ import { APP } from 'constants/app';
 export function NotFoundPage(props) {
 	document.title = `Error 404 - ${APP.documentTitle}`;
 	return (
-		<PageLayout
-			header={<Navbar />}
+			<PageLayout
 			top={
 				<span className="text-shadow">
 						<MinecraftText size="xxl">§cError 404</MinecraftText>

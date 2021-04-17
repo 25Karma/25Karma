@@ -18,15 +18,12 @@ export function SearchPage(props) {
 	const tag = inputValues[1] && inputValues[1].toLowerCase();
 	if (player !== '') {
 		// Redirect page based on tag
-		if (tag === 'guild' || tag === 'g') {
-			return <Redirect to={`/guild/${player}`} />;
-		}
-		else if (tag === 'friends' || tag === 'f') {
-			return <Redirect to={`/friends/${player}`} />;
-		}
-		else {
-			return <Redirect to={`/player/${player}`} />;
-		}
+		if      (tag === 'achievements' || tag === 'a') return <Redirect to={`/achievements/${player}`} />;
+		else if (tag === 'friends'      || tag === 'f') return <Redirect to={`/friends/${player}`} />;
+		else if (tag === 'guild'        || tag === 'g') return <Redirect to={`/guild/${player}`} />;
+		else if (tag === 'pets'         || tag === 'p') return <Redirect to={`/pets/${player}`} />;
+		else if (tag === 'quests'       || tag === 'q') return <Redirect to={`/quests/${player}`} />;
+		else                                            return <Redirect to={`/player/${player}`} />;
 	}
 	else {
 		return <Redirect to={'/frontpage'} />

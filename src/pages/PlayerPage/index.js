@@ -1,8 +1,8 @@
 import React from 'react';
 import { FaSortAlphaDown } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-import { LoadingSpinner, Navbar, PageLayout, PlayerCard, ReactIcon } from 'components';
-import { AccordionList, PlayerHeadline } from './components';
+import { LoadingSpinner, PageLayout, ReactIcon } from 'components';
+import { AccordionList, PlayerCard, PlayerHeadline } from './components';
 import { APP } from 'constants/app';
 import { FrontPage } from 'pages';
 import { useAPIContext } from 'hooks';
@@ -22,8 +22,8 @@ export function PlayerPage(props) {
 			// Log the player into recentSearches cookie
 			pushToRecentSearches(context.mojang.username);
 			return (
-			<PageLayout
-				header={<Navbar searchbar />}
+				<PageLayout
+				searchbar
 				top={<PlayerHeadline />}
 				left={
 					<React.Fragment>
@@ -38,8 +38,8 @@ export function PlayerPage(props) {
 		default:
 			document.title = `Loading... - ${APP.documentTitle}`;
 			return (
-			<PageLayout
-				header={<Navbar searchbar />}
+				<PageLayout
+				searchbar
 				center={
 					<div className="py-5">
 						<LoadingSpinner text={`Loading stats for ${slug}`} />

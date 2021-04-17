@@ -6,13 +6,11 @@ import { APP } from 'constants/app';
 import { HYPIXEL as consts } from 'constants/hypixel';
 import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
-import { getPlayerRank, getGuildMemberRank, getGuildMemberDailyGEXP, getGuildMemberWeeklyGEXP } from 'utils/hypixel';
+import { calculateNetworkLevel, getPlayerRank, getGuildMemberRank, getGuildMemberDailyGEXP, 
+	getGuildMemberWeeklyGEXP } from 'utils/hypixel';
 
 /*
 * Displays general Hypixel stats about the player in the Hypixel Context
-*
-* @param {string} props.page   The page that the PlayerCard is displayed on (ex. "player") -
-*                              this will change what info to display
 */
 export function PlayerCard(props) {
 	
@@ -38,11 +36,39 @@ export function PlayerCard(props) {
 		return {name: name, value: `×${m}`};
 	})();
 	const socialMediaLinks = Utils.traverse(json, 'socialMedia.links');
-
-	function calculateNetworkLevel(exp = 0) {
-		return ((Math.sqrt(exp + 15312.5) - 125/Math.sqrt(2))/(25*Math.sqrt(2)))
-	}
-
+	
+	const overallStats = (
+		<React.Fragment>
+			<Pair title="Coin Multiplier">{`${multiplier.value} (${multiplier.name})`}</Pair>
+			<Pair title="Total Coins" color="gold">
+				{Utils.add(...consts.TOTALCOINS.map(n => Utils.traverse(json, n)))}
+			</Pair>
+			<Pair title="Total Kills">
+				{Utils.add(...consts.TOTALKILLS.map(n => Utils.traverse(json, n)))}
+			</Pair>
+			<Pair title="Total Wins">
+				{Utils.add(...consts.TOTALWINS.map(n => Utils.traverse(json, n)))}
+			</Pair>
+			<Br />
+			<Link className="link" to={`/achievements/${mojang.username}`}>
+				<Pair title="Achievement Points">{json.achievementPoints}</Pair>
+			</Link>
+			<Br />
+			<Link className="link" to={`/quests/${mojang.username}`}>
+				<Pair title="Quests Completed">{json.questsCompleted}</Pair>
+			</Link>
+			<Br />
+			<Link to={`/friends/${mojang.username}`} className="link">
+				<Pair title="Friends">{friends}</Pair>
+			</Link>
+			<Br />
+			<Pair title="Rewards Claimed">{json.totalRewards}</Pair>
+			<Pair title="Reward Streak">{json.rewardScore}</Pair>
+			<Pair title="Top Reward Streak">{json.rewardHighScore}</Pair>
+			<Br />
+		</React.Fragment>
+	);
+	
 	const loginDates = ( 
 		<React.Fragment>
 			{json.firstLogin !== undefined &&
@@ -57,71 +83,15 @@ export function PlayerCard(props) {
 			}
 			<Br/>
 		</React.Fragment>
-		);
-
-	function playerStatsButton() {
-		if (props.page !== "player") {
-			return (
-				<React.Fragment>
-					<Link to={`/player/${mojang.username}`}>
-						<Button>
-							<span className="font-bold">View Player Stats</span>
-						</Button>
-					</Link>
-					<Br />
-				</React.Fragment>
-				);
-		}
-	}
-
-	const overallStats = (
-		<React.Fragment>
-			<Pair title="Coin Multiplier">{`${multiplier.value} (${multiplier.name})`}</Pair>
-			<Pair title="Achievement Points">{json.achievementPoints}</Pair>
-			<Pair title="Quests Completed">{json.questsCompleted}</Pair>
-			<Br />
-			<Pair title="Total Coins" color="gold">
-				{Utils.add(...consts.TOTALCOINS.map(n => Utils.traverse(json, n)))}
-			</Pair>
-			<Pair title="Total Kills">
-				{Utils.add(...consts.TOTALKILLS.map(n => Utils.traverse(json, n)))}
-			</Pair>
-			<Pair title="Total Wins">
-				{Utils.add(...consts.TOTALWINS.map(n => Utils.traverse(json, n)))}
-			</Pair>
-			<Br />
-			<Pair title="Rewards Claimed">{json.totalRewards}</Pair>
-			<Pair title="Reward Streak">{json.rewardScore}</Pair>
-			<Pair title="Top Reward Streak">{json.rewardHighScore}</Pair>
-			<Br />
-		</React.Fragment>
-		);
-
-	function friendsInfo() {
-		// Only render friends button if we are not already on the friends page
-		if (props.page !== "friends") {
-			return (
-				<React.Fragment>
-					<Pair title="Friends">{friends}</Pair>
-					<Br />
-					<Link to={`/friends/${mojang.username}`}>
-						<Button>
-							<span className="font-bold">View Friends</span>
-						</Button>
-					</Link>
-					<Br />
-				</React.Fragment>
-				);
-		}
-		else {
-			return (
-				<React.Fragment>
-					<Pair title="Friends">{friends.length}</Pair>
-					<Br />
-				</React.Fragment>
-				);
-		}
-	}
+	);
+	
+	const skyblockButton = (
+		<ExternalLink href={`${APP.skyblock}${json.uuid}`}>
+			<Button>
+				<span className="font-bold">SkyBlock Stats</span>
+			</Button>
+		</ExternalLink>
+	);
 	
 	function guildInfo() {
 		if (guild) {
@@ -137,7 +107,9 @@ export function PlayerCard(props) {
 			return (
 				<React.Fragment>
 					<HorizontalLine className="mt-3"/>
-					<Title>Guild</Title>
+					<Link to={`/guild/${mojang.username}`} className="link">
+						<Title>Guild</Title>
+					</Link>
 					<Pair title="Name" color={guild.tagColor}>{guild.name}</Pair>
 					<Pair title="Members">{guild.members.length}</Pair>
 					<Br />
@@ -148,12 +120,6 @@ export function PlayerCard(props) {
 					<Pair title="Daily GEXP">{dailyGEXP}</Pair>
 					<Pair title="Weekly GEXP">{weeklyGEXP}</Pair>
 					<Pair title="Joined">{Utils.dateFormat(member.joined)}</Pair>
-					<Br />
-					<Link to={`/guild/${mojang.username}`}>
-						<Button>
-							<span className="font-bold">View Guild</span>
-						</Button>
-					</Link>
 				</React.Fragment>
 				);
 		}
@@ -182,15 +148,9 @@ export function PlayerCard(props) {
 				</Box>
 			</div>
 			<HorizontalLine className="mb-3"/>
-			{playerStatsButton()}
 			{overallStats}
-			{friendsInfo()}
 			{loginDates}
-			<ExternalLink href={`${APP.skyblock}${json.uuid}`}>
-				<Button>
-					<span className="font-bold">SkyBlock Stats</span>
-				</Button>
-			</ExternalLink>
+			{skyblockButton}
 			{guildInfo()}
 			{socialMedia()}
 		</Card>

@@ -90,68 +90,58 @@ export const Arcade = memo((props) => {
 				<Pair title="Arcade Coins" color="gold">{json.coins}</Pair>
 			</div>
 			<div className="h-flex flex-wrap">
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Blocking Dead</div>
+				<ArcadeMinigame title="Blocking Dead">
 					<Pair title="Wins">{json.wins_dayone}</Pair>
 					<Pair title="Kills">{json.kills_dayone}</Pair>
 					<Pair title="Headshots">{json.headshots_dayone}</Pair>
 					<Pair title="Melee Weapon"> 
 						{Utils.capitalize((json.melee_weapon || '-').split('_').join(' '))} 
 					</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Bounty Hunters</div>
+				<ArcadeMinigame title="Bounty Hunters">
 					<Pair title="Wins">{json.wins_oneinthequiver}</Pair>
 					<Pair title="Kills">{json.kills_oneinthequiver}</Pair>
 					<Pair title="Deaths">{json.deaths_oneinthequiver}</Pair>
 					<Pair title="Kill/Death Ratio">{Utils.ratio(json.kills_oneinthequiver, json.deaths_oneinthequiver)}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Capture The Wool</div>
+				<ArcadeMinigame title="Capture The Wool">
 					<Pair title="Kills">{achievements.arcade_ctw_slayer}</Pair>
 					<Pair title="Wool Captures">{achievements.arcade_ctw_oh_sheep}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Creeper Attack</div>
+				<ArcadeMinigame title="Creeper Attack">
 					<Pair title="Best Wave">{json.max_wave}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Dragon Wars</div>
+				<ArcadeMinigame title="Dragon Wars">
 					<Pair title="Wins">{json.wins_dragonwars2}</Pair>
 					<Pair title="Kills">{json.kills_dragonwars2}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Easter Simulator</div>
+				<ArcadeMinigame title="Easter Simulator">
 					<Pair title="Wins">{json.wins_easter_simulator}</Pair>
 					<Pair title="Eggs Found">{json.eggs_found_easter_simulator}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Ender Spleef</div>
+				<ArcadeMinigame title="Ender Spleef">
 					<Pair title="Wins">{json.wins_ender}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Farm Hunt</div>
+				<ArcadeMinigame title="Farm Hunt">
 					<Pair title="Wins">{json.wins_farm_hunt}</Pair>
 					<Pair title="Poop Collected">{json.poop_collected}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Football</div>
+				<ArcadeMinigame title="Football">
 					<Pair title="Wins">{json.wins_soccer}</Pair>
 					<Pair title="Goals">{json.goals_soccer}</Pair>
 					<Pair title="Kicks">{json.kicks_soccer}</Pair>
 					<Pair title="Powerkicks">{json.powerkicks_soccer}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Galaxy Wars</div>
+				<ArcadeMinigame title="Galaxy Wars">
 					<Pair title="Wins">{json.sw_game_wins}</Pair>
 					<Pair title="Kills">{json.sw_kills}</Pair>
 					<Pair title="Empire Kills">{json.sw_empire_kills}</Pair>
@@ -159,69 +149,59 @@ export const Arcade = memo((props) => {
 					<Pair title="Deaths">{json.sw_deaths}</Pair>
 					<Pair title="Kill/Death Ratio">{Utils.ratio(json.sw_wins, json.sw_deaths)}</Pair>
 					<Pair title="Shots Fired">{json.sw_shots_fired}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Grinch Simulator v2</div>
+				<ArcadeMinigame title="Grinch Simulator v2">
 					<Pair title="Wins">{json.wins_grinch_simulator_v2}</Pair>
 					<Pair title="Presents Stolen">{json.gifts_grinch_simulator_v2}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Halloween Simulator</div>
+				<ArcadeMinigame title="Halloween Simulator">
 					<Pair title="Wins">{json.wins_halloween_simulator}</Pair>
 					<Pair title="Candy Found">{json.candy_found_halloween_simulator}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Hide and Seek</div>
+				<ArcadeMinigame title="Hide and Seek">
 					<Pair title="Wins as Seeker">{json.seeker_wins_hide_and_seek}</Pair>
 					<Pair title="Wins as Hider">{json.hider_wins_hide_and_seek}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Hole in the Wall</div>
+				<ArcadeMinigame title="Hole in the Wall">
 					<Pair title="Wins">{json.wins_hole_in_the_wall}</Pair>
 					<Pair title="Highest Score Qualifications">{json.hitw_record_q}</Pair>
 					<Pair title="Highest Score Finals">{json.hitw_record_f}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Hypixel Says</div>
+				<ArcadeMinigame title="Hypixel Says">
 					<Pair title="Wins">{json.wins_simon_says}</Pair>
 					<Pair title="Rounds">{json.rounds_simon_says}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>					
-					<div className="font-bold underline mb-1">Party Games</div>
+				<ArcadeMinigame title="Party Games">					
 					<Pair title="Wins">{Utils.add(json.wins_party, json.wins_party_2, json.wins_party_3)}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Pixel Painters</div>
+				<ArcadeMinigame title="Pixel Painters">
 					<Pair title="Wins">{json.wins_draw_their_thing}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Santa Simulator</div>
+				<ArcadeMinigame title="Santa Simulator">
 					<Pair title="Presents Delivered">{json.delivered_santa_simulator}</Pair>
 					<Pair title="Times Spotted">{json.spotted_santa_simulator}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Scuba Simulator</div>
+				<ArcadeMinigame title="Scuba Simulator">
 					<Pair title="Wins">{json.wins_scuba_simulator}</Pair>
 					<Pair title="Items Found">{json.items_found_scuba_simulator}</Pair>
 					<Pair title="Total Points">{json.total_points_scuba_simulator}</Pair>
-				</div>
+				</ArcadeMinigame>
 
-				<div className="pb-3" style={{width: '33%'}}>
-					<div className="font-bold underline mb-1">Throw Out</div>
+				<ArcadeMinigame title="Throw Out">
 					<Pair title="Wins">{json.wins_throw_out}</Pair>
 					<Pair title="Kills">{json.kills_throw_out}</Pair>
 					<Pair title="Deaths">{json.deaths_throw_out}</Pair>
 					<Pair title="Kill/Death Ratio">{Utils.ratio(json.kills_throw_out, json.deaths_throw_out)}</Pair>
-				</div>
+				</ArcadeMinigame>
 			</div>
 
 			<HorizontalLine />
@@ -283,3 +263,12 @@ export const Arcade = memo((props) => {
 			</div>
 		</Accordion>
 });
+
+function ArcadeMinigame({title, children}) {
+	return (
+		<div className="mb-3" style={{width: '33%'}}>
+			<p className="font-bold font-md pb-1">{title}</p>
+			{children}
+		</div>
+	)
+}

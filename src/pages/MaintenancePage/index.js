@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css';
-import { Navbar, MinecraftText, PageLayout } from 'components';
+import { MinecraftText, PageLayout } from 'components';
 import { MAINTENANCE } from 'constants/app';
 import * as Utils from 'utils';
 
@@ -12,7 +12,6 @@ export function MaintenancePage(props) {
 
     return (
         <PageLayout
-        header={<Navbar />} 
         top={
             <MinecraftText className="text-shadow" size="xl">
                 §d25Karma §cis under maintenance.

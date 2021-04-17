@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { ExternalLink, MinecraftText, Navbar, PageLayout } from 'components';
+import { ExternalLink, MinecraftText, PageLayout } from 'components';
 import { RecentSearches, Search, Tips } from './components';
 import { APP } from 'constants/app';
 import { AppContext } from 'contexts';
@@ -69,7 +69,14 @@ export function FrontPage(props) {
 					description: `The call to the Hypixel API was denied due to '${config.cause}'.`
 				});
 				break;
-			case ('HYPIXEL_API_DOWN'):
+			case ('HYPIXEL_THROTTLED'):
+				setBanner({
+					style: 'error',
+					title: 'Search failed.',
+					description: 'Access to the Hypixel API was throttled. Try again in a few minutes.'
+				});
+				break;
+			case ('HYPIXEL_DOWN'):
 				setBanner({
 					style: 'error',
 					title: 'Hypixel API Error.',
@@ -101,7 +108,6 @@ export function FrontPage(props) {
 	
 	return (
 		<PageLayout
-			header={<Navbar />}
 			top={
 				<span className="text-shadow">
 					<MinecraftText size="xxl">
