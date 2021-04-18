@@ -258,28 +258,36 @@ export const BedWars = memo((props) => {
 					<Pair title="Prestige" color={prestige.color}>{prestige.name}</Pair>
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Br/>
-					<Pair title="Winstreak">{json.winstreak}</Pair>
-					<Pair title="Wins">{json.wins_bedwars}</Pair>
-					<Pair title="Losses">{json.losses_bedwars}</Pair>
-					<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
-					<Br/>
-					<Pair title="Beds Broken">{json.beds_broken_bedwars}</Pair>
-					<Pair title="Beds Lost">{json.beds_lost_bedwars}</Pair>
-					<Pair title="Beds Broken/Lost Ratio">{ratios.bbl}</Pair>
-				</div>
-				<div className="flex-1">
 					<Pair title="Kills">{json.kills_bedwars}</Pair>
 					<Pair title="Deaths">{json.deaths_bedwars}</Pair>
 					<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
 					<Pair title="Final Kills">{json.final_kills_bedwars}</Pair>
 					<Pair title="Final Deaths">{json.final_deaths_bedwars}</Pair>
 					<Pair title="Final Kill/Death Ratio">{ratios.fkd}</Pair>
+				</div>
+				<div className="flex-1">
+					<Pair title="Winstreak">{json.winstreak}</Pair>
+					<Pair title="Wins">{json.wins_bedwars}</Pair>
+					<Pair title="Losses">{json.losses_bedwars}</Pair>
+					<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
+					<Br/>
+					<Pair title="Loot Chests">{json.bedwars_boxes}</Pair>
+					<Pair title="Merry Chests">{json.bedwars_christmas_boxes}</Pair>
+					<Pair title="Spooky Chests">{json.bedwars_halloween_boxes}</Pair>
+					<Pair title="Easter Chests">{json.bedwars_easter_boxes}</Pair>
+					<Pair title="Lunar Chests">{json.bedwars_lunar_boxes}</Pair>
+				</div>
+				<div className="flex-1">
+					<Pair title="Beds Broken">{json.beds_broken_bedwars}</Pair>
+					<Pair title="Beds Lost">{json.beds_lost_bedwars}</Pair>
+					<Pair title="Beds Broken/Lost Ratio">{ratios.bbl}</Pair>
 					<Br/>
 					<Pair title="Iron Collected">{json.iron_resources_collected_bedwars}</Pair>
 					<Pair title="Gold Collected">{json.gold_resources_collected_bedwars}</Pair>
 					<Pair title="Diamonds Collected">{json.diamond_resources_collected_bedwars}</Pair>
 					<Pair title="Emeralds Collected">{json.emerald_resources_collected_bedwars}</Pair>
 					<Pair title="Wrapped Presents Collected">{json.wrapped_present_resources_collected_bedwars}</Pair>
+					<Pair title="Total Shop Purchases">{json._items_purchased_bedwars}</Pair>
 				</div>
 			</div>
 			
@@ -306,10 +314,6 @@ export const BedWars = memo((props) => {
 					<Pair title="Deaths to Drowning">{Utils.add(json.drowning_deaths_bedwars, json.drowning_final_deaths_bedwars)}</Pair>
 					<Pair title="Deaths to Fire">{Utils.default0(json.fire_tick_deaths_bedwars)+Utils.default0(json.fire_deaths_bedwars)}</Pair>
 					<Pair title="Deaths to Suffocation">{Utils.default0(json.suffocation_deaths_bedwars)+Utils.default0(json.suffocation_final_deaths_bedwars)}</Pair>
-				</div>
-				<div className="flex-1">
-					<Pair title="Loot Chests">{json.bedwars_boxes}</Pair>
-					<Pair title="Total Shop Purchases">{json._items_purchased_bedwars}</Pair>
 				</div>
 			</div>
 		</Accordion>
