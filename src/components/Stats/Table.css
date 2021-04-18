@@ -3,7 +3,7 @@
 	border-collapse: collapse;
 }
 
-.stattable th,td {
+.stattable th, .stattable td {
 	padding: 0.25rem;
 	text-align: left;
 	vertical-align: bottom;

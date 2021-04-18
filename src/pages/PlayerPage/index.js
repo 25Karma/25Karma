@@ -1,9 +1,10 @@
 import React from 'react';
 import { FaSortAlphaDown } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-import { LoadingSpinner, PageLayout, ReactIcon } from 'components';
-import { AccordionList, PlayerCard, PlayerHeadline } from './components';
-import { APP } from 'constants/app';
+import { AccordionList, LoadingSpinner, PageLayout, ReactIcon } from 'components';
+import { PlayerCard, PlayerHeadline } from './components';
+import * as Accordions from './components/Accordions';
+import { APP, COOKIES } from 'constants/app';
 import { FrontPage } from 'pages';
 import { useAPIContext } from 'hooks';
 import { pushToRecentSearches } from 'utils';
@@ -15,7 +16,7 @@ import { pushToRecentSearches } from 'utils';
 export function PlayerPage(props) {
 	const { slug } = useParams();
 	const context = useAPIContext(slug, 'player');
-	
+
 	switch(context.success) {
 		case true:
 			document.title = `${context.mojang.username}'s Stats - ${APP.documentTitle}`;
@@ -31,7 +32,7 @@ export function PlayerPage(props) {
 						<PlayerCard page="player" />
 					</React.Fragment>
 				}
-				center={<AccordionList />}/>
+				center={<AccordionList cookie={COOKIES.playerAccordions} accordionModule={Accordions} />}/>
 			);
 		case false:
 			return <FrontPage config={context} />

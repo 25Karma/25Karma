@@ -5,30 +5,33 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { FaSortAlphaDown } from 'react-icons/fa';
 import { RiCheckboxIndeterminateFill, RiCheckboxIndeterminateLine } from 'react-icons/ri';
 import { ReactIcon, HorizontalLine as HLine } from 'components';
-import { COOKIES } from 'constants/app';
-import * as Accordions from './Accordions';
 
-export function AccordionList(props) {
+/*
+* A droppable container for Accordions using cookies
+* Has buttons for sorting alphabetically and toggling a spacer
+*
+* @param {string} cookie            Name of the cookie for storing the order of the Accordions
+* @param {Object} accordionModule   An object where each key points to the Accordion JSX (ex. {Arcade: <Arcade />})
+*/
+export function AccordionList({ cookie, accordionModule }) {
 
-	const cookieName = COOKIES.playerAccordions;
-	const cookie = getCookie();
-	const [accordionList, setAccordionList] = useState(cookie.list);
-	const [showLine, setShowLine] = useState(cookie.showLine);
+	const json = getCookie();
+	const [accordionList, setAccordionList] = useState(json.list);
+	const [showLine, setShowLine] = useState(json.showLine);
 
 	function getCookie() {
-		let cookie = Cookies.get(cookieName);
+		let json = Cookies.get(cookie);
 		// If no cookie found, it will be undefined
-		if (cookie === undefined) {
+		if (json === undefined) {
 			return {
 				list: alphabetizeList(),
 				showLine: false,
 			}
 		}
 		else {
-			const {list, showLine} = JSON.parse(cookie);
-			let accordionNames = Object.entries(Accordions).map(([name]) => name);
-			accordionNames.push('HorizontalLine');
+			const {list, showLine} = JSON.parse(json);
 			// Add any Accordions that were not found in the cookie data
+			let accordionNames = [...Object.keys(accordionModule), 'HorizontalLine'];
 			for (const name of accordionNames) {
 				if (!list.includes(name)) {
 					list.push(name);
@@ -37,10 +40,11 @@ export function AccordionList(props) {
 			// If any invalid accordion names are found, reset the entire cookie
 			for (const name of list) {
 				if (!accordionNames.includes(name)) {
-					Cookies.remove(cookieName);
+					Cookies.remove(cookie);
 					return getCookie();
 				}
 			}
+			// At this point we are done sanitizing the json and we can safely return it
 			return {list, showLine};
 		}
 	}
@@ -55,14 +59,15 @@ export function AccordionList(props) {
 		const [removed] = accordionList.splice(startIndex, 1);
 		const newList = [...accordionList];
 		newList.splice(endIndex, 0, removed)
+		// React state mutator
 		setAccordionList(newList);
 	}
 
 	function alphabetizeList() {
 		let array = ['HorizontalLine'];
-		for (const [name] of Object.entries(Accordions)) {
-			array.push(name);
-		}
+		const accordionArray = Object.keys(accordionModule);
+		accordionArray.sort();
+		array.push(...accordionArray);
 		return array;
 	}
 
@@ -86,7 +91,7 @@ export function AccordionList(props) {
 
 	function getAccordionFromString(str) {
 		// Finds the matching component from within the Accordion module
-		for (const [name, component] of Object.entries(Accordions)) {
+		for (const [name, component] of Object.entries(accordionModule)) {
 			if (name === str) {
 				return component;
 			}
@@ -95,12 +100,12 @@ export function AccordionList(props) {
 	}
 	
 	useEffect(() => {
-		const cookie = {
+		const newJson = {
 			list: accordionList,
 			showLine: showLine,
 		}
-		Cookies.set(cookieName, JSON.stringify(cookie), {expires:365});
-	}, [accordionList, showLine, cookieName]);
+		Cookies.set(cookie, JSON.stringify(newJson), {expires:365});
+	}, [accordionList, showLine, cookie]);
 
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>
@@ -128,7 +133,7 @@ export function AccordionList(props) {
 				)}
 			</Droppable>
 		</DragDropContext>
-		);
+	);
 }
 
 /*

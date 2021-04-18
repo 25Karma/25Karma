@@ -14,7 +14,7 @@ export function FriendsPage(props) {
 	const { slug } = useParams();
 	const context = useAPIContext(slug, 'friends');
 	
-	switch(context.success) {
+	switch (context.success) {
 		case true:
 			document.title = `${context.mojang.username}'s Friends - ${APP.documentTitle}`;
 			// Log the player into recentSearches cookie
@@ -35,7 +35,7 @@ export function FriendsPage(props) {
 				searchbar
 				center={
 					<div className="py-5">
-						<LoadingSpinner text={`Loading friends of ${slug}`} />
+						<LoadingSpinner text={`Loading ${slug}'s friends`} />
 					</div>
 				} />
 			);

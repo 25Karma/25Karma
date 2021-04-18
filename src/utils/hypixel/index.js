@@ -112,3 +112,47 @@ export function getPlayerRankPriority(playerdata) {
 	const rank = getPlayerRank(playerdata);
 	return HYPIXEL.RANKPRIORITY.indexOf(rank);
 }
+
+/*
+* Returns the number of times a quest has been completed since the beginning of the day, week, month, or year
+*
+* @param {string} period         The period of time to check
+* @param {Object} questObject    The specific quest to check, from the Hypixel API resources endpoint
+* @param {Array} completions     Array of completion time stamps, from the Hypixel API player endpoint
+* @return {Number}               Number of completions
+*/
+export function questCompletionsSince(period, completions) {
+	let timestamp = null;
+	if (period === 'daily') {
+		// Midnight of today
+		timestamp = (new Date()).setHours(0,0,0,0);
+	}
+	else if (period === 'weekly') {
+		// Last Thursday
+		// https://stackoverflow.com/a/46544455/12191708
+		let date = new Date();
+		const lastThursday = new Date(date.setDate(date.getDate() - (date.getDay() + 8)%7));
+		timestamp = lastThursday.setHours(0,0,0,0);
+	}
+	else if (period === 'monthly') {
+		// Beginning of the month
+		// https://stackoverflow.com/a/13572682/12191708
+		const date = new Date();
+		timestamp = new Date(date.getFullYear(), date.getMonth(), 1);
+	}
+	else if (period === 'yearly') {
+		// Beginning of the year
+		timestamp = new Date((new Date()).getFullYear(), 0, 1);
+	}
+	else if (period === 'total') {
+		// All time
+		timestamp = 0;
+	}
+	
+	if (!completions) {
+		return 0;
+	}
+	else {
+		return completions.filter(c => c.time > timestamp).length;
+	}
+}

@@ -88,7 +88,7 @@ export function PlayerCard(props) {
 	const skyblockButton = (
 		<ExternalLink href={`${APP.skyblock}${json.uuid}`}>
 			<Button>
-				<span className="font-bold">SkyBlock Stats</span>
+				<span className="font-bold">View SkyBlock Stats</span>
 			</Button>
 		</ExternalLink>
 	);

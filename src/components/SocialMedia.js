@@ -31,20 +31,18 @@ export function SocialMedia(props) {
 				socialMediaIcons.push(
 					<span key={k} className="pr-2" style={{color: s.color}}>
 						<button onClick={() => {displayDiscordBanner(v)}}>
-							<ReactIcon 
-								icon={s.icon} 
-								clickable />
+							<ReactIcon icon={s.icon} clickable />
 						</button>
 					</span>
 					);
 			}
 			else {
 				socialMediaIcons.push(
-					<span key={k} className="pr-2" style={{color: s.color}}>
+					<span key={k} className="pr-2">
 						<ExternalLink href={v}>
-							<ReactIcon 
-								icon={s.icon} 
-								clickable />
+							<span style={{color: s.color}}>
+								<ReactIcon icon={s.icon} clickable />
+							</span>
 						</ExternalLink>
 					</span>
 					);

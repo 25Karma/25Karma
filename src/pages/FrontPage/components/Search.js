@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaUser, FaUsers, FaShieldAlt } from 'react-icons/fa';
+import { FaUser, FaUsers, FaShieldAlt, FaScroll } from 'react-icons/fa';
 import { Button, MinecraftText, ReactIcon, Searchbar } from 'components';
 
 /*
@@ -12,6 +12,7 @@ export function Search(props) {
 		{id: 'stats', name: 'Player', icon: FaUser },
 		{id: 'guild', name: 'Guild', icon: FaShieldAlt },
 		{id: 'friends', name: 'Friends', icon: FaUsers },
+		{id: 'quests', name: 'Quests', icon: FaScroll },
 	];
 	const [searchType, setSearchType] = useState(searchTypes[0].id);
 

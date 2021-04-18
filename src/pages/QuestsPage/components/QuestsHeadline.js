@@ -7,7 +7,7 @@ import { useAPIContext } from 'hooks';
 /*
 * Displays face and username of the player in the Hypixel Context
 */
-export function FriendsHeadline(props) {
+export function QuestsHeadline(props) {
 	const { mojang, player } = useAPIContext();
 
 	return (
@@ -19,7 +19,7 @@ export function FriendsHeadline(props) {
 				<Link to={`/player/${mojang.username}`}>
 					<PlayerName username={mojang.username} player={player} size="xl" />
 				</Link>
-				<MinecraftText size="xl">§7's Friends</MinecraftText>
+				<MinecraftText size="xl">§7's Quests</MinecraftText>
 			</div>
 		</div>
 		);
