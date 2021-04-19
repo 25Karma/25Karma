@@ -1,9 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { LoadingSpinner, MinecraftText, PageLayout } from 'components';
+import { MinecraftText, PageLayout, PageLoading } from 'components';
 import { GuildCard, GuildMemberList } from './components';
-import { APP } from 'constants/app';
-import { FrontPage } from 'pages';
 import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 
@@ -12,14 +10,14 @@ import * as Utils from 'utils';
 */
 export function GuildPage(props) {
 	const { slug } = useParams();
-	const context = useAPIContext(slug, 'guild');
-	const { guild } = context;
+	const { guild, success } = useAPIContext(slug, 'guild');
 	
-	switch(context.success) {
-		case true:
-			Utils.pushToRecentSearches(context.mojang.username);
-			document.title = `${context.mojang.username}'s Guild - ${APP.documentTitle}`;
-			return (
+	return (
+		<PageLoading
+		title={u => `${u}'s Guild`}
+		loading={`Loading stats for ${slug}'s guild`}>
+			{success &&
+				// Conditionally rendered to prevent components from throwing an error due to missing API data
 				<PageLayout
 				searchbar
 				top={
@@ -29,19 +27,7 @@ export function GuildPage(props) {
 				} 
 				left={<GuildCard />}
 				center={<GuildMemberList />} />
-			);
-		case false:
-			return <FrontPage config={context} />
-		default:
-			document.title = `Loading... - ${APP.documentTitle}`;
-			return (
-				<PageLayout 
-				searchbar
-				center={
-					<div className="py-5">
-						<LoadingSpinner text={`Loading stats for ${slug}'s guild`} />
-					</div>
-				} />
-			);
-	}
+			}
+		</PageLoading>
+	);
 }

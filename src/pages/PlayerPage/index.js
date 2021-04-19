@@ -1,13 +1,11 @@
 import React from 'react';
 import { FaSortAlphaDown } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-import { AccordionList, LoadingSpinner, PageLayout, ReactIcon } from 'components';
+import { AccordionList, PageLayout, PageLoading, ReactIcon } from 'components';
 import { PlayerCard, PlayerHeadline } from './components';
 import * as Accordions from './components/Accordions';
-import { APP, COOKIES } from 'constants/app';
-import { FrontPage } from 'pages';
+import { COOKIES } from 'constants/app';
 import { useAPIContext } from 'hooks';
-import { pushToRecentSearches } from 'utils';
 
 /*
 * Page that displays the stats for an individual player
@@ -15,14 +13,14 @@ import { pushToRecentSearches } from 'utils';
 */
 export function PlayerPage(props) {
 	const { slug } = useParams();
-	const context = useAPIContext(slug, 'player');
+	const { success } = useAPIContext(slug, 'player');
 
-	switch(context.success) {
-		case true:
-			document.title = `${context.mojang.username}'s Stats - ${APP.documentTitle}`;
-			// Log the player into recentSearches cookie
-			pushToRecentSearches(context.mojang.username);
-			return (
+	return (
+		<PageLoading
+		title={u => `${u}'s Stats`}
+		loading={`Loading stats for ${slug}`}>
+			{success &&
+				// Conditionally rendered to prevent components from throwing an error due to missing API data
 				<PageLayout
 				searchbar
 				top={<PlayerHeadline />}
@@ -33,19 +31,8 @@ export function PlayerPage(props) {
 					</React.Fragment>
 				}
 				center={<AccordionList cookie={COOKIES.playerAccordions} accordionModule={Accordions} />}/>
-			);
-		case false:
-			return <FrontPage config={context} />
-		default:
-			document.title = `Loading... - ${APP.documentTitle}`;
-			return (
-				<PageLayout
-				searchbar
-				center={
-					<div className="py-5">
-						<LoadingSpinner text={`Loading stats for ${slug}`} />
-					</div>
-				}/>
-			);
-	}
+			}
+
+		</PageLoading>
+	)
 }
