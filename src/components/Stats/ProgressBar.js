@@ -15,7 +15,9 @@ export function ProgressBar(props) {
 		<div className="progressbar" style={{ height : props.height || '1rem'}}>
 			{props.children}
 			<span className="progressbar-remaining" data-tip={props.dataTip}></span>
-			<ReactTooltip />
+			{Boolean(props.dataTip) &&
+				<ReactTooltip />
+			}	
 		</div>
 		);
 }

@@ -16,11 +16,14 @@ export function PetsList() {
 
 	function preparePetData(petId, petData) {
 		const petConstants = PETS.PETS[petId] || {};
+		const name = petData.name || '';
+		const mob = Utils.isEmpty(petConstants) ? petId : petConstants.name;
 		return {
 			id: petId,
 			...petData,
-			name: petData.name || '',
-			mob: Utils.isEmpty(petConstants) ? petId : petConstants.name,
+			name,
+			cleanName: name.replace(/§./g, ''),
+			mob,
 			hunger: happinessValueOf(petData.HUNGER),
 			thirst: happinessValueOf(petData.THIRST),
 			exercise: happinessValueOf(petData.EXERCISE),
@@ -68,9 +71,8 @@ export function PetsList() {
 
 	function sortByName(petList, polarity) {
 		return petList.sort((a,b) => {
-			const aName = a.name.replace(/§./g, '') || a.mob;
-			const bName = b.name.replace(/§./g, '') || b.mob;
-
+			const aName = a.cleanName || a.mob;
+			const bName = b.cleanName || b.mob;
 			return aName.toLowerCase() > bName.toLowerCase() ? polarity : -polarity;
 		});
 	}
@@ -95,7 +97,7 @@ export function PetsList() {
 					</td>
 					<td>
 						<p className="pb-1">
-						{pet.name &&
+						{pet.cleanName &&
 							<MinecraftText className="pr-2">{`${pet.name}`}</MinecraftText>
 						}
 							<span className={`c-${rarityColor}`}>{pet.mob}</span>

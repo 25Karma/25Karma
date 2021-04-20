@@ -27,7 +27,7 @@ export function RecentSearches(props) {
 					<MinecraftText>First time? Try searching</MinecraftText>
 				</div>
 				<div className="pl-2 py-1">
-					<Link to={`/player/${APP.suggestedPlayers[0]}`}>
+					<Link to={`/search/${APP.suggestedPlayers[0]}`}>
 						<Button>
 							<span className="font-xs">{APP.suggestedPlayers[0]}</span>
 						</Button>
@@ -44,7 +44,7 @@ export function RecentSearches(props) {
 			<div className="h-flex flex-wrap">
 				{array.slice(0, showAllRecents ? array.length : 5).map((a) => (
 					<div key={a} className="pr-2 py-1">
-						<Link to={`/player/${a}`}>
+						<Link to={`/search/${a}`}>
 							<Button>
 								<span className="font-xs">{a}</span>
 							</Button>

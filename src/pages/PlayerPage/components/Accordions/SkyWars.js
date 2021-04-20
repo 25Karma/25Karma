@@ -181,7 +181,7 @@ export const SkyWars = memo((props) => {
 				);
 		}
 		return (
-			<ProgressBar>
+			<ProgressBar dataTip>
 				{progressList}
 			</ProgressBar>
 			)

@@ -19,7 +19,10 @@ export function PetsCard() {
 		.map(([k,v]) => isPet(v) ? {id: k, ...v} : false)
 		.filter(n => n);
 
-	const favoritePet = petList.reduce((a,b) => a.experience > b.experience ? a : b, 0);
+	let favoritePet = petList[0];
+	petList.forEach(pet => {
+		if (pet.experience > favoritePet.experience) favoritePet = pet;
+	})
 	const favoritePetConstants = PETS.PETS[favoritePet.id] || {};
 
 	const missionStatus = (() => {
@@ -60,7 +63,7 @@ export function PetsCard() {
 			<HorizontalLine className="mb-3"/>
 
 			<Pair title="Favourite Pet" color={PETS.RARITY[favoritePetConstants.rarity]}>
-				{favoritePetConstants.name || favoritePet.id}
+				{favoritePetConstants.name || favoritePet.id || 'N/A'}
 			</Pair>
 			<Pair title="Active Pets">{petList.length}</Pair>
 			<Br />
