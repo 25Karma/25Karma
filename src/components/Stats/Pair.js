@@ -10,7 +10,7 @@ import { formatNum } from 'utils';
 * @param {boolean} props.percentage    Whether the stat should be displayed as a percentage
 */
 export function Pair(props) {
-	const { title, children, color, percentage } = props;
+	const { title, children, color = '', percentage } = props;
 
 	function renderChildren() {
 		if (children === undefined) return 0;

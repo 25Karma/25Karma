@@ -23,8 +23,8 @@ export function Tips(props) {
 		</React.Fragment>,
 		"Clicking on a player's avatar brings you to their profile on NameMC.",
 		<React.Fragment>
-			The SkyBlock Stats button on the player stats page brings you
-			to <ExternalLink href="https://sky.shiiyu.moe">sky.shiiyu.moe</ExternalLink>!
+			The "View SkyBlock Stats" button on the player stats page brings you
+			to <ExternalLink href={APP.skyblock}>SkyCrypt</ExternalLink>!
 		</React.Fragment>,
 		"The pink row in a table indicates your most played class/mode!"
 	]

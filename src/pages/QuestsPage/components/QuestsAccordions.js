@@ -76,12 +76,10 @@ function generateQuestsAccordion(gameMode) {
 				<React.Fragment>
 					<td className={`td-shrink c-${color}`}>0</td>
 					<td>
-						<ProgressBar 
-							dataTip={`${progress}/${goal}`}>
-							<Progress 
-								proportion={Utils.ratio(progress, goal)}
-								color={color}
-								dataTip={`${progress}/${goal}`} />
+						<ProgressBar>
+							<Progress proportion={Utils.ratio(progress, goal)} color={color}>
+								{progress}
+							</Progress>
 						</ProgressBar>
 					</td>
 					<td className={`td-shrink c-${color}`}>{goal}</td>

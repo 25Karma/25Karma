@@ -208,6 +208,14 @@ button:focus {
 	color: transparent; 
 }
 
+/* text modifiers */
+/* .c-magic {} */
+.c-bold { font-weight: bold; }
+.c-strikethrough { text-decoration: line-through; }
+.c-underline { text-decoration: underline; }
+.c-italic { font-style: italic; }
+span.c-reset { color: #fff; font-weight: normal; text-decoration: none currentcolor solid; font-style: normal; }
+
 /* background colors */
 .bg-darkred, .bg-DARK_RED { background-color: #a00; }
 .bg-red, .bg-RED { background-color: #f55; }

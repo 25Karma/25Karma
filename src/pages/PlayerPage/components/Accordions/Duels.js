@@ -54,6 +54,7 @@ export const Duels = memo((props) => {
 					name: `${div.name} ${roman === 'I' ? '' : roman}`,
 					level: roman,
 					color: div.color,
+					style: div.style,
 				};
 			}
 		}
@@ -68,10 +69,9 @@ export const Duels = memo((props) => {
 	function deaths(id) {
 		return id.includes('bridge') ? json[`${id}bridge_deaths`] : json[`${id}deaths`];
 	} 
-
 	const header = (
 		<React.Fragment>
-			<Box title="Division" color={division.color}>{division.name}</Box>
+			<Box title="Division">{`${division.style}${division.name}`}</Box>
 			<Box title="Wins">{json.wins}</Box>
 			<Box title="WL">{ratios.wl}</Box>
 			<Box title="Most Played" color="white">{mostPlayedMode.name || '§7-'}</Box>

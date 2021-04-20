@@ -29,7 +29,7 @@ export function FrontPage(props) {
 					description: (
 						<span>
 							The player "
-							<ExternalLink href={`https://namemc.com/search?q=${config.slug}`}>{config.slug}</ExternalLink>
+							<ExternalLink href={`${APP.nameMC}${config.slug}`}>{config.slug}</ExternalLink>
 							" does not exist.
 						</span>
 						)
@@ -49,7 +49,7 @@ export function FrontPage(props) {
 					description: (
 						<span>
 							The player "
-							<ExternalLink href={`https://namemc.com/search?q=${config.slug}`}>{config.slug}</ExternalLink>
+							<ExternalLink href={`${APP.nameMC}${config.slug}`}>{config.slug}</ExternalLink>
 							" has never played on Hypixel.
 						</span>
 						)

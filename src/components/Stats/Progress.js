@@ -9,7 +9,10 @@ import React from 'react';
 * @param {string} props.dataTip       Text to show on hover (react-tooltip)
 */
 export function Progress(props) {
-	const lightBackgrounds = ['white', 'yellow', 'green', 'gray', 'WHITE', 'YELLOW', 'GREEN', 'GRAY'];
+	const lightBackgrounds = [
+		'white', 'yellow', 'green', 'gray', 'aqua', 'gold',
+		'WHITE', 'YELLOW', 'GREEN', 'GRAY', 'AQUA', 'GOLD'
+	];
 	const textColor = lightBackgrounds.includes(props.color) ? 'black' : 'white';
 	return (
 		<span

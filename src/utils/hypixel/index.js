@@ -114,6 +114,17 @@ export function getPlayerRankPriority(playerdata) {
 }
 
 /*
+* Checks whether a pet Object is a pet or a companion
+* Pet objects are characterized by the presence of hunger, thirst, exercise, or experience data
+*
+* @param {Object}     The pet Object
+* @return {Boolean}
+*/
+export function isPet({HUNGER, THIRST, EXERCISE, experience}) {
+	return ![HUNGER, THIRST, EXERCISE, experience].every(n => n === undefined);
+}
+
+/*
 * Returns the number of times a quest has been completed since the beginning of the day, week, month, or year
 *
 * @param {string} period         The period of time to check

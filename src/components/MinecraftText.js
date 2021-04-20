@@ -36,30 +36,69 @@ export function MinecraftText(props) {
 			'K': 'rainbow font-bold'
 		}
 
-		let spans = [];
-		let key = 0;
-		// By default the color of the text is white
-		for (const section of ('§f'+str).split('§')) {
-			const colorCode = section[0];
-			// Remove the color formatting character from the front of the string
-			let text = section.substr(1);
-
-			// Do nothing if text is empty - we don't want empty spans lying around
-			if (!text) continue;
-
-			const num = Number(text);
-			// If the whole string can be converted to a number, format the number by adding commas
-			// We use toLocaleString instead of parseInt (https://stackoverflow.com/a/9429565)
-			if (!isNaN(num) && props.formatNum) text = formatNum(num);
-
-			const colorName = colorNames[colorCode];
-			const colorClass = colorName ? 'c-'+colorName : '';
-			spans.push(<span key={key++} className={`font-minecraft ${colorClass}`}>
-				{text}</span>);
+		const modifierNames = {
+			'k': 'magic',
+			'l': 'bold',
+			'm': 'strikethrough',
+			'n': 'underline',
+			'o': 'italic',
+			'r': 'reset',
 		}
+
+		let spans = [];
+		let charStack = [];
+		// By default the color of the text is white
+		let styling = {
+			color: 'white',
+			modifiers: []
+		}
+		// For each character
+		for (let i = 0; i < str.length; i++) {
+			if (str[i] === '§') {
+				// Save all previous characters under the previous style
+				if (charStack.length) {
+					spans.push({
+						style: `c-${styling.color} ${styling.modifiers.map(m => 'c-'+m).join(' ')}`,
+						text: charStack.join('')
+					});
+				}
+				
+				// Clear the saved characters
+				charStack = [];
+				// The character after the § indicates either the color or modifier of the style
+				i++;
+
+				// Evoking a color change resets modifiers
+				if (colorNames[str[i]]) {
+					styling.color = colorNames[str[i]];
+					styling.modifiers = [];
+				}
+				// Evoking a modifier change simply adds the new modifier on top
+				else if (modifierNames[str[i]]) {
+					styling.modifiers.push(modifierNames[str[i]]);
+				}
+			}
+			else {
+				charStack.push(str[i]);
+			}
+		}
+
+		// Finally, save the remaining characters
+		if (charStack.length) {
+			spans.push({
+				style: `c-${styling.color} ${styling.modifiers.map(m => 'c-'+m).join(' ')}`,
+				text: charStack.join('')
+			});
+		}
+
+		// If the text to display was intended to be a numerical value
+		spans.forEach(span => {
+			if (props.formatNum && !isNaN(span.text)) span.text = formatNum(Number(span.text));
+		})
+
 		return (
 			<span className={`font-${props.size || 'md'} ${props.className || ''}`}>
-				{spans.map(span => span)}
+				{spans.map((span, i) => <span key={i} className={`font-minecraft ${span.style}`}>{span.text}</span>)}
 			</span>
 			);
 	}

@@ -1,14 +1,14 @@
 export const DUELS = {
 	TITLE: 'Duels',
 	DIVISIONS: [
-		{name: 'Rookie', color: 'darkgray'},
-		{name: 'Iron', color: 'white'},
-		{name: 'Gold', color: 'gold'},
-		{name: 'Diamond', color: 'aqua'},
-		{name: 'Master', color: 'darkgreen'},
-		{name: 'Legend', color: 'darkred'},
-		{name: 'Grandmaster', color: 'yellow'},
-		{name: 'Godlike', color: 'purple'},
+		{name: 'Rookie',      color: 'darkgray',  style: '§8' },
+		{name: 'Iron',        color: 'white',     style: '§f' },
+		{name: 'Gold',        color: 'gold',      style: '§6' },
+		{name: 'Diamond',     color: 'aqua',      style: '§b' },
+		{name: 'Master',      color: 'darkgreen', style: '§2' },
+		{name: 'Legend',      color: 'darkred',   style: '§4' },
+		{name: 'Grandmaster', color: 'yellow',    style: '§e§l' },
+		{name: 'Godlike',     color: 'purple',    style: '§5§l' },
 	],
 	MODES: [
 		{id: 'uhc_duel_', divisionId: 'uhc', name: 'UHC 1v1'},

@@ -5,15 +5,46 @@ import { Box, Br, Pair } from 'components/Stats';
 import { PETS } from 'constants/hypixel';
 import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
-import { calculateNetworkLevel } from 'utils/hypixel';
+import { calculateNetworkLevel, isPet } from 'utils/hypixel';
 
 /*
 * Displays general pets stats about the player
 */
-export function PetsCard(props) {
+export function PetsCard() {
 	const { player, mojang } = useAPIContext();
+	const { petConsumables = {}, petJourneyTimestamp = 0, petStats = {} } = player;
 	const networkLevel = calculateNetworkLevel(player.networkExp);
-	const petConsumables = Utils.traverse(player, 'petConsumables', {});
+
+	const petList = Object.entries(petStats)
+		.map(([k,v]) => isPet(v) ? {id: k, ...v} : false)
+		.filter(n => n);
+
+	const favoritePet = petList.reduce((a,b) => a.experience > b.experience ? a : b, 0);
+	const favoritePetConstants = PETS.PETS[favoritePet.id] || {};
+
+	const missionStatus = (() => {
+		const timeSince = Date.now() - petJourneyTimestamp;
+		const minutesSince = timeSince / (60*1000);
+		const minutesLeft = Math.ceil(60 - minutesSince);
+		if (minutesLeft <= 0) {
+			return {
+				color: 'green',
+				description: 'Ready!',
+			}
+		}
+		else if (minutesLeft <= 10) {
+			return {
+				color: 'gold',
+				description: `${minutesLeft} minutes`,
+			}
+		}
+		else {
+			return {
+				color: 'red',
+				description: `${minutesLeft} minutes`,
+			}
+		}
+	})();
 
 	return (
 		<Card className="px-2 pt-1 pb-3 my-1">
@@ -27,6 +58,16 @@ export function PetsCard(props) {
 			</div>
 
 			<HorizontalLine className="mb-3"/>
+
+			<Pair title="Favourite Pet" color={PETS.RARITY[favoritePetConstants.rarity]}>
+				{favoritePetConstants.name || favoritePet.id}
+			</Pair>
+			<Pair title="Active Pets">{petList.length}</Pair>
+			<Br />
+			<Pair title="Mission Cooldown" color={missionStatus.color}>{missionStatus.description}</Pair>
+			{Boolean(petJourneyTimestamp) &&
+				<Pair title="Last Mission">{Utils.dateFormat(petJourneyTimestamp)}</Pair>
+			}
 
 			<HorizontalLine className="my-3"/>
 
