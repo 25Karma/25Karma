@@ -2,6 +2,7 @@ import React from 'react';
 import { FaSignal } from 'react-icons/fa';
 import { ReactIcon } from 'components';
 import { HYPIXEL } from 'constants/hypixel';
+import { useTooltip } from 'hooks';
 import * as Utils from 'utils';
 
 /*
@@ -15,6 +16,8 @@ export function Status(props) {
 	const games = HYPIXEL.GAMES;
 	const { status, player } = props;
 	const lastLogout = Utils.traverse(player, 'lastLogout');
+
+	useTooltip();
 
 	function getStatusDataTip() {
 

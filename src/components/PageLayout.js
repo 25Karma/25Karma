@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 import './PageLayout.css';
 import { Banner, Footer, Navbar } from 'components';
 
@@ -13,6 +14,7 @@ import { Banner, Footer, Navbar } from 'components';
 * @param {JSX} props.right
 */
 export function PageLayout(props) {
+
 	return (
 		<React.Fragment>
 			<Navbar searchbar={props.searchbar} />
@@ -38,6 +40,7 @@ export function PageLayout(props) {
 			</div>
 			<Footer />
 			<Banner />
+			<ReactTooltip/>
 		</React.Fragment>
 		);
 }

@@ -5,7 +5,6 @@ import { Accordion, HorizontalLine } from 'components';
 import { Box, Cell, Progress, ProgressBar, Span, Table } from 'components/Stats';
 import * as Utils from 'utils';
 import { gamemodeAchievements } from 'utils/hypixel';
-import ReactTooltip from 'react-tooltip';
 
 /*
 * An Accordion that displays the achievements of a player for a specific game mode
@@ -44,17 +43,22 @@ function generateAchievementsAccordions(gameMode) {
 		function renderProgressBars(isLegacy) {
 			const adj = isLegacy ? 'Legacy ' : '';
 			const prefix = isLegacy ? 'legacy_' : '';
+			const proportionA = ratios[`${prefix}unlocked`];
+			const proportionP = ratios[`${prefix}points`];
+			const dataTipA = `${overallAchmts[`${prefix}unlocked`]}/${overallAchmts[`${prefix}total`]} ${adj}Achievements Unlocked`;
+			const dataTipP = `${overallAchmts[`${prefix}points`]}/${overallAchmts[`total_${prefix}points`]} ${adj}Points Earned`;
 			return (
 				<table>
 					<tbody>
 						<tr><td colSpan="2" className="font-bold">{`${adj}Achievement Progress`}</td></tr>
 						<tr>
 							<td>
-								<ProgressBar>
+								<ProgressBar dataTip={dataTipA}>
 									<Progress 
 									color="aqua" 
-									proportion={ratios[`${prefix}unlocked`]}>
-										{overallAchmts[`${prefix}unlocked`]}
+									proportion={proportionA}
+									dataTip={dataTipA}>
+										{`${Utils.formatNum(100*proportionA)}%`}
 									</Progress>
 								</ProgressBar>
 							</td>
@@ -63,11 +67,12 @@ function generateAchievementsAccordions(gameMode) {
 						<tr><td colSpan="2" className="font-bold pt-2">{`${adj}Points`}</td></tr>
 						<tr>
 							<td>
-								<ProgressBar>
+								<ProgressBar dataTip={dataTipP}>
 									<Progress 
 									color="yellow" 
-									proportion={ratios[`${prefix}points`]}>
-										{overallAchmts[`${prefix}points`]}
+									proportion={proportionP}
+									dataTip={dataTipP}>
+										{`${Utils.formatNum(100*proportionP)}%`}
 									</Progress>
 								</ProgressBar>
 							</td>
@@ -170,7 +175,6 @@ function generateAchievementsAccordions(gameMode) {
 						</React.Fragment>
 					}
 				</div>
-				<ReactTooltip/>
 			</Accordion>
 		);
 	})

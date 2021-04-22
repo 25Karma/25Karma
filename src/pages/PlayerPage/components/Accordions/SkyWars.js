@@ -1,6 +1,5 @@
 import React, { useState, useEffect, memo } from 'react';
 import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 import { Accordion, Button, Crafatar, HorizontalLine } from 'components';
 import { Box, Br, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
 import { SKYWARS as consts } from 'constants/hypixel';
@@ -192,15 +191,15 @@ export const SkyWars = memo((props) => {
 		if (headArray === undefined || headArray.length === 0) {
 			return null;
 		}
-		let imgList = [<ReactTooltip key="tooltip"/>];
+		let imgList = [];
 		let i = 0;
 		for (const head of headArray) {
 			imgList.push(
-				<div key={`head-${i++}`} data-tip={Utils.capitalize(head.sacrifice)}>
+				<span key={`head-${i++}`} data-tip={Utils.capitalize(head.sacrifice)}>
 					<Link to={`/player/${head.uuid}`}>
 						<Crafatar uuid={head.uuid} type='head'/>
 					</Link>
-				</div>
+				</span>
 				);
 		} 
 		imgList.reverse();

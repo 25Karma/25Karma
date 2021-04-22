@@ -1,10 +1,9 @@
 import React, { useRef } from 'react';
-import ReactTooltip from 'react-tooltip';
 import Cookies from 'js-cookie';
 import './Settings.css';
 import { Button, ExternalLink } from 'components';
 import { APP, COOKIES } from 'constants/app';
-import { useAppContext } from 'hooks';
+import { useAppContext, useTooltip } from 'hooks';
 
 /*
 * Gets/sets cookies based on user's site preferences
@@ -17,6 +16,8 @@ export function Settings(props) {
 	const pinnedPlayerInput = useRef(COOKIES.pinnedPlayer);
 	const decimalInput = useRef(COOKIES.decimalPlaces);
 	const { setBanner } = useAppContext();
+
+	useTooltip();
 
 	/*
 	* Sets cookies related to user preferences
@@ -118,7 +119,6 @@ export function Settings(props) {
 					cookies</ExternalLink> on your computer. They are accessible to you and to you only. 
 					You can clear the cookies used by this site at any time by clicking the Clear Cookies button.
 				</p>
-				<ReactTooltip />
 			</div>
 		</div>
 		);

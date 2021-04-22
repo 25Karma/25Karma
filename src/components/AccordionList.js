@@ -1,10 +1,10 @@
 import React, { useState, useEffect, memo } from 'react';
 import Cookies from 'js-cookie';
-import ReactTooltip from 'react-tooltip';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { FaSortAlphaDown } from 'react-icons/fa';
 import { RiCheckboxIndeterminateFill, RiCheckboxIndeterminateLine } from 'react-icons/ri';
 import { ReactIcon, HorizontalLine as HLine } from 'components';
+import { useTooltip } from 'hooks';
 
 /*
 * A droppable container for Accordions using cookies
@@ -18,6 +18,16 @@ export function AccordionList({ cookie, accordionModule }) {
 	const json = getCookie();
 	const [accordionList, setAccordionList] = useState(json.list);
 	const [showLine, setShowLine] = useState(json.showLine);
+
+	useTooltip();
+
+	useEffect(() => {
+		const newJson = {
+			list: accordionList,
+			showLine: showLine,
+		}
+		Cookies.set(cookie, JSON.stringify(newJson), {expires:365});
+	}, [accordionList, showLine, cookie]);
 
 	function getCookie() {
 		let json = Cookies.get(cookie);
@@ -98,31 +108,25 @@ export function AccordionList({ cookie, accordionModule }) {
 		}
 		return null;
 	}
-	
-	useEffect(() => {
-		const newJson = {
-			list: accordionList,
-			showLine: showLine,
-		}
-		Cookies.set(cookie, JSON.stringify(newJson), {expires:365});
-	}, [accordionList, showLine, cookie]);
 
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>
 			<div className="h-flex px-2 py-1 justify-content-end">
 				<button 
-					className="mr-2" 
-					onClick={()=>{setShowLine(!showLine)}}
-					data-place="left"
-					data-tip={(showLine ? 'Hide' : 'Show') + ' line spacer'}>
+				className="mr-2" 
+				onClick={()=>{setShowLine(!showLine)}}
+				data-place="left"
+				data-tip={(showLine ? 'Hide' : 'Show') + ' line spacer'}>
 					<ReactIcon 
-						icon={showLine ? RiCheckboxIndeterminateFill : RiCheckboxIndeterminateLine} 
-						clickable />
+					icon={showLine ? RiCheckboxIndeterminateFill : RiCheckboxIndeterminateLine} 
+					clickable />
 				</button>
-				<button onClick={() => {setAccordionList(alphabetizeList)}}>
+				<button 
+				onClick={() => {setAccordionList(alphabetizeList)}}
+				data-place="left"
+				data-tip="Sort Alphabetically">
 					<ReactIcon icon={FaSortAlphaDown} clickable />
 				</button>
-				<ReactTooltip />
 			</div>
 			<Droppable droppableId="playerStatsDroppable">
 				{provided => (

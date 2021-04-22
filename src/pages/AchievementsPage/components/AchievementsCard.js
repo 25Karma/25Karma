@@ -67,7 +67,7 @@ export function AchievementsCard(props) {
 			</div>
 
 			<HorizontalLine className="mb-3"/>
-			<Pair title="Achievements Unlocked" color="aqua">
+			<Pair title="Achievements" color="aqua">
 				{overall.unlocked}
 				<Span color="gray">{`/${overall.total}`}</Span>
 			</Pair>
@@ -76,7 +76,7 @@ export function AchievementsCard(props) {
 				<Span color="gray">{`/${overall.total_points}`}</Span>
 			</Pair>
 			<Br />
-			<Pair title="Legacy Achievements Unlocked" color="aqua">
+			<Pair title="Legacy Achievements" color="aqua">
 				{overall.legacy_unlocked}
 				<Span color="gray">{`/${overall.legacy_total}`}</Span>
 			</Pair>

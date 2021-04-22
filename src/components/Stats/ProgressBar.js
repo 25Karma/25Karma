@@ -1,5 +1,6 @@
 import React from 'react';
 import './ProgressBar.css';
+import { useTooltip } from 'hooks';
 
 /*
 * A progress bar, accurate to 0.1%
@@ -9,6 +10,8 @@ import './ProgressBar.css';
 * @param {string} props.dataTip    Text to show on hover (react-tooltip)
 */
 export function ProgressBar(props) {
+
+	useTooltip();
 
 	return (
 		<div className="progressbar" style={{ height : props.height || '1rem'}}>
