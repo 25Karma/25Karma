@@ -19,7 +19,7 @@ export function PetsCard() {
 		.map(([k,v]) => isPet(v) ? {id: k, ...v} : false)
 		.filter(n => n);
 
-	let favoritePet = petList[0];
+	let favoritePet = petList[0] || {};
 	petList.forEach(pet => {
 		if (pet.experience > favoritePet.experience) favoritePet = pet;
 	})
