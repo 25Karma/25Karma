@@ -7,6 +7,9 @@ import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
 import { HypixelLeveling, isPet } from 'utils/hypixel';
 
+/*
+* The sortable list of pets displayed at the center of the page
+*/
 export function PetsList() {
 	const { player } = useAPIContext();
 	const petStats = player.petStats || {};
@@ -93,7 +96,7 @@ export function PetsList() {
 			return (
 				<tr key={pet.id}>
 					<td className="td-shrink">
-						<MinecraftText>{`§8Lv§7${lvl.levelFloor}`}</MinecraftText>
+						<MinecraftText>{`§8Lv§7${('000'+lvl.levelFloor.toString()).slice(-3)}`}</MinecraftText>
 					</td>
 					<td>
 						<p className="pb-1">

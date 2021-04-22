@@ -103,5 +103,5 @@ export function MinecraftText(props) {
 			);
 	}
 
-	return parseMinecraftText(props.children);
+	return parseMinecraftText(props.children || '');
 }

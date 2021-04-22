@@ -1,6 +1,11 @@
 import React from 'react';
 import './Table.css';
 
-export function Table(props) {
-	return <table className="stattable">{props.children}</table>
+/*
+* Table with site-specific CSS properties
+*
+* @param {string} props.display   Either 'compact' (default) or 'comfortable'     
+*/
+export function Table({ display = 'compact', children }) {
+	return <table className={`stattable stattable-${display}`}>{children}</table>
 }

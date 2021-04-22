@@ -28,7 +28,7 @@ export function QuestsPage(props) {
 						<QuestsCard />
 					</React.Fragment>
 				}
-				center={<AccordionList cookie={COOKIES.questAccordions} accordionModule={QuestsAccordions} />}/>
+				center={<AccordionList cookie={COOKIES.questsAccordions} accordionModule={QuestsAccordions} />}/>
 			}
 		</PageLoading>
 	);

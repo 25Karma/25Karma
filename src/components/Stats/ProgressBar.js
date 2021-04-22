@@ -1,6 +1,5 @@
 import React from 'react';
 import './ProgressBar.css';
-import ReactTooltip from 'react-tooltip';
 
 /*
 * A progress bar, accurate to 0.1%
@@ -15,9 +14,6 @@ export function ProgressBar(props) {
 		<div className="progressbar" style={{ height : props.height || '1rem'}}>
 			{props.children}
 			<span className="progressbar-remaining" data-tip={props.dataTip}></span>
-			{Boolean(props.dataTip) &&
-				<ReactTooltip />
-			}	
 		</div>
 		);
 }

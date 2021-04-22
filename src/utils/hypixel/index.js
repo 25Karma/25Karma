@@ -14,6 +14,66 @@ export function calculateNetworkLevel(exp = 0) {
 }	
 
 /*
+* Returns the player's overall achievement information about a single gamemode
+*
+* @param {String} gameId             ID of the gamemode (i.e. the desired key in achievementsJson)
+* @param {Object} achievementsJson   All achievements data from the Hypixel API 'resources/achievements' endpoint
+* @param {Object} playerJson         Player data from the Hypixel API 'player' endpoint
+* @return {Object}                   Assorted data about the gamemode pertaining to achievements
+*/
+export function gamemodeAchievements(gameId, achievementsJson, playerJson) {
+	const { one_time, tiered, total_points, total_legacy_points } = achievementsJson[gameId];
+	const player_one_time = playerJson.achievementsOneTime || [];
+	const player_tiered = playerJson.achievements || {};
+	let total = 0, unlocked = 0, legacy_total = 0, legacy_unlocked = 0, points = 0, legacy_points = 0;
+
+	// One-time achievements
+	for (const [name, data] of Object.entries(one_time)) {
+		if (data.legacy) legacy_total++;
+		else total++;
+		
+		if (player_one_time.includes(`${gameId}_${name.toLowerCase()}`)) {
+			if (data.legacy) {
+				legacy_unlocked++;
+				legacy_points += data.points;
+			}
+			else {
+				unlocked++;
+				points += data.points;
+			}
+		}
+	}
+
+	// Tiered achievements
+	for (const [name, data] of Object.entries(tiered)) {
+		if (data.legacy) legacy_total += data.tiers.length;
+		else total += data.tiers.length;
+
+		// Find the player's highest achieved tier so far 
+		const player_amount = player_tiered[`${gameId}_${name.toLowerCase()}`];
+		for (const tier of data.tiers.slice().reverse()) {
+			if (player_amount >= tier.amount) {
+				if (data.legacy) {
+					legacy_unlocked += 1;
+					legacy_points += tier.points;
+				}
+				else {
+					unlocked += 1;
+					points += tier.points;
+				}
+			}
+		}
+	}
+
+	return {
+		unlocked, total,
+		legacy_unlocked, legacy_total, 
+		points, total_points,
+		legacy_points, total_legacy_points
+	};
+}
+
+/*
 * Returns the guild rank of a member
 *
 * @param {Object} member          Data of the member from the `members` array of the API

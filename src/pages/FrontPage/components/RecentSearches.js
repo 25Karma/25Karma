@@ -38,7 +38,7 @@ export function RecentSearches(props) {
 	}
 	return (
 		<React.Fragment>
-			<div className="pt-3 pl-2">
+			<div className="mt-4 pl-2">
 				<MinecraftText>Recent searches</MinecraftText>
 			</div>
 			<div className="h-flex flex-wrap">

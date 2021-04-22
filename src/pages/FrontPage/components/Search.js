@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { FaUser, FaUsers, FaShieldAlt, FaScroll, FaPaw } from 'react-icons/fa';
 import { Button, MinecraftText, ReactIcon, Searchbar } from 'components';
+import { PAGES } from 'constants/app';
 
 /*
 * Searchbar with buttons to select a specific search type
@@ -8,34 +8,25 @@ import { Button, MinecraftText, ReactIcon, Searchbar } from 'components';
 * @param {String} defaultValue    The initial value to put inside of the searchbar
 */
 export function Search(props) {
-	const searchTypes = [
-		{id: 'stats',   name: 'Player',  icon: FaUser     },
-		{id: 'guild',   name: 'Guild',   icon: FaShieldAlt},
-		{id: 'friends', name: 'Friends', icon: FaUsers    },
-		{id: 'quests',  name: 'Quests',  icon: FaScroll   },
-		{id: 'pets',    name: 'Pets',    icon: FaPaw      },
-	];
-	const [searchType, setSearchType] = useState(searchTypes[0].id);
+	const [searchType, setSearchType] = useState(PAGES[0]);
 
 	return (
 		<React.Fragment>
 			<div className="py-1">
 				<p className="pb-1 pl-2">
-					<MinecraftText size="md">
-						{`Search for the ${searchType} of a Hypixel player`}
-					</MinecraftText>
+					<MinecraftText size="md">{searchType.about}</MinecraftText>
 				</p>
-				<Searchbar defaultValue={props.defaultValue || ''} tag={searchType} />
+				<Searchbar defaultValue={props.defaultValue || ''} tag={searchType.tags[0]} />
 			</div>
 			<div className="py-1 h-flex overflow-x">
-				{searchTypes.map((type, index) =>
-					<div key={type.id} 
-						className={index ? (index+1 === searchTypes.length ? "pl-1 mr-auto" : "px-1") : "ml-auto pr-1"}> 
+				{PAGES.map((type, index) =>
+					<div key={type.path} 
+						className={index ? (index+1 === PAGES.length ? "pl-1 mr-auto" : "px-1") : "ml-auto pr-1"}> 
 						<Button 
-							active={searchType === type.id}
-							onClick={() => {setSearchType(type.id)}}
+							active={searchType.path === type.path}
+							onClick={() => {setSearchType(type)}}
 						>
-							<div className="overflow-hidden p-1" style={{width: "6rem"}}>
+							<div className="overflow-hidden p-1" style={{width: "7.5rem"}}>
 								<ReactIcon icon={type.icon} size="lg" />
 								<div className="pt-1">{type.name}</div>
 							</div>

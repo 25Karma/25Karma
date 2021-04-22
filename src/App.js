@@ -2,9 +2,9 @@ import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { HashRouter as Router } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { COOKIES, MAINTENANCE } from 'constants/app';
+import { COOKIES, MAINTENANCE, PAGES } from 'constants/app';
 import { APIContextProvider, AppContextProvider } from 'contexts';
-import * as Page from 'pages';
+import { FrontPage, MaintenancePage, NotFoundPage, SearchPage } from 'pages';
 
 function App() {
 	const pinnedPlayer = Cookies.get(COOKIES.pinnedPlayer);
@@ -15,7 +15,7 @@ function App() {
 			<Router hashType="noslash">
 			{MAINTENANCE.enabled ?
 				<Switch>
-					<Route default><Page.MaintenancePage /></Route>
+					<Route default><MaintenancePage /></Route>
 				</Switch>
 				:
 				<Switch>
@@ -25,15 +25,12 @@ function App() {
 							<Redirect to={`/frontpage`} /> 
 						}
 					</Route>
-					<Route path="/achievements/:slug"> <Page.AchievementsPage />  </Route>
-					<Route path="/friends/:slug">      <Page.FriendsPage />       </Route>
-					<Route path="/frontpage">          <Page.FrontPage />         </Route>
-					<Route path="/guild/:slug">        <Page.GuildPage />         </Route>
-					<Route path="/pets/:slug">         <Page.PetsPage />          </Route>
-					<Route path="/player/:slug">       <Page.PlayerPage />        </Route>
-					<Route path="/quests/:slug">       <Page.QuestsPage />        </Route>
-					<Route path="/search/:slug">       <Page.SearchPage />        </Route>
-					<Route default>                    <Page.NotFoundPage />      </Route>
+					{PAGES.map(p =>
+						<Route key={p.path} path={`/${p.path}/:slug`}><p.component /></Route>
+					)}
+					<Route path="/frontpage">          <FrontPage />         </Route>
+					<Route path="/search/:slug">       <SearchPage />        </Route>
+					<Route default>                    <NotFoundPage />      </Route>
 				</Switch>
 			}
 			</Router>

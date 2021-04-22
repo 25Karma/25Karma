@@ -169,6 +169,7 @@ button:focus {
 .py-5 { padding-top: 8rem; padding-bottom: 8rem; }
 .rounded { border-radius: 0.25rem; }
 .td-shrink { width: 1%; white-space: nowrap; }
+.text-left { text-align: left; }
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 .text-shadow { text-shadow: 0rem 0.25rem 0.25rem var(--theme-shadow); }

@@ -4,10 +4,12 @@
 }
 
 .stattable th, .stattable td {
-	padding: 0.25rem;
 	text-align: left;
 	vertical-align: bottom;
 }
+
+.stattable-compact th, .stattable-compact td { padding: 0.25rem; }
+.stattable-comfortable th, .stattable-comfortable td { padding: 0.5rem; }
 
 .stattable th {
 	background: var(--theme-secondary);
