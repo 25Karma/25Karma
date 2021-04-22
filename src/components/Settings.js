@@ -15,6 +15,7 @@ export function Settings(props) {
 	// Refs used by setCookies() to locate inputs
 	const pinnedPlayerInput = useRef(COOKIES.pinnedPlayer);
 	const decimalInput = useRef(COOKIES.decimalPlaces);
+	const hideCompleteAchievementsInput = useRef(COOKIES.hideCompletedAchievements);
 	const { setBanner } = useAppContext();
 
 	useTooltip();
@@ -37,6 +38,7 @@ export function Settings(props) {
 		// If all is well, set the cookies
 		Cookies.set(COOKIES.pinnedPlayer, pinnedPlayerInput.current.value, {expires:365});
 		Cookies.set(COOKIES.decimalPlaces, decimalString, {expires:365});
+		Cookies.set(COOKIES.hideCompletedAchievements, hideCompleteAchievementsInput.current.checked, {expires:365})
 		props.toggle();
 	}
 	
@@ -110,6 +112,18 @@ export function Settings(props) {
 						min="0"
 						max="8"
 						step="1"/>
+				</div>
+				{/* 'Hide Completed Achievements' row */}
+				<div className="h-flex align-items-center pb-2">
+					<span
+						data-tip="Whether to hide completed achievements."
+						className="font-bold cursor-help pr-2">
+						Hide Completed Achievements
+					</span>
+					<input
+						ref={hideCompleteAchievementsInput}
+						type="checkbox"
+						defaultChecked={Cookies.get(COOKIES.hideCompletedAchievements) === 'true' || false}/>
 				</div>
 				<div className="v-flex align-items-center pb-3">
 					<Button onClick={setCookies}><span className="font-bold">Save Settings</span></Button>
