@@ -18,7 +18,7 @@ export function Tips(props) {
 		`Try searching "${APP.suggestedPlayers[2]} friends" or simply "${APP.suggestedPlayers[2]} f" in the search bar!`,
 		<React.Fragment>
 			Interested in how this site was 
-			built? <ExternalLink href="https://github.com/25karma">Check out the code
+			built? <ExternalLink href={APP.organization}>Check out the code
 			on GitHub.</ExternalLink>
 		</React.Fragment>,
 		"Clicking on a player's avatar brings you to their profile on NameMC.",
