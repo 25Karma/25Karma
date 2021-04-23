@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import { HashRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { COOKIES, MAINTENANCE, PAGES } from 'constants/app';
 import { APIContextProvider, AppContextProvider } from 'contexts';
@@ -12,7 +12,7 @@ function App() {
 	return (
 		<AppContextProvider>
 		<APIContextProvider>
-			<Router hashType="noslash">
+			<Router basename={process.env.PUBLIC_URL}>
 			{MAINTENANCE.enabled ?
 				<Switch>
 					<Route default><MaintenancePage /></Route>
