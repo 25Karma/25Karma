@@ -1,8 +1,10 @@
 import React, { memo } from 'react';
 import { useAPIContext } from 'hooks';
-import { HYPIXEL } from 'constants/hypixel';
+import Cookies from 'js-cookie';
 import { Accordion, HorizontalLine } from 'components';
 import { Box, Cell, Progress, ProgressBar, Span, Table } from 'components/Stats';
+import { COOKIES } from 'constants/app';
+import { HYPIXEL } from 'constants/hypixel';
 import * as Utils from 'utils';
 import { gamemodeAchievements } from 'utils/hypixel';
 
@@ -83,6 +85,8 @@ function generateAchievementsAccordions(gameMode) {
 			);
 		}
 
+		const hideCompletedAchievements = Cookies.get(COOKIES.hideCompletedAchievements) === 'true' || false;
+
 		const challengeTable = (
 			<Table display="comfortable">
 				<thead>
@@ -95,7 +99,10 @@ function generateAchievementsAccordions(gameMode) {
 					</tr>
 				</thead>
 				<tbody>
-				{Object.entries(allAchmts[gameMode].one_time).filter(n => !n[1].legacy).map(([name, data]) => (
+				{Object.entries(allAchmts[gameMode].one_time)
+					.filter(n => !n[1].legacy)
+					.filter(n => !hideCompletedAchievements || !oneTimeAchmts.includes(`${gameMode}_${n[0].toLowerCase()}`))
+					.map(([name, data]) => (
 					<tr key={name}>
 						<Cell>{data.name}</Cell>
 						<Cell>{data.description}</Cell>
@@ -130,6 +137,7 @@ function generateAchievementsAccordions(gameMode) {
 							break;
 						}
 					}
+					if (data.tiers.every(({ amount }) => playerAmount >= amount) && hideCompletedAchievements) return null;
 					return (
 						<tr key={name}>
 							<Cell>{data.name}</Cell>
