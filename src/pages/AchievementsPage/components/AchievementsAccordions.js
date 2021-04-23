@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
 import { useAPIContext } from 'hooks';
-import { HYPIXEL } from 'constants/hypixel';
+import Cookies from 'js-cookie';
 import { Accordion, HorizontalLine } from 'components';
 import { Box, Cell, Progress, ProgressBar, Span, Table } from 'components/Stats';
+import { COOKIES } from 'constants/app';
+import { HYPIXEL } from 'constants/hypixel';
 import * as Utils from 'utils';
 import { gamemodeAchievements } from 'utils/hypixel';
-import Cookies from 'js-cookie';
-import { COOKIES } from '../../../constants/app';
 
 /*
 * An Accordion that displays the achievements of a player for a specific game mode
