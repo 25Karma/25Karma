@@ -17,7 +17,7 @@ export const Duels = memo((props) => {
 	const json = Utils.traverse(player,'stats.Duels') || {};
 
 	const mostPlayedMode = getMostPlayed(consts.MODES, 
-		({id}) => Utils.add(json[`${id}wins`], json[`${id}losses`]));
+		({id}) => Utils.add(json[`${id}_wins`], json[`${id}_losses`]));
 
 	const division = getDivision('all_modes');
 
@@ -63,11 +63,11 @@ export const Duels = memo((props) => {
 	}
 
 	function kills(id) {
-		return id.includes('bridge') ? json[`${id}bridge_kills`] : json[`${id}kills`];
+		return id.includes('bridge') ? json[`${id}${id && '_'}bridge_kills`] : json[`${id}${id && '_'}kills`];
 	} 
 
 	function deaths(id) {
-		return id.includes('bridge') ? json[`${id}bridge_deaths`] : json[`${id}deaths`];
+		return id.includes('bridge') ? json[`${id}${id && '_'}bridge_deaths`] : json[`${id}${id && '_'}deaths`];
 	} 
 	const header = (
 		<React.Fragment>
@@ -90,6 +90,7 @@ export const Duels = memo((props) => {
 					<th>Wins</th>
 					<th>Losses</th>
 					<th>WL</th>
+					<th>WS</th>
 					<th>Melee HM</th>
 					<th>Arrow HM</th>
 					<th>Goals</th>
@@ -99,7 +100,7 @@ export const Duels = memo((props) => {
 			{
 				consts.MODES.map(({id, name, divisionId}) => {
 					const modeDivision = getDivision(divisionId);
-					if (Boolean(Utils.add(json[`${id}wins`], json[`${id}losses`]))) {
+					if (Boolean(Utils.add(json[`${id}${id && '_'}wins`], json[`${id}${id && '_'}losses`]))) {
 						return (
 							<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
 								<Cell>{name}</Cell>
@@ -107,12 +108,13 @@ export const Duels = memo((props) => {
 								<Cell>{kills(id)}</Cell>
 								<Cell>{deaths(id)}</Cell>
 								<Cell>{Utils.ratio(kills(id),deaths(id))}</Cell>
-								<Cell>{json[`${id}wins`]}</Cell>
-								<Cell>{json[`${id}losses`]}</Cell>
-								<Cell>{Utils.ratio(json[`${id}wins`],json[`${id}losses`])}</Cell>
-								<Cell>{Utils.ratio(json[`${id}melee_hits`],json[`${id}melee_swings`])}</Cell>
-								<Cell>{Utils.ratio(json[`${id}bow_hits`],json[`${id}bow_shots`])}</Cell>
-								<Cell>{json[`${id}goals`]}</Cell>
+								<Cell>{json[`${id}${id && '_'}wins`]}</Cell>
+								<Cell>{json[`${id}${id && '_'}losses`]}</Cell>
+								<Cell>{Utils.ratio(json[`${id}${id && '_'}wins`],json[`${id}${id && '_'}losses`])}</Cell>
+								<Cell>{json[`current_winstreak${id && '_mode_'}${id}`]}</Cell>
+								<Cell>{Utils.ratio(json[`${id}${id && '_'}melee_hits`],json[`${id}${id && '_'}melee_swings`])}</Cell>
+								<Cell>{Utils.ratio(json[`${id}${id && '_'}bow_hits`],json[`${id}${id && '_'}bow_shots`])}</Cell>
+								<Cell>{json[`${id}${id && '_'}goals`]}</Cell>
 							</Row>
 							)
 					}

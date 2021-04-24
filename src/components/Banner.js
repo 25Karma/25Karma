@@ -66,8 +66,9 @@ export function Banner(props) {
 					<ReactIcon icon={bannerStyle.icon}/>
 				</span>
 				<span className="px-2">
-					<span className="font-bold">{banner.title}</span>
-					<span>&nbsp;</span>
+					{banner.title &&
+						<span className="font-bold">{banner.title}&nbsp;</span>
+					}
 					<span>{banner.description}</span>
 				</span>
 				<button onClick={close}>
