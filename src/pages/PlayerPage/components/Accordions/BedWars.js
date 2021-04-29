@@ -180,7 +180,7 @@ export const BedWars = memo((props) => {
 	})();
 
 	const practiceTable = (
-		<Table>
+		<Table className="mb-2">
 			<thead>
 				<tr>
 					<th>Practice Mode</th>
@@ -246,13 +246,13 @@ export const BedWars = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="my-3">
+			<div className="mb-3">
 				<div className="mb-1 font-bold">Leveling Progress</div>
 				<div className="h-flex">
 					{progressBar}
 				</div>
 			</div>
-			<div className="h-flex mb-3">
+			<div className="h-flex">
 				<div className="flex-1">
 					<Pair title="Level">{leveling.level}</Pair>
 					<Pair title="Prestige" color={prestige.color}>{prestige.name}</Pair>
@@ -291,24 +291,18 @@ export const BedWars = memo((props) => {
 				</div>
 			</div>
 			
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="overflow-x my-3">
-				{table}
-			</div>
+			{table}
 			
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="overflow-x mt-3 mb-2">
-				{practiceTable}
-			</div>
-			<div className="overflow-x mb-3">
-				{bridgingRecordTable}
-			</div>
+			{practiceTable}
+			{bridgingRecordTable}
 			
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="h-flex my-3">
+			<div className="h-flex">
 				<div className="flex-1">
 					<Pair title="Projectile Kills">{Utils.add(json.projectile_kills_bedwars, json.projectile_final_kills_bedwars)}</Pair>
 					<Pair title="Deaths to Drowning">{Utils.add(json.drowning_deaths_bedwars, json.drowning_final_deaths_bedwars)}</Pair>

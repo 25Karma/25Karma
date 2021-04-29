@@ -30,7 +30,7 @@ export const Paintball = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="h-flex my-3">
+			<div className="h-flex">
 				<div className="flex-1">
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Pair title="Wins">{json.wins}</Pair>

@@ -88,23 +88,19 @@ export const Quakecraft = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="my-3">
-				<Pair title="Coins" color="gold">{json.coins}</Pair>
-				<Br />
-				<Pair title="Godlikes">{godlikes}</Pair>
-				<Pair title="Highest Killstreak">{json.highest_killstreak}</Pair>
-				<Pair title="Dash Cooldown">
-					{json.dash_cooldown ? Number(json.dash_cooldown)+1 : 0}
-				</Pair>
-				<Pair title="Dash Power">
-					{json.dash_power ? Number(json.dash_power)+1 : 0}
-				</Pair>
-			</div>
+			<Pair title="Coins" color="gold">{json.coins}</Pair>
+			<Br />
+			<Pair title="Godlikes">{godlikes}</Pair>
+			<Pair title="Highest Killstreak">{json.highest_killstreak}</Pair>
+			<Pair title="Dash Cooldown">
+				{json.dash_cooldown ? Number(json.dash_cooldown)+1 : 0}
+			</Pair>
+			<Pair title="Dash Power">
+				{json.dash_power ? Number(json.dash_power)+1 : 0}
+			</Pair>
 
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="overflow-x my-3">
-				{table}
-			</div>
+			{table}
 		</Accordion>
 });

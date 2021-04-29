@@ -84,16 +84,12 @@ export const ArenaBrawl = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="my-3">
-				<Pair title="Coins" color="gold">{json.coins}</Pair>
-				<Pair title="Keys" color="aqua">{json.keys}</Pair>
-				<Pair title="Win Streaks" color="yellow">{total('win_streaks')}</Pair>
-			</div>
+			<Pair title="Coins" color="gold">{json.coins}</Pair>
+			<Pair title="Keys" color="aqua">{json.keys}</Pair>
+			<Pair title="Win Streaks" color="yellow">{total('win_streaks')}</Pair>
 
-			<HorizontalLine />
+			<HorizontalLine className="my-3"/>
 
-			<div className="overflow-x my-3">
-				{table}
-			</div>
+			{table}
 		</Accordion>
 });

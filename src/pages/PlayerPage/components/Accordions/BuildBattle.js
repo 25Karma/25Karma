@@ -107,13 +107,13 @@ export const BuildBattle = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="my-3">
+			<div className="mb-3">
 				<div className="mb-1 font-bold">Title Progress</div>
 				<div className="h-flex">
 					{progressBar}
 				</div>
 			</div>
-			<div className="h-flex mb-3">
+			<div className="h-flex">
 				<div className="flex-1">
 					<Pair title="Score">{json.score}</Pair>
 					<Pair title="Title" color={titleColor}>{title}</Pair>
@@ -130,10 +130,8 @@ export const BuildBattle = memo((props) => {
 				</div>
 			</div>
 			
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="overflow-x py-3">
-				{table}
-			</div>
+			{table}
 		</Accordion>
 });

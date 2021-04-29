@@ -31,16 +31,14 @@ export const Walls = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="my-3">
-				<Pair title="Coins" color="gold">{json.coins}</Pair>
-				<Br />
-				<Pair title="Kills">{json.kills}</Pair>
-				<Pair title="Deaths">{json.deaths}</Pair>
-				<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
-				<Br />
-				<Pair title="Wins">{json.wins}</Pair>
-				<Pair title="Losses">{json.losses}</Pair>
-				<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
-			</div>
+			<Pair title="Coins" color="gold">{json.coins}</Pair>
+			<Br />
+			<Pair title="Kills">{json.kills}</Pair>
+			<Pair title="Deaths">{json.deaths}</Pair>
+			<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
+			<Br />
+			<Pair title="Wins">{json.wins}</Pair>
+			<Pair title="Losses">{json.losses}</Pair>
+			<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
 		</Accordion>
 });

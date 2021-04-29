@@ -32,10 +32,8 @@ export const VampireZ = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="mt-3">
-				<Pair title="Coins" color="gold">{json.coins}</Pair>
-			</div>
-			<div className="h-flex mt-2 mb-3">
+			<Pair title="Coins" color="gold">{json.coins}</Pair>
+			<div className="h-flex mt-2">
 				<div className="flex-1">
 					<Pair title="Wins as Vampire">{json.vampire_wins}</Pair>
 					<Br />

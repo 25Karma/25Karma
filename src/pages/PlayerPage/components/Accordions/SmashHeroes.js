@@ -108,7 +108,7 @@ export const SmashHeroes = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="h-flex mt-3 mb-2">
+			<div className="h-flex mb-2">
 				<div className="flex-1">
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Pair title="Smash Level" color="aqua">{json.smashLevel}</Pair>
@@ -125,24 +125,18 @@ export const SmashHeroes = memo((props) => {
 					<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
 				</div>
 			</div>
-			<div className="mb-3">
-				<ExternalLink href={`gen.plancke.io/supersmash/${mojang.uuid}/2.png`}>
-					<Button>
-						<span className="font-bold">Hero Skins and Levels</span>
-					</Button>
-				</ExternalLink>
-			</div>
+			<ExternalLink href={`gen.plancke.io/supersmash/${mojang.uuid}/2.png`}>
+				<Button>
+					<span className="font-bold">Hero Skins and Levels</span>
+				</Button>
+			</ExternalLink>
 
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="overflow-x my-3">
-				{modesTable}
-			</div>
+			{modesTable}
 
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="overflow-x my-3">
-				{heroesTable}
-			</div>
+			{heroesTable}
 		</Accordion>
 });

@@ -120,7 +120,7 @@ export const BlitzSG = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="h-flex mt-3 mb-2">
+			<div className="h-flex mb-2">
 				<div className="flex-1">
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Pair title="Damage Dealt">{json.damage}</Pair>
@@ -137,24 +137,18 @@ export const BlitzSG = memo((props) => {
 					<Pair title="Kill/Game Ratio">{ratios.kg}</Pair>
 				</div>
 			</div>
-			<div className="mb-3">
-				<ExternalLink href={`https://gen.plancke.io/blitz/${mojang.uuid}/3.png`}>
-					<Button>
-						<span className="font-bold">Kit Levels</span>
-					</Button>
-				</ExternalLink>
-			</div>
+			<ExternalLink href={`https://gen.plancke.io/blitz/${mojang.uuid}/3.png`}>
+				<Button>
+					<span className="font-bold">Kit Levels</span>
+				</Button>
+			</ExternalLink>
 
-			<HorizontalLine />
+			<HorizontalLine className="my-3"/>
 
-			<div className="overflow-x my-3">
-				{kitsTable}
-			</div>
+			{kitsTable}
 
-			<HorizontalLine />
+			<HorizontalLine className="my-3"/>
 
-			<div className="overflow-x my-3">
-				{modesTable}
-			</div>
+			{modesTable}
 		</Accordion>
 });

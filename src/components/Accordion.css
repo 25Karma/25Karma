@@ -5,6 +5,11 @@
 	background: var(--theme-secondary);
 }
 
+.accordion-body {
+	width: fit-content;
+	min-width: 100%;
+}
+
 .accordion-header {
 	display: flex;
 	flex-wrap: nowrap;

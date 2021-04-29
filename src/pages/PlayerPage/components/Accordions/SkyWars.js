@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Accordion, Button, Crafatar, HorizontalLine } from 'components';
 import { Box, Br, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
 import { SKYWARS as consts } from 'constants/hypixel';
-import { useAPIContext, useAppContext } from 'hooks';
+import { useAPIContext, useAppContext, useTooltip } from 'hooks';
 import * as Utils from 'utils';
 import { HypixelLeveling, getMostPlayed } from 'utils/hypixel';
 
@@ -45,6 +45,7 @@ export const SkyWars = memo((props) => {
 
 	// State for the head collection 'View' button
 	const [headButtonState, setHeadButtonState] = useState(false);
+	useTooltip([headButtonState]);
 
 	function xpToLevel(xp) {
 		var xps = consts.INITIAL_XP;
@@ -216,18 +217,19 @@ export const SkyWars = memo((props) => {
 			});
 		}
 	}, [headButtonState, json, setBanner]);
+
 	
 	return Utils.isEmpty(json) ? 
 		<Accordion title={consts.TITLE} index={props.index} /> 
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="my-3">
+			<div className="mb-3">
 				<div className="mb-1 font-bold">Leveling Progress</div>
 				<div className="h-flex">
 					{levelProgress}
 				</div>
 			</div>
-			<div className="h-flex mb-3">
+			<div className="h-flex">
 				<div className="flex-1">
 					<Pair title="Level">{leveling.level}</Pair>
 					<Pair title="Prestige" color={prestigeColor}>{`${prestigeName} ${prestigeIcon}`}</Pair>
@@ -272,45 +274,41 @@ export const SkyWars = memo((props) => {
 				</div>
 			</div>
 			
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="overflow-x my-3">
-				{table}
-			</div>
+			{table}
 			
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="my-3">
-				<div className="mb-1 font-bold">Shard Progress</div>
-				<div className="mb-2">
-					{shardProgress}
+			<div className="mb-1 font-bold">Shard Progress</div>
+			<div className="mb-2">
+				{shardProgress}
+			</div>
+			<div className="h-flex mb-3">
+				<div className="flex-1">
+					<Pair title="Shards" color="aqua">{json.shard}</Pair>
+					<Pair title="Lifetime Shards" color="aqua">{totalShards}</Pair>
 				</div>
-				<div className="h-flex mb-3">
-					<div className="flex-1">
-						<Pair title="Shards" color="aqua">{json.shard}</Pair>
-						<Pair title="Lifetime Shards" color="aqua">{totalShards}</Pair>
-					</div>
-					<div className="flex-1">
-						<Pair title="Opals" color="blue">{json.opals}</Pair>
-						<Pair title="Lifetime Opals" color="blue">{totalOpals}</Pair>
-					</div>
+				<div className="flex-1">
+					<Pair title="Opals" color="blue">{json.opals}</Pair>
+					<Pair title="Lifetime Opals" color="blue">{totalOpals}</Pair>
 				</div>
-				<div className="mb-1">
-					<Pair title="Total Heads Gathered">{json.heads}</Pair>
-				</div>
-				<div className="mb-3">
-					{headProgress}
-				</div>
-				<div className="font-bold mb-2">Prestigious Head Collection</div>
-				<div className="h-flex flex-wrap">
-				{
-					headButtonState ?
-					prestigiousHeadCollection :
-					<Button onClick={()=>{setHeadButtonState(true)}}>
-						<span className="font-bold">View</span>
-					</Button>
-				}
-				</div>
+			</div>
+			<div className="mb-1">
+				<Pair title="Total Heads Gathered">{json.heads}</Pair>
+			</div>
+			<div className="mb-3">
+				{headProgress}
+			</div>
+			<div className="font-bold mb-2">Prestigious Head Collection</div>
+			<div className="h-flex flex-wrap">
+			{
+				headButtonState ?
+				prestigiousHeadCollection :
+				<Button onClick={()=>{setHeadButtonState(true)}}>
+					<span className="font-bold">View</span>
+				</Button>
+			}
 			</div>
 		</Accordion>
 });

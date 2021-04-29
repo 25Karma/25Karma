@@ -107,7 +107,7 @@ export const TurboKartRacers = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="h-flex my-3">
+			<div className="h-flex">
 				<div className="flex-1">
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Pair title="Grand Prix Tokens" color="aqua">{json.grand_prix_tokens}</Pair>
@@ -129,10 +129,10 @@ export const TurboKartRacers = memo((props) => {
 				</div>
 			</div>
 			
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
 			<Title>Current Kart</Title>
-			<div className="h-flex overflow-x mb-3">
+			<div className="h-flex">
 				{currentKart}
 			</div>
 		</Accordion>

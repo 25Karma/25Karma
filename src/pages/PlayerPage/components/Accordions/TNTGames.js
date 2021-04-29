@@ -84,11 +84,9 @@ export const TNTGames = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="mt-3">
-				<Pair title="Coins" color="gold">{json.coins}</Pair>
-				<Pair title="Total Wins">{json.wins}</Pair>
-			</div>
-			<div className="h-flex my-3">
+			<Pair title="Coins" color="gold">{json.coins}</Pair>
+			<Pair title="Total Wins">{json.wins}</Pair>
+			<div className="h-flex mt-3">
 				<div className="flex-1">
 					<p className="font-bold font-md mb-1">TNT Run</p>
 					<Pair title="Wins">{json.wins_tntrun}</Pair>
@@ -111,17 +109,15 @@ export const TNTGames = memo((props) => {
 				</div>
 			</div>
 
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="my-3">
-				<Title>Wizards</Title>
-				<Pair title="Wins">{json.wins_capture}</Pair>
-				<Pair title="Kills">{json.kills_capture}</Pair>
-				<Pair title="Deaths">{json.deaths_capture}</Pair>
-				<Pair title="Kill/Death Ratio">{Utils.ratio(json.kills_capture, json.deaths_capture)}</Pair>
-				<div className="overflow-x mt-3">
-					{wizardsTable}
-				</div>
+			<Title>Wizards</Title>
+			<Pair title="Wins">{json.wins_capture}</Pair>
+			<Pair title="Kills">{json.kills_capture}</Pair>
+			<Pair title="Deaths">{json.deaths_capture}</Pair>
+			<Pair title="Kill/Death Ratio">{Utils.ratio(json.kills_capture, json.deaths_capture)}</Pair>
+			<div className="overflow-x mt-3">
+				{wizardsTable}
 			</div>
 		</Accordion>
 });

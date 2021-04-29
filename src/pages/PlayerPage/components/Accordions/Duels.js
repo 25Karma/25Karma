@@ -129,7 +129,7 @@ export const Duels = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="h-flex my-3">
+			<div className="h-flex mb-3">
 				<div className="flex-1">
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Pair title="Loot Chests">{json.duels_chests}</Pair>
@@ -158,10 +158,8 @@ export const Duels = memo((props) => {
 				</div>
 			</div>
 			
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="overflow-x my-3">
-				{table}
-			</div>
+			{table}
 		</Accordion>
 });

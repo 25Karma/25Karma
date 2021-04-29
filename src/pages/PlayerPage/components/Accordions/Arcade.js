@@ -25,7 +25,7 @@ export const Arcade = memo((props) => {
 		);
 
 	const zombiesMapTable = (
-		<Table>
+		<Table className="mb-3">
 			<thead>
 				<tr>
 					<th>Map</th>
@@ -86,7 +86,7 @@ export const Arcade = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="my-3">
+			<div className="mb-3">
 				<Pair title="Arcade Coins" color="gold">{json.coins}</Pair>
 			</div>
 			<div className="h-flex flex-wrap">
@@ -255,12 +255,8 @@ export const Arcade = memo((props) => {
 					<Pair title="Windows Repaired">{json.windows_repaired_zombies}</Pair>
 				</div>
 			</div>
-			<div className="overflow-x mb-3">
-				{zombiesMapTable}
-			</div>
-			<div className="overflow-x mb-3" style={{width: '50%'}}>
-				{zombiesTypeTable}
-			</div>
+			{zombiesMapTable}
+			{zombiesTypeTable}
 		</Accordion>
 });
 

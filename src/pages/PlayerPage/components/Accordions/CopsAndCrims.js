@@ -74,7 +74,7 @@ export const CopsAndCrims = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="h-flex my-3">
+			<div className="h-flex">
 				<div className="flex-1">
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Br />
@@ -95,16 +95,14 @@ export const CopsAndCrims = memo((props) => {
 				</div>
 			</div>
 			
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="overflow-x my-3">
-				{table}
-			</div>
+			{table}
 
-			<HorizontalLine />
+			<HorizontalLine className="mt-3" />
 
 			<Title>Weapons</Title>
-			<div className="h-flex justify-content-center flex-wrap overflow-x mb-3">
+			<div className="h-flex justify-content-center flex-wrap overflow-x">
 				{consts.GUNS.map(gun => <Gun gun={gun} json={json} key={gun.id}/>)}
 			</div>
 		</Accordion>

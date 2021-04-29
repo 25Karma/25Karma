@@ -128,7 +128,7 @@ export const MegaWalls = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="mt-3 mb-2 h-flex">
+			<div className="mb-2 h-flex">
 				<div className="flex-1">
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Pair title="Wither Damage Dealt">{Utils.add(json.witherDamage, json.wither_damage)}</Pair>
@@ -152,24 +152,18 @@ export const MegaWalls = memo((props) => {
 					<Pair title="Final Kill/Death Ratio">{ratios.fkd}</Pair>
 				</div>
 			</div>
-			<div className="mb-3">
-				<ExternalLink href={`https://gen.plancke.io/mw/${mojang.uuid}/2.png`}>
-					<Button>
-						<span className="font-bold">Class Skins and Levels</span>
-					</Button>
-				</ExternalLink>
-			</div>
+			<ExternalLink href={`https://gen.plancke.io/mw/${mojang.uuid}/2.png`}>
+				<Button>
+					<span className="font-bold">Class Skins and Levels</span>
+				</Button>
+			</ExternalLink>
 
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="overflow-x my-3">
-				{classesTable}
-			</div>
+			{classesTable}
 
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="overflow-x my-3">
-				{modesTable}
-			</div>
+			{modesTable}
 		</Accordion>
 })

@@ -38,13 +38,18 @@ export function Accordion(props) {
 						</div>
 						<LazyLoad once>
 							<div {...cProvided.collapsibleProps}>
+								<div className="px-2">
+									<HorizontalLine />
+								</div>
+								<div className="overflow-x">
 									<div className="accordion-body px-2">
-										<HorizontalLine />
 										{props.children ?
-											props.children : 
-											<div className="my-2">{`No stats to display for ${props.title}.`}</div>
+											<div className="py-3">{props.children}</div> 
+											: 
+											<div className="py-2">{`No stats to display for ${props.title}.`}</div>
 										}
-										</div>
+									</div>
+								</div>
 							</div>
 						</LazyLoad>
 					</div>

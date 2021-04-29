@@ -117,7 +117,7 @@ export const SpeedUHC = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="my-3">
+			<div className="mb-3">
 				<div className="mb-1 font-bold">Title Progress</div>
 				<div className="h-flex">
 					{progressBar}
@@ -142,8 +142,6 @@ export const SpeedUHC = memo((props) => {
 					<Pair title="Winstreak">{json.winstreak}</Pair>
 				</div>
 			</div>
-			<div className="overflow-x mb-3">
-				{table}
-			</div>
+			{table}
 		</Accordion>
 });

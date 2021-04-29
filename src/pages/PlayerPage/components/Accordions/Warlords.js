@@ -112,7 +112,7 @@ export const Warlords = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="h-flex my-3">
+			<div className="h-flex">
 				<div className="flex-1">
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Pair title="Magic Dust" color="aqua">{json.magic_dust}</Pair>
@@ -140,30 +140,24 @@ export const Warlords = memo((props) => {
 				</div>
 			</div>
 
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="my-3">
-				<Pair title="Total Weapons Repaired">{json.repaired}</Pair>
-				<div className="mt-1 mb-3">
-					{repairedProgress}
-				</div>
-				<div className="font-bold mb-1">Weapon Inventory</div>
-				{json.weapon_inventory && json.weapon_inventory.map((data, index) =>
-					<Weapon data={data} key={index}></Weapon>	
-				)}
+			<Pair title="Total Weapons Repaired">{json.repaired}</Pair>
+			<div className="mt-1 mb-3">
+				{repairedProgress}
 			</div>
+			<div className="font-bold mb-1">Weapon Inventory</div>
+			{json.weapon_inventory && json.weapon_inventory.map((data, index) =>
+				<Weapon data={data} key={index}></Weapon>	
+			)}
 
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="overflow-x my-3">
-				{classTable}
-			</div>
+			{classTable}
 
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
-			<div className="overflow-x my-3">
-				{modesTable}
-			</div>
+			{modesTable}
 		</Accordion>
 });
 
