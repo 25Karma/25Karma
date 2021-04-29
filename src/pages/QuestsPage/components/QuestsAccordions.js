@@ -109,25 +109,23 @@ function generateQuestsAccordion(gameMode) {
 
 		return (
 			<Accordion title={HYPIXEL.QUESTS[gameMode]} header={header} index={index}>
-				<div className="overflow-x mb-3">
-					<table className="w-100">
-						<tbody>
-						{gameQuests.map(({id, name, objectives, description}) =>
-							<React.Fragment key={id}>
-								<tr>
-									<td className="font-bold pb-1 pt-3" colSpan="4">{name}</td>
+				<table className="w-100">
+					<tbody>
+					{gameQuests.map(({id, name, objectives, description}, index) =>
+						<React.Fragment key={id}>
+							<tr>
+								<td className={`font-bold pb-1 ${index && 'pt-3'}`} colSpan="4">{name}</td>
+							</tr>
+							{description.split('\n').map((desc, index) =>
+								<tr key={index}>
+									<td className="td-shrink pr-2">{desc}</td>
+									{objectives[index] && renderProgressBar(id, objectives[index])}
 								</tr>
-								{description.split('\n').map((desc, index) =>
-									<tr key={index}>
-										<td className="td-shrink pr-2">{desc}</td>
-										{objectives[index] && renderProgressBar(id, objectives[index])}
-									</tr>
-								)}
-							</React.Fragment>
-						)}
-						</tbody>
-					</table>
-				</div>
+							)}
+						</React.Fragment>
+					)}
+					</tbody>
+				</table>
 			</Accordion>
 		);
 	})

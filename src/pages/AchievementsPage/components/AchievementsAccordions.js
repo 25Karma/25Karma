@@ -161,28 +161,26 @@ function generateAchievementsAccordions(gameMode) {
 
 		return (
 			<Accordion title={title} header={header} index={index}>
-				<div className="my-3">
-					{renderProgressBars(false)}
+				{renderProgressBars(false)}
 
-					<HorizontalLine className="my-3" />
+				<HorizontalLine className="my-3" />
 
-					<div className="overflow-x">
-						{challengeTable}
-					</div>
-					
-					<HorizontalLine className="my-3" />
-
-					<div className="overflow-x">
-						{tieredTable}
-					</div>
-
-					{Boolean(overallAchmts.total_legacy_points) && 
-						<React.Fragment>
-							<HorizontalLine className="my-3" />
-							{renderProgressBars(true)}
-						</React.Fragment>
-					}
+				<div className="overflow-x">
+					{challengeTable}
 				</div>
+				
+				<HorizontalLine className="my-3" />
+
+				<div className="overflow-x">
+					{tieredTable}
+				</div>
+
+				{Boolean(overallAchmts.total_legacy_points) && 
+					<React.Fragment>
+						<HorizontalLine className="my-3" />
+						{renderProgressBars(true)}
+					</React.Fragment>
+				}
 			</Accordion>
 		);
 	})
