@@ -11,7 +11,7 @@ import { calculateNetworkLevel, isPet } from 'utils/hypixel';
 * Displays general pets stats about the player
 */
 export function PetsCard() {
-	const { player, mojang } = useAPIContext();
+	const { player = {}, mojang } = useAPIContext();
 	const { petConsumables = {}, petJourneyTimestamp = 0, petStats = {} } = player;
 	const networkLevel = calculateNetworkLevel(player.networkExp);
 
@@ -24,6 +24,7 @@ export function PetsCard() {
 		if (pet.experience > favoritePet.experience) favoritePet = pet;
 	})
 	const favoritePetConstants = PETS.PETS[favoritePet.id] || {};
+	const currentPetConstants = PETS.PETS[player.currentPet] || {};
 
 	const missionStatus = (() => {
 		const timeSince = Date.now() - petJourneyTimestamp;
@@ -64,6 +65,9 @@ export function PetsCard() {
 
 			<Pair title="Favourite Pet" color={PETS.RARITY[favoritePetConstants.rarity]}>
 				{favoritePetConstants.name || favoritePet.id || 'N/A'}
+			</Pair>
+			<Pair title="Current Pet" color={PETS.RARITY[currentPetConstants.rarity]}>
+				{currentPetConstants.name || player.currentPet || 'N/A'}
 			</Pair>
 			<Pair title="Active Pets">{petList.length}</Pair>
 			<Br />

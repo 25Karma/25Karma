@@ -36,6 +36,8 @@ export function PlayerCard(props) {
 		return {name: name, value: `×${m}`};
 	})();
 	const socialMediaLinks = Utils.traverse(json, 'socialMedia.links');
+	const dailyTwoKExp = Utils.traverse(json, 'eugene.dailyTwoKExp', 0);
+	const rewardClaimed = (new Date(dailyTwoKExp)).toDateString() === (new Date()).toDateString();
 	
 	const overallStats = (
 		<React.Fragment>
@@ -62,6 +64,7 @@ export function PlayerCard(props) {
 				{friends}
 			</Pair>
 			<Br />
+			<Pair title="Today's Reward" color={rewardClaimed ? 'green' : 'gray'}>{rewardClaimed ? 'Claimed!' : 'Unclaimed'}</Pair>
 			<Pair title="Rewards Claimed">{json.totalRewards}</Pair>
 			<Pair title="Reward Streak">{json.rewardScore}</Pair>
 			<Pair title="Top Reward Streak">{json.rewardHighScore}</Pair>
