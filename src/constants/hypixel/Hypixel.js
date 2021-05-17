@@ -18,6 +18,7 @@ export const HYPIXEL = {
 		QUAKECRAFT: 'Quakecraft',
 		SKYBLOCK: 'SkyBlock',
 		SKYWARS: 'SkyWars',
+		SMP: 'SMP',
 		SPEED_UHC: 'Speed UHC',
 		SUPER_SMASH: 'Smash Heroes',
 		SURVIVAL_GAMES: 'Blitz SG',

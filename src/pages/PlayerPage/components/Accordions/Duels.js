@@ -59,7 +59,7 @@ export const Duels = memo((props) => {
 			}
 		}
 		// If the player has no division
-		return {name: '-', level: '-', color: 'gray'};
+		return {name: '-', level: '-', color: 'gray', style: ''};
 	}
 
 	function kills(id) {
