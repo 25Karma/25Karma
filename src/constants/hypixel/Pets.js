@@ -54,7 +54,7 @@ export const PETS = {
 		GOLD_RABBIT              : { rarity: 'Epic',       name: 'Gold Rabbit',                food: 'Carrot',        drink: 'Water', exercise: 'Ball'           },
 		SALT_PEPPER_RABBIT       : { rarity: 'Epic',       name: 'Salt & Pepper Rabbit',       food: 'Carrot',        drink: 'Water', exercise: 'Ball'           },
 		WHITE_RABBIT             : { rarity: 'Rare',       name: 'White Rabbit',               food: 'Carrot',        drink: 'Water', exercise: 'Stick'          },
-		KILLER_RABBIT            : { rarity: 'Epic',       name: 'Killer Rabbit',              food: '',              drink: '',      exercise: ''               },
+		KILLER_RABBIT            : { rarity: 'Epic',       name: 'Killer Rabbit',              food: '',              drink: 'None',  exercise: 'Sparring Sword' },
 		
 		VILLAGER_BLACKSMITH      : { rarity: 'Rare',       name: 'Blacksmith Villager',        food: 'Angus Steak',   drink: 'Lava',  exercise: 'Sparring Sword' },
 		VILLAGER_BLACKSMITH_BABY : { rarity: 'Epic',       name: 'Blacksmith Villager (Baby)', food: 'Pumpkin Pie',   drink: 'Milk',  exercise: 'Stick'          },
@@ -92,17 +92,17 @@ export const PETS = {
 		
 		MINI_WITHER              : { rarity: 'Legendary',  name: 'Mini Wither',                food: 'Rotten Flesh',  drink: 'Lava',  exercise: 'None'           },
 
-		CLONE                    : { rarity: 'Tournament', name: 'Clone',                      food: '',              drink: '',      exercise: ''               },
+		CLONE                    : { rarity: 'Tournament', name: 'Clone',                      food: 'Cake',          drink: 'Water', exercise: 'Sparring Sword' },
 		
-		MINECART                 : { rarity: 'Tournament', name: 'Minecart',                   food: '',              drink: '',      exercise: ''               },
+		MINECART                 : { rarity: 'Tournament', name: 'Minecart',                   food: 'Cake',          drink: 'Milk',  exercise: 'Sparring Sword' },
 		
-		GRINCH                   : { rarity: 'Tournament', name: 'Grinch',                     food: '',              drink: '',      exercise: ''               },
+		GRINCH                   : { rarity: 'Tournament', name: 'Grinch',                     food: 'Cookie',        drink: 'Lava',  exercise: 'Frisbee'        },
 
-		BEE                      : { rarity: 'Legendary',  name: 'Bee',                        food: '',              drink: '',      exercise: ''               },
+		BEE                      : { rarity: 'Legendary',  name: 'Bee',                        food: 'Flower',        drink: 'Water', exercise: 'Ball'           },
 
 		SPIDER                   : { rarity: 'Epic',       name: 'Spider',                     food: '',              drink: 'Water', exercise: 'Leash'          },
 		CAVE_SPIDER              : { rarity: 'Rare',       name: 'Cave Spider',                food: 'Angus Steak',   drink: 'Water', exercise: 'Sparring Sword' },
-		BOUNCY_SPIDER            : { rarity: 'Legendary',  name: 'Bouncy Spider',              food: '',              drink: '',      exercise: ''               },
+		BOUNCY_SPIDER            : { rarity: 'Legendary',  name: 'Bouncy Spider',              food: '',              drink: 'Water', exercise: 'Sparring Sword' },
 
 		COW                      : { rarity: 'Common',     name: 'Cow',                        food: 'Wheat',         drink: 'Milk',  exercise: 'Feather'        },
 		COW_BABY                 : { rarity: 'Rare',       name: 'Cow (Baby)',                 food: 'Cookie',        drink: 'Milk',  exercise: 'Ball'           },
@@ -167,8 +167,8 @@ export const PETS = {
 		SHEEP_YELLOW             : { rarity: 'Rare',       name: 'Yellow Sheep',               food: 'Wheat',         drink: 'Water', exercise: 'Leash'          },
 		SHEEP_YELLOW_BABY        : { rarity: 'Epic',       name: 'Yellow Sheep (Baby)',        food: 'Melon',         drink: 'Milk',  exercise: 'Frisbee'        },
 		SHEEP_RAINBOW            : { rarity: 'Legendary',  name: 'Rainbow Sheep',              food: 'Wheat',         drink: 'Water', exercise: 'Leash'          },
-		BOUNCY_SHEEP             : { rarity: 'Epic',       name: 'Bouncy Sheep',               food: '',              drink: '',      exercise: ''               },
-		MERRY_SHEEP              : { rarity: 'Epic',       name: 'Merry Sheep',                food: '',              drink: '',      exercise: ''               },
+		BOUNCY_SHEEP             : { rarity: 'Epic',       name: 'Bouncy Sheep',               food: 'Wheat',         drink: 'Water', exercise: 'Leash'          },
+		MERRY_SHEEP              : { rarity: 'Epic',       name: 'Merry Sheep',                food: 'Melon',         drink: 'Milk',  exercise: 'Frisbee'        },
 
 		SLIME_BIG                : { rarity: 'Legendary',  name: 'Slime (Big)',                food: 'Bone',          drink: 'Milk',  exercise: 'Ball'           },
 		SLIME_SMALL              : { rarity: 'Epic',       name: 'Slime (Small)',              food: 'Flower',        drink: 'Milk',  exercise: 'Stick'          },
@@ -179,14 +179,14 @@ export const PETS = {
 
 		SKELETON                 : { rarity: 'Epic',       name: 'Skeleton',                   food: 'Rotten Flesh',  drink: 'Lava',  exercise: 'Frisbee'        },
 		WITHER_SKELETON          : { rarity: 'Tournament', name: 'Wither Skeleton',            food: 'None',          drink: 'Lava',  exercise: 'Sparring Sword' },
-		FROZEN_SKELETON          : { rarity: 'Epic',       name: 'Frozen Skeleton',            food: '',              drink: '',      exercise: ''               },
-		SMOLDERING_SKELETON      : { rarity: 'Epic',       name: 'Smoldering Skeleton',        food: '',              drink: '',      exercise: ''               },
+		FROZEN_SKELETON          : { rarity: 'Epic',       name: 'Frozen Skeleton',            food: 'Bone',          drink: 'Water', exercise: 'Ball'           },
+		SMOLDERING_SKELETON      : { rarity: 'Epic',       name: 'Smoldering Skeleton',        food: 'Bone',          drink: 'None',  exercise: 'None'           },
 
 		SQUID                    : { rarity: 'Special',    name: 'Squid',                      food: 'Raw Fish',      drink: 'Water', exercise: 'Frisbee'        },
-		FLYING_SQUID             : { rarity: 'Legendary',  name: 'Flying Squid',               food: '',              drink: '',      exercise: ''               },
+		FLYING_SQUID             : { rarity: 'Legendary',  name: 'Flying Squid',               food: 'Raw Fish',      drink: 'Water', exercise: 'Frisbee'        },
 
 		GUARDIAN                 : { rarity: 'Rare',       name: 'Guardian',                   food: 'Flower',        drink: 'Water', exercise: 'None'           },
-		ELDER_GUARDIAN           : { rarity: 'Legendary',  name: 'Elder Guardian',             food: '',              drink: '',      exercise: ''               },
+		ELDER_GUARDIAN           : { rarity: 'Legendary',  name: 'Elder Guardian',             food: 'Flower',        drink: 'Water', exercise: 'None'           },
 		
 	},
 	EXP: {
