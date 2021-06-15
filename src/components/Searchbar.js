@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { MdSearch } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
 import './Searchbar.css';
 import { ReactIcon } from 'components';
+import { useAppContext } from 'hooks';
 
 /*
 * Styled input with search button
@@ -14,6 +15,38 @@ export function Searchbar(props) {
 
 	const refInput = useRef("input")
 	const history = useHistory();
+	const { setBanner } = useAppContext();
+
+	/* 
+	*  If the user tries to type outside of the searchbar, recommend that they press "/" to jump to the searchbar.
+	*/
+	useEffect(() => {
+		function keyDownListener(event) {
+			// Do nothing if the user is already focused on the searchbar
+			if (document.activeElement === refInput.current) return;
+
+			const x = event.key.charCodeAt(0);
+
+			// If the key pressed is "/", jump to the searchbar
+			if (x === 47) {
+				// Timeout is necessary otherwise the "/" will be typed into the searchbar
+				setTimeout(() =>{ refInput.current.focus() }, 10);
+			}
+			// Otherwise, display a banner (alphanumeric characters only)
+			else if ((x >= 48 && x <= 57) || (x >= 65 && x <= 90) || (x >= 97 && x <= 122)) {
+				setBanner({
+					style: 'info',
+					title: <span>Press <kbd>/</kbd> to jump to the searchbar</span>,
+					expire: true
+				});
+			}
+		}
+		
+		document.addEventListener('keydown', keyDownListener);
+		return () => {
+			document.removeEventListener('keydown', keyDownListener);
+		}
+	}, [setBanner]);
 	
 	/*
 	* Checks if the key that was pressed was the Enter key
@@ -54,7 +87,6 @@ export function Searchbar(props) {
 			onKeyDown={handleKeyDown} 
 			defaultValue={props.defaultValue}
 			autoFocus
-			onFocus={(event)=>{event.target.select()}}
 			spellCheck={false}
 			/>
 			<button onClick={search}>

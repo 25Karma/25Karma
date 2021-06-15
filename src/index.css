@@ -50,6 +50,13 @@ button {
 button:focus {
 	outline-width: 0;
 }
+kbd {
+	color: var(--theme-text);
+	border: 1px solid var(--theme-text);
+	border-radius: 0.25rem;
+	padding-left: 0.5rem; 
+	padding-right: 0.5rem;
+}
 
 /* Styled scrollbar */
 ::-webkit-scrollbar { width: 1rem; height: 1rem; }
