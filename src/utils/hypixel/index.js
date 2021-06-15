@@ -202,7 +202,7 @@ export function questCompletionsSince(period, completions) {
 		// Last Thursday
 		// https://stackoverflow.com/a/46544455/12191708
 		let date = new Date();
-		const lastThursday = new Date(date.setDate(date.getDate() - (date.getDay() + 8)%7));
+		const lastThursday = new Date(date.setDate(date.getDate() - (date.getDay() + 10)%7));
 		timestamp = lastThursday.setHours(0,0,0,0);
 	}
 	else if (period === 'monthly') {
