@@ -38,6 +38,7 @@ export function PlayerName(props) {
 			SUPERSTAR : `${rankColor}[MVP${plusColor}++${rankColor}] ${stats.name}`,
 			HELPER : `§9[HELPER] ${stats.name}`,
 			MODERATOR : `§2[MOD] ${stats.name}`,
+			GAME_MASTER: `§2[GM] ${stats.name}`,
 			ADMIN : `§c[ADMIN] ${stats.name}`,
 			YOUTUBER : `§c[§fYOUTUBE§c] ${stats.name}`,
 		}

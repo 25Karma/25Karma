@@ -1,10 +1,10 @@
 export const MURDERMYSTERY = {
 	TITLE: 'Murder Mystery',
+	// Infection mode has its own section
 	MODES: [
 		{id: '_MURDER_CLASSIC', name: 'Classic'},
 		{id: '_MURDER_ASSASSINS', name: 'Assassins'},
 		{id: '_MURDER_DOUBLE_UP', name: 'Double Up'},
-		{id: '_MURDER_INFECTION', name: 'Infection'},
 		{id: '_MURDER_HARDCORE', name: 'Hardcore'},
 		{id: '_MURDER_SHOWDOWN', name: 'Showdown'},
 		{id: '', name: 'Overall'},

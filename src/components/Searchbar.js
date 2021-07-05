@@ -25,7 +25,7 @@ export function Searchbar(props) {
 			// Do nothing if the user is already focused on the searchbar
 			if (document.activeElement === refInput.current) return;
 
-			const x = event.key.charCodeAt(0);
+			const x = event.key.length === 1 && event.key.charCodeAt(0);
 
 			// If the key pressed is "/", jump to the searchbar
 			if (x === 47) {

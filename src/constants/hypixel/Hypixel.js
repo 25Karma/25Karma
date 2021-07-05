@@ -108,6 +108,7 @@ export const HYPIXEL = {
 		'YOUTUBER',
 		'HELPER',
 		'MODERATOR',
+		'GAME_MASTER',
 		'ADMIN'
 	],
 	RANKMULTIPLIER: {

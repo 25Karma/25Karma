@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
-import { Box, Br, Cell, Pair, Row, Table } from 'components/Stats';
+import { Box, Br, Cell, Pair, Row, Table, Title } from 'components/Stats';
 import { MURDERMYSTERY as consts } from 'constants/hypixel';
 import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
@@ -79,6 +79,32 @@ export const MurderMystery = memo((props) => {
 			);
 	})();
 
+	const infectionStats = (() => {
+		const wins = Utils.add(json.wins_MURDER_INFECTION, json.survivor_wins_MURDER_INFECTION);
+		const losses = Utils.subtract(json.games_MURDER_INFECTION, wins);
+		return (
+			<React.Fragment>
+				<Title>Infection v2</Title>
+				<div className="h-flex">
+					<div className="flex-1">
+						<Pair title="Kills as Infected">{json.kills_as_infected_MURDER_INFECTION}</Pair>
+						<Pair title="Kills as Survivor">{json.kills_as_survivor_MURDER_INFECTION}</Pair>
+						<Pair title="Final Kills">{json.kills_MURDER_INFECTION}</Pair>
+					</div>
+					<div className="flex-1">
+						<Pair title="Wins">{wins}</Pair>
+						<Pair title="Losses">{losses}</Pair>
+						<Pair title="Win/Loss Ratio">{Utils.ratio(wins/losses)}</Pair>
+					</div>
+					<div className="flex-1">
+						<Pair title="Time Survived">{Utils.secondsToHms(json.total_time_survived_seconds_MURDER_INFECTION)}</Pair>
+						<Pair title="Gold Collected">{json.coins_pickedup_MURDER_INFECTION}</Pair>
+					</div>
+				</div>
+			</React.Fragment>
+		);
+	})();
+
 	return Utils.isEmpty(json) ?
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
@@ -107,5 +133,9 @@ export const MurderMystery = memo((props) => {
 			<HorizontalLine className="my-3" />
 
 			{table}
+
+			<HorizontalLine className="my-3" />
+
+			{infectionStats}
 		</Accordion>
 });

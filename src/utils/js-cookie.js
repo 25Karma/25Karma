@@ -29,7 +29,7 @@ export function pushToRecentSearches(ele) {
 		cookie = '[]';
 	}
 	const array = JSON.parse(cookie);
-	const maxLength = 30;
+	const maxLength = 40;
 	
 	// The new player name is put at the front of the queue
 	let newArray = [str];
