@@ -25,10 +25,10 @@ export const UHC = memo((props) => {
 	// Calculate total kills/deaths etc. across all gamemodes
 	let kills = 0, deaths = 0, wins = 0, heads = 0;
 	for (const mode of consts.MODES) {
-		kills += Utils.default0(json[`kills${mode.id}`]);
-		deaths += Utils.default0(json[`deaths${mode.id}`]);
-		wins += Utils.default0(json[`wins${mode.id}`]);
-		heads += Utils.default0(json[`heads_eaten${mode.id}`]);
+		wins += Utils.add(...mode.id.map(id => json[`wins${id}`]));
+		kills += Utils.add(...mode.id.map(id => json[`kills${id}`]));
+		deaths += Utils.add(...mode.id.map(id => json[`deaths${id}`]));
+		heads += Utils.add(...mode.id.map(id => json[`heads_eaten${id}`]));
 	}
 
 	const ratios = {
@@ -106,18 +106,26 @@ export const UHC = memo((props) => {
 			</thead>
 			<tbody>
 			{
-				consts.MODES.map(mode =>
-					Boolean(Utils.add(json[`wins${mode.id}`], json[`deaths${mode.id}`])) &&
-					<tr key={mode.id}>
-						<Cell>{mode.name}</Cell>
-						<Cell>{json[`kills${mode.id}`]}</Cell>
-						<Cell>{json[`deaths${mode.id}`]}</Cell>
-						<Cell>{Utils.ratio(json[`kills${mode.id}`],json[`deaths${mode.id}`])}</Cell>
-						<Cell>{json[`wins${mode.id}`]}</Cell>
-						<Cell>{Utils.ratio(json[`kills${mode.id}`],json[`wins${mode.id}`])}</Cell>
-						<Cell>{json[`heads_eaten${mode.id}`]}</Cell>
-					</tr>
-					)
+				consts.MODES.map(mode => {
+					const wins = Utils.add(...mode.id.map(id => json[`wins${id}`]));
+					const kills = Utils.add(...mode.id.map(id => json[`kills${id}`]));
+					const deaths = Utils.add(...mode.id.map(id => json[`deaths${id}`]));
+					const headsEaten = Utils.add(...mode.id.map(id => json[`heads_eaten${id}`]));
+					if (Utils.add(wins, deaths)) {
+						return ( 
+							<tr key={mode.id}>
+								<Cell>{mode.name}</Cell>
+								<Cell>{kills}</Cell>
+								<Cell>{deaths}</Cell>
+								<Cell>{Utils.ratio(kills,deaths)}</Cell>
+								<Cell>{wins}</Cell>
+								<Cell>{Utils.ratio(kills,wins)}</Cell>
+								<Cell>{headsEaten}</Cell>
+							</tr>
+						);
+					}
+					return null;
+				})
 			}
 			</tbody>
 		</Table>

@@ -1,14 +1,14 @@
 export const UHC = {
 	TITLE: 'UHC',
 	MODES: [
-	{id: '_solo', name: 'Solo'},
-	{id: '', name: 'Teams'},
-	{id: '_red vs blue', name: 'Red vs. Blue'},
-	{id: '_no diamonds', name: 'No Diamonds'},
-	{id: '_vanilla doubles', name: 'Vanilla Doubles'},
-	{id: '_brawl', name: 'Brawl'},
-	{id: '_solo brawl', name: 'Solo Brawl'},
-	{id: '_duo brawl', name: 'Duo Brawl'},
+	{id: ['_solo'], name: 'Solo'},
+	{id: [''], name: 'Teams'},
+	{id: ['_red vs blue'], name: 'Red vs. Blue'},
+	{id: ['_no diamonds'], name: 'No Diamonds'},
+	{id: ['_vanilla doubles'], name: 'Vanilla Doubles'},
+	{id: ['_brawl'], name: 'Brawl'},
+	{id: ['_solo brawl', '_solo_brawl'], name: 'Solo Brawl'},
+	{id: ['_duo brawl', '_duo_brawl'], name: 'Duo Brawl'},
 	],
 	STARS: [
 		{value: 0, name: 'Recruit', color: 'gray'},
