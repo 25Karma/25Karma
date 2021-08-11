@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
-import { Box, Cell, Pair, Progress, ProgressBar, Table } from 'components/Stats';
+import { Box, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
 import { UHC as consts } from 'constants/hypixel';
 import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
@@ -127,6 +127,15 @@ export const UHC = memo((props) => {
 					return null;
 				})
 			}
+				<Row id=''>
+					<Cell>Overall</Cell>
+					<Cell>{kills}</Cell>
+					<Cell>{deaths}</Cell>
+					<Cell>{Utils.ratio(kills,deaths)}</Cell>
+					<Cell>{wins}</Cell>
+					<Cell>{Utils.ratio(kills,wins)}</Cell>
+					<Cell>{heads}</Cell>
+				</Row>
 			</tbody>
 		</Table>
 		);
