@@ -43,12 +43,16 @@ export function AchievementsCard(props) {
 				<tbody>
 				{oneTimeAchmts.slice(-15).map(a => {
 					const [gameId, ...aId] = a.split('_');
-					return (
-						<tr key={a} className="c-gray">
-							<td>{HYPIXEL.ACHIEVEMENTS[gameId]}</td>
-							<td>{allAchmts[gameId].one_time[aId.join('_').toUpperCase()].name}</td>
-						</tr>
-					);
+					const achmtData = allAchmts[gameId].one_time[aId.join('_').toUpperCase()];
+					if (achmtData) {
+						return (
+							<tr key={a} className="c-gray">
+								<td>{HYPIXEL.ACHIEVEMENTS[gameId]}</td>
+								<td>{achmtData.name}</td>
+							</tr>
+						);
+					}
+					return null;
 				}).reverse()}
 				</tbody>
 			</table>
