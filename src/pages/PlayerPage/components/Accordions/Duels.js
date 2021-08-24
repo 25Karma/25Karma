@@ -63,11 +63,13 @@ export const Duels = memo((props) => {
 	}
 
 	function kills(id) {
-		return id.includes('bridge') ? json[`${id}${id && '_'}bridge_kills`] : json[`${id}${id && '_'}kills`];
+		// Need to combine legacy and current kills for 2v2v2v2 and 3v3v3v3 bridge modes specifically
+		// For other duels modes, _bridge_kills will have zero effect
+		return Utils.add(json[`${id}_bridge_kills`], json[`${id}${id && '_'}kills`]);
 	} 
 
 	function deaths(id) {
-		return id.includes('bridge') ? json[`${id}${id && '_'}bridge_deaths`] : json[`${id}${id && '_'}deaths`];
+		return Utils.add(json[`${id}_bridge_deaths`], json[`${id}${id && '_'}deaths`]);
 	} 
 	const header = (
 		<React.Fragment>
