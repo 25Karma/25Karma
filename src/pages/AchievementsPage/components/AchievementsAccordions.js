@@ -26,17 +26,18 @@ function generateAchievementsAccordions(gameMode) {
 		const gameAchmts = allAchmts[gameMode];
 		const oneTimeAchmts = player.achievementsOneTime || [];
 		const tieredAchmts = player.achievements || {};
+		const isCompleted = ratios.unlocked === 1;
 
 		const header = (
 			<React.Fragment>
 				<div className="flex-1">
 					<Box title="Unlocked">
-						{`§b${overallAchmts.unlocked}§7/§b${overallAchmts.total}§7 (${Utils.formatNum(100*ratios.unlocked)}%)`}
+						{`§b${overallAchmts.unlocked}§7/§b${overallAchmts.total}§7 (${ isCompleted ? '§a§l' : ''}${Utils.formatNum(100*ratios.unlocked)}%${ isCompleted ? '!' : ''}§7)`}
 					</Box>
 				</div>
 				<div className="flex-1 pr-4">
 					<Box title="Points">
-						{`§e${overallAchmts.points}§7/§e${overallAchmts.total_points}§7 (${Utils.formatNum(100*ratios.points)}%)`}
+						{`§e${overallAchmts.points}§7/§e${overallAchmts.total_points}§7 (${ isCompleted ? '§a§l' : ''}${Utils.formatNum(100*ratios.points)}%${ isCompleted ? '!' : ''}§7)`}
 					</Box>
 				</div>
 			</React.Fragment>
