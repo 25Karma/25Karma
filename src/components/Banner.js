@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import './Banner.css';
 import { FaDiscord } from 'react-icons/fa';
-import { MdClose, MdReport, MdInfoOutline } from 'react-icons/md';
+import { MdClose, MdContentCopy, MdReport, MdInfoOutline } from 'react-icons/md';
 import { ReactIcon } from 'components';
-import { useAppContext } from 'hooks';
+import { useAppContext} from 'hooks';
 import * as Utils from 'utils';
 
 /*
@@ -58,6 +58,10 @@ export function Banner(props) {
 		setBannerVisibility('hidden');
 	}
 
+	function copyToClipboard() {
+		navigator.clipboard.writeText(banner.title);
+	}
+
 	return !Utils.isEmpty(banner) && (
 		<div className="banner-wrapper" style={styleStates[bannerVisibility]}>
 			<div className="container v-flex align-items-center">
@@ -65,6 +69,11 @@ export function Banner(props) {
 				<span>
 					<ReactIcon icon={bannerStyle.icon}/>
 				</span>
+				{banner.copyable &&
+					<button onClick={copyToClipboard} className="pl-2">
+						<ReactIcon icon={MdContentCopy} clickable /> 
+					</button>
+				}
 				<span className="px-2">
 					{banner.title &&
 						<span className="font-bold">{banner.title}&nbsp;</span>

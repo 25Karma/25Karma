@@ -47,7 +47,7 @@ export const Duels = memo((props) => {
 
 	function getDivision(duelType) {
 		for (const div of consts.DIVISIONS.slice().reverse()) {
-			const dat = json[`${duelType}_${div.name.toLowerCase()}_title_prestige`];
+			const dat = json[`${duelType}_${div.id}_title_prestige`];
 			if (dat !== undefined) {
 				const roman = Utils.romanize(dat);
 				return {

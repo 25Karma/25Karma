@@ -53,7 +53,8 @@ export function SocialMedia(props) {
 	function displayDiscordBanner(discordTag) {
 		setBanner({
 			style: 'discord',
-			title: discordTag
+			title: discordTag,
+			copyable: true
 		});
 	}
 
