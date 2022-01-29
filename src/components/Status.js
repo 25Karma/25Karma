@@ -27,11 +27,8 @@ export function Status(props) {
 			if (status.mode === 'LOBBY') {
 				return `Online. In a ${games[game] || game} lobby.`;
 			}
-			// Special miniservers
-			else if (status.mode === 'BASE') {
-				if (status.gameType === 'REPLAY') {
-					return 'Online. Watching a replay.'
-				}
+			else if (status.gameType === 'REPLAY') {
+				return 'Online. Watching a replay.'
 			}
 			// Regular game miniservers
 			return `Online. Playing ${games[status.gameType] || status.gameType}.`;
