@@ -59,6 +59,8 @@ export const BEDWARS = {
 		{id: 'four_four_voidless_', name: 'Voidless 4v4v4v4'},
 		{id: 'eight_two_armed_', name: 'Armed Doubles'},
 		{id: 'four_four_armed_', name: 'Armed 4v4v4v4'},
+		{id: 'eight_two_swap_', name: 'Swappage Doubles'},
+		{id: 'four_four_swap_', name: 'Swappage 4v4v4v4'},
 		{id: 'castle_', name: 'Castle'},
 	],
 	PRACTICEMODES: [
