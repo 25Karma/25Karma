@@ -28,7 +28,7 @@ export function AchievementsPage(props) {
 						<AchievementsCard />
 					</React.Fragment>
 				}
-				center={<AccordionList cookie={COOKIES.questsAccordions} accordionModule={AchievementsAccordions} />}/>
+				center={<AccordionList cookie={COOKIES.achievementsAccordions} accordionModule={AchievementsAccordions} />}/>
 			}
 		</PageLoading>
 	);
