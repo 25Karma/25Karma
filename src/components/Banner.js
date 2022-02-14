@@ -69,17 +69,17 @@ export function Banner(props) {
 				<span>
 					<ReactIcon icon={bannerStyle.icon}/>
 				</span>
-				{banner.copyable &&
-					<button onClick={copyToClipboard} className="pl-2">
-						<ReactIcon icon={MdContentCopy} clickable /> 
-					</button>
-				}
 				<span className="px-2">
 					{banner.title &&
 						<span className="font-bold">{banner.title}&nbsp;</span>
 					}
 					<span>{banner.description}</span>
 				</span>
+				{banner.copyable &&
+					<button onClick={copyToClipboard} className="pr-1" data-tip="Copy to clipboard">
+						<ReactIcon icon={MdContentCopy} clickable /> 
+					</button>
+				}
 				<button onClick={close}>
 					<ReactIcon icon={MdClose} clickable /> 
 				</button>
