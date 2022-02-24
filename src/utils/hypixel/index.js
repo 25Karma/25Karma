@@ -199,11 +199,11 @@ export function questCompletionsSince(period, completions) {
 		timestamp = (new Date()).setHours(0,0,0,0);
 	}
 	else if (period === 'weekly') {
-		// Last Thursday
+		// Last Friday
 		// https://stackoverflow.com/a/46544455/12191708
 		let date = new Date();
-		const lastThursday = new Date(date.setDate(date.getDate() - (date.getDay() + 10)%7));
-		timestamp = lastThursday.setHours(0,0,0,0);
+		const lastFriday = new Date(date.setDate(date.getDate() - (date.getDay() + 9)%7));
+		timestamp = lastFriday.setHours(0,0,0,0);
 	}
 	else if (period === 'monthly') {
 		// Beginning of the month
