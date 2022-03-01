@@ -4,7 +4,7 @@ import './Banner.css';
 import { FaDiscord } from 'react-icons/fa';
 import { MdClose, MdContentCopy, MdReport, MdInfoOutline } from 'react-icons/md';
 import { ReactIcon } from 'components';
-import { useAppContext} from 'hooks';
+import { useAppContext, useTooltip } from 'hooks';
 import * as Utils from 'utils';
 
 /*
@@ -21,6 +21,8 @@ export function Banner(props) {
 		hidden: { transform: "translateY(100%)" },
 		shown: { transform: "translateY(0)" },
 	}
+
+	useTooltip([banner]);
 	
 	// Returns styling information about the banner
 	function getStyle(style) {
