@@ -264,6 +264,8 @@ export const BedWars = memo((props) => {
 					<Pair title="Final Kills">{json.final_kills_bedwars}</Pair>
 					<Pair title="Final Deaths">{json.final_deaths_bedwars}</Pair>
 					<Pair title="Final Kill/Death Ratio">{ratios.fkd}</Pair>
+					<Br/>
+					<Pair title="Total Challenges Completed">{json.total_challenges_completed}</Pair>
 				</div>
 				<div className="flex-1">
 					<Pair title="Winstreak">{json.winstreak}</Pair>

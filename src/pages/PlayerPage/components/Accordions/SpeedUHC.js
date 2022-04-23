@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Accordion } from 'components';
+import { Accordion, HorizontalLine } from 'components';
 import { Box, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
 import { SPEEDUHC as consts } from 'constants/hypixel';
 import { useAPIContext } from 'hooks';
@@ -16,6 +16,7 @@ export const SpeedUHC = memo((props) => {
 	// The player's API data for Speed UHC
 	const { player } = useAPIContext();
 	const json = Utils.traverse(player,'stats.SpeedUHC') || {};
+	const coins = Utils.traverse(player, 'stats.UHC.coins');
 	
 	const leveling = new HypixelLeveling(scoreToStar, starToScore, Utils.default0(json.score));
 	if (leveling.levelCeiling > 10) leveling.levelCeiling = 10;
@@ -26,6 +27,9 @@ export const SpeedUHC = memo((props) => {
 	}
 
 	const mostPlayedMode = getMostPlayed(consts.MODES,
+		({id}) => Utils.add(json[`wins${id}`], json[`losses${id}`]));
+
+	const mostPlayedMastery = getMostPlayed(consts.MASTERIES,
 		({id}) => Utils.add(json[`wins${id}`], json[`losses${id}`]));
 
 	function scoreToStar(score) {
@@ -113,6 +117,38 @@ export const SpeedUHC = memo((props) => {
 		</Table>
 		);
 
+	const masteriesTable = (
+		<Table>
+			<thead>
+				<tr>
+					<th>Mastery</th>
+					<th>Kills</th>
+					<th>Deaths</th>
+					<th>KD</th>
+					<th>Wins</th>
+					<th>Losses</th>
+					<th>WL</th>
+				</tr>
+			</thead>
+			<tbody>
+			{
+				consts.MASTERIES.map(({id, name}) =>
+					Boolean(Utils.add(json[`wins${id}`], json[`losses${id}`])) &&
+					<Row key={id} id={id} isHighlighted={id === mostPlayedMastery.id}>
+						<Cell>{name}</Cell>
+						<Cell>{json[`kills${id}`]}</Cell>
+						<Cell>{json[`deaths${id}`]}</Cell>
+						<Cell>{Utils.ratio(json[`kills${id}`],json[`deaths${id}`])}</Cell>
+						<Cell>{json[`wins${id}`]}</Cell>
+						<Cell>{json[`losses${id}`]}</Cell>
+						<Cell>{Utils.ratio(json[`wins${id}`],json[`losses${id}`])}</Cell>
+					</Row>
+					)
+			}
+			</tbody>
+		</Table>
+	)
+
 	return Utils.isEmpty(json) ?
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
@@ -127,8 +163,7 @@ export const SpeedUHC = memo((props) => {
 				<div className="flex-1">
 					<Pair title="Score">{json.score}</Pair>
 					<Pair title="Title" color="white">{title}</Pair>
-					<Pair title="Coins" color="gold">{json.coins}</Pair>
-					<Pair title="Salt">{json.salt}</Pair>
+					<Pair title="Coins" color="gold">{coins}</Pair>
 				</div>
 				<div className="flex-1">
 					<Pair title="Kills">{json.kills}</Pair>
@@ -139,9 +174,12 @@ export const SpeedUHC = memo((props) => {
 					<Pair title="Wins">{json.wins}</Pair>
 					<Pair title="Losses">{json.losses}</Pair>
 					<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
-					<Pair title="Winstreak">{json.winstreak}</Pair>
 				</div>
 			</div>
 			{table}
+
+			<HorizontalLine className="my-3" />
+
+			{masteriesTable}
 		</Accordion>
 });
