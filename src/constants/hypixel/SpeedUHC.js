@@ -28,6 +28,8 @@ export const SPEEDUHC = {
 		{id: '_mastery_master_baker',    name: 'Baker'},
 		{id: '_mastery_invigorate',      name: 'Invigorate'},
 		{id: '_mastery_huntsman',        name: 'Huntsman'},
+		{id: '_mastery_vampirism',       name: 'Vampirism'},
+		{id: '_mastery_guardian',        name: 'Guardian'},
 		{id: '',                         name: 'Overall'},
 	]
 }
