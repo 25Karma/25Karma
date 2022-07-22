@@ -22,7 +22,10 @@ export const Pit = memo((props) => {
 		ahm: Utils.ratio(stats.arrow_hits, stats.arrows_fired),
 		ddt: Utils.ratio(stats.damage_dealt, stats.damage_received),
 	}
-	const prestige = (profile.prestiges.length > consts.MAXPRESTIGE ? consts.MAXPRESTIGE : profile.prestiges.length) || 0
+	const prestige = (() => {
+		let length = Utils.traverse(profile, 'prestiges', {}).length
+		return (length > consts.MAXPRESTIGE ? consts.MAXPRESTIGE : length) || 0
+	})()
 	const level = (() => {
 		let xp = profile.xp;
 		let PRESTIGE_MULTIPLIERS = consts.PRESTIGE_MULTIPLIERS
