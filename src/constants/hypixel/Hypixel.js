@@ -28,6 +28,7 @@ export const HYPIXEL = {
 		VAMPIREZ: 'VampireZ',
 		WALLS: 'Walls',
 		WALLS3: 'Mega Walls',
+		WOOL_GAMES: 'Wool Wars',
 	},
 	QUESTS: {
 		arcade: 'Arcade Games',
@@ -50,6 +51,7 @@ export const HYPIXEL = {
 		vampirez: 'VampireZ',
 		walls: 'Walls',
 		walls3: 'Mega Walls',
+		woolgames: 'Wool Wars',
 	},
 	ACHIEVEMENTS: {
 		arcade: 'Arcade Games',
@@ -80,6 +82,7 @@ export const HYPIXEL = {
 		walls: 'Walls',
 		walls3: 'Mega Walls',
 		warlords: 'Warlords',
+		woolgames: 'Wool Wars',
 	},
 	MULTIPLIER: [
 		{level: 0, value: 1},
@@ -141,6 +144,7 @@ export const HYPIXEL = {
 		'stats.Battleground.coins',
 		'stats.TrueCombat.coins', // Crazy Walls (removed)
 		'stats.SkyClash.coins', // SkyClash (removed)
+		'stats.WoolGames.coins',
 	],
 	TOTALKILLS: [
 		'stats.Arcade.kills_dayone',
@@ -188,6 +192,7 @@ export const HYPIXEL = {
 		'stats.Battleground.kills', 
 		'stats.TrueCombat.kills', // Crazy Walls (removed)
 		'stats.SkyClash.kills', // SkyClash (removed)
+		'stats.WoolGames.wool_wars.stats.kills',
 	],
 	TOTALWINS: [
 		'stats.Arcade.wins_dayone',
@@ -247,5 +252,6 @@ export const HYPIXEL = {
 		'stats.Battleground.wins',
 		'stats.TrueCombat.wins', // Crazy Walls (removed)
 		'stats.SkyClash.wins', // SkyClash (removed)
+		'stats.WoolGames.wool_wars.stats.wins',
 	],
 }
