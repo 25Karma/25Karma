@@ -6,6 +6,7 @@ export const WOOLWARS = {
 		{level: 0, colormap: '7', color: 'gray', name: 'None'},
 		{level: 100, colormap: 'f', color: 'white', name: 'Iron'},
 		{level: 200, colormap: 'c', color: 'red', name: 'Red'},
+		{level: 300, colormap: '6', color: 'gold', name: 'Gold'},
 	],
     PRESTIGE_ICONS: [
 		{level: 0, symbol: '✫'},
