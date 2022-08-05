@@ -22,22 +22,37 @@ export const Pit = memo((props) => {
 		ahm: Utils.ratio(stats.arrow_hits, stats.arrows_fired),
 		ddt: Utils.ratio(stats.damage_dealt, stats.damage_received),
 	}
-	const {prestige, level} = (() => {
+	const prestige = (() => {
+		let length = Utils.traverse(profile, 'prestiges', {}).length
+		return (length > consts.MAXPRESTIGE ? consts.MAXPRESTIGE : length) || 0
+	})()
+	const level = (() => {
 		let xp = profile.xp;
-		for (let i=0; i<consts.XP.length; i++) {
-			for (let j=0; j<consts.XP[i].length; j++) {
-				for (let k=0; k<10; k++) {
-					const step = consts.XP[i][j];
-					if (xp >= step) {	
-						xp -= step;
-					}
-					else {
-						return {prestige: i, level: 10*j+k};
-					}
-				}
+		let PRESTIGE_MULTIPLIERS = consts.PRESTIGE_MULTIPLIERS
+		let LEVEL_REQUIREMENTS = consts.LEVEL_REQUIREMENTS
+
+		if (prestige > 0) {
+			xp = xp - PRESTIGE_MULTIPLIERS[prestige-1]['SumXp']
+		}
+		
+		let multiplier = PRESTIGE_MULTIPLIERS[prestige]['Multiplier']
+		let level = 0
+
+		while (xp > 0 && level < 120) {
+			let levelXp = LEVEL_REQUIREMENTS[Math.floor(level / 10)] * multiplier
+			if (xp >= levelXp * 10) {
+				xp -= levelXp * 10
+				level += 10
+			}
+			else {
+				let gain = Math.floor(xp / levelXp)
+				level += gain
+				xp -= gain * levelXp
+				xp = 0
 			}
 		}
-		return {prestige: consts.MAXPRESTIGE, level: consts.MAXLEVEL};
+
+		return level
 	})();
 	const levelColor = (() => {
 		for (const lvl of consts.LEVELCOLORS.slice().reverse()) {
