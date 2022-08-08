@@ -42,7 +42,7 @@ export const HYPIXEL = {
 		mcgo: 'Cops and Crims',
 		murdermystery: 'Murder Mystery',
 		paintball: 'Paintball',
-		prototype: 'Prototype',
+		prototype: 'Pit',
 		quake: 'Quakecraft',
 		skywars: 'SkyWars',
 		supersmash: 'Smash Heroes',
