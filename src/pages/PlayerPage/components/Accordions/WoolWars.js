@@ -7,37 +7,37 @@ import * as Utils from 'utils';
 import { HypixelLeveling, getMostPlayed } from 'utils/hypixel';
 
 export const WoolWars = memo((props) => {
-    const { player } = useAPIContext();
-    const json = Utils.traverse(player, 'stats.WoolGames', {});
-    const progression = Utils.traverse(json, 'progression', {});
-    const stats = Utils.traverse(json, 'wool_wars.stats', {});
-    const classes = {
-        assault: {},
-        tank: {},
-        golem: {},
-        swordsman: {},
-        engineer: {},
-        archer: {}
-    };
-    Object.assign(classes, Utils.traverse(stats, 'classes', {}));
+	const { player } = useAPIContext();
+	const json = Utils.traverse(player, 'stats.WoolGames', {});
+	const progression = Utils.traverse(json, 'progression', {});
+	const stats = Utils.traverse(json, 'wool_wars.stats', {});
+	const classes = {
+		assault: {},
+		tank: {},
+		golem: {},
+		swordsman: {},
+		engineer: {},
+		archer: {}
+	};
+	Object.assign(classes, Utils.traverse(stats, 'classes', {}));
 
-    const leveling = new HypixelLeveling(xpToLevel, levelToXP, Utils.default0(progression.experience));
-    const prestige = getPrestige(leveling.level);
-    const ratios = {
-        kd: Utils.ratio(stats.kills, stats.deaths),
-        wl: Utils.ratio(stats.wins, Utils.subtract(stats.games_played, stats.wins))
-    }
+	const leveling = new HypixelLeveling(xpToLevel, levelToXP, Utils.default0(progression.experience));
+	const prestige = getPrestige(leveling.level);
+	const ratios = {
+		kd: Utils.ratio(stats.kills, stats.deaths),
+		wl: Utils.ratio(stats.wins, Utils.subtract(stats.games_played, stats.wins))
+	}
 
-    const mostPlayedClass = getMostPlayed(consts.CLASSES,
+	const mostPlayedClass = getMostPlayed(consts.CLASSES,
 		({id}) => Utils.add(classes[id].kills, classes[id].blocks_broken, classes[id].wool_placed, classes[id].assists, classes[id].powerups_gotten));
-    
-    const selectedClass = Utils.traverse(json, 'wool_wars', {}).selected_class || 'None'
-    const selectedClassColor = (() => {
-        if (selectedClass === 'None') return 1
-        return consts.DIFFICULTIES[consts.CLASSES.filter(({ id }) => id === selectedClass.toLowerCase())[0].difficulty]
-    })();
+	
+	const selectedClass = Utils.traverse(json, 'wool_wars', {}).selected_class || 'None'
+	const selectedClassColor = (() => {
+		if (selectedClass === 'None') return 1
+		return consts.DIFFICULTIES[consts.CLASSES.filter(({ id }) => id === selectedClass.toLowerCase())[0].difficulty]
+	})();
 
-    function getExpReq(level) {
+	function getExpReq(level) {
 		let progress = level % 100
 
 		if (progress === 0) {
@@ -76,7 +76,7 @@ export const WoolWars = memo((props) => {
 		return xp;
 	}
 
-    function getPrestige(level) {
+	function getPrestige(level) {
 		const levelFloor = Math.floor(level);
 		const prestige = (() => {
 			for (const pres of consts.PRESTIGES.slice().reverse()) {
@@ -98,22 +98,22 @@ export const WoolWars = memo((props) => {
 		return {tag: coloredTag, ...prestige};
 	}
 
-    function titleCase(str) {
-        return str.toLowerCase().split(' ').map(function(word) {
-          return (word.charAt(0).toUpperCase() + word.slice(1));
-        }).join(' ');
-      }
+	function titleCase(str) {
+		return str.toLowerCase().split(' ').map(function(word) {
+			return (word.charAt(0).toUpperCase() + word.slice(1));
+		}).join(' ');
+	}
 
-    const header = (
+	const header = (
 		<React.Fragment>
-            <Box title="Main" color={consts.DIFFICULTIES[mostPlayedClass.difficulty]}>{mostPlayedClass.name || '-'}</Box>
+			<Box title="Main" color={consts.DIFFICULTIES[mostPlayedClass.difficulty]}>{mostPlayedClass.name || '-'}</Box>
 			<Box title="Level">{prestige.tag}</Box>
 			<Box title="Wins">{stats.wins || 0}</Box>
-            <Box title="Kills">{stats.kills || 0}</Box>
+			<Box title="Kills">{stats.kills || 0}</Box>
 		</React.Fragment>
 	);
 
-    const progressBar = (
+	const progressBar = (
 		<React.Fragment>
 			<span className={`px-1 c-${getPrestige(leveling.levelFloor).color}`}>
 				{leveling.levelFloor}
@@ -133,13 +133,13 @@ export const WoolWars = memo((props) => {
 		</React.Fragment>
 	);
 
-    const table = (
+	const table = (
 		<Table>
 			<thead>
 				<tr>
 					<th>Class</th>
 					<th>Kills</th>
-                    <th>Assists</th>
+					<th>Assists</th>
 					<th>Deaths</th>
 					<th>KD</th>
 					<th>Wool Placed</th>
@@ -154,7 +154,7 @@ export const WoolWars = memo((props) => {
 						<Row key={id} isHighlighted={id === mostPlayedClass.id}>
 							<Cell color={consts.DIFFICULTIES[difficulty]}>{name}</Cell>
 							<Cell>{classes[id].kills}</Cell>
-                            <Cell>{classes[id].assists}</Cell>
+							<Cell>{classes[id].assists}</Cell>
 							<Cell>{classes[id].deaths}</Cell>
 							<Cell>{Utils.ratio(classes[id].kills, classes[id].deaths)}</Cell>
 							<Cell>{classes[id].wool_placed}</Cell>
@@ -167,18 +167,18 @@ export const WoolWars = memo((props) => {
 		</Table>
 	);
 
-    return Utils.isEmpty(json) ?
+	return Utils.isEmpty(json) ?
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-            <div className="h-flex">
-                <div className='flex-1'>
-                    <Pair title="Selected Class" color={selectedClassColor}>
-                        {titleCase(selectedClass)}
-                    </Pair>
-                </div>
-            </div>
-            <Br/>
+			<div className="h-flex">
+				<div className='flex-1'>
+					<Pair title="Selected Class" color={selectedClassColor}>
+						{titleCase(selectedClass)}
+					</Pair>
+				</div>
+			</div>
+			<Br/>
 			<div className="mb-3">
 				<div className="mb-1 font-bold">Leveling Progress</div>
 				<div className="h-flex">
@@ -188,12 +188,12 @@ export const WoolWars = memo((props) => {
 			<div className="h-flex">
 				<div className="flex-1">
 					<Pair title="Level">{leveling.level}</Pair>
-                    <Pair title="Layers"><span className="c-green">{progression.available_layers || 0}</span>/<span className="c-green">100</span></Pair>
+					<Pair title="Layers"><span className="c-green">{progression.available_layers || 0}</span>/<span className="c-green">100</span></Pair>
 					<Pair title="Prestige" color={prestige.color}>{prestige.name}</Pair>
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Br/>
 					<Pair title="Kills">{stats.kills}</Pair>
-                    <Pair title="Assists">{stats.assists}</Pair>
+					<Pair title="Assists">{stats.assists}</Pair>
 					<Pair title="Deaths">{stats.deaths}</Pair>
 					<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
 				</div>
@@ -209,8 +209,8 @@ export const WoolWars = memo((props) => {
 				</div>
 			</div>
 
-            <HorizontalLine className="my-3" />
+			<HorizontalLine className="my-3" />
 
-            {table}
+			{table}
 		</Accordion>
 });
