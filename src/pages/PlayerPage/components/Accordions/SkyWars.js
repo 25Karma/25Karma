@@ -1,6 +1,6 @@
 import React, { useState, useEffect, memo } from 'react';
 import { Link } from 'react-router-dom';
-import { Accordion, Button, Crafatar, HorizontalLine } from 'components';
+import { Accordion, Button, HorizontalLine, PlayerHead } from 'components';
 import { Box, Br, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
 import { SKYWARS as consts } from 'constants/hypixel';
 import { useAPIContext, useAppContext, useTooltip } from 'hooks';
@@ -197,8 +197,8 @@ export const SkyWars = memo((props) => {
 		for (const head of headArray) {
 			imgList.push(
 				<span key={`head-${i++}`} data-tip={Utils.capitalize(head.sacrifice)}>
-					<Link to={`/player/${head.uuid}`}>
-						<Crafatar uuid={head.uuid} type='head'/>
+					<Link to={`/player/${head.uuid}`} target="_blank" rel="noopener noreferrer">
+						<PlayerHead uuid={head.uuid} type='head'/>
 					</Link>
 				</span>
 				);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Crafatar, ExternalLink, GuildTag, MinecraftText, PlayerName, Status } from 'components';
+import { ExternalLink, GuildTag, MinecraftText, PlayerHead, PlayerName, Status } from 'components';
 import { APP } from 'constants/app';
 import { useAPIContext } from 'hooks';
 
@@ -13,7 +13,7 @@ export function PlayerHeadline(props) {
 	return (
 		<div className="h-flex px-2 align-items-center">
 			<ExternalLink href={`${APP.nameMC}${mojang.uuid}`}>
-				<Crafatar uuid={mojang.uuid} shadow />
+				<PlayerHead uuid={mojang.uuid} shadow />
 			</ExternalLink>
 			<div className="text-shadow pl-2">
 				<PlayerName username={mojang.username} player={player} size="xl" />

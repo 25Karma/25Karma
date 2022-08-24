@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MdFileDownload } from 'react-icons/md';
-import { Button, Crafatar, ExternalLink, LoadingSpinner, PlayerName, 
+import { Button, ExternalLink, LoadingSpinner, PlayerHead, PlayerName, 
 	ReactIcon, SortableList } from 'components';
 import { APP } from 'constants/app';
 import { useAPIContext } from 'hooks';
@@ -153,7 +153,7 @@ export function GuildMemberList(props) {
 						<tr key={member.joined}>
 							<td className="td-shrink">
 								<ExternalLink href={`${APP.nameMC}${data.uuid}`}>
-									<Crafatar uuid={data.uuid} size="lg" shadow />
+									<PlayerHead uuid={data.uuid} size="lg" shadow />
 								</ExternalLink>
 							</td>
 							<td className="text-shadow">

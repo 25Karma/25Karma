@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Crafatar, ExternalLink, LoadingSpinner, PlayerName, SortableList } from 'components';
+import { Button, ExternalLink, LoadingSpinner, PlayerHead, PlayerName, SortableList } from 'components';
 import { APP } from 'constants/app';
 import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
@@ -115,7 +115,7 @@ export function FriendsList(props) {
 						<tr key={friend._id}>
 							<td className="td-shrink">
 								<ExternalLink href={`${APP.nameMC}${data.uuid}`}>
-									<Crafatar uuid={data.uuid} size="lg" shadow />
+									<PlayerHead uuid={data.uuid} size="lg" shadow />
 								</ExternalLink>
 							</td>
 							<td className="text-shadow">
