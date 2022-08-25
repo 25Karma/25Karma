@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, ExternalLink, HorizontalLine, SocialMedia } from 'components';
-import { Br, Box, Pair, Title } from 'components/Stats';
+import { Br, Box, Pair, Table, Title } from 'components/Stats';
 import { APP } from 'constants/app';
 import { HYPIXEL as consts } from 'constants/hypixel';
 import { useAPIContext } from 'hooks';
@@ -87,6 +87,25 @@ export function PlayerCard(props) {
 			<Br/>
 		</React.Fragment>
 	);
+
+	const [isNameHistoryShown, setNameHistoryShown] = useState(false);
+	function knownAliases() {
+		const knownAliases = Utils.traverse(player, 'knownAliases', [])
+		if (knownAliases.length > 1) return (
+			<React.Fragment>
+				<Pair 
+					title={<span className="link cursor-pointer" onClick={() => setNameHistoryShown(!isNameHistoryShown)}>Name History</span>}>
+					({isNameHistoryShown ? 'hide' : 'show'})
+				</Pair>
+				{isNameHistoryShown &&
+					<Table className="mt-1">
+						<tbody>{knownAliases.slice().reverse().map((n, i) => <tr index={i}><td>{n}</td></tr>)}</tbody>
+					</Table>
+				}
+				<Br/>
+			</React.Fragment>
+		);
+	}
 	
 	const skyblockButton = (
 		<ExternalLink href={`${APP.skyblock}${mojang.uuid}`}>
@@ -153,6 +172,7 @@ export function PlayerCard(props) {
 			<HorizontalLine className="mb-3"/>
 			{overallStats}
 			{loginDates}
+			{knownAliases()}
 			{skyblockButton}
 			{guildInfo()}
 			{socialMedia()}
