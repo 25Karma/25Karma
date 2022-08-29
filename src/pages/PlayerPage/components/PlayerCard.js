@@ -94,10 +94,12 @@ export function PlayerCard(props) {
 			<Collapsible>
 			{provided => (
 				<React.Fragment>
-					<Pair 
-						title={<span className="link cursor-pointer" {...provided.collapseButtonProps}>Name History</span>}>
-						({provided.isCollapsed ? 'show' : 'hide'})
-					</Pair>
+					<span className="cursor-pointer" {...provided.collapseButtonProps}>
+						<Pair
+							title={<span className="link">Name History</span>}>
+							({provided.isCollapsed ? 'show' : 'hide'})
+						</Pair>
+					</span>
 					<div {...provided.collapsibleProps}>
 						<Table className="mt-1">
 							<tbody>{knownAliases.slice().reverse().map((n, i) => <tr key={i}><td>{n}</td></tr>)}</tbody>
