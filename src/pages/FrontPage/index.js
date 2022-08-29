@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { ExternalLink, MinecraftText, PageLayout } from 'components';
 import { RecentSearches, Search, Tips } from './components';
 import { APP } from 'constants/app';
@@ -14,7 +14,7 @@ import { useAppContext } from 'hooks';
 */
 export function FrontPage(props) {
 
-	const config = props.config || {};
+	const config = useMemo(() => props.config || {}, [props.config]);
 	document.title = `Hypixel Player Stats - ${APP.documentTitle}`;
 
 	// Set the banner according to the config

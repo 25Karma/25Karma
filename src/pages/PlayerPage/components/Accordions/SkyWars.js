@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { memo, useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Accordion, Button, HorizontalLine, PlayerHead } from 'components';
 import { Box, Br, Cell, Pair, Progress, ProgressBar, Row, Table } from 'components/Stats';
@@ -17,7 +17,7 @@ export const SkyWars = memo((props) => {
 	// Get the player's API data for SkyWars
 	const { player } = useAPIContext();
 	const { setBanner } = useAppContext();
-	const json = Utils.traverse(player,'stats.SkyWars') || {};
+	const json = useMemo(() => Utils.traverse(player,'stats.SkyWars') || {}, [player]);
 
 	const leveling = new HypixelLeveling(xpToLevel, levelToXP,
 		Utils.default0(json.skywars_experience));
