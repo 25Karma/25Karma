@@ -25,7 +25,8 @@ export function Collapsible(props) {
 		},
 		collapseButtonProps : {
 			onClick : toggleCollapsed,
-		}
+		},
+		isCollapsed: isCollapsed,
 	}
 
 	function toggleCollapsed() {

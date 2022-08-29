@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, ExternalLink, HorizontalLine, SocialMedia } from 'components';
+import { Button, Card, Collapsible, ExternalLink, HorizontalLine, SocialMedia } from 'components';
 import { Br, Box, Pair, Table, Title } from 'components/Stats';
 import { APP } from 'constants/app';
 import { HYPIXEL as consts } from 'constants/hypixel';
@@ -88,22 +88,25 @@ export function PlayerCard(props) {
 		</React.Fragment>
 	);
 
-	const [isNameHistoryShown, setNameHistoryShown] = useState(false);
 	function knownAliases() {
 		const knownAliases = Utils.traverse(player, 'knownAliases', [])
 		if (knownAliases.length > 1) return (
-			<React.Fragment>
-				<Pair 
-					title={<span className="link cursor-pointer" onClick={() => setNameHistoryShown(!isNameHistoryShown)}>Name History</span>}>
-					({isNameHistoryShown ? 'hide' : 'show'})
-				</Pair>
-				{isNameHistoryShown &&
-					<Table className="mt-1">
-						<tbody>{knownAliases.slice().reverse().map((n, i) => <tr index={i}><td>{n}</td></tr>)}</tbody>
-					</Table>
-				}
-				<Br/>
-			</React.Fragment>
+			<Collapsible>
+			{provided => (
+				<React.Fragment>
+					<Pair 
+						title={<span className="link cursor-pointer" {...provided.collapseButtonProps}>Name History</span>}>
+						({provided.isCollapsed ? 'show' : 'hide'})
+					</Pair>
+					<div {...provided.collapsibleProps}>
+						<Table className="mt-1">
+							<tbody>{knownAliases.slice().reverse().map((n, i) => <tr key={i}><td>{n}</td></tr>)}</tbody>
+						</Table>
+					</div>
+					<Br/>
+				</React.Fragment>
+			)}
+			</Collapsible>
 		);
 	}
 	
