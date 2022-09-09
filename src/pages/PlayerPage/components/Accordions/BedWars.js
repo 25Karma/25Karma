@@ -116,36 +116,37 @@ export const BedWars = memo((props) => {
 		)
 
 	const table = (() => {
-		const dreamsStartAt = 'eight_one_rush_';
+		function renderRowForMode(id, name, computeStats) {
+			return Boolean(Utils.add(json[`${id}wins_bedwars`], json[`${id}losses_bedwars`])) &&
+				<Row key={name} id={id} isHighlighted={id === mostPlayedMode.id}>
+					<Cell>{name}</Cell>
+					<Cell>{computeStats('kills_bedwars')}</Cell>
+					<Cell>{computeStats('deaths_bedwars')}</Cell>
+					<Cell>{Utils.ratio(computeStats('kills_bedwars'),computeStats('deaths_bedwars'))}</Cell>
+
+					<Cell>{computeStats('final_kills_bedwars')}</Cell>
+					<Cell>{computeStats('final_deaths_bedwars')}</Cell>
+					<Cell>{Utils.ratio(computeStats('final_kills_bedwars'),computeStats('final_deaths_bedwars'))}</Cell>
+
+					<Cell>{computeStats('wins_bedwars')}</Cell>
+					<Cell>{computeStats('losses_bedwars')}</Cell>
+					<Cell>{Utils.ratio(computeStats('wins_bedwars'),computeStats('losses_bedwars'))}</Cell>
+					<Cell>{computeStats('winstreak')}</Cell>
+
+					<Cell>{computeStats('beds_broken_bedwars')}</Cell>
+					<Cell>{computeStats('beds_lost_bedwars')}</Cell>
+					<Cell>{Utils.ratio(computeStats('beds_broken_bedwars'),computeStats('beds_lost_bedwars'))}</Cell>
+				</Row>
+		}
+
+		const dreamsStartAt = 'two_four_';
 		let rowList = [];
 		for (const {id, name} of consts.MODES) {
 			if (id === dreamsStartAt) {
-				rowList.push(
-					<tr key="dreams"><th><div className="mt-2">Dreams Mode</div></th></tr>
-					);
+				rowList.push(renderRowForMode('', 'Core Modes', (suffix) => Utils.subtract(json[suffix],json[`two_four_${suffix}`])));
+				rowList.push(<tr key="spacer"><th>&nbsp;</th></tr>);
 			}
-			rowList.push(
-				Boolean(Utils.add(json[`${id}wins_bedwars`], json[`${id}losses_bedwars`])) &&
-				<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
-					<Cell>{name}</Cell>
-					<Cell>{json[`${id}kills_bedwars`]}</Cell>
-					<Cell>{json[`${id}deaths_bedwars`]}</Cell>
-					<Cell>{Utils.ratio(json[`${id}kills_bedwars`],json[`${id}deaths_bedwars`])}</Cell>
-
-					<Cell>{json[`${id}final_kills_bedwars`]}</Cell>
-					<Cell>{json[`${id}final_deaths_bedwars`]}</Cell>
-					<Cell>{Utils.ratio(json[`${id}final_kills_bedwars`],json[`${id}final_deaths_bedwars`])}</Cell>
-
-					<Cell>{json[`${id}wins_bedwars`]}</Cell>
-					<Cell>{json[`${id}losses_bedwars`]}</Cell>
-					<Cell>{Utils.ratio(json[`${id}wins_bedwars`],json[`${id}losses_bedwars`])}</Cell>
-					<Cell>{json[`${id}winstreak`]}</Cell>
-
-					<Cell>{json[`${id}beds_broken_bedwars`]}</Cell>
-					<Cell>{json[`${id}beds_lost_bedwars`]}</Cell>
-					<Cell>{Utils.ratio(json[`${id}beds_broken_bedwars`],json[`${id}beds_lost_bedwars`])}</Cell>
-				</Row>
-				);
+			rowList.push(renderRowForMode(id, name, (suffix) => json[`${id}${suffix}`]));
 		}
 		return (
 			<Table>

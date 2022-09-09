@@ -46,7 +46,6 @@ export const BEDWARS = {
 		{id: 'four_three_', name: '3v3v3v3'},
 		{id: 'four_four_', name: '4v4v4v4'},
 		{id: 'two_four_', name: '4v4'},
-		{id: '', name: 'Overall'},
 		{id: 'eight_one_rush_', name: 'Rush Solo'},
 		{id: 'eight_two_rush_', name: 'Rush Doubles'},
 		{id: 'four_four_rush_', name: 'Rush 4v4v4v4'},
@@ -62,6 +61,7 @@ export const BEDWARS = {
 		{id: 'eight_two_swap_', name: 'Swappage Doubles'},
 		{id: 'four_four_swap_', name: 'Swappage 4v4v4v4'},
 		{id: 'castle_', name: 'Castle'},
+		{id: '', name: 'Overall'},
 	],
 	PRACTICEMODES: [
 		{id: 'bridging', name: 'Bridging'},
