@@ -21,10 +21,10 @@ export const BedWars = memo((props) => {
 		Utils.default0(json.Experience) + Utils.default0(json.Experience_new));
 	const prestige = getPrestige(leveling.level);
 	const ratios = {
-		kd : Utils.ratio(json.kills_bedwars,json.deaths_bedwars),
-		fkd : Utils.ratio(json.final_kills_bedwars,json.final_deaths_bedwars),
-		wl : Utils.ratio(json.wins_bedwars,json.losses_bedwars),
-		bbl : Utils.ratio(json.beds_broken_bedwars,json.beds_lost_bedwars)
+		kd : Utils.ratio(getCoreModeStat('kills_bedwars'), getCoreModeStat('deaths_bedwars')),
+		fkd : Utils.ratio(getCoreModeStat('final_kills_bedwars'), getCoreModeStat('final_deaths_bedwars')),
+		wl : Utils.ratio(getCoreModeStat('wins_bedwars'), getCoreModeStat('losses_bedwars')),
+		bbl : Utils.ratio(getCoreModeStat('beds_broken_bedwars'), getCoreModeStat('beds_lost_bedwars'))
 	}
 
 	const mostPlayedMode = getMostPlayed(consts.MODES,
@@ -82,6 +82,10 @@ export const BedWars = memo((props) => {
 		}).join('');
 
 		return {tag: coloredTag, ...prestige};
+	}
+
+	function getCoreModeStat(suffix) {
+		return Utils.subtract(json[suffix],json[`two_four_${suffix}`]);
 	}
 
 	const header = (
@@ -143,7 +147,7 @@ export const BedWars = memo((props) => {
 		let rowList = [];
 		for (const {id, name} of consts.MODES) {
 			if (id === dreamsStartAt) {
-				rowList.push(renderRowForMode('', 'Core Modes', (suffix) => Utils.subtract(json[suffix],json[`two_four_${suffix}`])));
+				rowList.push(renderRowForMode('', 'Core Modes', getCoreModeStat));
 				rowList.push(<tr key="spacer"><th>&nbsp;</th></tr>);
 			}
 			rowList.push(renderRowForMode(id, name, (suffix) => json[`${id}${suffix}`]));
