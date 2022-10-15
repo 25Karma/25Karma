@@ -80,4 +80,5 @@ export const BEDWARS = {
 			{id: 'DIAGONAL', name: 'Diagonal'},
 		],
 	},
+	WINSTREAK_SUFFIX: 'winstreak',
 };

@@ -85,6 +85,8 @@ export const BedWars = memo((props) => {
 	}
 
 	function getCoreModeStat(suffix) {
+		if (suffix === consts.WINSTREAK_SUFFIX)
+			return json.winstreak;
 		return Utils.subtract(json[suffix],json[`two_four_${suffix}`]);
 	}
 
@@ -135,7 +137,7 @@ export const BedWars = memo((props) => {
 					<Cell>{computeStats('wins_bedwars')}</Cell>
 					<Cell>{computeStats('losses_bedwars')}</Cell>
 					<Cell>{Utils.ratio(computeStats('wins_bedwars'),computeStats('losses_bedwars'))}</Cell>
-					<Cell>{computeStats('winstreak')}</Cell>
+					<Cell>{computeStats(consts.WINSTREAK_SUFFIX)}</Cell>
 
 					<Cell>{computeStats('beds_broken_bedwars')}</Cell>
 					<Cell>{computeStats('beds_lost_bedwars')}</Cell>
