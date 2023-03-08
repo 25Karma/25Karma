@@ -35,18 +35,18 @@ export function Navbar(props) {
 		{(provided) => (
 			<React.Fragment>
 				<div className="h-flex">
-						<div className="flex-1 p-1 h-flex">
-							<Link className="p-1 text-shadow" to="/frontpage">
+						<div className="flex-1 h-flex align-items-center">
+							<Link className="text-shadow p-2" to="/frontpage">
 								<MinecraftText font="md">
 									{"§d"+APP.appNickname}
 								</MinecraftText>
 							</Link>
 						</div>
-						<div className="flex-1 py-1 flex-3">
-							{props.searchbar && <Searchbar />}
+						<div className={`flex-1 py-1 flex-3 ${props.searchbar || 'hidden'}`}>
+							<Searchbar />
 						</div>
-						<div className="flex-1 p-1 text-right">
-								<p className="p-1">
+						<div className="flex-1 h-flex justify-content-end align-items-center">
+								<p className="p-2">
 									{renderPinnedPlayerButton()}
 									<button className="ml-2" {...provided.collapseButtonProps}>
 										<ReactIcon icon={MdSettings} clickable />

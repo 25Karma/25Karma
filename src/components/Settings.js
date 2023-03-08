@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import Cookies from 'js-cookie';
 import './Settings.css';
-import { Button, ExternalLink } from 'components';
+import { Button, Checkbox, ExternalLink, HorizontalLine, MinecraftText } from 'components';
+import { Br } from 'components/Stats';
 import { APP, COOKIES } from 'constants/app';
 import { useAppContext, useTooltip } from 'hooks';
 
@@ -76,63 +77,68 @@ export function Settings(props) {
 	}
 
 	return (
-		<div className="settings p-2">
+		<div className="settings py-2">
 			<div className="container v-flex">
-				{/* 'Pinned Player' row */}
-				<div className="h-flex align-items-center pb-2">
-					<span 
-						data-tip="The player you would like to load by default when you visit this site." 
-						className="font-bold cursor-help pr-2">
-						Pinned Player
-					</span>
-					<input 
-						ref={pinnedPlayerInput}
-						style={{width:'15rem'}}
-						type="text" 
-						placeholder={`ex. ${APP.suggestedPlayers[1]}`}
-						defaultValue={Cookies.get(COOKIES.pinnedPlayer)}/>
-					<div className="pl-2 ml-auto">
-						<Button type="error" onClick={clearCookies}>
-							<span className="font-bold">Clear Cookies</span>
-						</Button>
+				<MinecraftText className="mb-2">Settings</MinecraftText>
+				<HorizontalLine className="mb-3"/>
+				<section>
+					<div className="flex-2">
+						<div className="font-bold">Pinned Player</div>
+						<div className="c-gray">The player you would like to load by default when you visit this site.</div>
 					</div>
-				</div>
-				{/* 'Decimal Places' row */}
-				<div className="h-flex align-items-center pb-2">
-					<span 
-						data-tip="The amount of decimal places to display for K/D, W/L, etc." 
-						className="font-bold cursor-help pr-2">
-						Decimal Places
-					</span>
-					<input 
-						ref={decimalInput}
-						style={{width:'4rem'}}
-						type="number"  
-						defaultValue={Cookies.get(COOKIES.decimalPlaces) || '2'}
-						min="0"
-						max="8"
-						step="1"/>
-				</div>
-				{/* 'Hide Completed Achievements' row */}
-				<div className="h-flex align-items-center pb-2">
-					<span
-						data-tip="Whether to hide completed achievements."
-						className="font-bold cursor-help pr-2">
-						Hide Completed Achievements
-					</span>
-					<input
-						ref={hideCompleteAchievementsInput}
-						type="checkbox"
-						defaultChecked={Cookies.get(COOKIES.hideCompletedAchievements) === 'true' || false}/>
-				</div>
-				<div className="v-flex align-items-center pb-3">
+					<div className="flex-1 text-right">
+						<input 
+							ref={pinnedPlayerInput}
+							style={{width:'13rem'}}
+							type="text" 
+							placeholder={`ex. ${APP.suggestedPlayers[1]}`}
+							defaultValue={Cookies.get(COOKIES.pinnedPlayer)} />
+					</div>
+				</section>
+				<Br/>
+				<section>
+					<div className="flex-2">
+						<div className="font-bold">Decimal Places</div>
+						<div className="c-gray">The amount of decimal places to display for K/D, W/L, etc.</div>
+					</div>
+					<div className="flex-1 text-right">
+						<input 
+							ref={decimalInput}
+							style={{width:'13rem'}}
+							type="number"  
+							defaultValue={Cookies.get(COOKIES.decimalPlaces) || '2'}
+							min="0"
+							max="8"
+							step="1" />
+					</div>
+				</section>
+				<Br/>
+				<section>
+					<div className="flex-2">
+						<div className="font-bold">Hide Completed Achievements</div>
+						<div className="c-gray">Choose whether to hide completed acheivements on Achievement pages.</div>
+					</div>
+					<div className="flex-1 h-flex justify-content-end">
+						<Checkbox
+							ref={hideCompleteAchievementsInput}
+							defaultChecked={Cookies.get(COOKIES.hideCompletedAchievements) === 'true' || false}/>
+					</div>
+				</section>
+				<Br/>
+				<div className="h-flex justify-content-center align-items-center">
 					<Button onClick={setCookies}><span className="font-bold">Save Settings</span></Button>
 				</div>
-				<p>
-					Your preferences are stored as <ExternalLink href="http://www.whatarecookies.com/">
-					cookies</ExternalLink> on your computer. They are accessible to you and to you only. 
-					You can clear the cookies used by this site at any time by clicking the Clear Cookies button.
-				</p>
+				<HorizontalLine className="my-3"/>
+				<div className="h-flex justify-content-center align-items-center">
+					<div className="flex-1 c-gray mr-5">
+						Your settings and preferences are stored as <ExternalLink href="http://www.whatarecookies.com/">
+						cookies</ExternalLink> on your computer. They are accessible to you and to you only. 
+						You can clear the cookies used by this site at any time by clicking the Clear Cookies button.
+					</div>
+					<Button type="error" onClick={clearCookies}>
+						<span className="font-bold">Clear Cookies</span>
+					</Button>
+				</div>
 			</div>
 		</div>
 		);

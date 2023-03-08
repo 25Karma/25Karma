@@ -22,8 +22,8 @@ export function Searchbar(props) {
 	*/
 	useEffect(() => {
 		function keyDownListener(event) {
-			// Do nothing if the user is already focused on the searchbar
-			if (document.activeElement === refInput.current) return;
+			// Do nothing if the user is already focused on a text input
+			if (document.activeElement.nodeName === 'INPUT') return;
 
 			// Do nothing if the key is pressed with Ctrl
 			if (event.ctrlKey) return;

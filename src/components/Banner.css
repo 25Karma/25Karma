@@ -10,6 +10,7 @@
 
 .banner {
 	border-radius: 0.25rem;
+	border: 1px solid var(--theme-border);
 	pointer-events: auto;
 	display: flex;
 	align-items: center;

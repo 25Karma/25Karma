@@ -1,0 +1,18 @@
+.checkbox-wrapper {
+	background: var(--theme-primary);
+	border: 1px solid var(--theme-border);
+	border-radius: 0.25rem;
+	display: flex;
+	width: min-content;
+	cursor: pointer;
+	user-select: none;
+}
+
+.checkbox-wrapper input {
+	opacity: 0;
+	width: 0;
+}
+
+.checkbox-wrapper > span:first-child {
+	border-right: 1px solid var(--theme-border);
+}
