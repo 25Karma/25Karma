@@ -16,7 +16,7 @@ function generateQuestsAccordion(gameMode) {
 		const playerQuests = Utils.traverse(player, 'quests', {});
 
 		// Daily and Weekly quests specific to the gameMode
-		const gameQuests = allQuests[gameMode];
+		const gameQuests = allQuests[gameMode] || [];
 
 		// Separate all of the gameMode's quests into daily and weekly 
 		const dailyQuests = gameQuests.filter(q => q.name.includes('Daily'));
@@ -107,7 +107,9 @@ function generateQuestsAccordion(gameMode) {
 			</React.Fragment>
 		);
 
-		return (
+		return gameQuests.length === 0 ? 
+			<Accordion title={HYPIXEL.QUESTS[gameMode]} index={index} />
+			:
 			<Accordion title={HYPIXEL.QUESTS[gameMode]} header={header} index={index}>
 				<table className="w-100">
 					<tbody>
@@ -127,8 +129,7 @@ function generateQuestsAccordion(gameMode) {
 					</tbody>
 				</table>
 			</Accordion>
-		);
-	})
+	});
 }
 
 export const QuestsAccordions = Object.fromEntries(
