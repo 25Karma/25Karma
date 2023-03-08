@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, Collapsible, ExternalLink, HorizontalLine, SocialMedia } from 'components';
-import { Br, Box, Pair, Table, Title } from 'components/Stats';
+import { Button, Card, ExternalLink, HorizontalLine, SocialMedia } from 'components';
+import { Br, Box, Pair, Title } from 'components/Stats';
 import { APP } from 'constants/app';
 import { HYPIXEL as consts } from 'constants/hypixel';
 import { useAPIContext } from 'hooks';
@@ -83,30 +83,6 @@ export function PlayerCard(props) {
 			<Br/>
 		</React.Fragment>
 	);
-
-	function knownAliases() {
-		const knownAliases = Utils.traverse(player, 'knownAliases', [])
-		if (knownAliases.length > 1) return (
-			<Collapsible>
-			{provided => (
-				<React.Fragment>
-					<span className="cursor-pointer" {...provided.collapseButtonProps}>
-						<Pair
-							title={<span className="link">Name History</span>}>
-							({provided.isCollapsed ? 'show' : 'hide'})
-						</Pair>
-					</span>
-					<div {...provided.collapsibleProps}>
-						<Table className="mt-1">
-							<tbody>{knownAliases.slice().reverse().map((n, i) => <tr key={i}><td>{n}</td></tr>)}</tbody>
-						</Table>
-					</div>
-					<Br/>
-				</React.Fragment>
-			)}
-			</Collapsible>
-		);
-	}
 	
 	const skyblockButton = (
 		<ExternalLink href={`${APP.skyblock}${mojang.uuid}`}>
@@ -173,7 +149,6 @@ export function PlayerCard(props) {
 			<HorizontalLine className="mb-3"/>
 			{overallStats}
 			{loginDates}
-			{knownAliases()}
 			{skyblockButton}
 			{guildInfo()}
 			{socialMedia()}
