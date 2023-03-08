@@ -9,5 +9,5 @@ export const APP = {
 	nameMC: "https://namemc.com/search?q=",
 	organization: "https://github.com/25karma",
 	skyblock: "https://sky.shiiyu.moe/",
-	suggestedPlayers: ["Technoblade", "gamerboy80", "AgentKid"],
+	suggestedPlayers: ["Technoblade", "gamerboy80", "Technoblade"],
 }

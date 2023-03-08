@@ -1,4 +1,4 @@
-import { FaAward, FaUser, FaUsers, FaShieldAlt, FaScroll, FaPaw } from 'react-icons/fa';
+import { FaAward, FaUser, FaShieldAlt, FaScroll, FaPaw } from 'react-icons/fa';
 import * as Page from 'pages';
 export const PAGES = [
 	{
@@ -16,14 +16,6 @@ export const PAGES = [
 		tags: ['guild', 'g'],
 		component: Page.GuildPage,
 		icon: FaShieldAlt
-	},
-	{
-		name: 'Friends',
-		about: 'Search for the friends of a Hypixel player',
-		path: 'friends',
-		tags: ['friends', 'f'],
-		component: Page.FriendsPage, 
-		icon: FaUsers
 	},
 	{
 		name: 'Achievements',

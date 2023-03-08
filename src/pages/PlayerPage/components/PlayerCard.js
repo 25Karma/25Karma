@@ -14,7 +14,7 @@ import { calculateNetworkLevel, getPlayerRank, getGuildMemberRank, getGuildMembe
 */
 export function PlayerCard(props) {
 	
-	const { friends, player, guild, mojang } = useAPIContext();
+	const { player, guild, mojang } = useAPIContext();
 	const json = player || {};
 	const networkLevel = calculateNetworkLevel(json.networkExp);
 	const multiplier = (() => {
@@ -58,10 +58,6 @@ export function PlayerCard(props) {
 			<Br />
 			<Pair title={<Link to={`/quests/${mojang.username}`} className="link">Quests Completed</Link>}>
 				{json.questsCompleted}
-			</Pair>
-			<Br />
-			<Pair title={<Link to={`/friends/${mojang.username}`} className="link">Friends</Link>}>
-				{friends}
 			</Pair>
 			<Br />
 			<Pair title="Today's Reward" color={rewardClaimed ? 'green' : 'gray'}>{rewardClaimed ? 'Claimed!' : 'Unclaimed'}</Pair>
