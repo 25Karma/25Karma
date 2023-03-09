@@ -22,6 +22,7 @@ export function Tips(props) {
 			on GitHub.</ExternalLink>
 		</React.Fragment>,
 		"Clicking on a player's avatar brings you to their profile on NameMC.",
+		"Player names are cached for 30 days to shorten page load times!",
 		<React.Fragment>
 			The "View SkyBlock Stats" button on the player stats page brings you
 			to <ExternalLink href={APP.skyblock}>SkyCrypt</ExternalLink>!
