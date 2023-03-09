@@ -20,11 +20,11 @@ export function Box(props) {
 	}
 
 	return (
-		<span className="v-flex align-items-center py-1 px-2">
+		<h2 className="v-flex align-items-center py-1 px-2">
 			<small className="nowrap">{props.title}</small>
 			<MinecraftText className="nowrap" font="md" formatNum>
 				{`${renderColor()}${renderChildren()}` /* Text is gray by default */}
 			</MinecraftText>
-		</span>
+		</h2>
 		);
 }

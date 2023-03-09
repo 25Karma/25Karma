@@ -15,12 +15,12 @@ export function QuestsHeadline(props) {
 			<ExternalLink href={`${APP.nameMC}${mojang.uuid}`}>
 				<PlayerHead uuid={mojang.uuid} shadow />
 			</ExternalLink>
-			<div className="text-shadow pl-2">
+			<h1 className="text-shadow pl-2">
 				<Link to={`/player/${mojang.username}`}>
 					<PlayerName username={mojang.username} player={player} size="xl" />
 				</Link>
 				<MinecraftText size="xl">§7's Quests</MinecraftText>
-			</div>
+			</h1>
 		</div>
 		);
 }

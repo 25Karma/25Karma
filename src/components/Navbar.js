@@ -36,7 +36,7 @@ export function Navbar(props) {
 			<React.Fragment>
 				<div className="h-flex">
 						<div className="flex-1 h-flex align-items-center">
-							<Link className="text-shadow p-2" to="/frontpage">
+							<Link className="text-shadow nowrap p-2" to="/frontpage">
 								<MinecraftText font="md">
 									{"§d"+APP.appNickname}
 								</MinecraftText>

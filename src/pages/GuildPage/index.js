@@ -21,9 +21,11 @@ export function GuildPage(props) {
 				<PageLayout
 				searchbar
 				top={
-					<MinecraftText size="xl" className="px-2 text-shadow">
-						{`${Utils.toColorCode(guild.tagColor || 'gray')}${guild.name}`}
-					</MinecraftText>
+					<h1>
+						<MinecraftText size="xl" className="px-2 text-shadow">
+							{`${Utils.toColorCode(guild.tagColor || 'gray')}${guild.name}`}
+						</MinecraftText>
+					</h1>
 				} 
 				left={<GuildCard />}
 				center={<GuildMemberList />} />

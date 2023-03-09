@@ -109,11 +109,11 @@ export function FrontPage(props) {
 	return (
 		<PageLayout
 			top={
-				<span className="text-shadow">
+				<h1 className="text-shadow">
 					<MinecraftText size="xxl">
 						{"§d"+APP.appName}
 					</MinecraftText>
-				</span>
+				</h1>
 			}
 			center={
 				<React.Fragment>

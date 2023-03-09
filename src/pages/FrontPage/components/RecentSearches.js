@@ -23,9 +23,9 @@ export function RecentSearches(props) {
 	if (array === undefined || array.length === 0) {
 		return (
 			<div className="h-flex flex-wrap pt-2 pl-1">
-				<div className="pt-2 pl-2">
+				<h1 className="pt-2 pl-2">
 					<MinecraftText>First time? Try searching</MinecraftText>
-				</div>
+				</h1>
 				<div className="pl-2 py-1">
 					<Link to={`/search/${APP.suggestedPlayers[0]}`}>
 						<Button>
@@ -38,9 +38,9 @@ export function RecentSearches(props) {
 	}
 	return (
 		<React.Fragment>
-			<div className="mt-4 pl-2">
+			<h1 className="mt-4 pl-2">
 				<MinecraftText>Recent searches</MinecraftText>
-			</div>
+			</h1>
 			<div className="h-flex flex-wrap">
 				{array.slice(0, showAllRecents ? array.length : 5).map((a) => (
 					<div key={a} className="pr-2 py-1">

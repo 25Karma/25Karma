@@ -15,13 +15,13 @@ export function PlayerHeadline(props) {
 			<ExternalLink href={`${APP.nameMC}${mojang.uuid}`}>
 				<PlayerHead uuid={mojang.uuid} shadow />
 			</ExternalLink>
-			<div className="text-shadow pl-2">
+			<h1 className="text-shadow pl-2">
 				<PlayerName username={mojang.username} player={player} size="xl" />
 				<MinecraftText size="xl"> </MinecraftText>
 				<Link to={`/guild/${mojang.username}`}>
 					<GuildTag guild={guild} size="xl" />
 				</Link>
-			</div>
+			</h1>
 			<Status player={player} status={status} size="xl" />
 		</div>
 		);

@@ -14,7 +14,7 @@ export function Search(props) {
 		<React.Fragment>
 			<div className="py-1">
 				<p className="pb-1 pl-2">
-					<MinecraftText size="md">{searchType.about}</MinecraftText>
+					<h1><MinecraftText size="md">{searchType.about}</MinecraftText></h1>
 				</p>
 				<Searchbar defaultValue={props.defaultValue || ''} tag={searchType.tags[0]} />
 			</div>
