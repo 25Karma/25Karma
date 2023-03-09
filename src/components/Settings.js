@@ -129,16 +129,18 @@ export function Settings(props) {
 					<Button onClick={setCookies}><span className="font-bold">Save Settings</span></Button>
 				</div>
 				<HorizontalLine className="my-3"/>
-				<div className="h-flex justify-content-center align-items-center">
-					<div className="flex-1 c-gray mr-5">
+				<section>
+					<div className="flex-3 c-gray">
 						Your settings and preferences are stored as <ExternalLink href="http://www.whatarecookies.com/">
 						cookies</ExternalLink> on your computer. They are accessible to you and to you only. 
 						You can clear the cookies used by this site at any time by clicking the Clear Cookies button.
 					</div>
-					<Button type="error" onClick={clearCookies}>
-						<span className="font-bold">Clear Cookies</span>
-					</Button>
-				</div>
+					<div className="flex-1 text-right">
+						<Button type="error" onClick={clearCookies}>
+							<span className="font-bold">Clear Cookies</span>
+						</Button>
+					</div>
+				</section>
 			</div>
 		</div>
 		);
