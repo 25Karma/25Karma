@@ -120,6 +120,7 @@ export const PETS = {
 		HORSE_DARK_BROWN         : { rarity: 'Rare',       name: 'Dark Brown Horse',           food: 'Apple',         drink: 'Water', exercise: 'Leash'          },
 		HORSE_GREY               : { rarity: 'Rare',       name: 'Gray Horse',                 food: 'Apple',         drink: 'Water', exercise: 'Leash'          },
 		HORSE_WHITE              : { rarity: 'Epic',       name: 'White Horse',                food: 'Apple',         drink: 'Water', exercise: 'Leash'          },
+		HORSE_BROWN_BABY         : { rarity: 'Rare',       name: 'Brown Horse (Baby)',         food: 'Apple',         drink: 'Milk',  exercise: 'Stick'          },
 		BROWN_HORSE_BABY         : { rarity: 'Rare',       name: 'Brown Horse (Baby)',         food: 'Apple',         drink: 'Milk',  exercise: 'Stick'          },
 		HORSE_CHESTNUT_BABY      : { rarity: 'Epic',       name: 'Chestnut Horse (Baby)',      food: 'Cake',          drink: 'Milk',  exercise: 'Leash'          },
 		HORSE_CREAMY_BABY        : { rarity: 'Epic',       name: 'Creamy Horse (Baby)',        food: 'Cake',          drink: 'Milk',  exercise: 'Leash'          },
@@ -200,6 +201,8 @@ export const PETS = {
 
 		FISH                     : { rarity: 'Epic',       name: 'Fish',                       food: '',              drink: '',      exercise: ''               },
 		PUFFERFISH               : { rarity: 'Legendary',  name: 'Pufferfish',                 food: '',              drink: '',      exercise: ''               },
+		SALMON                   : { rarity: 'Epic',       name: 'Salmon',                     food: '',              drink: '',      exercise: ''               },
+		CLOWNFISH                : { rarity: 'Epic',       name: 'Clownfish',                  food: '',              drink: '',      exercise: ''               },
 
 	},
 	EXP: {
