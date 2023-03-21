@@ -3,9 +3,9 @@ export const UHC = {
 	MODES: [
 	{id: ['_solo'], name: 'Solo'},
 	{id: [''], name: 'Teams'},
-	{id: ['_red vs blue'], name: 'Red vs. Blue'},
-	{id: ['_no diamonds'], name: 'No Diamonds'},
-	{id: ['_vanilla doubles'], name: 'Vanilla Doubles'},
+	{id: ['_red vs blue', '_red_vs_blue'], name: 'Red vs. Blue'},
+	{id: ['_no diamonds', '_no_diamonds'], name: 'No Diamonds'},
+	{id: ['_vanilla doubles', '_vanilla_doubles'], name: 'Vanilla Doubles'},
 	{id: ['_brawl'], name: 'Brawl'},
 	{id: ['_solo brawl', '_solo_brawl'], name: 'Solo Brawl'},
 	{id: ['_duo brawl', '_duo_brawl'], name: 'Duo Brawl'},
