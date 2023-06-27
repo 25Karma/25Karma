@@ -206,9 +206,6 @@ export function toColorCode(str) {
 		'pink' : 'd',
 		'yellow' : 'e',
 		'white' : 'f',
-		'brown' : 'g',
-		'rainbow' : 'R',
-		'rainbow font-bold' : 'K',
 		'BLACK' : '0',
 		'DARK_BLUE' : '1',
 		'DARK_GREEN' : '2',
@@ -224,7 +221,10 @@ export function toColorCode(str) {
 		'RED' : 'c',
 		'LIGHT_PURPLE' : 'd',
 		'YELLOW' : 'e',
-		'WHITE' : 'f'
+		'WHITE' : 'f',
+		'brown' : 'g',
+		'rainbow' : 'R',
+		'font-bold': 'l',
 	}
-	return '§' + (colorClasses[str] || 'f');
+	return '§' + (str.split(' ').map(word => colorClasses[word] || 'f').join('§'));
 }

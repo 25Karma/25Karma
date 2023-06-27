@@ -21,8 +21,7 @@ export const SkyWars = memo((props) => {
 
 	const leveling = new HypixelLeveling(xpToLevel, levelToXP,
 		Utils.default0(json.skywars_experience));
-	const prestigeColor = getPrestige(leveling.level).color;
-	const prestigeName = getPrestige(leveling.level).name;
+	const prestige = getPrestige(leveling.level);
 	const ratios = {
 		ahm: Utils.ratio(json.arrows_hit, json.arrows_shot),
 		kd : Utils.ratio(json.kills, json.deaths),
@@ -37,7 +36,7 @@ export const SkyWars = memo((props) => {
 	)
 	
 	const opalsEarned = Utils.traverse(player, 'achievements.skywars_opal_obsession');
-	const totalOpals = Utils.add(opalsEarned, Math.max(0, consts.PRESTIGES.findIndex(n => n.name === prestigeName)-1));
+	const totalOpals = Utils.add(opalsEarned, Math.max(0, consts.PRESTIGES.findIndex(n => n.name === prestige.name)-1));
 	const totalShards = Utils.add(opalsEarned*20000, json.shard);
 
 	const mostPlayedMode = getMostPlayed(consts.MODES,
@@ -75,7 +74,7 @@ export const SkyWars = memo((props) => {
 
 	function getPrestige(level) {
 		for (const pres of consts.PRESTIGES.slice().reverse()) {
-			if (pres.level <= Math.floor(level)) return {color: pres.color, name: pres.name}
+			if (pres.level <= Math.floor(level)) return pres
 		}
 	}
 
@@ -90,12 +89,12 @@ export const SkyWars = memo((props) => {
 
 	const header = (
 		<React.Fragment>
-			<Box title="Level" color={prestigeColor}>
-				{`[${
-					leveling.levelFloor
-				}${
-					prestigeIcon
-				}]`}
+			<Box title="Level">
+			{`${
+				Utils.toColorCode(prestige.b_color)}[${
+				Utils.toColorCode(prestige.color)}${leveling.levelFloor}${prestigeIcon}\ufe0e${
+				Utils.toColorCode(prestige.b_color)}]
+			`}
 			</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="Wins">{json.wins}</Box>
@@ -113,7 +112,7 @@ export const SkyWars = memo((props) => {
 					dataTip={`${leveling.xpAboveLevel}/${leveling.levelTotalXP} XP`}>
 					<Progress
 						proportion={leveling.proportionAboveLevel}
-						color={prestigeColor}
+						color={prestige.color}
 						dataTip={`${leveling.xpAboveLevel}/${leveling.levelTotalXP} XP`} />
 				</ProgressBar>
 			</div>
@@ -232,7 +231,7 @@ export const SkyWars = memo((props) => {
 			<div className="h-flex">
 				<div className="flex-1">
 					<Pair title="Level">{leveling.level}</Pair>
-					<Pair title="Prestige" color={prestigeColor}>{`${prestigeName} ${prestigeIcon}`}</Pair>
+					<Pair title="Prestige" color={prestige.color}>{`${prestige.name} ${prestigeIcon}\ufe0e`}</Pair>
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Pair title="Tokens" color="darkgreen">{json.cosmetic_tokens}</Pair>
 					<Br/>
