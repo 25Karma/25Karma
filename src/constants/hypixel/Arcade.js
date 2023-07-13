@@ -28,4 +28,9 @@ export const ARCADE = {
 			{id: 'mega_magma', name: 'Mega Magma', color: 'pink'},
 			{id: 'world_ender', name: 'World Ender', color: 'pink'},
 		],
+		PIXELPARTYMODES: [
+			{id: '_normal', name: 'Normal'},
+			{id: '_hyper', name: 'Hyper'},
+			{id: '', name: 'Overall'},
+		],
 	};

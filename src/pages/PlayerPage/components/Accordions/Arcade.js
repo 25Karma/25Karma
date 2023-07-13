@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'components';
-import { Box, Br, Cell, Pair, Table, Title } from 'components/Stats';
+import { Box, Br, Cell, Pair, Row, Table, Title } from 'components/Stats';
 import { ARCADE as consts, HYPIXEL } from 'constants/hypixel';
 import { useAPIContext } from 'hooks';
 import * as Utils from 'utils';
+import { getMostPlayed } from 'utils/hypixel';
 
 /*
 * Stats accordion for Arcade Games
@@ -16,6 +17,14 @@ export const Arcade = memo((props) => {
 	const { player } = useAPIContext();
 	const achievements = Utils.traverse(player, 'achievements', {});
 	const json = Utils.traverse(player,'stats.Arcade') || {};
+
+	const pixelPartyJson = Utils.traverse(json, 'pixel_party', {});
+	consts.PIXELPARTYMODES.forEach(({id}) => {
+		pixelPartyJson[`losses${id}`] = Utils.subtract(pixelPartyJson[`games_played${id}`], pixelPartyJson[`wins${id}`])
+		pixelPartyJson[`wl${id}`] = Utils.ratio(pixelPartyJson[`wins${id}`], pixelPartyJson[`losses${id}`])
+	})
+	const mostPlayedPixelPartyMode = getMostPlayed(consts.PIXELPARTYMODES, 
+		({id}) => Utils.default0(pixelPartyJson[`games_played${id}`]))
 	
 	const totalWins = Utils.add(...HYPIXEL.TOTALWINS.filter(i => i.includes('Arcade')
 		).map(n => Utils.traverse(player, n)));
@@ -76,6 +85,38 @@ export const Arcade = memo((props) => {
 						<Cell color={mode.color}>{mode.name}</Cell>
 						<Cell>{json[`${mode.id}_zombie_kills_zombies`]}</Cell>
 					</tr>
+					)
+			}
+			</tbody>
+		</Table>
+		);
+
+	const pixelPartyTable = (
+		<Table>
+			<thead>
+				<tr>
+					<th>Mode</th>
+					<th>Wins</th>
+					<th>Losses</th>
+					<th>WL</th>
+					<th>Games Played</th>
+					<th>Rounds Completed</th>
+					<th>Power-Ups Collected</th>
+				</tr>
+			</thead>
+			<tbody>
+			{
+				consts.PIXELPARTYMODES.map(mode => 
+					pixelPartyJson[`games_played${mode.id}`] &&
+					<Row key={mode.name} id={mode.id} isHighlighted={mode.id === mostPlayedPixelPartyMode.id}>
+						<Cell>{mode.name}</Cell>
+						<Cell>{pixelPartyJson[`wins${mode.id}`]}</Cell>
+						<Cell>{pixelPartyJson[`losses${mode.id}`]}</Cell>
+						<Cell>{pixelPartyJson[`wl${mode.id}`]}</Cell>
+						<Cell>{pixelPartyJson[`games_played${mode.id}`]}</Cell>
+						<Cell>{pixelPartyJson[`rounds_completed${mode.id}`]}</Cell>
+						<Cell>{pixelPartyJson[`power_ups_collected${mode.id}`]}</Cell>
+					</Row>
 					)
 			}
 			</tbody>
@@ -207,7 +248,7 @@ export const Arcade = memo((props) => {
 			<HorizontalLine />
 
 			<Title>Mini Walls</Title>
-			<div className="h-flex mb-3">
+			<div className="h-flex">
 				<div className="flex-1">
 					<Pair title="Wins">{json.wins_mini_walls}</Pair>
 					<Pair title="Kit">{Utils.capitalize(json.miniwalls_activeKit || '-')}</Pair>
@@ -229,7 +270,7 @@ export const Arcade = memo((props) => {
 				</div>
 			</div>
 
-			<HorizontalLine />
+			<HorizontalLine className="my-3" />
 
 			<Title>Zombies</Title>
 			<div className="h-flex mb-3">
@@ -257,6 +298,26 @@ export const Arcade = memo((props) => {
 			</div>
 			{zombiesMapTable}
 			{zombiesTypeTable}
+
+			<HorizontalLine className="my-3" />
+
+			<Title>Pixel Party</Title>
+			<div className="h-flex mb-3">
+				<div className="flex-1">
+					<Pair title="Wins">{pixelPartyJson.wins}</Pair>
+					<Pair title="Losses">{pixelPartyJson.losses}</Pair>
+					<Pair title="Win/Loss Ratio">{pixelPartyJson.wl}</Pair>
+				</div>
+				<div className="flex-1">
+					<Pair title="Games Played">{pixelPartyJson.games_played}</Pair>
+					<Pair title="Rounds Completed">{pixelPartyJson.rounds_completed}</Pair>
+					<Pair title="Highest Round">{pixelPartyJson.highest_round}</Pair>
+				</div>
+				<div className="flex-1">
+					<Pair title="Power-Ups Collected">{pixelPartyJson.power_ups_collected}</Pair>
+				</div>
+			</div>
+			{pixelPartyTable}
 		</Accordion>
 });
 
