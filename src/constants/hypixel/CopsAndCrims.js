@@ -3,6 +3,7 @@ export const COPSANDCRIMS = {
 	MODES: [
 		{id: '', name: 'Defusal'},
 		{id: '_deathmatch', name: 'Team Deathmatch'},
+		{id: '_gungame', name: 'Gun Game'},
 	],
 	GUNS: [
 		{id: 'knife', name: 'Knife'},
