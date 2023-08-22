@@ -6,4 +6,5 @@ export const COOKIES = {
 	questsAccordions: "questList",
 	achievementsAccordions: "trophyList",
 	hideCompletedAchievements: "hideCompleteAchievements",
+	dismissSupportDate: "dismissSupportDate",
 }

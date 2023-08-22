@@ -27,7 +27,11 @@ export function Tips(props) {
 			The "View SkyBlock Stats" button on the player stats page brings you
 			to <ExternalLink href={APP.skyblock}>SkyCrypt</ExternalLink>!
 		</React.Fragment>,
-		"The pink row in a table indicates your most played class/mode!"
+		"The pink row in a table indicates your most played class/mode!",
+		<React.Fragment>
+			<ExternalLink href={APP.supportURL}>Supporting this site</ExternalLink> keeps
+			it free to use for thousands of players every day!
+		</React.Fragment>,
 	]
 	const [tipIndex, setTipIndex] = useState(Math.floor(Math.random()*tips.length));
 

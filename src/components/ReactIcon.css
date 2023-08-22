@@ -1,4 +1,5 @@
 /* Used by IconContext component from react-icons */
+.reacticon-sm { vertical-align: middle; font-size: 1rem; }
 .reacticon-md { vertical-align: middle; font-size: 1.35rem; }
 .reacticon-lg { vertical-align: middle; font-size: 1.8rem; }
 .reacticon-xl { vertical-align: middle; font-size: 2.5rem; }

@@ -8,6 +8,8 @@ export const APP = {
 	hypixelStatusPage: "https://status.hypixel.net/",
 	nameMC: "https://namemc.com/search?q=",
 	organization: "https://github.com/25karma",
+	ownerName: "ascend3d",
 	skyblock: "https://sky.shiiyu.moe/",
 	suggestedPlayers: ["Technoblade", "gamerboy80", "Technoblade"],
+	supportURL: "https://ko-fi.com/ascend3d",
 }
