@@ -27,8 +27,8 @@ export function Banner(props) {
 	// Returns styling information about the banner
 	function getStyle(style) {
 		const bannerStyles = {
-			info: { icon: MdInfoOutline, color: "rgb(40,70,200)" },
-			error: { icon: MdReport, color: "rgb(200,50,50)" },
+			info: { icon: MdInfoOutline, color: "#5555ff" },
+			error: { icon: MdReport, color: "#ff3c3c" },
 			discord: { icon: FaDiscord, color: "#7289da" }
 		}
 		if (style === undefined) {
