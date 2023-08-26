@@ -11,7 +11,7 @@ import { APP, COOKIES } from 'constants/app';
 */
 export function Support(props) {
 
-	const dismissCooldownDays = 30;
+	const dismissCooldownDays = 90;
 	const [ dismissSupportDate, setDismissSupportDate ] = useState(getDateFromCookie(new Date(0)));
 
 	function dismissSupport() {
