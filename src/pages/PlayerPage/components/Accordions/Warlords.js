@@ -17,7 +17,7 @@ export const Warlords = memo((props) => {
 	const ratios = {
 		ak: Utils.ratio(json.assists, json.kills),
 		kd: Utils.ratio(json.kills, json.deaths),
-		wl: Utils.ratio(json.wins, json.losses),
+		wl: Utils.ratio(json.wins, getLosses('')),
 	}
 
 	const mostPlayedClass = getMostPlayed(consts.CLASSES,
@@ -26,6 +26,13 @@ export const Warlords = memo((props) => {
 	function getClassLevel(id) {
 		const strippedId = id.substring(1);
 		return Utils.add(...consts.UPGRADES.map(({id}) => json[`${strippedId}_${id}`]))
+	}
+
+	function getLosses(id) {
+		if (id === '') {
+			return Utils.subtract(Utils.add(...consts.CLASSES.map(({id}) => json[`${id.substring(1)}_plays`])), json.wins);
+		}
+		return Utils.subtract(json[`${id.substring(1)}_plays`], json[`wins${id}`]);
 	}
 
 	const header = (
@@ -79,8 +86,8 @@ export const Warlords = memo((props) => {
 						<Cell>{json[`damage_prevented${id}`]}</Cell>
 						<Cell>{json[`heal${id}`]}</Cell>
 						<Cell>{json[`wins${id}`]}</Cell>
-						<Cell>{json[`losses${id}`]}</Cell>
-						<Cell>{Utils.ratio(json[`wins${id}`], json[`losses${id}`])}</Cell>
+						<Cell>{getLosses(id)}</Cell>
+						<Cell>{Utils.ratio(json[`wins${id}`], getLosses(id))}</Cell>
 					</Row>
 				)}
 			</tbody>
