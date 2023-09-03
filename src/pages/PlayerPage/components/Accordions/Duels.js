@@ -93,6 +93,7 @@ export const Duels = memo((props) => {
 					<th>Losses</th>
 					<th>WL</th>
 					<th>WS</th>
+					<th>Top WS</th>
 					<th>Melee HM</th>
 					<th>Arrow HM</th>
 					<th>Goals</th>
@@ -114,6 +115,7 @@ export const Duels = memo((props) => {
 								<Cell>{json[`${id}${id && '_'}losses`]}</Cell>
 								<Cell>{Utils.ratio(json[`${id}${id && '_'}wins`],json[`${id}${id && '_'}losses`])}</Cell>
 								<Cell>{json[`current_winstreak${id && '_mode_'}${id}`]}</Cell>
+								<Cell>{json[`best_winstreak${id && '_mode_'}${id}`]}</Cell>
 								<Cell>{Utils.ratio(json[`${id}${id && '_'}melee_hits`],json[`${id}${id && '_'}melee_swings`])}</Cell>
 								<Cell>{Utils.ratio(json[`${id}${id && '_'}bow_hits`],json[`${id}${id && '_'}bow_shots`])}</Cell>
 								<Cell>{json[`${id}${id && '_'}goals`]}</Cell>
