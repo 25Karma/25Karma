@@ -1,5 +1,3 @@
-import { formatNum } from './js-cookie';
-
 export * from './dateformat';
 export * from './exceljs';
 export * from './js-cookie';
@@ -26,6 +24,17 @@ export function set1If0(number) {
 export function default0(val) {
 	if (!val || val === undefined || isNaN(val)) return 0;
 	return val;
+}
+
+/*
+* Returns the absolute value, or undefined if the number is undefined
+*
+* @param {any} val    The value to check
+* @return {any}       The absolute value, or undefined if the number is undefined
+*/
+export function abs(val) {
+	if (!val || val === undefined || isNaN(val)) return undefined;
+	return Math.abs(val);
 }
 
 /*
@@ -172,14 +181,31 @@ export function timeSince(date) {
 export function secondsToHms(d) {
 	if (d === undefined) return "-";
 	d = Number(d);
-	var h = Math.floor(d / 3600);
-	var m = Math.floor(d % 3600 / 60);
-	var s = Math.floor(d % 3600 % 60);
+	const h = Math.floor(d / 3600);
+	const m = Math.floor(d % 3600 / 60);
+	const s = Math.floor(d % 3600 % 60);
 
-	var hDisplay = h > 0 ? formatNum(h) + "h" : null;
-	var mDisplay = m > 0 ? formatNum(m) + "m" : null;
-	var sDisplay = s > 0 ? formatNum(s) + "s" : null;
+	const hDisplay = h > 0 ? h + "h" : null;
+	const mDisplay = m > 0 ? m + "m" : null;
+	const sDisplay = s > 0 ? s + "s" : null;
 	return [hDisplay, mDisplay, sDisplay].filter(n => n).join(', '); 
+}
+
+/*
+* Converts an integer amount of milliseconds into the form (x)h, (y)m, (z)s
+*
+* @param {any} d      Amount of milliseconds
+* @return {string}    The formatted string
+*/
+export function millisecondsToHmsl(d) {
+	if (d === undefined) return "-";
+	d = Number(d);
+
+	const hms = secondsToHms(d / 1000);
+	const l = d % 1000;
+	const lDisplay = l > 0 ? l + "ms" : null;
+
+	return [hms, lDisplay].filter(n => n).join(', '); 
 }
 
 /*

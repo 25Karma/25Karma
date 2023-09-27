@@ -149,7 +149,7 @@ export const HYPIXEL = {
 	TOTALKILLS: [
 		'stats.Arcade.kills_dayone',
 		'stats.Arcade.kills_oneinthequiver',
-		'achievements.arcade_ctw_slayer',
+		'stats.Arcade.woolhunt_kills',
 		'stats.Arcade.kills_dragonwars2',
 		'stats.Arcade.sw_kills',
 		'stats.Arcade.kills_throw_out',
@@ -197,6 +197,7 @@ export const HYPIXEL = {
 		'stats.WoolGames.wool_wars.stats.kills',
 	],
 	TOTALWINS: [
+		'stats.Arcade.dropper.wins',
 		'stats.Arcade.wins_dayone',
 		'stats.Arcade.wins_oneinthequiver',
 		'stats.Arcade.wins_dragonwars2',

@@ -93,8 +93,8 @@ export const MurderMystery = memo((props) => {
 					</div>
 					<div className="flex-1">
 						<Pair title="Wins">{wins}</Pair>
-						<Pair title="Losses">{losses}</Pair>
-						<Pair title="Win/Loss Ratio">{Utils.ratio(wins/losses)}</Pair>
+						<Pair title="Losses">{Utils.abs(losses)}</Pair>
+						<Pair title="Win/Loss Ratio">{Utils.ratio(wins/Utils.abs(losses))}</Pair>
 					</div>
 					<div className="flex-1">
 						<Pair title="Time Survived">{Utils.secondsToHms(json.total_time_survived_seconds_MURDER_INFECTION)}</Pair>

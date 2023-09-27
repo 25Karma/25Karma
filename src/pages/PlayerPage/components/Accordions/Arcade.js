@@ -15,8 +15,8 @@ export const Arcade = memo((props) => {
 
 	// The player's API data for Arcade Games
 	const { player } = useAPIContext();
-	const achievements = Utils.traverse(player, 'achievements', {});
-	const json = Utils.traverse(player,'stats.Arcade') || {};
+	const json = Utils.traverse(player, 'stats.Arcade', {});
+	const dropperJson = Utils.traverse(json, 'dropper', {});
 
 	const pixelPartyJson = Utils.traverse(json, 'pixel_party', {});
 	consts.PIXELPARTYMODES.forEach(({id}) => {
@@ -127,9 +127,111 @@ export const Arcade = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<div className="mb-3">
+			<div>
 				<Pair title="Arcade Coins" color="gold">{json.coins}</Pair>
 			</div>
+
+			<HorizontalLine className="my-3" />
+
+			<Title>Capture The Wool</Title>
+			<div className="h-flex">
+				<div className="flex-1">
+					<Pair title="Wins">{json.woolhunt_participated_wins}</Pair>
+					<Pair title="Losses">{json.woolhunt_participated_losses}</Pair>
+					<Pair title="Win/Loss Ratio">{Utils.ratio(json.woolhunt_participated_wins, json.woolhunt_participated_losses)}</Pair>
+					<Pair title="Fastest Win">{Utils.secondsToHms(json.woolhunt_fastest_win)}</Pair>
+				</div>
+				<div className="flex-1">
+					<Pair title="Kills">{json.woolhunt_kills}</Pair>
+					<Pair title="Assists">{json.woolhunt_assists}</Pair>
+					<Pair title="Deaths">{json.woolhunt_deaths}</Pair>
+					<Pair title="Kill/Death Ratio">{Utils.ratio(json.woolhunt_kills, json.woolhunt_deaths)}</Pair>
+				</div>
+				<div className="flex-1">
+					<Pair title="Wools Stolen">{json.woolhunt_wools_stolen}</Pair>
+					<Pair title="Wools Captured">{json.woolhunt_wools_captured}</Pair>
+					<Pair title="Fastest Wool Capture">{Utils.secondsToHms(json.woolhunt_fastest_wool_capture)}</Pair>
+					<Pair title="Total Gold Earned" color="gold">{json.woolhunt_gold_earned}</Pair>
+					<Pair title="Total Gold Spent" color="gold">{Utils.abs(json.woolhunt_gold_spent)}</Pair>
+				</div>
+			</div>
+
+			<HorizontalLine className="my-3" />
+
+			<Title>Mini Walls</Title>
+			<div className="h-flex">
+				<div className="flex-1">
+					<Pair title="Wins">{json.wins_mini_walls}</Pair>
+					<Pair title="Kit">{Utils.capitalize(json.miniwalls_activeKit || '-')}</Pair>
+					<Pair title="Withers Killed">{json.wither_kills_mini_walls}</Pair>
+				</div>
+				<div className="flex-1">
+					<Pair title="Kills">{json.kills_mini_walls}</Pair>
+					<Pair title="Final Kills">{json.final_kills_mini_walls}</Pair>
+					<Pair title="Deaths">{json.deaths_mini_walls}</Pair>
+					<Pair title="Kill/Death Ratio">
+						{Utils.ratio(json.kills_mini_walls/json.deaths_mini_walls)
+							+Utils.ratio(json.final_kills_mini_walls/json.deaths_mini_walls)}
+					</Pair>
+				</div>
+				<div className="flex-1">
+					<Pair title="Arrows Hit">{json.arrows_hit_mini_walls}</Pair>
+					<Pair title="Arrows Shot">{json.arrows_shot_mini_walls}</Pair>
+					<Pair title="Arrow Hit Accuracy">{Utils.ratio(json.arrows_hit_mini_walls, json.arrows_shot_mini_walls)}</Pair>
+				</div>
+			</div>
+
+			<HorizontalLine className="my-3" />
+
+			<Title>Pixel Party</Title>
+			<div className="h-flex mb-3">
+				<div className="flex-1">
+					<Pair title="Wins">{pixelPartyJson.wins}</Pair>
+					<Pair title="Losses">{pixelPartyJson.losses}</Pair>
+					<Pair title="Win/Loss Ratio">{pixelPartyJson.wl}</Pair>
+				</div>
+				<div className="flex-1">
+					<Pair title="Games Played">{pixelPartyJson.games_played}</Pair>
+					<Pair title="Rounds Completed">{pixelPartyJson.rounds_completed}</Pair>
+					<Pair title="Highest Round">{pixelPartyJson.highest_round}</Pair>
+				</div>
+				<div className="flex-1">
+					<Pair title="Power-Ups Collected">{pixelPartyJson.power_ups_collected}</Pair>
+				</div>
+			</div>
+			{pixelPartyTable}
+
+			<HorizontalLine className="my-3" />
+
+			<Title>Zombies</Title>
+			<div className="h-flex mb-3">
+				<div className="flex-1">
+					<Pair title="Wins">{json.wins_zombies}</Pair>
+					<Br/>
+					<Pair title="Rounds Survived">{json.total_rounds_survived_zombies}</Pair>
+					<Pair title="Best Round">{json.best_round_zombies}</Pair>
+					<Pair title="Zombies Killed">{json.zombie_kills_zombies}</Pair>
+				</div>
+				<div className="flex-1">
+					<Pair title="Bullets Hit">{json.bullets_hit_zombies}</Pair>
+					<Pair title="Bullets Shot">{json.bullets_shot_zombies}</Pair>
+					<Pair title="Bullet Hit Accuracy" percentage>{Utils.ratio(json.bullets_hit_zombies, json.bullets_shot_zombies)}</Pair>
+					<Pair title="Headshots">{json.headshots_zombies}</Pair>
+					<Pair title="Headshot Accuracy" percentage>{Utils.ratio(json.headshots_zombies, json.bullets_hit_zombies)}</Pair>
+				</div>
+				<div className="flex-1">
+					<Pair title="Players Revived">{json.players_revived_zombies}</Pair>
+					<Pair title="Times Knocked Down">{json.times_knocked_down_zombies}</Pair>
+					<Br/>
+					<Pair title="Doors Opened">{json.doors_opened_zombies}</Pair>
+					<Pair title="Windows Repaired">{json.windows_repaired_zombies}</Pair>
+				</div>
+			</div>
+			{zombiesMapTable}
+			{zombiesTypeTable}
+
+			<HorizontalLine className="mt-3" />
+
 			<div className="h-flex flex-wrap">
 				<ArcadeMinigame title="Blocking Dead">
 					<Pair title="Wins">{json.wins_dayone}</Pair>
@@ -147,11 +249,6 @@ export const Arcade = memo((props) => {
 					<Pair title="Kill/Death Ratio">{Utils.ratio(json.kills_oneinthequiver, json.deaths_oneinthequiver)}</Pair>
 				</ArcadeMinigame>
 
-				<ArcadeMinigame title="Capture The Wool">
-					<Pair title="Kills">{achievements.arcade_ctw_slayer}</Pair>
-					<Pair title="Wool Captures">{achievements.arcade_ctw_oh_sheep}</Pair>
-				</ArcadeMinigame>
-
 				<ArcadeMinigame title="Creeper Attack">
 					<Pair title="Best Wave">{json.max_wave}</Pair>
 				</ArcadeMinigame>
@@ -159,6 +256,15 @@ export const Arcade = memo((props) => {
 				<ArcadeMinigame title="Dragon Wars">
 					<Pair title="Wins">{json.wins_dragonwars2}</Pair>
 					<Pair title="Kills">{json.kills_dragonwars2}</Pair>
+				</ArcadeMinigame>
+
+				<ArcadeMinigame title="Dropper">
+					<Pair title="Wins">{dropperJson.wins}</Pair>
+					<Pair title="Flawless Games">{dropperJson.flawless_games}</Pair>
+					<Pair title="Games Completed">{dropperJson.games_finished}</Pair>
+					<Pair title="Maps Completed">{dropperJson.maps_completed}</Pair>
+					<Pair title="Fastest Game">{Utils.millisecondsToHmsl(dropperJson.fastest_game)}</Pair>
+					<Pair title="Fails">{dropperJson.fails}</Pair>
 				</ArcadeMinigame>
 
 				<ArcadeMinigame title="Easter Simulator">
@@ -244,86 +350,12 @@ export const Arcade = memo((props) => {
 					<Pair title="Kill/Death Ratio">{Utils.ratio(json.kills_throw_out, json.deaths_throw_out)}</Pair>
 				</ArcadeMinigame>
 			</div>
-
-			<HorizontalLine />
-
-			<Title>Mini Walls</Title>
-			<div className="h-flex">
-				<div className="flex-1">
-					<Pair title="Wins">{json.wins_mini_walls}</Pair>
-					<Pair title="Kit">{Utils.capitalize(json.miniwalls_activeKit || '-')}</Pair>
-					<Pair title="Withers Killed">{json.wither_kills_mini_walls}</Pair>
-				</div>
-				<div className="flex-1">
-					<Pair title="Kills">{json.kills_mini_walls}</Pair>
-					<Pair title="Final Kills">{json.final_kills_mini_walls}</Pair>
-					<Pair title="Deaths">{json.deaths_mini_walls}</Pair>
-					<Pair title="Kill/Death Ratio">
-						{Utils.ratio(json.kills_mini_walls/json.deaths_mini_walls)
-							+Utils.ratio(json.final_kills_mini_walls/json.deaths_mini_walls)}
-					</Pair>
-				</div>
-				<div className="flex-1">
-					<Pair title="Arrows Hit">{json.arrows_hit_mini_walls}</Pair>
-					<Pair title="Arrows Shot">{json.arrows_shot_mini_walls}</Pair>
-					<Pair title="Arrow Hit Accuracy">{Utils.ratio(json.arrows_hit_mini_walls, json.arrows_shot_mini_walls)}</Pair>
-				</div>
-			</div>
-
-			<HorizontalLine className="my-3" />
-
-			<Title>Zombies</Title>
-			<div className="h-flex mb-3">
-				<div className="flex-1">
-					<Pair title="Wins">{json.wins_zombies}</Pair>
-					<Br/>
-					<Pair title="Rounds Survived">{json.total_rounds_survived_zombies}</Pair>
-					<Pair title="Best Round">{json.best_round_zombies}</Pair>
-					<Pair title="Zombies Killed">{json.zombie_kills_zombies}</Pair>
-				</div>
-				<div className="flex-1">
-					<Pair title="Bullets Hit">{json.bullets_hit_zombies}</Pair>
-					<Pair title="Bullets Shot">{json.bullets_shot_zombies}</Pair>
-					<Pair title="Bullet Hit Accuracy" percentage>{Utils.ratio(json.bullets_hit_zombies, json.bullets_shot_zombies)}</Pair>
-					<Pair title="Headshots">{json.headshots_zombies}</Pair>
-					<Pair title="Headshot Accuracy" percentage>{Utils.ratio(json.headshots_zombies, json.bullets_hit_zombies)}</Pair>
-				</div>
-				<div className="flex-1">
-					<Pair title="Players Revived">{json.players_revived_zombies}</Pair>
-					<Pair title="Times Knocked Down">{json.times_knocked_down_zombies}</Pair>
-					<Br/>
-					<Pair title="Doors Opened">{json.doors_opened_zombies}</Pair>
-					<Pair title="Windows Repaired">{json.windows_repaired_zombies}</Pair>
-				</div>
-			</div>
-			{zombiesMapTable}
-			{zombiesTypeTable}
-
-			<HorizontalLine className="my-3" />
-
-			<Title>Pixel Party</Title>
-			<div className="h-flex mb-3">
-				<div className="flex-1">
-					<Pair title="Wins">{pixelPartyJson.wins}</Pair>
-					<Pair title="Losses">{pixelPartyJson.losses}</Pair>
-					<Pair title="Win/Loss Ratio">{pixelPartyJson.wl}</Pair>
-				</div>
-				<div className="flex-1">
-					<Pair title="Games Played">{pixelPartyJson.games_played}</Pair>
-					<Pair title="Rounds Completed">{pixelPartyJson.rounds_completed}</Pair>
-					<Pair title="Highest Round">{pixelPartyJson.highest_round}</Pair>
-				</div>
-				<div className="flex-1">
-					<Pair title="Power-Ups Collected">{pixelPartyJson.power_ups_collected}</Pair>
-				</div>
-			</div>
-			{pixelPartyTable}
 		</Accordion>
 });
 
 function ArcadeMinigame({title, children}) {
 	return (
-		<div className="mb-3" style={{width: '33%'}}>
+		<div className="mt-3" style={{width: '33%'}}>
 			<p className="font-bold font-md pb-1">{title}</p>
 			{children}
 		</div>
