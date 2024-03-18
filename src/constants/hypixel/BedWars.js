@@ -80,6 +80,8 @@ export const BEDWARS = {
 		{id: 'four_four_armed_', name: 'Armed 4v4v4v4'},
 		{id: 'eight_two_swap_', name: 'Swappage Doubles'},
 		{id: 'four_four_swap_', name: 'Swappage 4v4v4v4'},
+		{id: 'eight_two_underworld_', name: 'Underworld Doubles'},
+		{id: 'four_four_underworld_', name: 'Underworld 4v4v4v4'},
 		{id: 'castle_', name: 'Castle'},
 		{id: '', name: 'Overall'},
 	],
