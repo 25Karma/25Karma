@@ -1,0 +1,7 @@
+.tippy {
+	background-color: black;
+
+	& > .tippy-arrow {
+		color: black;
+	}
+  }

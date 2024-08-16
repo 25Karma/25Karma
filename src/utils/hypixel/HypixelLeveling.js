@@ -1,4 +1,4 @@
-import { formatNum } from 'utils';
+import { formatNum } from 'src/utils';
 
 /*
 * @class    Simplifies calculations for the generic Hypixel leveling system -

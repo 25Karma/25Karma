@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { COOKIES } from 'constants/app';
+import { COOKIES } from 'src/constants/app';
 import { default0 } from './index';
 
 /*

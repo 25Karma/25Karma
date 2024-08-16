@@ -1,5 +1,5 @@
 import { FaAward, FaUser, FaShieldAlt, FaScroll, FaPaw } from 'react-icons/fa';
-import * as Page from 'pages';
+import * as Page from 'src/pages';
 export const PAGES = [
 	{
 		name: 'Player',

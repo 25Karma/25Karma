@@ -3,31 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
+    "@hello-pangea/dnd": "^16.6.0",
+    "@tippyjs/react": "^4.2.6",
+    "@vitejs/plugin-react": "^4.3.1",
     "dateformat": "^3.0.3",
     "exceljs": "^4.2.1",
     "file-saver": "^2.0.5",
     "js-cookie": "^2.2.1",
-    "react": "^16.13.1",
-    "react-beautiful-dnd": "^13.0.0",
-    "react-dom": "^16.13.1",
-    "react-icons": "^4.4.0",
-    "react-lazyload": "^3.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.3.0",
+    "react-lazyload": "^3.2.1",
     "react-loading": "^2.0.3",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^5.0.1",
-    "react-string-replace": "^0.4.4",
-    "react-tooltip": "^4.2.7"
+    "react-router-dom": "^6.26.1",
+    "react-string-replace": "^1.1.1",
+    "react-tooltip": "^5.28.0",
+    "vite": "^5.4.1"
   },
   "homepage": "https://25karma.xyz",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy": "npm run build && netlify deploy --prod"
+    "dev": "vite",
+    "build": "vite build",
+    "deploy": "npm run build && netlify deploy --dir=dist --prod"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -43,6 +40,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {}
+  }
 }

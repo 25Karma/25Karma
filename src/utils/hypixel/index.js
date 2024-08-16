@@ -1,5 +1,5 @@
-import * as Utils from 'utils';
-import { HYPIXEL } from 'constants/hypixel';
+import * as Utils from 'src/utils';
+import { HYPIXEL } from 'src/constants/hypixel';
 
 export * from './HypixelLeveling';
 

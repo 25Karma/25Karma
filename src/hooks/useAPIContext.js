@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-import { APIContext } from 'contexts';
-import { APP } from 'constants/app';
+import { APIContext } from 'src/contexts';
+import { APP } from 'src/constants/app';
 
 /*
 * Makes an API call to Mojang to get data on a player, or returns the current context

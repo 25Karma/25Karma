@@ -1,6 +1,6 @@
 import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
-import { APP } from 'constants/app';
+import { APP } from 'src/constants/app';
 import { dateFormat } from './dateformat';
 
 /*
