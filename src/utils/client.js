@@ -4,5 +4,5 @@
  * @return {JSON} JS object containing a key and a value.
  */
 export function getClientHeader() {
-	return { key: null, value: null };
+	return { keys: [], values: [] };
 }

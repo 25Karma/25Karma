@@ -20,7 +20,7 @@ export function useAPIContext(slug, type) {
 			const url = `${APP.API}${type}/${slug}`;
 			const clientHeader = getClientHeader();
 			const headers = new Headers();
-			headers.append(clientHeader.key, clientHeader.value);
+			headers.append(clientHeader.keys[0], clientHeader.values[0]);
 			return fetch(url, { headers })
 				.then((response) => response.json())
 				.then((json) => {
