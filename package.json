@@ -1,5 +1,5 @@
 {
-  "name": "25karma.github.io",
+  "name": "25karma",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -20,7 +20,7 @@
     "react-tooltip": "^5.28.0",
     "vite": "^5.4.1"
   },
-  "homepage": "https://25karma.xyz",
+  "homepage": "",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
