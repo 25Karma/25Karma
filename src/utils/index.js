@@ -1,3 +1,4 @@
+export * from './client';
 export * from './dateformat';
 export * from './exceljs';
 export * from './js-cookie';

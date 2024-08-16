@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { APIContext } from 'src/contexts';
 import { APP } from 'src/constants/app';
+import { getClientHeader } from 'src/utils';
 
 /*
 * Makes an API call to Mojang to get data on a player, or returns the current context
@@ -17,7 +18,10 @@ export function useAPIContext(slug, type) {
 		async function fetchFromAPI() {
 			const href = window.location.href;
 			const url = `${APP.API}${type}/${slug}`;
-			return fetch(url)
+			const clientHeader = getClientHeader();
+			const headers = new Headers();
+			headers.append(clientHeader.key, clientHeader.value);
+			return fetch(url, { headers })
 				.then((response) => response.json())
 				.then((json) => {
 					if(window.location.href === href){
