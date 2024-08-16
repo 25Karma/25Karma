@@ -25,7 +25,7 @@ function App() {
 					)}
 					<Route path="/frontpage" element={<FrontPage />}></Route>
 					<Route path="/search/:slug" element={<SearchPage />}></Route>
-					<Route default element={<NotFoundPage />}></Route>
+					<Route path="*" element={<NotFoundPage />}></Route>
 				</Routes>
 			}
 			</Router>
