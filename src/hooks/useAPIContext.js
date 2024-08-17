@@ -21,7 +21,7 @@ export function useAPIContext(slug, type) {
 			return fetch(url, { headers: getClientHeaders() })
 				.then((response) => response.json())
 				.then((json) => {
-					if(window.location.href === href){
+					if(window.location.href === href) {
 						setAPIData(json);
 						setFetchStatus(true);
 					}

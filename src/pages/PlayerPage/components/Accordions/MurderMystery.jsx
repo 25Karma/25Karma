@@ -80,11 +80,10 @@ export const MurderMystery = memo((props) => {
 	})();
 
 	const infectionStats = (() => {
-		const wins = Utils.add(json.wins_MURDER_INFECTION, json.survivor_wins_MURDER_INFECTION);
-		const losses = Utils.subtract(json.games_MURDER_INFECTION, wins);
+		const losses = Utils.subtract(json.games_MURDER_INFECTION, json.wins_MURDER_INFECTION);
 		return (
 			<React.Fragment>
-				<Title>Infection v2</Title>
+				<Title>Infection</Title>
 				<div className="h-flex">
 					<div className="flex-1">
 						<Pair title="Kills as Infected">{json.kills_as_infected_MURDER_INFECTION}</Pair>
@@ -92,9 +91,9 @@ export const MurderMystery = memo((props) => {
 						<Pair title="Final Kills">{json.kills_MURDER_INFECTION}</Pair>
 					</div>
 					<div className="flex-1">
-						<Pair title="Wins">{wins}</Pair>
+						<Pair title="Wins">{json.wins_MURDER_INFECTION}</Pair>
 						<Pair title="Losses">{Utils.abs(losses)}</Pair>
-						<Pair title="Win/Loss Ratio">{Utils.ratio(wins/Utils.abs(losses))}</Pair>
+						<Pair title="Win/Loss Ratio">{Utils.ratio(json.wins_MURDER_INFECTION/Utils.abs(losses))}</Pair>
 					</div>
 					<div className="flex-1">
 						<Pair title="Time Survived">{Utils.secondsToHms(json.total_time_survived_seconds_MURDER_INFECTION)}</Pair>
