@@ -20,11 +20,11 @@ export function SearchPage(props) {
 	if (player !== '') {
 		// Redirect page based on tag
 		for (const {tags, path} of PAGES) {
-			if (tags.includes(tag)) return <Navigate to={`/${path}/${player}`} />;
+			if (tags.includes(tag)) return <Navigate replace to={`/${path}/${player}`} />;
 		}
-		return <Navigate to={`/player/${player}`} />;
+		return <Navigate replace to={`/player/${player}`} />;
 	}
 	else {
-		return <Navigate to={'/frontpage'} />
+		return <Navigate replace to={'/frontpage'} />
 	}
 }

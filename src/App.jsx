@@ -11,25 +11,23 @@ function App() {
 	
 	return (
 		<AppContextProvider>
-		<APIContextProvider>
-			<Router basename={import.meta.env.BASE_URL}>
-			{MAINTENANCE.enabled ?
-				<Routes>
-					<Route default element={<MaintenancePage />}></Route>
-				</Routes>
-				:
-				<Routes>
-					<Route exact path="/" element={pinnedPlayer ? <Navigate to={`/search/${pinnedPlayer}`} /> : <Navigate to={`/frontpage`} />}></Route>
-					{PAGES.map(p =>
-						<Route key={p.path} path={`/${p.path}/:slug`} element={<p.component />}></Route>
-					)}
-					<Route path="/frontpage" element={<FrontPage />}></Route>
-					<Route path="/search/:slug" element={<SearchPage />}></Route>
-					<Route path="*" element={<NotFoundPage />}></Route>
-				</Routes>
-			}
-			</Router>
-		</APIContextProvider>
+			<APIContextProvider>
+				<Router basename={import.meta.env.BASE_URL}>
+					{MAINTENANCE.enabled ?
+						<Routes>
+							<Route default element={<MaintenancePage />}></Route>
+						</Routes>
+						:
+						<Routes>
+							<Route exact path="/" element={<Navigate replace to={pinnedPlayer ? `/search/${pinnedPlayer}` : '/frontpage'} />}></Route>
+							{PAGES.map(p => <Route key={p.path} path={`/${p.path}/:slug`} element={<p.component />}></Route>)}
+							<Route path="/frontpage" element={<FrontPage />}></Route>
+							<Route path="/search/:slug" element={<SearchPage />}></Route>
+							<Route path="*" element={<NotFoundPage />}></Route>
+						</Routes>
+					}
+				</Router>
+			</APIContextProvider>
 		</AppContextProvider>
 		);
 }
