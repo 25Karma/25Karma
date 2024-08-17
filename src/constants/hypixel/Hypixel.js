@@ -28,7 +28,7 @@ export const HYPIXEL = {
 		VAMPIREZ: 'VampireZ',
 		WALLS: 'Walls',
 		WALLS3: 'Mega Walls',
-		WOOL_GAMES: 'Wool Wars',
+		WOOL_GAMES: 'Wool Games',
 	},
 	QUESTS: {
 		arcade: 'Arcade Games',
@@ -51,7 +51,7 @@ export const HYPIXEL = {
 		vampirez: 'VampireZ',
 		walls: 'Walls',
 		walls3: 'Mega Walls',
-		woolgames: 'Wool Wars',
+		woolgames: 'Wool Games',
 	},
 	ACHIEVEMENTS: {
 		arcade: 'Arcade Games',
@@ -82,7 +82,7 @@ export const HYPIXEL = {
 		walls: 'Walls',
 		walls3: 'Mega Walls',
 		warlords: 'Warlords',
-		woolgames: 'Wool Wars',
+		woolgames: 'Wool Games',
 	},
 	MULTIPLIER: [
 		{level: 0, value: 1},

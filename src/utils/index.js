@@ -180,8 +180,9 @@ export function timeSince(date) {
 * @return {string}    The formatted string
 */
 export function secondsToHms(d) {
-	if (d === undefined) return "-";
 	d = Number(d);
+	if (d === 0 || isNaN(d)) return "-";
+
 	const h = Math.floor(d / 3600);
 	const m = Math.floor(d % 3600 / 60);
 	const s = Math.floor(d % 3600 % 60);

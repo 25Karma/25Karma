@@ -57,7 +57,7 @@ export const SKYWARS = {
 		ruby_prestige: '\u2766', // ❦
 		crystal_prestige: '\u2735', // ✵
 		opal_prestige: '\u2763', // ❣
-		amethyst_prestige: '\u262f', //	☯
+		amethyst_prestige: '\u262f', // ☯
 		rainbow_prestige: '\u273a', // ✺
 		first_class_prestige: '\u2708', // ✈
 		assassin_prestige: '\u26b0', // ⚰

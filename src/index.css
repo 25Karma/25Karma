@@ -185,6 +185,7 @@ kbd {
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 .text-shadow { text-shadow: 0rem 0.25rem 0.25rem var(--theme-shadow); }
+.text-light-shadow { text-shadow: 0rem 0rem 0.5rem var(--theme-text); }
 .top-0 { top: 0; }
 .underline { text-decoration: underline; }
 .user-select-none { user-select: none; }

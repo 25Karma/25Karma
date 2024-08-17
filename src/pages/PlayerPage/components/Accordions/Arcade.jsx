@@ -133,31 +133,6 @@ export const Arcade = memo((props) => {
 
 			<HorizontalLine className="my-3" />
 
-			<Title>Capture The Wool</Title>
-			<div className="h-flex">
-				<div className="flex-1">
-					<Pair title="Wins">{json.woolhunt_participated_wins}</Pair>
-					<Pair title="Losses">{json.woolhunt_participated_losses}</Pair>
-					<Pair title="Win/Loss Ratio">{Utils.ratio(json.woolhunt_participated_wins, json.woolhunt_participated_losses)}</Pair>
-					<Pair title="Fastest Win">{Utils.secondsToHms(json.woolhunt_fastest_win)}</Pair>
-				</div>
-				<div className="flex-1">
-					<Pair title="Kills">{json.woolhunt_kills}</Pair>
-					<Pair title="Assists">{json.woolhunt_assists}</Pair>
-					<Pair title="Deaths">{json.woolhunt_deaths}</Pair>
-					<Pair title="Kill/Death Ratio">{Utils.ratio(json.woolhunt_kills, json.woolhunt_deaths)}</Pair>
-				</div>
-				<div className="flex-1">
-					<Pair title="Wools Stolen">{json.woolhunt_wools_stolen}</Pair>
-					<Pair title="Wools Captured">{json.woolhunt_wools_captured}</Pair>
-					<Pair title="Fastest Wool Capture">{Utils.secondsToHms(json.woolhunt_fastest_wool_capture)}</Pair>
-					<Pair title="Total Gold Earned" color="gold">{json.woolhunt_gold_earned}</Pair>
-					<Pair title="Total Gold Spent" color="gold">{Utils.abs(json.woolhunt_gold_spent)}</Pair>
-				</div>
-			</div>
-
-			<HorizontalLine className="my-3" />
-
 			<Title>Mini Walls</Title>
 			<div className="h-flex">
 				<div className="flex-1">
