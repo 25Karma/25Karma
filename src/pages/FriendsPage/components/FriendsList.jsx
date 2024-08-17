@@ -4,6 +4,7 @@ import { Button, ExternalLink, LoadingSpinner, PlayerHead, PlayerName, SortableL
 import { APP } from 'src/constants/app';
 import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
+import { getClientHeaders } from 'src/utils';
 import { getPlayerRankPriority } from 'src/utils/hypixel';
 
 /*
@@ -45,6 +46,7 @@ export function FriendsList(props) {
 				}
 				// If not, fetch the name data
 				const response = await fetch(`${APP.API}name/${uuid}`, {
+					headers: getClientHeaders(),
 					signal: abortController.signal
 				});
 				const json = await response.json();
