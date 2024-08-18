@@ -18,7 +18,6 @@
 
 1. Download the backend repository from the [master](https://github.com/25Karma/expressapi) branch on GitHub
 1. Extract the .zip
-1. Create a copy of the `.env_template` file and rename it to `.env`
 1. Populate the missing fields in the `.env` file
 1. Run `npm install` in the root directory (where the `package.json` file is found)
 1. Run `npm run dev` in the root directory
