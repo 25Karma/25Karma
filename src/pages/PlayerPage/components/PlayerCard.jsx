@@ -38,6 +38,7 @@ export function PlayerCard(props) {
 	const socialMediaLinks = Utils.traverse(json, 'socialMedia.links');
 	const dailyTwoKExp = Utils.traverse(json, 'eugene.dailyTwoKExp', 0);
 	const rewardClaimed = (new Date(dailyTwoKExp)).toDateString() === (new Date()).toDateString();
+	const giftingJson = Utils.traverse(json, 'giftingMeta', {});
 	
 	const overallStats = (
 		<React.Fragment>
@@ -65,6 +66,20 @@ export function PlayerCard(props) {
 			<Pair title="Reward Streak">{json.rewardScore}</Pair>
 			<Pair title="Top Reward Streak">{json.rewardHighScore}</Pair>
 			<Br />
+		</React.Fragment>
+	);
+
+	const giftingStats = (
+		<React.Fragment>
+			{giftingJson.giftsGiven !== undefined &&
+				<Pair title="Gifts Gifted">{giftingJson.giftsGiven}</Pair>
+			}
+			{giftingJson.ranksGiven !== undefined &&
+				<Pair title="Ranks Gifted">{giftingJson.ranksGiven}</Pair>
+			}
+			{(giftingJson.giftsGiven !== undefined || giftingJson.ranksGiven !== undefined) &&
+				<Br />
+			}
 		</React.Fragment>
 	);
 	
@@ -148,6 +163,7 @@ export function PlayerCard(props) {
 			</div>
 			<HorizontalLine className="mb-3"/>
 			{overallStats}
+			{giftingStats}
 			{loginDates}
 			{skyblockButton}
 			{guildInfo()}
