@@ -14,7 +14,7 @@ export function ProgressBar(props) {
 	return (
 		<div className="progressbar" style={{ height : props.height || '1rem'}}>
 			{props.children}
-			<Tippy content={props.dataTip}>
+			<Tippy content={props.dataTip} followCursor="horizontal">
 				<span className="progressbar-remaining"></span>
 			</Tippy>
 		</div>

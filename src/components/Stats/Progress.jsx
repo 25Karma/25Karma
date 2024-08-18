@@ -16,7 +16,7 @@ export function Progress(props) {
 	];
 	const textColor = lightBackgrounds.includes(props.color) ? 'black' : 'white';
 	return (
-		<Tippy content={props.dataTip}>
+		<Tippy content={props.dataTip} followCursor="horizontal">
 				<span
 					className={`h-100 font-xs overflow-hidden h-flex align-items-center justify-content-center c-${textColor} bg-${props.color}`}
 					style={{width : `${100 * props.proportion}%`}}>

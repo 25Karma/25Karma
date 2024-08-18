@@ -13,7 +13,7 @@ import { useAppContext } from 'src/hooks';
 */
 export function Searchbar(props) {
 
-	const refInput = useRef("input")
+	const refInput = useRef("input");
 	const navigate = useNavigate();
 	const { setBanner } = useAppContext();
 

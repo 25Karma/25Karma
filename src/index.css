@@ -104,6 +104,7 @@ kbd {
 .font-xl { font-size: 2.5rem; }
 .font-xxl { font-size: 3.5rem; }
 .font-xs { font-size: 0.75rem; }
+.h-0 { height: 0; }
 .h-100 { height: 100%; }
 .h-flex { display: flex; flex-direction: row; }
 .hidden { visibility: hidden; }

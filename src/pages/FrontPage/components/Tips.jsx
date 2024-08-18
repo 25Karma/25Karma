@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink, ReactIcon } from 'src/components';
+import { ExternalLink, ReactIcon, Tippy } from 'src/components';
 import { FaCaretLeft, FaCaretRight } from 'react-icons/fa';
 import { APP } from 'src/constants/app';
 
@@ -43,13 +43,17 @@ export function Tips(props) {
 	}
 	return (
 		<span className="h-flex align-items-center justify-content-center mx-auto" style={{maxWidth:'42rem'}}>
-			<button onClick={previousTip}>
-				<ReactIcon icon={FaCaretLeft} clickable />
-			</button>
+			<Tippy content="Previous Tip">
+				<button onClick={previousTip}>
+					<ReactIcon icon={FaCaretLeft} clickable />
+				</button>
+			</Tippy>
 			<p className="px-2 mx-auto">{tips[tipIndex]}</p>
-			<button onClick={nextTip}>
-				<ReactIcon icon={FaCaretRight} clickable />
-			</button>
+			<Tippy content="Next Tip">
+				<button onClick={nextTip}>
+					<ReactIcon icon={FaCaretRight} clickable />
+				</button>
+			</Tippy>
 		</span>
 		);
 }

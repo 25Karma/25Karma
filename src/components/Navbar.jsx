@@ -3,7 +3,7 @@ import { MdPushPin, MdSettings } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { APP, COOKIES } from 'src/constants/app';
-import { Collapsible, MinecraftText, ReactIcon, Searchbar, Settings } from 'src/components';
+import { Collapsible, MinecraftText, ReactIcon, Searchbar, Settings, Tippy } from 'src/components';
 
 /*
 * Navbar that appears at the top of the page

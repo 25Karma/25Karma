@@ -76,7 +76,7 @@ export function Banner(props) {
 					<span>{banner.description}</span>
 				</span>
 				{banner.copyable &&
-					<Tippy content="Copy to clipboard">
+					<Tippy content="Copy to clipboard" followCursor={true}>
 						<button onClick={copyToClipboard} className="pr-1">
 							<ReactIcon icon={MdContentCopy} clickable /> 
 						</button>

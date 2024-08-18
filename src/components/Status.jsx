@@ -39,7 +39,7 @@ export function Status(props) {
 	}
 
 	return (
-		<Tippy content={getStatusDataTip()}>
+		<Tippy content={getStatusDataTip()} followCursor="horizontal">
 			<span className="cursor-help pl-2">
 				<ReactIcon 
 					icon={FaSignal} 
