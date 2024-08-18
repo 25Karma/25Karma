@@ -7,7 +7,7 @@ import { Tippy } from 'src/components';
 *
 * @param {string} props.height     Height of the progress bar - default 1rem
 * @param {JSX} props.children      List of Progress components
-* @param {string} props.dataTip    Text to show on hover (react-tooltip)
+* @param {string} props.dataTip    Text to show on hover
 */
 export function ProgressBar(props) {
 

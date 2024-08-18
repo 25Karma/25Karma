@@ -12,15 +12,19 @@ import './Tippy.css';
 * @param {JSX} props.children         The component to apply to tooltip on.
 */
 export function Tippy(props) {
-	return (
-		<ReactTippy 
-		className="tippy"
-		content={props.content} 
-		placement={props.placement || 'top'} 
-		followCursor={props.followCursor || false}
-		plugins={[followCursor]}
-		duration={200}>
-			{props.children}
-		</ReactTippy>
-		);
+	if (props.content === undefined) {
+		return props.children;
+	} else {
+		return (
+			<ReactTippy 
+			className="tippy"
+			content={props.content} 
+			placement={props.placement || 'top'} 
+			followCursor={props.followCursor || false}
+			plugins={[followCursor]}
+			duration={200}>
+				{props.children}
+			</ReactTippy>
+			);
+	}
 }
