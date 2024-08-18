@@ -175,11 +175,11 @@ export const SkyWars = memo((props) => {
 				key={rank.id}
 				color={rank.color}	
 				proportion={proportion}
-				dataTip={`${amount} ${rank.name} heads`}/>
+				dataTip={`${amount} ${rank.name} head${amount === 1 ? '' : 's'}`}/>
 				);
 		}
 		return (
-			<ProgressBar dataTip>
+			<ProgressBar>
 				{progressList}
 			</ProgressBar>
 			)
