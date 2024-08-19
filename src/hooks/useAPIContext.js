@@ -17,7 +17,7 @@ export function useAPIContext(slug, type) {
 	useEffect(() => {
 		async function fetchFromAPI() {
 			const href = window.location.href;
-			const url = `${APP.API}${type}/${slug}`;
+			const url = `${APP.apiUrl}/${type}/${slug}`;
 			return fetch(url, { headers: getClientHeaders() })
 				.then((response) => response.json())
 				.then((json) => {

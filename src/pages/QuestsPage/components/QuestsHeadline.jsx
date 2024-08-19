@@ -12,7 +12,7 @@ export function QuestsHeadline(props) {
 
 	return (
 		<div className="h-flex px-2 align-items-center">
-			<ExternalLink href={`${APP.nameMC}${mojang.uuid}`}>
+			<ExternalLink href={`${APP.namemcUrl}${mojang.uuid}`}>
 				<PlayerHead uuid={mojang.uuid} shadow />
 			</ExternalLink>
 			<h1 className="text-shadow pl-2">

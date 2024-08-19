@@ -12,7 +12,7 @@ export function FriendsHeadline(props) {
 
 	return (
 		<div className="h-flex px-2 align-items-center">
-			<ExternalLink href={`${APP.nameMC}${mojang.uuid}`}>
+			<ExternalLink href={`${APP.namemcUrl}${mojang.uuid}`}>
 				<PlayerHead uuid={mojang.uuid} shadow />
 			</ExternalLink>
 			<div className="text-shadow pl-2">

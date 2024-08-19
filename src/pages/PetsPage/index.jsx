@@ -20,7 +20,7 @@ export function PetsPage(props) {
 				description: (
 					<span>
 						This page is about the cosmetic Hypixel Network pets. For SkyBlock pets, go
-						to <ExternalLink href={`${APP.skyblock}${mojang.uuid}`}>SkyCrypt</ExternalLink>.
+						to <ExternalLink href={`${APP.skyblockUrl}/${mojang.uuid}`}>SkyCrypt</ExternalLink>.
 					</span>
 				),
 				expire: true

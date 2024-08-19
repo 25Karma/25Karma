@@ -29,7 +29,7 @@ export function FrontPage(props) {
 					description: (
 						<span>
 							The player "
-							<ExternalLink href={`${APP.nameMC}${config.slug}`}>{config.slug}</ExternalLink>
+							<ExternalLink href={`${APP.namemcUrl}${config.slug}`}>{config.slug}</ExternalLink>
 							" does not exist.
 						</span>
 						)
@@ -49,7 +49,7 @@ export function FrontPage(props) {
 					description: (
 						<span>
 							The player "
-							<ExternalLink href={`${APP.nameMC}${config.slug}`}>{config.slug}</ExternalLink>
+							<ExternalLink href={`${APP.namemcUrl}${config.slug}`}>{config.slug}</ExternalLink>
 							" has never played on Hypixel.
 						</span>
 						)
@@ -82,7 +82,7 @@ export function FrontPage(props) {
 					title: 'Hypixel API Error.',
 					description: (
 						<span>
-							The Hypixel API is not responding. <ExternalLink href={APP.hypixelStatusPage}>
+							The Hypixel API is not responding. <ExternalLink href={APP.hypixelStatusUrl}>
 							Is it down?</ExternalLink>
 						</span>
 						)

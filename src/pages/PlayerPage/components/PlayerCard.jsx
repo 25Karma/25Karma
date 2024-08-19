@@ -100,7 +100,7 @@ export function PlayerCard(props) {
 	);
 	
 	const skyblockButton = (
-		<ExternalLink href={`${APP.skyblock}${mojang.uuid}`}>
+		<ExternalLink href={`${APP.skyblockUrl}/${mojang.uuid}`}>
 			<Button>
 				<span className="font-bold">View SkyBlock Stats</span>
 			</Button>

@@ -45,7 +45,7 @@ export function FriendsList(props) {
 					return fetchFriendNameByIndex(index+1);
 				}
 				// If not, fetch the name data
-				const response = await fetch(`${APP.API}name/${uuid}`, {
+				const response = await fetch(`${APP.apiUrl}/name/${uuid}`, {
 					headers: getClientHeaders(),
 					signal: abortController.signal
 				});
@@ -116,7 +116,7 @@ export function FriendsList(props) {
 					return (
 						<tr key={friend._id}>
 							<td className="td-shrink">
-								<ExternalLink href={`${APP.nameMC}${data.uuid}`}>
+								<ExternalLink href={`${APP.namemcUrl}${data.uuid}`}>
 									<PlayerHead uuid={data.uuid} size="lg" shadow />
 								</ExternalLink>
 							</td>

@@ -78,7 +78,7 @@ export function Support(props) {
 				<div {...provided.collapsibleProps}>
 					<div className="pt-3 h-flex">
 						<div className="pr-3 my-auto">
-							<ExternalLink href={APP.supportURL}>
+							<ExternalLink href={APP.supportUrl}>
 								<Button>
 									<div className="p-1" style={{width: "7.5rem"}}>
 										<ReactIcon icon={SiKofi} size="lg"/>
@@ -89,7 +89,7 @@ export function Support(props) {
 						</div>
 						<div >
 							<p className="pb-2">Thank you so much for thinking about supporting this website. Donations keep 25Karma free to use for thousands of players every day.</p>
-							<p className="pb-2">Please visit my <ExternalLink href={APP.supportURL}>Ko-fi page</ExternalLink> to see funding goals or to make a contribution.</p>
+							<p className="pb-2">Please visit my <ExternalLink href={APP.supportUrl}>Ko-fi page</ExternalLink> to see funding goals or to make a contribution.</p>
 							<ReactIcon icon={FaHeart} />
 						</div>
 					</div>
