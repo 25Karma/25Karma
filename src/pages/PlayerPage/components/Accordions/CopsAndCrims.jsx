@@ -27,10 +27,10 @@ export const CopsAndCrims = memo((props) => {
 	})();
 	const ratios = {
 		kd: Utils.ratio(total('kills'), total('deaths')),
-	}
+	};
 
 	function total(id) {
-		return Utils.add(json[id], json[`${id}_deathmatch`]);
+		return Utils.add(...consts.MODES.map(mode => json[`${id}${mode.id}`]));
 	}
 
 	const header = (
