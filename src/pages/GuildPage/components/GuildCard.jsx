@@ -51,8 +51,8 @@ export function GuildCard(props) {
 				<div className="w-100 mb-3">
 					{reactStringReplace(
 						guild.description, 
-						// https://stackoverflow.com/a/48769624
-						/(?:(?:https?|ftp):\/\/)?([\w/\-?=%.]+\.[\w/\-?=%.]+)/g,
+						// https://stackoverflow.com/a/6041965
+						/(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/g,
 						(match, i) => <ExternalLink href={match} key={i}>{match}</ExternalLink>
 					)}
 				</div> 
