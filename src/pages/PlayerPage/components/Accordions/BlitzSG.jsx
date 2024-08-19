@@ -57,6 +57,7 @@ export const BlitzSG = memo((props) => {
 	const header = (
 		<React.Fragment>
 			<Box title="Main" color={mostPlayedKit.name && 'white'}>{mostPlayedKit.name || '-'}</Box>
+			<Box title="Kills">{json.kills}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="Wins">{totalWins}</Box>
 		</React.Fragment>

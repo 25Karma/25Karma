@@ -28,6 +28,7 @@ export const Quakecraft = memo((props) => {
 
 	const header = (
 		<React.Fragment>
+			<Box title="Kills">{total('kills')}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="Wins">{total('wins')}</Box>
 		</React.Fragment>

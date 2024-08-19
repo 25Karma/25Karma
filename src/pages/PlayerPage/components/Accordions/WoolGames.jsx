@@ -101,8 +101,8 @@ export const WoolGames = memo((props) => {
 		<React.Fragment>
 			<Box title="Main" color={consts.DIFFICULTIES[mostPlayedClass.difficulty]}>{mostPlayedClass.name || '-'}</Box>
 			<Box title="Level">{prestige.tag}</Box>
-			<Box title="Wins">{total.wins}</Box>
 			<Box title="Kills">{total.kills}</Box>
+			<Box title="Wins">{total.wins}</Box>
 		</React.Fragment>
 	);
 

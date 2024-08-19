@@ -27,8 +27,8 @@ export const MurderMystery = memo((props) => {
 	
 	const header = (
 		<React.Fragment>
+			<Box title="Kills">{json.kills}</Box>
 			<Box title="Wins">{json.wins}</Box>
-			<Box title="Kills as Murderer">{json.kills_as_murderer}</Box>
 		</React.Fragment>
 		);
 

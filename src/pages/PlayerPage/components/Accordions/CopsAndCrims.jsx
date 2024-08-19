@@ -36,6 +36,7 @@ export const CopsAndCrims = memo((props) => {
 	const header = (
 		<React.Fragment>
 			<Box title="Score" color={prefixColor}>{score}</Box>
+			<Box title="Kills">{total('kills')}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="Wins">{total('game_wins')}</Box>
 		</React.Fragment>

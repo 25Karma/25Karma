@@ -21,6 +21,7 @@ export const Walls = memo((props) => {
 
 	const header = (
 		<React.Fragment>
+			<Box title="Kills">{json.kills}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="Wins">{json.wins}</Box>
 			<Box title="WL">{ratios.wl}</Box>
