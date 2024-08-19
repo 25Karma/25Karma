@@ -30,11 +30,13 @@ export function Collapsible(props) {
 	}
 
 	function toggleCollapsed() {
+		const minimumDuration = 200; // milliseconds
+		const speed = 4; // pixels per millisecond
 		// You can't transition smoothly from max-height:0; to max-height:none;
 		// To solve this, we employ an intermediate value (the height of the div)
 		collapsibleRef.current.style.display = 'block';
 		setCollapsibleHeight(collapsibleRef.current.scrollHeight+'px');
-		setDuration(collapsibleRef.current.scrollHeight/2+300);
+		setDuration(collapsibleRef.current.scrollHeight/speed + minimumDuration);
 	}
 	
 	// Runs when collapsedHeight is set to its intermediate value by toggleCollapsed()
