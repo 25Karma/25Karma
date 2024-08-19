@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaDiscord, FaInstagram, FaTwitch, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaDiscord, FaInstagram, FaTiktok, FaTwitch, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { ExternalLink, ReactIcon } from 'src/components';
 import { useAppContext } from 'src/hooks';
 
@@ -14,6 +14,7 @@ export function SocialMedia(props) {
 			DISCORD: {icon: FaDiscord, color: '#7289da'},
 			HYPIXEL: {icon: 'HypixelLogo', color: '#ffaa00'},
 			INSTAGRAM: {icon: FaInstagram, color: '#e1306c'},
+			TIKTOK: {icon: FaTiktok, color: '#ffffff'},
 			TWITCH: {icon: FaTwitch, color: '#9147ff'},
 			TWITTER: {icon: FaTwitter, color: '#1da1f2'},
 			YOUTUBE: {icon: FaYoutube, color: '#ff0000'},
