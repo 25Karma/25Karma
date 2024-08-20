@@ -1,12 +1,14 @@
 export const MEGAWALLS = {
 	TITLE: 'Mega Walls',
 	CLASSES: [
+		{id: 'angel', name: 'Angel', difficulty: '3'},
 		{id: 'arcanist', name: 'Arcanist', difficulty: '1'},
 		{id: 'assassin', name: 'Assassin', difficulty: '2'},
 		{id: 'automaton', name: 'Automaton', difficulty: '4'},
 		{id: 'blaze', name: 'Blaze', difficulty: '2'},
 		{id: 'cow', name: 'Cow', difficulty: '1'},
 		{id: 'creeper', name: 'Creeper', difficulty: '3'},
+		{id: 'dragon', name: 'Dragon', difficulty: '4'},
 		{id: 'dreadlord', name: 'Dreadlord', difficulty: '1'},
 		{id: 'enderman', name: 'Enderman', difficulty: '2'},
 		{id: 'golem', name: 'Golem', difficulty: '1'},
@@ -19,6 +21,7 @@ export const MEGAWALLS = {
 		{id: 'renegade', name: 'Renegade', difficulty: '4'},
 		{id: 'shaman', name: 'Shaman', difficulty: '2'},
 		{id: 'shark', name: 'Shark', difficulty: '3'},
+		{id: 'sheep', name: 'Sheep', difficulty: '3'},
 		{id: 'skeleton', name: 'Skeleton', difficulty: '3'},
 		{id: 'snowman', name: 'Snowman', difficulty: '4'},
 		{id: 'spider', name: 'Spider', difficulty: '3'},
