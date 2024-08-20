@@ -88,7 +88,7 @@ export function traverse(json, path, defaultValue = undefined) {
 * @return {string}       The number in roman numeral form
 */
 export function romanize(num) {
-	if (isNaN(num)) return NaN;
+	if (default0(num) === 0) return '-';
 
 	var digits = String(+num).split(""),
 	key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",

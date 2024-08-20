@@ -38,7 +38,7 @@ export const TNTGames = memo((props) => {
 						<Progress 
 							proportion={Utils.ratio(wizardStats.explode, 7)}
 							color={wizard.color}>
-							{Utils.romanize(wizardStats.explode || 0)}
+							{Utils.romanize(wizardStats.explode)}
 						</Progress>
 					</ProgressBar>
 				</Cell>
@@ -47,7 +47,7 @@ export const TNTGames = memo((props) => {
 						<Progress 
 							proportion={Utils.ratio(wizardStats.regen, 7)}
 							color={wizard.color}>
-							{Utils.romanize(wizardStats.regen || 0)}
+							{Utils.romanize(wizardStats.regen)}
 						</Progress>
 					</ProgressBar>
 				</Cell>

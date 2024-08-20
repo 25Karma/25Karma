@@ -31,7 +31,7 @@ export const MegaWalls = memo((props) => {
 		const classData = Utils.traverse(json, `classes.${id}`, {});
 		return (
 			<React.Fragment>
-				<Cell>{Utils.romanize(Utils.default0(classData.prestige))}</Cell>
+				<Cell>{Utils.romanize(classData.prestige)}</Cell>
 				<Cell>{classData.enderchest_rows}</Cell>
 			</React.Fragment>
 			)

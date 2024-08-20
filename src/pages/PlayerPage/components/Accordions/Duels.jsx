@@ -51,7 +51,7 @@ export const Duels = memo((props) => {
 			if (dat !== undefined) {
 				const roman = Utils.romanize(dat);
 				return {
-					name: `${div.name} ${roman === 'I' ? '' : roman}`,
+					name: `${div.name} ${roman === '-' || roman === 'I' ? '' : roman}`,
 					level: roman,
 					color: div.color,
 					style: div.style,

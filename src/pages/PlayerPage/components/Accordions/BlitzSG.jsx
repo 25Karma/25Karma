@@ -51,7 +51,7 @@ export const BlitzSG = memo((props) => {
 
 	function prestige(kit) {
 		const pres = json[`p${kit}`];
-		return pres === undefined ? '-' : Utils.romanize(pres);
+		return Utils.romanize(pres);
 	}
 
 	const header = (
