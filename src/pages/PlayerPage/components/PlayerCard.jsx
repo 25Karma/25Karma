@@ -8,13 +8,14 @@ import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
 import { calculateNetworkLevel, getPlayerRank, getGuildMemberRank, getGuildMemberDailyGEXP, 
 	getGuildMemberWeeklyGEXP } from 'src/utils/hypixel';
+import { HYPIXEL } from 'src/constants/hypixel';
 
 /*
 * Displays general Hypixel stats about the player in the Hypixel Context
 */
 export function PlayerCard(props) {
 	
-	const { player, guild, mojang } = useAPIContext();
+	const { player, guild, mojang, status } = useAPIContext();
 	const json = player || {};
 	const networkLevel = calculateNetworkLevel(json.networkExp);
 	const multiplier = (() => {
@@ -139,6 +140,30 @@ export function PlayerCard(props) {
 		}
 	}
 
+	function statusInfo() {
+		if (status.online) {
+			const games = HYPIXEL.GAMES;
+			const modes = HYPIXEL.MODES;
+			// games that DON'T have maps
+			const noMap = ['BUILD_BATTLE', 'HOUSING', 'ARCADE', 'REPLAY']
+			const noArcadeMap = ['DAYONE', 'DEFENDER', 'DRAGONWARS2', 'DROPPER', 'SOCCER', 'STARWARS', 'SIMON_SAYS', 'PARTY', 'DRAW_THEIR_THING', 'PIXEL_PARTY', 'THROW_OUT']
+
+			return (
+				<React.Fragment>
+					<HorizontalLine className="mt-3"/>
+					<Title>Status</Title>
+					<Pair title="Game" >{games[status.gameType] || status.gameType}</Pair>
+					{modes[status.gameType] && modes[status.gameType][status.mode] && (
+						<Pair title="Mode">{modes[status.gameType][status.mode]}</Pair>
+					) || status.mode && status.mode === 'LOBBY' && 
+						<Pair title="Mode">Lobby</Pair>}
+					{status.map && (!noMap.includes(status.gameType) || (status.gameType === 'ARCADE' && !noArcadeMap.includes(status.mode))) && <Pair title="Map" >{status.map}</Pair>}
+					
+				</React.Fragment>
+				);
+		}
+	}
+
 	function socialMedia() {
 		if (socialMediaLinks && !Utils.isEmpty(socialMediaLinks)) {
 			return (
@@ -167,6 +192,7 @@ export function PlayerCard(props) {
 			{loginDates}
 			{skyblockButton}
 			{guildInfo()}
+			{statusInfo()}
 			{socialMedia()}
 		</Card>
 		);
