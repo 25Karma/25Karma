@@ -15,7 +15,7 @@ export const BedWars = memo((props) => {
 	
 	// The player's API data for Bed Wars
 	const { player } = useAPIContext();
-	const json = Utils.traverse(player,'stats.Bedwars') || {};
+	const json = Utils.traverse(player,'stats.Bedwars', {});
 
 	const leveling = new HypixelLeveling(xpToLevel, levelToXP, 
 		Utils.default0(json.Experience) + Utils.default0(json.Experience_new));
@@ -33,6 +33,15 @@ export const BedWars = memo((props) => {
 	const mostPlayedPracticeMode = getMostPlayed(consts.PRACTICEMODES,
 		({id}) => Utils.add(Utils.traverse(json, `practice,${id}.successful_attempts`), 
 		Utils.traverse(json, `practice.${id}.failed_attempts`)));
+
+	const slumberJson = Utils.traverse(json, 'slumber', {});
+	const slumberDoor = (() => {
+		const roomList = Utils.traverse(slumberJson, 'room', {});
+		for (const room of consts.SLUMBER_ROOMS.slice().reverse()) {
+			if (roomList[room.id] === true) return room.name;
+		}
+		return '-';
+	})();
 
 	function xpToLevel(xp) {
 		let remainingXP = xp;
@@ -263,7 +272,7 @@ export const BedWars = memo((props) => {
 				<div className="flex-1">
 					<Pair title="Level">{leveling.level}</Pair>
 					<Pair title="Prestige" color={prestige.color}>{prestige.name}</Pair>
-					<Pair title="Coins" color="gold">{json.coins}</Pair>
+					<Pair title="Tokens" color="darkgreen">{json.coins}</Pair>
 					<Br/>
 					<Pair title="Kills">{json.kills_bedwars}</Pair>
 					<Pair title="Deaths">{json.deaths_bedwars}</Pair>
@@ -271,8 +280,6 @@ export const BedWars = memo((props) => {
 					<Pair title="Final Kills">{json.final_kills_bedwars}</Pair>
 					<Pair title="Final Deaths">{json.final_deaths_bedwars}</Pair>
 					<Pair title="Final Kill/Death Ratio">{ratios.fkd}</Pair>
-					<Br/>
-					<Pair title="Total Challenges Completed">{json.total_challenges_completed}</Pair>
 				</div>
 				<div className="flex-1">
 					<Pair title="Winstreak">{json.winstreak}</Pair>
@@ -280,16 +287,16 @@ export const BedWars = memo((props) => {
 					<Pair title="Losses">{json.losses_bedwars}</Pair>
 					<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
 					<Br/>
-					<Pair title="Loot Chests">{json.bedwars_boxes}</Pair>
-					<Pair title="Merry Chests">{json.bedwars_christmas_boxes}</Pair>
-					<Pair title="Spooky Chests">{json.bedwars_halloween_boxes}</Pair>
-					<Pair title="Easter Chests">{json.bedwars_easter_boxes}</Pair>
-					<Pair title="Lunar Chests">{json.bedwars_lunar_boxes}</Pair>
-				</div>
-				<div className="flex-1">
 					<Pair title="Beds Broken">{json.beds_broken_bedwars}</Pair>
 					<Pair title="Beds Lost">{json.beds_lost_bedwars}</Pair>
 					<Pair title="Beds Broken/Lost Ratio">{ratios.bbl}</Pair>
+					<Br/>
+					<Pair title="Total Challenges Completed">{json.total_challenges_completed}</Pair>
+				</div>
+				<div className="flex-1">
+					<Pair title="Slumber Tickets"><span className="c-aqua">{Utils.formatNum(slumberJson.tickets)}</span>/{Utils.formatNum(consts.SLUMBER_WALLETS[slumberJson.bag_type])}</Pair>
+					<Pair title="Lifetime Slumber Tickets" color="aqua">{slumberJson.total_tickets_earned}</Pair>
+					<Pair title="Door Unlocked">{slumberDoor}</Pair>
 					<Br/>
 					<Pair title="Iron Collected">{json.iron_resources_collected_bedwars}</Pair>
 					<Pair title="Gold Collected">{json.gold_resources_collected_bedwars}</Pair>
