@@ -372,9 +372,9 @@ export const HYPIXEL = {
 		LEGACY: {},
 		MAIN: {},
 		MCGO: {
-			'normal': 'Defusal',
-			'gungame': 'Gun Game',
-			'deathmatch': 'Team Deathmatch',
+			normal: 'Defusal',
+			gungame: 'Gun Game',
+			deathmatch: 'Team Deathmatch',
 			DEFUSAL_TOURNEY: 'Defusal (Tournament)'
 		},
 		MURDER_MYSTERY: {
