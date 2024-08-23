@@ -141,24 +141,33 @@ export function PlayerCard(props) {
 	}
 
 	function statusInfo() {
-		if (status.online) {
-			const games = HYPIXEL.GAMES;
-			const modes = HYPIXEL.MODES;
-			// games that DON'T have maps
-			const noMap = ['BUILD_BATTLE', 'HOUSING', 'ARCADE', 'REPLAY']
-			const noArcadeMap = ['DAYONE', 'DEFENDER', 'DRAGONWARS2', 'DROPPER', 'SOCCER', 'STARWARS', 'SIMON_SAYS', 'PARTY', 'DRAW_THEIR_THING', 'PIXEL_PARTY', 'THROW_OUT']
+		const { online, gameType, mode, map } = status;
+		if (online) {
+			const displayGameType = Utils.traverse(HYPIXEL.GAMES, String(gameType), gameType);
+			const displayMode = mode === 'LOBBY' ? 'Lobby' : Utils.traverse(HYPIXEL.MODES, `${gameType}.${mode}`, mode);
+			const showMode = (() => {
+				const noModeGameTypes = ['REPLAY'];
+				return Boolean(mode) && !noModeGameTypes.includes(gameType);
+			})();
+			const showMap = (() => {
+				const noMapGameTypes = ['BUILD_BATTLE', 'HOUSING', 'REPLAY'];
+				const noMapArcadeModes = ['DAYONE', 'DEFENDER', 'DRAGONWARS2', 'DROPPER', 'SOCCER', 'STARWARS', 'SIMON_SAYS', 'PARTY', 'DRAW_THEIR_THING', 'PIXEL_PARTY', 'THROW_OUT'];
+				return Boolean(map) && !noMapGameTypes.includes(gameType) && !(gameType === 'ARCADE' && noMapArcadeModes.includes(mode));
+			})();
 
 			return (
 				<React.Fragment>
 					<HorizontalLine className="mt-3"/>
-					<Title>Status</Title>
-					<Pair title="Game" >{games[status.gameType] || status.gameType}</Pair>
-					{modes[status.gameType] && modes[status.gameType][status.mode] && (
-						<Pair title="Mode">{modes[status.gameType][status.mode]}</Pair>
-					) || status.mode && status.mode === 'LOBBY' && 
-						<Pair title="Mode">Lobby</Pair>}
-					{status.map && (!noMap.includes(status.gameType) || (status.gameType === 'ARCADE' && !noArcadeMap.includes(status.mode))) && <Pair title="Map" >{status.map}</Pair>}
-					
+					<Title>Online Status</Title>
+					{Boolean(gameType) && 
+						<Pair title="Game">{displayGameType}</Pair>
+					}
+					{showMode &&
+						<Pair title="Mode">{displayMode}</Pair>
+					}
+					{showMap && 
+						<Pair title="Map">{map}</Pair>
+					}
 				</React.Fragment>
 				);
 		}

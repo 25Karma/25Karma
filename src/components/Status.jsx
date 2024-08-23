@@ -12,23 +12,22 @@ import * as Utils from 'src/utils';
 * @param {string} props.size      Size of the icon, default 'md'
 */
 export function Status(props) {
-	const games = HYPIXEL.GAMES;
 	const { status, player } = props;
 	const lastLogout = Utils.traverse(player, 'lastLogout');
 
 	function getStatusDataTip() {
 
 		if (status.online) {
-			const game = status.gameType
+			const displayGameType = HYPIXEL.GAMES[status.gameType] || status.gameType;
 			// Lobby-type miniservers
 			if (status.mode === 'LOBBY') {
-				return `Online. In a ${games[game] || game} lobby.`;
+				return `Online. In a ${displayGameType} lobby.`;
 			}
 			else if (status.gameType === 'REPLAY') {
 				return 'Online. Watching a replay.'
 			}
 			// Regular game miniservers
-			return `Online. Playing ${games[status.gameType] || status.gameType}.`;
+			return `Online. Playing ${displayGameType}.`;
 		}
 		else {
 			if (lastLogout) {
