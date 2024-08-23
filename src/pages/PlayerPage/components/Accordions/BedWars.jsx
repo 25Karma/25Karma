@@ -16,7 +16,6 @@ export const BedWars = memo((props) => {
 	// The player's API data for Bed Wars
 	const { player } = useAPIContext();
 	const json = Utils.traverse(player,'stats.Bedwars', {});
-	console.log(json);
 
 	const leveling = new HypixelLeveling(xpToLevel, levelToXP, 
 		Utils.default0(json.Experience) + Utils.default0(json.Experience_new));
@@ -88,7 +87,7 @@ export const BedWars = memo((props) => {
 		const tag = `[${levelFloor}${prestigeIcon}]`;
 		const coloredTag = tag.split('').map((char, index) => {
 			const color = prestige.colormap[index];
-			return color ? `ยง${color}${char}` : char;
+			return color ? `§${color}${char}` : char;
 		}).join('');
 
 		return {tag: coloredTag, ...prestige};

@@ -74,7 +74,7 @@ export const Duels = memo((props) => {
 	const header = (
 		<React.Fragment>
 			<Box title="Division">{`${division.style}${division.name}`}</Box>
-			<Box title="Most Played" color="white">{mostPlayedMode.name || 'ยง7-'}</Box>
+			<Box title="Most Played" color="white">{mostPlayedMode.name || '§7-'}</Box>
 			<Box title="Wins">{json.wins}</Box>
 			<Box title="WL">{ratios.wl}</Box>
 		</React.Fragment>
