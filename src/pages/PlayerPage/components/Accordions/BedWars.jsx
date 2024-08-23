@@ -16,6 +16,7 @@ export const BedWars = memo((props) => {
 	// The player's API data for Bed Wars
 	const { player } = useAPIContext();
 	const json = Utils.traverse(player,'stats.Bedwars', {});
+	console.log(json);
 
 	const leveling = new HypixelLeveling(xpToLevel, levelToXP, 
 		Utils.default0(json.Experience) + Utils.default0(json.Experience_new));
@@ -87,28 +88,29 @@ export const BedWars = memo((props) => {
 		const tag = `[${levelFloor}${prestigeIcon}]`;
 		const coloredTag = tag.split('').map((char, index) => {
 			const color = prestige.colormap[index];
-			return color ? `§${color}${char}` : char;
+			return color ? `ยง${color}${char}` : char;
 		}).join('');
 
 		return {tag: coloredTag, ...prestige};
 	}
 
 	function getCoreModeStat(suffix) {
-		if (suffix === consts.WINSTREAK_SUFFIX)
-			return json.winstreak;
+		if (suffix === consts.WINSTREAK_SUFFIX) {
+			return json.winstreak  === undefined ? "?" : json.winstreak;
+		}
 		return Utils.subtract(json[suffix],json[`two_four_${suffix}`]);
 	}
 
 	const header = (
 		<React.Fragment>
 			<Box title="Level">{prestige.tag}</Box>
-			<Box title="WS">{json.winstreak}</Box>
+			<Box title="WS">{json.winstreak === undefined ? "?" : json.winstreak}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="FKD">{ratios.fkd}</Box>
 			<Box title="WL">{ratios.wl}</Box>
 			<Box title="BBL">{ratios.bbl}</Box>
 		</React.Fragment>
-		);
+	);
 
 	const progressBar = (
 		<React.Fragment>
@@ -146,7 +148,7 @@ export const BedWars = memo((props) => {
 					<Cell>{computeStats('wins_bedwars')}</Cell>
 					<Cell>{computeStats('losses_bedwars')}</Cell>
 					<Cell>{Utils.ratio(computeStats('wins_bedwars'),computeStats('losses_bedwars'))}</Cell>
-					<Cell>{computeStats(consts.WINSTREAK_SUFFIX)}</Cell>
+					<Cell>{computeStats(consts.WINSTREAK_SUFFIX) === undefined ? "?" : computeStats(consts.WINSTREAK_SUFFIX)}</Cell>
 
 					<Cell>{computeStats('beds_broken_bedwars')}</Cell>
 					<Cell>{computeStats('beds_lost_bedwars')}</Cell>
