@@ -97,7 +97,7 @@ export const Pit = memo((props) => {
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="h-flex">
 				<div className="flex-1">
-					<Pair title="Prestige" color={prestigeColor}>{Utils.romanize(prestige)}</Pair>
+					<Pair title="Prestige" color={prestigeColor}>{prestige !== 0 ? Utils.romanize(prestige) : 'None'}</Pair>
 					<Pair title="Level" color={levelColor}>{level}</Pair>
 					<Pair title="Gold" color="gold">{Math.floor(Utils.default0(profile.cash))}</Pair>
 					<Pair title="Lifetime Gold" color="gold">{stats.cash_earned}</Pair>
