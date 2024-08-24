@@ -6,7 +6,7 @@ import { Button, ExternalLink, LoadingSpinner, PlayerHead, PlayerName,
 import { APP } from 'src/constants/app';
 import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
-import { getClientHeaders } from 'src/utils';
+import { getClientHeaders, httpGet } from 'src/utils';
 import { getPlayerRankPriority, getGuildMemberRank, getGuildMemberDailyGEXP, getGuildMemberWeeklyGEXP } from 'src/utils/hypixel';
 
 /*
@@ -38,8 +38,8 @@ export function GuildMemberList(props) {
 					return fetchGuildMemberNameByIndex(index+1);
 				}
 				// If not, fetch the name data
-				const response = await fetch(`${APP.apiUrl}/name/${uuid}`, {
-					headers: getClientHeaders(),
+				const response = await httpGet(`${APP.apiUrl}/name/${uuid}`, {
+					headers: await getClientHeaders(),
 					signal: abortController.signal
 				});
 				const json = await response.json();
