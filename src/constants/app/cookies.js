@@ -1,10 +1,10 @@
 export const COOKIES = {
-	decimalPlaces: "decimal",
-	pinnedPlayer: "pinnedPlayer",
-	recentSearches: "recentSearches",
-	playerAccordions: "accordionList",
-	questsAccordions: "questList",
-	achievementsAccordions: "trophyList",
-	hideCompletedAchievements: "hideCompleteAchievements",
-	dismissSupportDate: "dismissSupportDate",
+	achievementsAccordions: 'trophyList',
+	decimalPlaces: 'decimal',
+	dismissSupportDate: 'dismissSupportDate',
+	hideCompletedAchievements: 'hideCompleteAchievements',
+	pinnedPlayer: 'pinnedPlayer',
+	playerAccordions: 'accordionList',
+	questsAccordions: 'questList',
+	recentSearches: 'recentSearches',
 }
