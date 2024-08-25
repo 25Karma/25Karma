@@ -6,9 +6,9 @@ export async function httpGet(resource, options) {
 }
 
 /*
- * Returns a key-value pair of the header the client should include with its HTTP requests.
+ * Returns a key-value pair of headers the client should include with its HTTP requests.
  * 
- * @return {JSON} JS object containing a key and a value.
+ * @return {JSON} A Headers object.
  */
 export async function getClientHeaders() {
 	return new Headers();

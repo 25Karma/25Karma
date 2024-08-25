@@ -28,6 +28,16 @@ export function default0(val) {
 }
 
 /*
+* Returns '?' if the value is undefined
+*
+* @param {any} val    Potential undefined value
+* @return {string}    The value, if not found defaults to '?'
+*/
+export function defaultUnknown(val) {
+	return val === undefined ? '?' : val
+}
+
+/*
 * Returns the absolute value, or undefined if the number is undefined
 *
 * @param {any} val    The value to check
@@ -255,14 +265,4 @@ export function toColorCode(str) {
 		'font-bold': 'l',
 	}
 	return '§' + (str.split(' ').map(word => colorClasses[word] || 'f').join('§'));
-}
-
-/*
-* Returns '?' if the value is undefined
-*
-* @param {any} val    Potential undefined value
-* @return {string}    The value, if not found defaults to '?'
-*/
-export function defaultUnknown(val) {
-	return val === undefined ? '?' : val
 }

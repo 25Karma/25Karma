@@ -109,7 +109,7 @@ export const BedWars = memo((props) => {
 			<Box title="WL">{ratios.wl}</Box>
 			<Box title="BBL">{ratios.bbl}</Box>
 		</React.Fragment>
-	);
+		);
 
 	const progressBar = (
 		<React.Fragment>
@@ -129,7 +129,7 @@ export const BedWars = memo((props) => {
 				{leveling.levelCeiling}
 			</span>
 		</React.Fragment>
-		)
+		);
 
 	const table = (() => {
 		function renderRowForMode(id, name, computeStats) {
@@ -224,7 +224,7 @@ export const BedWars = memo((props) => {
 			}
 			</tbody>
 		</Table>
-	)
+		);
 
 	const bridgingRecordTable = (
 		<Table>
@@ -257,7 +257,7 @@ export const BedWars = memo((props) => {
 			}
 			</tbody>
 		</Table>
-	)
+		);
 
 	return Utils.isEmpty(json) ?
 		<Accordion title={consts.TITLE} index={props.index} />
