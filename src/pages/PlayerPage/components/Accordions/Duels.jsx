@@ -114,8 +114,8 @@ export const Duels = memo((props) => {
 								<Cell>{json[`${id}${id && '_'}wins`]}</Cell>
 								<Cell>{json[`${id}${id && '_'}losses`]}</Cell>
 								<Cell>{Utils.ratio(json[`${id}${id && '_'}wins`],json[`${id}${id && '_'}losses`])}</Cell>
-								<Cell>{json[`current_winstreak${id && '_mode_'}${id}`]}</Cell>
-								<Cell>{json[`best_winstreak${id && '_mode_'}${id}`]}</Cell>
+								<Cell>{Utils.defaultUnknown(json[`current_winstreak${id && '_mode_'}${id}`])}</Cell>
+								<Cell>{Utils.defaultUnknown(json[`best_winstreak${id && '_mode_'}${id}`])}</Cell>
 								<Cell>{Utils.ratio(json[`${id}${id && '_'}melee_hits`],json[`${id}${id && '_'}melee_swings`])}</Cell>
 								<Cell>{Utils.ratio(json[`${id}${id && '_'}bow_hits`],json[`${id}${id && '_'}bow_shots`])}</Cell>
 								<Cell>{json[`${id}${id && '_'}goals`]}</Cell>
@@ -148,8 +148,8 @@ export const Duels = memo((props) => {
 					<Pair title="Melee Hit Accuracy" percentage>{ratios.mhm}</Pair>
 				</div>
 				<div className="flex-1">
-					<Pair title="Best Winstreak">{json.best_overall_winstreak}</Pair>
-					<Pair title="Current Winstreak">{json.current_winstreak}</Pair>
+					<Pair title="Best Winstreak">{Utils.defaultUnknown(json.best_overall_winstreak)}</Pair>
+					<Pair title="Current Winstreak">{Utils.defaultUnknown(json.current_winstreak)}</Pair>
 					<Pair title="Overall Division" color={division.color}>{division.name}</Pair>
 					<Br/>
 					<Pair title="Wins">{json.wins}</Pair>

@@ -256,3 +256,13 @@ export function toColorCode(str) {
 	}
 	return '§' + (str.split(' ').map(word => colorClasses[word] || 'f').join('§'));
 }
+
+/*
+* Returns '?' if the value is undefined
+*
+* @param {any} val    Potential undefined value
+* @return {string}    The value, if not found defaults to '?'
+*/
+export function defaultUnknown(val) {
+	return val === undefined ? '?' : val
+}

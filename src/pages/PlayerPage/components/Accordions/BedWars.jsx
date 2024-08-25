@@ -94,21 +94,22 @@ export const BedWars = memo((props) => {
 	}
 
 	function getCoreModeStat(suffix) {
-		if (suffix === consts.WINSTREAK_SUFFIX)
-			return json.winstreak;
+		if (suffix === consts.WINSTREAK_SUFFIX) {
+			return Utils.defaultUnknown(json.winstreak);
+		}
 		return Utils.subtract(json[suffix],json[`two_four_${suffix}`]);
 	}
 
 	const header = (
 		<React.Fragment>
 			<Box title="Level">{prestige.tag}</Box>
-			<Box title="WS">{json.winstreak}</Box>
+			<Box title="WS">{Utils.defaultUnknown(json.winstreak)}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="FKD">{ratios.fkd}</Box>
 			<Box title="WL">{ratios.wl}</Box>
 			<Box title="BBL">{ratios.bbl}</Box>
 		</React.Fragment>
-		);
+	);
 
 	const progressBar = (
 		<React.Fragment>
@@ -146,7 +147,7 @@ export const BedWars = memo((props) => {
 					<Cell>{computeStats('wins_bedwars')}</Cell>
 					<Cell>{computeStats('losses_bedwars')}</Cell>
 					<Cell>{Utils.ratio(computeStats('wins_bedwars'),computeStats('losses_bedwars'))}</Cell>
-					<Cell>{computeStats(consts.WINSTREAK_SUFFIX)}</Cell>
+					<Cell>{Utils.defaultUnknown(computeStats(consts.WINSTREAK_SUFFIX))}</Cell>
 
 					<Cell>{computeStats('beds_broken_bedwars')}</Cell>
 					<Cell>{computeStats('beds_lost_bedwars')}</Cell>
