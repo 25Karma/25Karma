@@ -90,6 +90,7 @@ export const BEDWARS = {
 		{id: 'bridging', name: 'Bridging'},
 		{id: 'mlg', name: 'MLG'},
 		{id: 'fireball_jumping', name: 'Fireball/TNT Jumping'},
+		{id: 'pearl_clutching', name: 'Pearl Clutching'},
 	],
 	PRACTICEBRIDGING: {
 		bridging_distance: [30, 50, 100],

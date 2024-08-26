@@ -90,7 +90,7 @@ export const BedWars = memo((props) => {
 			return color ? `§${color}${char}` : char;
 		}).join('');
 
-		return {tag: coloredTag, ...prestige};
+		return {tag: coloredTag, icon: prestigeIcon, ...prestige};
 	}
 
 	function getCoreModeStat(suffix) {
@@ -272,7 +272,7 @@ export const BedWars = memo((props) => {
 			<div className="h-flex">
 				<div className="flex-1">
 					<Pair title="Level">{leveling.level}</Pair>
-					<Pair title="Prestige" color={prestige.color}>{prestige.name}</Pair>
+					<Pair title="Prestige" color={prestige.color}>{prestige.name} {prestige.icon}</Pair>
 					<Pair title="Tokens" color="darkgreen">{json.coins}</Pair>
 					<Br/>
 					<Pair title="Kills">{json.kills_bedwars}</Pair>
