@@ -63,7 +63,7 @@ export function PlayerCard(props) {
 				{json.questsCompleted}
 			</Pair>
 			<Br />
-			<Pair title="Challenges Complete">{challengesComplete}</Pair>
+			<Pair title="Challenges Completed">{challengesComplete}</Pair>
 			<Br />
 			<Pair title="Today's Reward" color={rewardClaimed ? 'green' : 'gray'}>{rewardClaimed ? 'Claimed!' : 'Unclaimed'}</Pair>
 			<Pair title="Rewards Claimed">{json.totalRewards}</Pair>
