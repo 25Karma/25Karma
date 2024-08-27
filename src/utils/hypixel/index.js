@@ -241,5 +241,5 @@ export function calculateChallengesComplete(challenges) {
 	}
 	const allTime = challenges.all_time || {};
 	const allTimeValues = Object.values(allTime);
-	return allTimeValues.reduce((acc, value) => acc + value, 0);;
+	return allTimeValues.reduce((acc, value) => acc + value, 0);
 }
