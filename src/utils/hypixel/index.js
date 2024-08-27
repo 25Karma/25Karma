@@ -232,10 +232,10 @@ export function questCompletionsSince(period, completions) {
 /*
 * Returns the total number of challenges completed by a player
 *
-* @param {json} challenge        The challenge JSON from the Hypixel API to parse
+* @param {object} challenge        The challenge object from the Hypixel API to parse
 * @return {Number}               Number of completions
 */
-export function calculateChallengesComplete(challenges) {
+export function calculateChallengesCompleted(challenges) {
 	if (!challenges) {
 		return 0;
 	}
