@@ -6,10 +6,10 @@ import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
 import { calculateNetworkLevel, questCompletionsSince } from 'src/utils/hypixel';
 
-/*
-* Displays general questing stats about the player in the Hypixel Context
-*/
-export function QuestsCard(props) {
+/**
+ * Displays general questing stats about the player in the Hypixel Context
+ */
+export function QuestsCard() {
 	const { player, mojang, resources } = useAPIContext();
 	const gameQuests = Utils.traverse(resources, 'quests', {});
 	const networkLevel = calculateNetworkLevel(player.networkExp);

@@ -4,10 +4,10 @@ import { ExternalLink, MinecraftText, PlayerHead, PlayerName } from 'src/compone
 import { APP } from 'src/constants/app';
 import { useAPIContext } from 'src/hooks';
 
-/*
-* Displays face and username of the player in the Hypixel Context
-*/
-export function FriendsHeadline(props) {
+/**
+ * Displays face and username of the player in the Hypixel Context
+ */
+export function FriendsHeadline() {
 	const { mojang, player } = useAPIContext();
 
 	return (

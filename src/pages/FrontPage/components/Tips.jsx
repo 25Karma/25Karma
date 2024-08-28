@@ -3,10 +3,10 @@ import { ExternalLink, ReactIcon, Tippy } from 'src/components';
 import { FaCaretLeft, FaCaretRight } from 'react-icons/fa';
 import { APP } from 'src/constants/app';
 
-/*
-*  Tips that display on the frontpage
-*/
-export function Tips(props) {
+/**
+ * Tips that display on the frontpage
+ */
+export function Tips() {
 	const tips = [
 		"🚨 Hey! Have you read all these tips yet? 🚨",
 		"Customize this site by clicking on the gear button in the top-right corner.",

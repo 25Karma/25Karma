@@ -4,10 +4,10 @@ import { PageLayout, PageLoading } from 'src/components';
 import { FriendsCard, FriendsHeadline, FriendsList } from './components';
 import { useAPIContext } from 'src/hooks';
 
-/*
-* Page that displays the friends of an individual player
-*/
-export function FriendsPage(props) {
+/**
+ * Page that displays the friends of an individual player
+ */
+export function FriendsPage() {
 	const { slug } = useParams();
 	const { success } = useAPIContext(slug, 'friends');
 	

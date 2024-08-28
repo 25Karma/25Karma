@@ -6,11 +6,11 @@ import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
 import { getMostPlayed } from 'src/utils/hypixel';
 
-/*
-* Stats accordion for Mega Walls
-*
-* @param {number} props.index    The order in which to display the row (used by react-beautiful-dnd)
-*/
+/**
+ * Stats accordion for Mega Walls
+ *
+ * @param {number} props.index    The order in which to display the row (used by the dnd package)
+ */
 export const Warlords = memo((props) => {
 	const { mojang, player } = useAPIContext();
 	const json = Utils.traverse(player, 'stats.Battleground', {});

@@ -1,14 +1,14 @@
 import React from 'react';
 import { Tippy } from 'src/components';
 
-/*
-* Component that fills a ProgressBar
-*
-* @param {string} props.proportion    Proportion of the ProgressBar - value from 0 to 1
-* @param {string} props.color         Color of the component
-* @param {string} props.children      Text on the component
-* @param {string} props.dataTip       Text to show on hover
-*/
+/**
+ * Component that fills a ProgressBar
+ *
+ * @param {string} props.proportion    Proportion of the ProgressBar - value from 0 to 1
+ * @param {string} props.color         Color of the component
+ * @param {string} props.children      Text on the component
+ * @param {string} props.dataTip       Text to show on hover
+ */
 export function Progress(props) {
 	const lightBackgrounds = [
 		'white', 'yellow', 'green', 'gray', 'aqua', 'gold',

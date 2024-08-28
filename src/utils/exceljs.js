@@ -3,17 +3,17 @@ import { saveAs } from 'file-saver';
 import { APP } from 'src/constants/app';
 import { dateFormat } from './dateformat';
 
-/*
-* Creates an Excel workbook, populates it, and initiates a client-side download of the .xlsx file
-*
-* @param {string} filename      The name of the .xlsx file (Note that the actual file name will also have a timestamp 
-                                appended to the end)
-* @param {Object} worksheets    Data for each worksheet to be included in the workbook
-                                Each Object should contain a `title` key, a `rows` key, and a `columns` key
-                                `rows` is an array of rows of unorganized data
-                                `columns` is an array of Objects each containing a `title` key and a `from` key
-                                `from` is the function used to pick the desired data out of each given row
-*/
+/**
+ * Creates an Excel workbook, populates it, and initiates a client-side download of the .xlsx file
+ *
+ * @param {string} filename      The name of the .xlsx file (Note that the actual file name will also have a timestamp 
+ *                               appended to the end)
+ * @param {Object} worksheets    Data for each worksheet to be included in the workbook
+ *                               Each Object should contain a `title` key, a `rows` key, and a `columns` key
+ *                               `rows` is an array of rows of unorganized data
+ *                               `columns` is an array of Objects each containing a `title` key and a `from` key
+ *                               `from` is the function used to pick the desired data out of each given row
+ */
 export function exportXLSX(filename, ...worksheets) {
 
 	// Create a workbook

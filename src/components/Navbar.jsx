@@ -5,18 +5,18 @@ import Cookies from 'js-cookie';
 import { APP, COOKIES } from 'src/constants/app';
 import { Collapsible, MinecraftText, ReactIcon, Searchbar, Settings, Tippy } from 'src/components';
 
-/*
-* Navbar that appears at the top of the page
-*
-* @param {boolean} props.searchbar   Whether or not to display the Searchbar component
-*/
+/**
+ * Navbar that appears at the top of the page
+ *
+ * @param {boolean} props.searchbar    Whether or not to display the Searchbar component
+ */
 export function Navbar(props) {
 	
-	/*
-	* Returns a clickable pin icon if the 'pinnedPlayer' cookie exists
-	*
-	* @return {JSX} A clickable pin icon that redirects to the pinned player's stats on click
-	*/
+	/**
+	 * Returns a clickable pin icon if the 'pinnedPlayer' cookie exists
+	 *
+	 * @returns {JSX} A clickable pin icon that redirects to the pinned player's stats on click
+	 */
 	function renderPinnedPlayerButton() {
 		const p = Cookies.get(COOKIES.pinnedPlayer);
 		if (p) {

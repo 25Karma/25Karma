@@ -5,10 +5,10 @@ import { GuildCard, GuildMemberList } from './components';
 import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
 
-/*
-* Page that displays the stats of a guild
-*/
-export function GuildPage(props) {
+/**
+ * Page that displays the stats of a guild
+ */
+export function GuildPage() {
 	const { slug } = useParams();
 	const { guild, success } = useAPIContext(slug, 'guild');
 	

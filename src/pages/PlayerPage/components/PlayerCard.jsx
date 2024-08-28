@@ -10,10 +10,10 @@ import { calculateNetworkLevel, getPlayerRank, getGuildMemberRank, getGuildMembe
 	getGuildMemberWeeklyGEXP, calculateChallengesCompleted } from 'src/utils/hypixel';
 import { HYPIXEL } from 'src/constants/hypixel';
 
-/*
-* Displays general Hypixel stats about the player in the Hypixel Context
-*/
-export function PlayerCard(props) {
+/**
+ * Displays general Hypixel stats about the player in the Hypixel Context
+ */
+export function PlayerCard() {
 	
 	const { player, guild, mojang, status } = useAPIContext();
 	const json = player || {};

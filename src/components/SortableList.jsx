@@ -3,17 +3,17 @@ import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
 import { ReactIcon } from 'src/components';
 import './SortableList.css';
 
-/*
-* A table formatted to look like a vertical list
-*
-* @param {Array<Object>} props.headers    Headers - each Object should contain `title` and `sortHandler` keys.
-*                                         `sortHandler` is a function that takes 2 parameters `items` and `polarity`
-*                                         Optionally pass an `initial` key to one Object to use it as the initial sort type
-* @param {Array<any>} props.items         Array of unsorted list items
-* @param {function} props.children        Function that returns a component for an item from 
-*                                         the `items` array - should include the components wrapped
-*                                         inside a <tr key={something}></tr>
-*/
+/**
+ * A table formatted to look like a vertical list
+ *
+ * @param {Array<Object>} props.headers    Headers - each Object should contain `title` and `sortHandler` keys.
+ *                                         `sortHandler` is a function that takes 2 parameters `items` and `polarity`
+ *                                         Optionally pass an `initial` key to one Object to use it as the initial sort type
+ * @param {Array<any>} props.items         Array of unsorted list items
+ * @param {Function} props.children        Function that returns a component for an item from 
+ *                                         the `items` array - should include the components wrapped
+ *                                         inside a <tr key={something}></tr>
+ */
 export const SortableList = memo((props) => {
 	const { headers, items } = props;
 	const renderItem = props.children;

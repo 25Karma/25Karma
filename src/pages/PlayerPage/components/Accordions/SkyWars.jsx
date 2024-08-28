@@ -7,11 +7,11 @@ import { useAPIContext, useAppContext } from 'src/hooks';
 import * as Utils from 'src/utils';
 import { HypixelLeveling, getMostPlayed } from 'src/utils/hypixel';
 
-/*
-* Stats accordion for Skywars
-*
-* @param {number} props.index    The order in which to display the row (used by react-beautiful-dnd)
-*/
+/**
+ * Stats accordion for Skywars
+ *
+ * @param {number} props.index    The order in which to display the row (used by the dnd package)
+ */
 export const SkyWars = memo((props) => {
 
 	// Get the player's API data for SkyWars

@@ -3,13 +3,13 @@ import { MinecraftText } from 'src/components';
 import * as Utils from 'src/utils';
 import { getPlayerRank } from 'src/utils/hypixel';
 
-/*
-* Hypixel player username with rank & colors in Minecraft font
-*
-* @param {string} props.username    Player's username
-* @param {Object} props.player      Player data JSON object
-* @param {string} props.size        Font size
-*/
+/**
+ * Hypixel player username with rank & colors in Minecraft font
+ *
+ * @param {string} props.username    Player's username
+ * @param {Object} props.player      Player data JSON object
+ * @param {string} props.size        Font size
+ */
 export function PlayerName(props) {
 
 	const playerdata = props.player || {};

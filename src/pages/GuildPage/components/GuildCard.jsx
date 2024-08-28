@@ -7,10 +7,10 @@ import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
 import { HypixelLeveling } from 'src/utils/hypixel';
 
-/*
-* The card on the left side of the page that contains info about the guild
-*/
-export function GuildCard(props) {
+/**
+ * The card on the left side of the page that contains info about the guild
+ */
+export function GuildCard() {
 	const { guild } = useAPIContext();
 	const hasTag = Boolean(guild.tag);
 	const hasDesc = Boolean(guild.description);

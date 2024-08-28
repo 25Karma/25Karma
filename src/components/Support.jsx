@@ -6,10 +6,10 @@ import Cookies from 'js-cookie';
 import { Button, Collapsible, ExternalLink, ReactIcon } from 'src/components';
 import { APP, COOKIES } from 'src/constants/app';
 
-/*
-* Call-to-action menu that appears at the top of the website periodically
-*/
-export function Support(props) {
+/**
+ * Call-to-action menu that appears at the top of the website periodically
+ */
+export function Support() {
 
 	const dismissCooldownDays = 90;
 	const [ dismissSupportDate, setDismissSupportDate ] = useState(getDateFromCookie(new Date(0)));

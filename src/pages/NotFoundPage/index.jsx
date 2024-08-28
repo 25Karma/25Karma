@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { MinecraftText, PageLayout } from 'src/components';
 import { APP } from 'src/constants/app';
 
-/*
-* 404 page
-*/
-export function NotFoundPage(props) {
+/**
+ * 404 page
+ */
+export function NotFoundPage() {
 	document.title = `Error 404 - ${APP.documentTitle}`;
 	return (
 			<PageLayout

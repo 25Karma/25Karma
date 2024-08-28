@@ -1,14 +1,14 @@
 import React from 'react';
 import { formatNum } from 'src/utils';
 
-/*
-* Shows a statistic in a cell of a table
-*
-* @param {string} props.children       The value of the stat 
-* @param {string} props.color          The color of the stat - default white
-* @param {boolean} props.shrink        Whether the stat should only take up the minimum width
-* @param {boolean} props.percentage    Whether the stat should be displayed as a percentage
-*/
+/**
+ * Shows a statistic in a cell of a table
+ *
+ * @param {string} props.children       The value of the stat 
+ * @param {string} props.color          The color of the stat - default white
+ * @param {boolean} props.shrink        Whether the stat should only take up the minimum width
+ * @param {boolean} props.percentage    Whether the stat should be displayed as a percentage
+ */
 export function Cell(props) {
 	function renderChildren() {
 		if (props.children === undefined) return 0;

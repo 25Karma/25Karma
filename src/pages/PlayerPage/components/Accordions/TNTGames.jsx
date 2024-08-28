@@ -5,11 +5,11 @@ import { TNTGAMES as consts } from 'src/constants/hypixel';
 import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
 
-/*
-* Stats accordion for TNT Games
-*
-* @param {number} props.index    The order in which to display the row (used by react-beautiful-dnd)
-*/
+/**
+ * Stats accordion for TNT Games
+ *
+ * @param {number} props.index    The order in which to display the row (used by the dnd package)
+ */
 export const TNTGames = memo((props) => {
 
 	const { player } = useAPIContext();

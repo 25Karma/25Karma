@@ -7,9 +7,9 @@ import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
 import { calculateNetworkLevel, isPet } from 'src/utils/hypixel';
 
-/*
-* Displays general pets stats about the player
-*/
+/**
+ * Displays general pets stats about the player
+ */
 export function PetsCard() {
 	const { player = {}, mojang } = useAPIContext();
 	const { petConsumables = {}, petJourneyTimestamp = 0, petStats = {} } = player;

@@ -6,10 +6,10 @@ import { AchievementsAccordions, AchievementsCard, AchievementsHeadline } from '
 import { COOKIES } from 'src/constants/app';
 import {useAPIContext } from 'src/hooks';
 
-/*
-* Page that displays the achievements of an individual player
-*/
-export function AchievementsPage(props) {
+/**
+ * Page that displays the achievements of an individual player
+ */
+export function AchievementsPage() {
 	const { slug } = useParams();
 	const { success } = useAPIContext(slug, 'achievements');
 

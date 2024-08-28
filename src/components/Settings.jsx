@@ -6,11 +6,11 @@ import { Br } from 'src/components/Stats';
 import { APP, COOKIES } from 'src/constants/app';
 import { useAppContext } from 'src/hooks';
 
-/*
-* Gets/sets cookies based on user's site preferences
-*
-* @param {function} props.toggle   Function that is run when 'Save Settings' is clicked
-*/
+/**
+ * Gets/sets cookies based on user's site preferences
+ *
+ * @param {Function} props.toggle    Function that is run when 'Save Settings' is clicked
+ */
 export function Settings(props) {
 	
 	// Refs used by setCookies() to locate inputs
@@ -58,8 +58,8 @@ export function Settings(props) {
 	/*
 	* Checks that the 'Decimal Places' input is a number from 0 to 8
 	*
-	* @param {string} str The string to parse for an integer value
-	* @return {number} Either false or the successfully parsed number
+	 * @param {string} str The string to parse for an integer value
+	* @returns {number} Either false or the successfully parsed number
  	*/
 	function parseDecimalInput(str) {
 		try {

@@ -7,11 +7,11 @@ import * as Accordions from './components/Accordions';
 import { COOKIES } from 'src/constants/app';
 import { useAPIContext } from 'src/hooks';
 
-/*
-* Page that displays the stats for an individual player
-* The assumption being that it is only called by App.js if the APIContext is not null
-*/
-export function PlayerPage(props) {
+/**
+ * Page that displays the stats for an individual player
+ * The assumption being that it is only called by App.js if the APIContext is not null
+ */
+export function PlayerPage() {
 	const { slug } = useParams();
 	const { success } = useAPIContext(slug, 'player');
 

@@ -2,14 +2,14 @@ import React from 'react';
 import './ReactIcon.css';
 import { IconContext } from 'react-icons';
 
-/*
-* Icons from the react-icons module
-*
-* @param {string} props.icon         The icon component from react-icons or 'HypixelLogo'
-* @param {string} props.size         Size of the icon - default md
-* @param {string} props.color        Color of the icon - default white
-* @param {boolean} props.clickable   If true, the icon will pop out on hover
-*/
+/**
+ * Icons from the react-icons module
+ *
+ * @param {string} props.icon          The icon component from react-icons or 'HypixelLogo'
+ * @param {string} props.size          Size of the icon - default md
+ * @param {string} props.color         Color of the icon - default white
+ * @param {boolean} props.clickable    If true, the icon will pop out on hover
+ */
 export function ReactIcon(props) {
 	const { icon, size, color, clickable } = props;
 	const className = `reacticon-${size || 'md'} ${clickable && 'reacticon-clickable'} ${color ? 'c-'+color : null}`;

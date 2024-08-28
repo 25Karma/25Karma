@@ -4,14 +4,14 @@ import { RecentSearches, Search, Tips } from './components';
 import { APP } from 'src/constants/app';
 import { useAppContext } from 'src/hooks';
 
-/*
-* The frontpage of the site
-*
-* @param {JSX} props.config     The frontpage will load banners and other components differently 
-*                               depending on the config. The config must contain a reason 
-*                               for the error. Other optional properties will be provided in the
-*                               config depending on the reason.
-*/
+/**
+ * The frontpage of the site
+ *
+ * @param {JSX} props.config    The frontpage will load banners and other components differently 
+ *                              depending on the config. The config must contain a reason 
+ *                              for the error. Other optional properties will be provided in the
+ *                              config depending on the reason.
+ */
 export function FrontPage(props) {
 
 	const config = useMemo(() => props.config || {}, [props.config]);

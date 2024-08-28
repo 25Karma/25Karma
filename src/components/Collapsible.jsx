@@ -1,12 +1,12 @@
 import { useRef, useState, useEffect } from 'react';
 
-/*
-* Wrapper for components that open and collapse
-* Spread {...provided.collapsibleProps} into the component that should collapse/open
-* Spread {...provided.collapseButtonProps} into the component/button that should toggle the collapse
-*
-* @param {function} props.children 	The JSX to render
-*/
+/**
+ * Wrapper for components that open and collapse
+ * Spread {...provided.collapsibleProps} into the component that should collapse/open
+ * Spread {...provided.collapseButtonProps} into the component/button that should toggle the collapse
+ *
+ * @param {Function} props.children    The JSX to render
+ */
 export function Collapsible(props) {
 	const [isCollapsed, setCollapsed] = useState(true);
 	const [collapsibleHeight, setCollapsibleHeight] = useState(0);

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import './ToggleSwitch.css';
 
-/*
-* A basic toggle switch
-*
-* @param {function} props.onChange    Function should take 1 parameter for the state
-* @param {bool} props.checked         Whether the switch should be checked by default
-* @param {string} props.onColor       Color of switch when checked
-* @param {string} props.offColor      Color of switch when unchecked
-*/
+/**
+ * A basic toggle switch
+ *
+ * @param {Function} props.onChange    Function should take 1 parameter for the state
+ * @param {boolean} props.checked      Whether the switch should be checked by default
+ * @param {string} props.onColor       Color of switch when checked
+ * @param {string} props.offColor      Color of switch when unchecked
+ */
 export function ToggleSwitch(props) {
 
 	const offColor = props.offColor;

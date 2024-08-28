@@ -6,10 +6,10 @@ import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
 import { calculateNetworkLevel } from 'src/utils/hypixel';
 
-/*
-* Displays relevant Hypixel friend stats about the player in the Hypixel Context
-*/
-export function FriendsCard(props) {
+/**
+ * Displays relevant Hypixel friend stats about the player in the Hypixel Context
+ */
+export function FriendsCard() {
 	
 	const { friends, player, mojang } = useAPIContext();
 	const json = player || {};

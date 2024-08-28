@@ -4,10 +4,10 @@ import { MinecraftText, PageLayout } from 'src/components';
 import { MAINTENANCE } from 'src/constants/app';
 import * as Utils from 'src/utils';
 
-/*
-* Page that displays to users that visit the site while it is under maintenance
-*/
-export function MaintenancePage(props) {
+/**
+ * Page that displays to users that visit the site while it is under maintenance
+ */
+export function MaintenancePage() {
     const atDate = new Date(MAINTENANCE.at);
 
     return (

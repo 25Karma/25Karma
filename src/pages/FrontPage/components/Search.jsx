@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Button, MinecraftText, ReactIcon, Searchbar } from 'src/components';
 import { PAGES } from 'src/constants/app';
 
-/*
-* Searchbar with buttons to select a specific search type
-*
-* @param {String} defaultValue    The initial value to put inside of the searchbar
-*/
+/**
+ * Searchbar with buttons to select a specific search type
+ *
+ * @param {string} props.defaultValue    The initial value to put inside of the searchbar
+ */
 export function Search(props) {
 	const [searchType, setSearchType] = useState(PAGES[0]);
 

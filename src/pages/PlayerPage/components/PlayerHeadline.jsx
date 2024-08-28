@@ -4,10 +4,10 @@ import { ExternalLink, GuildTag, MinecraftText, PlayerHead, PlayerName, Status }
 import { APP } from 'src/constants/app';
 import { useAPIContext } from 'src/hooks';
 
-/*
-* Displays face, username, and status of the player in the Hypixel Context
-*/
-export function PlayerHeadline(props) {
+/**
+ * Displays face, username, and status of the player in the Hypixel Context
+ */
+export function PlayerHeadline() {
 	const { mojang, player, guild, status } = useAPIContext();
 
 	return (

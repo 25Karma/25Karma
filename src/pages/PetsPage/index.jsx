@@ -5,10 +5,10 @@ import { PetsCard, PetsHeadline, PetsList } from './components';
 import { APP } from 'src/constants/app';
 import { useAPIContext, useAppContext } from 'src/hooks';
 
-/*
-* Page that displays the pets of an individual player
-*/
-export function PetsPage(props) {
+/**
+ * Page that displays the pets of an individual player
+ */
+export function PetsPage() {
 	const { slug } = useParams();
 	const { success, mojang } = useAPIContext(slug, 'pets');
 	const { setBanner } = useAppContext();

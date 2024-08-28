@@ -6,10 +6,10 @@ import { QuestsAccordions, QuestsCard, QuestsHeadline } from './components';
 import { COOKIES } from 'src/constants/app';
 import { useAPIContext } from 'src/hooks';
 
-/*
-* Page that displays the quests of an individual player
-*/
-export function QuestsPage(props) {
+/**
+ * Page that displays the quests of an individual player
+ */
+export function QuestsPage() {
 	const { slug } = useParams();
 	const { success } = useAPIContext(slug, 'quests');
 

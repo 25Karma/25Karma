@@ -5,13 +5,13 @@ import { useAPIContext } from 'src/hooks';
 import { FrontPage } from 'src/pages';
 import { pushToRecentSearches } from 'src/utils';
 
-/*
-* PageLayout wrapper for pages that specifically load and display stats from the 25Karma API
-*
-* @param {function} props.title   The title to be displayed on the page tab, should accept the player's username as its sole argument
-* @param {string} props.loading   The text to be displayed when waiting for the API response
-* @param {JSX} props.children     What to render on successful API call (should be a PageLayout component)
-*/
+/**
+ * PageLayout wrapper for pages that specifically load and display stats from the 25Karma API
+ *
+ * @param {Function} props.title    The title to be displayed on the page tab, should accept the player's username as its sole argument
+ * @param {string} props.loading    The text to be displayed when waiting for the API response
+ * @param {JSX} props.children      What to render on successful API call (should be a PageLayout component)
+ */
 export function PageLoading({ title, loading, children }) {
 	const context = useAPIContext();
 

@@ -5,11 +5,11 @@ import { VAMPIREZ as consts } from 'src/constants/hypixel';
 import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
 
-/*
-* Stats accordion for VampireZ
-*
-* @param {number} props.index    The order in which to display the row (used by react-beautiful-dnd)
-*/
+/**
+ * Stats accordion for VampireZ
+ *
+ * @param {number} props.index    The order in which to display the row (used by the dnd package)
+ */
 export const VampireZ = memo((props) => {
 	
 	const { player } = useAPIContext();

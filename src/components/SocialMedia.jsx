@@ -3,11 +3,11 @@ import { FaDiscord, FaInstagram, FaTiktok, FaTwitch, FaTwitter, FaYoutube } from
 import { ExternalLink, ReactIcon } from 'src/components';
 import { useAppContext } from 'src/hooks';
 
-/*
-* Displays a person's social media as a row of icons
-*
-* @param {Object} props.links    An Object from player.socialMedia.links
-*/
+/**
+ * Displays a person's social media as a row of icons
+ *
+ * @param {Object} props.links    An Object from player.socialMedia.links
+ */
 export function SocialMedia(props) {
 	const consts = {
 		SOCIALMEDIA: {

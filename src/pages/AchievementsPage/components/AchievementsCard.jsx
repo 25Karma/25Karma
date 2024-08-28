@@ -7,10 +7,10 @@ import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
 import { calculateNetworkLevel, gamemodeAchievements } from 'src/utils/hypixel';
 
-/*
-* Displays overall achievement stats about the player
-*/
-export function AchievementsCard(props) {
+/**
+ * Displays overall achievement stats about the player
+ */
+export function AchievementsCard() {
 	
 	const { player, mojang, resources: { achievements: allAchmts } } = useAPIContext();
 	const json = player || {};

@@ -3,12 +3,12 @@ export * from './dateformat';
 export * from './exceljs';
 export * from './js-cookie';
 
-/*
-* Returns 1 if the number is zero
-*
-* @param {number} number    The number to check
-* @return {number}          1 if number is 0, otherwise the number itself
-*/
+/**
+ * Returns 1 if the number is zero
+ *
+ * @param {number} number    The number to check
+ * @returns {number}         1 if number is 0, otherwise the number itself
+ */
 export function set1If0(number) {
 	if (number === 0) {
 		return 1;
@@ -16,44 +16,44 @@ export function set1If0(number) {
 	return number;
 }
 
-/*
-* Returns 0 if the value passed is falsy
-*
-* @param {any} val    The value to check
-* @return {any}       0 if val is falsy, otherwise val itself
-*/
+/**
+ * Returns 0 if the value passed is falsy
+ *
+ * @param {any} val    The value to check
+ * @returns {any}      0 if val is falsy, otherwise val itself
+ */
 export function default0(val) {
 	if (!val || val === undefined || isNaN(val)) return 0;
 	return val;
 }
 
-/*
-* Returns '?' if the value is undefined
-*
-* @param {any} val    Potential undefined value
-* @return {string}    The value, if not found defaults to '?'
-*/
+/**
+ * Returns '?' if the value is undefined
+ *
+ * @param {any} val     Potential undefined value
+ * @returns {string}    The value, if not found defaults to '?'
+ */
 export function defaultUnknown(val) {
 	return val === undefined ? '?' : val
 }
 
-/*
-* Returns the absolute value, or undefined if the number is undefined
-*
-* @param {any} val    The value to check
-* @return {any}       The absolute value, or undefined if the number is undefined
-*/
+/**
+ * Returns the absolute value, or undefined if the number is undefined
+ *
+ * @param {any} val    The value to check
+ * @returns {any}      The absolute value, or undefined if the number is undefined
+ */
 export function abs(val) {
 	if (!val || val === undefined || isNaN(val)) return undefined;
 	return Math.abs(val);
 }
 
-/*
-* Safely adds numbers that could be undefined
-*
-* @param {number} arguments    A dynamic amount of parameters to add
-* @return {number}             The sum of the parameters
-*/
+/**
+ * Safely adds numbers that could be undefined
+ *
+ * @param {number} arguments    A dynamic amount of parameters to add
+ * @returns {number}            The sum of the parameters
+ */
 export function add() {
 	return Array.from(arguments).reduce((a, b) => default0(a) + default0(b), 0);
 }
@@ -62,25 +62,25 @@ export function subtract(a, b) {
 	return default0(a) - default0(b);
 }
 
-/*
-* Calculates a ratio safely
-*
-* @param {number} num      The numerator of the ratio
-* @param {number} denom    The denominator of the ratio
-* @return {number}         The calculated ratio
-*/
+/**
+ * Calculates a ratio safely
+ *
+ * @param {number} num      The numerator of the ratio
+ * @param {number} denom    The denominator of the ratio
+ * @returns {number}        The calculated ratio
+ */
 export function ratio(num, denom) {
 	return default0(num)/set1If0(default0(denom));
 }
 
-/*
-* Traverses down an object path safely
-*
-* @param {Object} json         The Object to traverse
-* @param {string} path         The path to follow (period-separated)
-* @param {any} defaultValue    Object to return if the traversal fails - default undefined
-* @return {any}                Returns the value at the path, or the default value
-*/
+/**
+ * Traverses down an object path safely
+ *
+ * @param {Object} json         The Object to traverse
+ * @param {string} path         The path to follow (period-separated)
+ * @param {any} defaultValue    Object to return if the traversal fails - default undefined
+ * @returns {any}               Returns the value at the path, or the default value
+ */
 export function traverse(json, path, defaultValue = undefined) {
 	const paths = path.split('.');
 	for (const p of paths) {
@@ -91,12 +91,12 @@ export function traverse(json, path, defaultValue = undefined) {
 	return json;
 }
 
-/*
-* Converts number to its roman numeral form (https://stackoverflow.com/a/9083076)
-*
-* @param {number} num    The number to convert
-* @return {string}       The number in roman numeral form
-*/
+/**
+ * Converts number to its roman numeral form (https://stackoverflow.com/a/9083076)
+ *
+ * @param {number} num    The number to convert
+ * @returns {string}      The number in roman numeral form
+ */
 export function romanize(num) {
 	if (default0(num) === 0) return '-';
 
@@ -112,42 +112,42 @@ export function romanize(num) {
 	return Array(+digits.join("") + 1).join("M") + roman;
 }
 
-/*
-* Capitalizes the first character in a string and makes all following characters lowercase
-*
-* @param {string} str    The string to format
-* @return {string}       The properly capitalized string
-*/
+/**
+ * Capitalizes the first character in a string and makes all following characters lowercase
+ *
+ * @param {string} str    The string to format
+ * @returns {string}      The properly capitalized string
+ */
 export function capitalize(str) {
 	return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-/*
-* Checks if an Object is empty
-*
-* @param {Object} obj    The object to check
-* @return {boolean}      Whether or not it is empty
-*/
+/**
+ * Checks if an Object is empty
+ *
+ * @param {Object} obj    The object to check
+ * @returns {boolean}     Whether or not it is empty
+ */
 export function isEmpty(obj) {
 	return Object.keys(obj).length === 0 && obj.constructor === Object;
 }
 
-/*
-* Checks if a value is an Object
-*
-* @param {any} val     The value to check
-* @return {boolean}    Whether or not it is an Object
-*/
+/**
+ * Checks if a value is an Object
+ *
+ * @param {any} val      The value to check
+ * @returns {boolean}    Whether or not it is an Object
+ */
 export function isObject(val) {
 	return typeof val === 'object' && val !== null;
 }
 
-/*
-* Returns time since a date integer
-*
-* @param {number} date    Date integer
-* @return {string}        Time since the date
-*/
+/**
+ * Returns time since a date integer
+ *
+ * @param {number} date    Date integer
+ * @returns {string}       Time since the date
+ */
 export function timeSince(date) {
 
 	const seconds = Math.floor((new Date() - date) / 1000);
@@ -183,12 +183,12 @@ export function timeSince(date) {
 	return timeStrings.slice(0,2).join(' and ');
 }
 
-/*
-* Converts an integer amount of seconds into the form (x)h, (y)m, (z)s
-*
-* @param {any} d      Amount of seconds
-* @return {string}    The formatted string
-*/
+/**
+ * Converts an integer amount of seconds into the form (x)h, (y)m, (z)s
+ *
+ * @param {any} d       Amount of seconds
+ * @returns {string}    The formatted string
+ */
 export function secondsToHms(d) {
 	d = Number(d);
 	if (d === 0 || isNaN(d)) return "-";
@@ -203,12 +203,12 @@ export function secondsToHms(d) {
 	return [hDisplay, mDisplay, sDisplay].filter(n => n).join(', '); 
 }
 
-/*
-* Converts an integer amount of milliseconds into the form (x)h, (y)m, (z)s
-*
-* @param {any} d      Amount of milliseconds
-* @return {string}    The formatted string
-*/
+/**
+ * Converts an integer amount of milliseconds into the form (x)h, (y)m, (z)s
+ *
+ * @param {any} d       Amount of milliseconds
+ * @returns {string}    The formatted string
+ */
 export function millisecondsToHmsl(d) {
 	if (d === undefined) return "-";
 	d = Number(d);
@@ -220,12 +220,12 @@ export function millisecondsToHmsl(d) {
 	return [hms, lDisplay].filter(n => n).join(', '); 
 }
 
-/*
-* Converts a color string into its corresponding Minecraft color code
-*
-* @param {string} str    Name of the color
-* @return {char}         Color code character, if not found defaults to white
-*/
+/**
+ * Converts a color string into its corresponding Minecraft color code
+ *
+ * @param {string} str    Name of the color
+ * @returns {string}      Color code character, if not found defaults to white
+ */
 export function toColorCode(str) {
 	const colorClasses = {
 		'black' : '0',

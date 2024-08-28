@@ -4,13 +4,13 @@ import { ReactIcon, Tippy } from 'src/components';
 import { HYPIXEL } from 'src/constants/hypixel';
 import * as Utils from 'src/utils';
 
-/*
-* Displays a "signal" icon with a player's online status as a tooltip
-*
-* @param {Object} props.status    JSON object from the Hypixel API 'status' endpoint
-* @param {Object} props.player    JSON object from the Hypixel API 'player' endpoint
-* @param {string} props.size      Size of the icon, default 'md'
-*/
+/**
+ * Displays a "signal" icon with a player's online status as a tooltip
+ *
+ * @param {Object} props.status    JSON object from the Hypixel API 'status' endpoint
+ * @param {Object} props.player    JSON object from the Hypixel API 'player' endpoint
+ * @param {string} props.size      Size of the icon, default 'md'
+ */
 export function Status(props) {
 	const { status, player } = props;
 	const lastLogout = Utils.traverse(player, 'lastLogout');

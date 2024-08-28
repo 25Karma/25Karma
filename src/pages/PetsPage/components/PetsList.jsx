@@ -7,9 +7,9 @@ import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
 import { HypixelLeveling, isPet } from 'src/utils/hypixel';
 
-/*
-* The sortable list of pets displayed at the center of the page
-*/
+/**
+ * The sortable list of pets displayed at the center of the page
+ */
 export function PetsList() {
 	const { player } = useAPIContext();
 	const petStats = player.petStats || {};

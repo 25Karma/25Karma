@@ -6,10 +6,10 @@ import { Box, Progress, ProgressBar } from 'src/components/Stats';
 import * as Utils from 'src/utils';
 import { questCompletionsSince } from 'src/utils/hypixel';
 
-/*
-* An Accordion that displays questing data about a player for a specific game mode
-* Returns a memoized component function (different from JSX) to be consumed by AccordionList
-*/
+/**
+ * An Accordion that displays questing data about a player for a specific game mode
+ * Returns a memoized component function (different from JSX) to be consumed by AccordionList
+ */
 function generateQuestsAccordion(gameMode) {
 	return memo(({ index }) => {
 		const { player, resources: { quests: allQuests } } = useAPIContext();

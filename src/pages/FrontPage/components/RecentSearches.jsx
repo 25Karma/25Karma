@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import { Button, MinecraftText, ReactIcon, Tippy } from 'src/components';
 import { APP, COOKIES } from 'src/constants/app';
 
-/*
-*  Renders JSX containing recent searches if there are any
-*  If there are none, renders a suggestion
-*/
-export function RecentSearches(props) {
+/**
+ * Renders JSX containing recent searches if there are any
+ * If there are none, renders a suggestion
+ */
+export function RecentSearches() {
 	let cookie = Cookies.get(COOKIES.recentSearches);
 	if (cookie === undefined) {
 		cookie = '[]';

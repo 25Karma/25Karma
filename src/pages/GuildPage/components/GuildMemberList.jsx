@@ -9,10 +9,10 @@ import * as Utils from 'src/utils';
 import { getClientHeaders, httpGet } from 'src/utils';
 import { getPlayerRankPriority, getGuildMemberRank, getGuildMemberDailyGEXP, getGuildMemberWeeklyGEXP } from 'src/utils/hypixel';
 
-/*
-* The list of players displayed at the center of the page
-*/
-export function GuildMemberList(props) {
+/**
+ * The list of players displayed at the center of the page
+ */
+export function GuildMemberList() {
 	const { guild, names: cachedNames } = useAPIContext();
 	const guildMembers = Utils.traverse(guild, 'members', []);
 	const totalMembers = guild.members.length;

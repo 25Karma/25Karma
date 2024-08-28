@@ -5,13 +5,13 @@ import LazyLoad from 'react-lazyload';
 import './Accordion.css';
 import { Collapsible, HorizontalLine, MinecraftText, ReactIcon } from 'src/components';
 
-/*
-* Draggable container with a collapsable portion underneath
-*
-* @param {string} props.title   The title of the stats row
-* @param {JSX} props.header     JSX objects to place beside the title
-* @param {JSX} props.children   The contents of the collapsible area
-*/
+/**
+ * Draggable container with a collapsable portion underneath
+ *
+ * @param {string} props.title    The title of the stats row
+ * @param {JSX} props.header      JSX objects to place beside the title
+ * @param {JSX} props.children    The contents of the collapsible area
+ */
 export function Accordion(props) {
 	return (
 		<Draggable key={props.title} draggableId={props.title} index={props.index}>

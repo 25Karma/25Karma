@@ -5,13 +5,13 @@ import { FaSortAlphaDown } from 'react-icons/fa';
 import { RiCheckboxIndeterminateFill, RiCheckboxIndeterminateLine } from 'react-icons/ri';
 import { ReactIcon, HorizontalLine as HLine, Tippy } from 'src/components';
 
-/*
-* A droppable container for Accordions using cookies
-* Has buttons for sorting alphabetically and toggling a spacer
-*
-* @param {string} cookie            Name of the cookie for storing the order of the Accordions
-* @param {Object} accordionModule   An object where each key points to the Accordion JSX (ex. {Arcade: <Arcade />})
-*/
+/**
+ * A droppable container for Accordions using cookies
+ * Has buttons for sorting alphabetically and toggling a spacer
+ *
+ * @param {string} cookie             Name of the cookie for storing the order of the Accordions
+ * @param {Object} accordionModule    An object where each key points to the Accordion JSX (ex. {Arcade: <Arcade />})
+ */
 export function AccordionList({ cookie, accordionModule }) {
 
 	const json = getCookie();
@@ -137,12 +137,12 @@ export function AccordionList({ cookie, accordionModule }) {
 	);
 }
 
-/*
-* Optional separator to show in the player stats list
-*
-* @param {boolean} props.hidden Whether to hide the entire component
-* @param {number} props.index 	The order in which to display the component (used by react-beautiful-dnd)
-*/
+/**
+ * Optional separator to show in the player stats list
+ *
+ * @param {boolean} props.hidden Whether to hide the entire component
+ * @param {number} props.index 	The order in which to display the component (used by the dnd package)
+ */
 const HorizontalLine = memo((props) => {
 	return (
 		<Draggable key="HorizontalLine" draggableId="HorizontalLine" index={props.index}>

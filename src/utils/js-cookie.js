@@ -2,12 +2,12 @@ import Cookies from 'js-cookie';
 import { COOKIES } from 'src/constants/app';
 import { default0 } from './index';
 
-/*
-* Adds commas to a large number and strips decimal places to user preference
-*
-* @param {number} num    The number to format
-* @return {string}       The comma-separated, decimal-stripped number (ex. 32984.012974205 --> 32,984.01)
-*/
+/**
+ * Adds commas to a large number and strips decimal places to user preference
+ *
+ * @param {number} num    The number to format
+ * @returns {string}      The comma-separated, decimal-stripped number (ex. 32984.012974205 --> 32,984.01)
+ */
 export function formatNum(num) {
     const decimal = Cookies.get(COOKIES.decimalPlaces) || 2;
 	num = default0(num);
@@ -17,11 +17,11 @@ export function formatNum(num) {
 		});
 }
 
-/*
-* Pushes a value to the recentSearches cookie
-*
-* @param {string} ele    Value to add to the recentSearches cookie
-*/
+/**
+ * Pushes a value to the recentSearches cookie
+ *
+ * @param {string} ele    Value to add to the recentSearches cookie
+ */
 export function pushToRecentSearches(ele) {
 	const str = String(ele);
 	let cookie = Cookies.get(COOKIES.recentSearches);

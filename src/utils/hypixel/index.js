@@ -3,24 +3,24 @@ import { HYPIXEL } from 'src/constants/hypixel';
 
 export * from './HypixelLeveling';
 
-/*
-* Converts network experience into network level
-*
-* @param {number} exp
-* @return {number}       Equivalent network level
-*/
+/**
+ * Converts network experience into network level
+ *
+ * @param {number} exp    The player's network experience
+ * @returns {number}      Equivalent network level
+ */
 export function calculateNetworkLevel(exp = 0) {
 	return ((Math.sqrt(exp + 15312.5) - 125/Math.sqrt(2))/(25*Math.sqrt(2)))
 }	
 
-/*
-* Returns the player's overall achievement information about a single gamemode
-*
-* @param {String} gameId             ID of the gamemode (i.e. the desired key in achievementsJson)
-* @param {Object} achievementsJson   All achievements data from the Hypixel API 'resources/achievements' endpoint
-* @param {Object} playerJson         Player data from the Hypixel API 'player' endpoint
-* @return {Object}                   Assorted data about the gamemode pertaining to achievements
-*/
+/**
+ * Returns the player's overall achievement information about a single gamemode
+ *
+ * @param {string} gameId              ID of the gamemode (i.e. the desired key in achievementsJson)
+ * @param {Object} achievementsJson    All achievements data from the Hypixel API 'resources/achievements' endpoint
+ * @param {Object} playerJson          Player data from the Hypixel API 'player' endpoint
+ * @returns {Object}                   Assorted data about the gamemode pertaining to achievements
+ */
 export function gamemodeAchievements(gameId, achievementsJson, playerJson) {
 	const { one_time, tiered, total_points, total_legacy_points } = achievementsJson[gameId];
 	const player_one_time = playerJson.achievementsOneTime || [];
@@ -73,13 +73,13 @@ export function gamemodeAchievements(gameId, achievementsJson, playerJson) {
 	};
 }
 
-/*
-* Returns the guild rank of a member
-*
-* @param {Object} member          Data of the member from the `members` array of the API
-* @param {Array<Object>} ranks    `ranks` Object from the API
-* @return {Object}                Rank (name and priority) that corresponds to the member
-*/
+/**
+ * Returns the guild rank of a member
+ *
+ * @param {Object} member          Data of the member from the `members` array of the API
+ * @param {Array<Object>} ranks    `ranks` Object from the API
+ * @returns {Object}               Rank (name and priority) that corresponds to the member
+ */
 export function getGuildMemberRank(member, ranks) {
 	if (ranks === undefined) {
 		ranks = [];
@@ -95,23 +95,23 @@ export function getGuildMemberRank(member, ranks) {
 	return {name: Utils.capitalize(member.rank), priority: 999};
 }
 
-/*
-* Returns the daily GEXP earned by a member of a guild
-*
-* @param {Object} member          Data of the member from the `members` array of the API
-* @return {number}                The daily GEXP of the member
-*/
+/**
+ * Returns the daily GEXP earned by a member of a guild
+ *
+ * @param {Object} member    Data of the member from the `members` array of the API
+ * @returns {number}         The daily GEXP of the member
+ */
 export function getGuildMemberDailyGEXP(member) {
 	return member.expHistory[Object.keys(member.expHistory).reduce((a, b) =>
 		new Date(a) > new Date(b) ? a : b)];
 }
 
-/*
-* Returns the weekly GEXP earned by a member of a guild
-*
-* @param {Object} member          Data of the member from the `members` array of the API
-* @return {number}                The weekly GEXP of the member
-*/
+/**
+ * Returns the weekly GEXP earned by a member of a guild
+ *
+ * @param {Object} member    Data of the member from the `members` array of the API
+ * @returns {number}         The weekly GEXP of the member
+ */
 export function getGuildMemberWeeklyGEXP(member) {
 	if (member.expHistory) {
 		return Object.values(member.expHistory).reduce((a,b) => a+b);
@@ -121,13 +121,13 @@ export function getGuildMemberWeeklyGEXP(member) {
 	}
 }
 
-/*
-* Returns the most played gamemode out of a list of gamemodes
-*
-* @param {Array<Object>} jsonarray    Array of gamemode data
-* @param {function} totalplays        Function to compute the total plays of a given gamemode from the array
-* @return {Object}                    Most played gamemode, or empty Object
-*/
+/**
+ * Returns the most played gamemode out of a list of gamemodes
+ *
+ * @param {Array<Object>} jsonarray    Array of gamemode data
+ * @param {Function} totalplays        Function to compute the total plays of a given gamemode from the array
+ * @returns {Object}                   Most played gamemode, or empty Object
+ */
 export function getMostPlayed(jsonarray, totalplays) {
 	let mostPlayed = {};
 	let mostPlays = 0;
@@ -142,12 +142,12 @@ export function getMostPlayed(jsonarray, totalplays) {
 	return mostPlayed;
 }
 
-/*
-* Returns the rank of a player based on the `player` JSON
-*
-* @param {Object} playerdata    The `player` JSON from the API
-* @return {string}            The ID of the rank - anything from NONE to MVP_PLUS to ADMIN
-*/
+/**
+ * Returns the rank of a player based on the `player` JSON
+ *
+ * @param {Object} playerdata    The `player` JSON from the API
+ * @returns {string}             The ID of the rank - anything from NONE to MVP_PLUS to ADMIN
+ */
 export function getPlayerRank(playerdata) {
 	let ranks = [
 		playerdata.rank, 
@@ -161,37 +161,37 @@ export function getPlayerRank(playerdata) {
 	return "NONE";
 }
 
-/*
-* Returns the priority of the rank of a player based on the `player` JSON
-* The priority of a rank is the order in which it appears in tab in lobbies
-*
-* @param {Object} playerdata    The `player` JSON from the API
-* @return {Number}              The priority of the rank - from 0 (undefined) to 10 (ADMIN)
-*/
+/**
+ * Returns the priority of the rank of a player based on the `player` JSON
+ * The priority of a rank is the order in which it appears in tab in lobbies
+ *
+ * @param {Object} playerdata    The `player` JSON from the API
+ * @returns {number}             The priority of the rank - from 0 (undefined) to 10 (ADMIN)
+ */
 export function getPlayerRankPriority(playerdata) {
 	const rank = getPlayerRank(playerdata);
 	return HYPIXEL.RANKPRIORITY.indexOf(rank);
 }
 
-/*
-* Checks whether a pet Object is a pet or a companion
-* Pet objects are characterized by the presence of hunger, thirst, exercise, or experience data
-*
-* @param {Object}     The pet Object
-* @return {Boolean}
-*/
+/**
+ * Checks whether a pet Object is a pet or a companion
+ * Pet objects are characterized by the presence of hunger, thirst, exercise, or experience data
+ *
+ * @param {Object} petObj    The pet Object
+ * @returns {boolean}        Whether a pet Object is a pet or a companion
+ */
 export function isPet({HUNGER, THIRST, EXERCISE, experience}) {
 	return ![HUNGER, THIRST, EXERCISE, experience].every(n => n === undefined);
 }
 
-/*
-* Returns the number of times a quest has been completed since the beginning of the day, week, month, or year
-*
-* @param {string} period         The period of time to check
-* @param {Object} questObject    The specific quest to check, from the Hypixel API resources endpoint
-* @param {Array} completions     Array of completion time stamps, from the Hypixel API player endpoint
-* @return {Number}               Number of completions
-*/
+/**
+ * Returns the number of times a quest has been completed since the beginning of the day, week, month, or year
+ *
+ * @param {string} period         The period of time to check
+ * @param {Object} questObject    The specific quest to check, from the Hypixel API resources endpoint
+ * @param {Array} completions     Array of completion time stamps, from the Hypixel API player endpoint
+ * @returns {number}              Number of completions
+ */
 export function questCompletionsSince(period, completions) {
 	let timestamp = null;
 	if (period === 'daily') {
@@ -229,12 +229,12 @@ export function questCompletionsSince(period, completions) {
 }
 
 
-/*
-* Returns the total number of challenges completed by a player
-*
-* @param {object} challenge        The challenge object from the Hypixel API to parse
-* @return {Number}               Number of completions
-*/
+/**
+ * Returns the total number of challenges completed by a player
+ *
+ * @param {Object} challenge    The challenge Object from the Hypixel API to parse
+ * @returns {number}            Number of completions
+ */
 export function calculateChallengesCompleted(challenges) {
 	if (!challenges) {
 		return 0;

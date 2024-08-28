@@ -2,12 +2,12 @@ import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { PAGES } from 'src/constants/app';
 
-/*
-* Default destination for all searches
-* Will redirect to the appropriate stats page based on the search slug
-* Users can submit a tag after the player name to navigate to different pages (ex. "Technoblade guild")
-*/
-export function SearchPage(props) {
+/**
+ * Default destination for all searches
+ * Will redirect to the appropriate stats page based on the search slug
+ * Users can submit a tag after the player name to navigate to different pages (ex. "Technoblade guild")
+ */
+export function SearchPage() {
 	const { slug } = useParams();
 
 	// Split input value into its arguments and trim whitespace

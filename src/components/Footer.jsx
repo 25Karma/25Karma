@@ -6,11 +6,11 @@ import './Footer.css';
 import { ExternalLink, ReactIcon } from 'src/components';
 import { APP } from 'src/constants/app';
 
-/*
-* Footer that appears at the bottom of the page
-* Retrieves data from properties.js
-*/
-export function Footer(props) {
+/**
+ * Footer that appears at the bottom of the page
+ * Retrieves data from properties.js
+ */
+export function Footer() {
 	return (
 		<footer className="p-1 footer font-xs border">
 			<span className="flex-1 h-flex align-items-center">

@@ -7,11 +7,10 @@ import { ReactIcon, Tippy } from 'src/components';
 import { useAppContext } from 'src/hooks';
 import * as Utils from 'src/utils';
 
-/*
-* A popup banner to display a message at the bottom of the screen
-* Retrieves banner data from the App context
-*
-*/
+/**
+ * A popup banner to display a message at the bottom of the screen
+ * Retrieves banner data from the App context
+ */
 export function Banner(props) {
 	const { banner } = useAppContext();
 	const [bannerVisibility, setBannerVisibility] = useState('hidden');

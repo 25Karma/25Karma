@@ -7,10 +7,10 @@ import * as Utils from 'src/utils';
 import { getClientHeaders, httpGet } from 'src/utils';
 import { getPlayerRankPriority } from 'src/utils/hypixel';
 
-/*
-* The list of players displayed at the center of the page
-*/
-export function FriendsList(props) {
+/**
+ * The list of players displayed at the center of the page
+ */
+export function FriendsList() {
 	const { friends, mojang, names: cachedNames } = useAPIContext();
 	const totalFriendCount = friends.length;
 

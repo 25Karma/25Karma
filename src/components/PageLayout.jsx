@@ -3,16 +3,16 @@ import { Tooltip as ReactTooltip } from 'react-tooltip';
 import './PageLayout.css';
 import { Banner, Footer, Navbar, Support } from 'src/components';
 
-/*
-* Width-aware container to layout the page
-* The body is separated into 4 parts: top, center, left, and right
-*
-* @param {boolean} props.searchbar    Whether to include a searchbar in the Navbar
-* @param {JSX} props.top
-* @param {JSX} props.center
-* @param {JSX} props.left
-* @param {JSX} props.right
-*/
+/**
+ * Width-aware container to layout the page
+ * The body is separated into 4 parts: top, center, left, and right
+ *
+ * @param {boolean} props.searchbar    Whether to include a searchbar in the Navbar
+ * @param {JSX} props.top
+ * @param {JSX} props.center
+ * @param {JSX} props.left
+ * @param {JSX} props.right
+ */
 export function PageLayout(props) {
 
 	return (
