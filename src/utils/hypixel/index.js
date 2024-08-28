@@ -227,3 +227,19 @@ export function questCompletionsSince(period, completions) {
 		return completions.filter(c => c.time > timestamp).length;
 	}
 }
+
+
+/*
+* Returns the total number of challenges completed by a player
+*
+* @param {object} challenge        The challenge object from the Hypixel API to parse
+* @return {Number}               Number of completions
+*/
+export function calculateChallengesCompleted(challenges) {
+	if (!challenges) {
+		return 0;
+	}
+	const allTime = challenges.all_time || {};
+	const allTimeValues = Object.values(allTime);
+	return allTimeValues.reduce((acc, value) => acc + value, 0);
+}

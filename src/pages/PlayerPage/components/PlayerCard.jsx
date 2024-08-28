@@ -7,7 +7,7 @@ import { HYPIXEL as consts } from 'src/constants/hypixel';
 import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
 import { calculateNetworkLevel, getPlayerRank, getGuildMemberRank, getGuildMemberDailyGEXP, 
-	getGuildMemberWeeklyGEXP } from 'src/utils/hypixel';
+	getGuildMemberWeeklyGEXP, calculateChallengesCompleted } from 'src/utils/hypixel';
 import { HYPIXEL } from 'src/constants/hypixel';
 
 /*
@@ -40,6 +40,7 @@ export function PlayerCard(props) {
 	const dailyTwoKExp = Utils.traverse(json, 'eugene.dailyTwoKExp', 0);
 	const rewardClaimed = (new Date(dailyTwoKExp)).toDateString() === (new Date()).toDateString();
 	const giftingJson = Utils.traverse(json, 'giftingMeta', {});
+	const challengesComplete = calculateChallengesCompleted(json.challenges);
 	
 	const overallStats = (
 		<React.Fragment>
@@ -61,6 +62,8 @@ export function PlayerCard(props) {
 			<Pair title={<Link to={`/quests/${mojang.username}`} className="link">Quests Completed</Link>}>
 				{json.questsCompleted}
 			</Pair>
+			<Br />
+			<Pair title="Challenges Completed">{challengesComplete}</Pair>
 			<Br />
 			<Pair title="Today's Reward" color={rewardClaimed ? 'green' : 'gray'}>{rewardClaimed ? 'Claimed!' : 'Unclaimed'}</Pair>
 			<Pair title="Rewards Claimed">{json.totalRewards}</Pair>
