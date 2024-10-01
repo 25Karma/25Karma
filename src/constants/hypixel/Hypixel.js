@@ -286,6 +286,7 @@ export const HYPIXEL = {
 			ZOMBIES_BAD_BLOOD: 'Zombies',
 			ZOMBIES_ALIEN_ARCADIUM: 'Zombies',
 			ZOMBIES_PRISON: 'Zombies',
+			HALLOWEEN_SIMULATOR: 'Halloween Simulator',
 		},
 		ARENA: {
 			'1v1': '1v1',
