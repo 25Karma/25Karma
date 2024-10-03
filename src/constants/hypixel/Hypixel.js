@@ -273,6 +273,7 @@ export const HYPIXEL = {
 			FARM_HUNT: 'Farm Hunt',
 			SOCCER: 'Football',
 			STARWARS: 'Galaxy Wars',
+			HALLOWEEN_SIMULATOR: 'Halloween Simulator',
 			HIDE_AND_SEEK_PROP_HUNT: 'Hide and Seek (Prop Hunt)',
 			HIDE_AND_SEEK_PARTY_POOPER: 'Hide and Seek (Party Pooper)',
 			HOLE_IN_THE_WALL: 'Hole in the Wall',
@@ -286,7 +287,6 @@ export const HYPIXEL = {
 			ZOMBIES_BAD_BLOOD: 'Zombies',
 			ZOMBIES_ALIEN_ARCADIUM: 'Zombies',
 			ZOMBIES_PRISON: 'Zombies',
-			HALLOWEEN_SIMULATOR: 'Halloween Simulator',
 		},
 		ARENA: {
 			'1v1': '1v1',
