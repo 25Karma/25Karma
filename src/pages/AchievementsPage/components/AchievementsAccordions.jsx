@@ -142,7 +142,7 @@ function generateAchievementsAccordions(gameMode) {
 					return (
 						<tr key={name}>
 							<Cell>{data.name}</Cell>
-							<Cell>{data.description.replace(/%s/g, `${playerAmount}/${nextAmount}`)}</Cell>
+							<Cell>{data.description.replace(/%%value%%/g, `${playerAmount}/${nextAmount}`)}</Cell>
 							<Cell>
 							{data.tiers.map(({ amount, points }, index) => 
 								<Span key={amount} color={playerAmount >= amount ? 'green' : 'red'}>{index !== 0 && '/'}{points}</Span>
