@@ -84,7 +84,7 @@ export const TNTGames = memo((props) => {
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
-			<Pair title="Coins" color="gold">{json.coins}</Pair>
+			<Pair title="Tokens" color="darkgreen">{json.coins}</Pair>
 			<Pair title="Total Wins">{json.wins}</Pair>
 			<div className="h-flex mt-3">
 				<div className="flex-1">

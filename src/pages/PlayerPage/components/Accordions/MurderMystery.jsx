@@ -110,7 +110,7 @@ export const MurderMystery = memo((props) => {
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
 			<div className="h-flex">
 				<div className="flex-1">
-					<Pair title="Coins" color="gold">{json.coins}</Pair>
+					<Pair title="Tokens" color="darkgreen">{json.coins}</Pair>
 					<Br />
 					<Pair title="Kills">{json.kills}</Pair>
 					<Pair title="Kills as Murderer">{json.kills_as_murderer}</Pair>

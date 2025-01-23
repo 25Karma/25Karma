@@ -298,12 +298,12 @@ export const BedWars = memo((props) => {
 					<Pair title="Slumber Tickets"><span className="c-aqua">{Utils.formatNum(slumberJson.tickets)}</span>/{Utils.formatNum(consts.SLUMBER_WALLETS[slumberJson.bag_type])}</Pair>
 					<Pair title="Lifetime Slumber Tickets" color="aqua">{slumberJson.total_tickets_earned}</Pair>
 					<Pair title="Door Unlocked">{slumberDoor}</Pair>
+					<Pair title="XP Doublers" color="darkaqua">{slumberJson.doublers}</Pair>
 					<Br/>
 					<Pair title="Iron Collected">{json.iron_resources_collected_bedwars}</Pair>
 					<Pair title="Gold Collected">{json.gold_resources_collected_bedwars}</Pair>
 					<Pair title="Diamonds Collected">{json.diamond_resources_collected_bedwars}</Pair>
 					<Pair title="Emeralds Collected">{json.emerald_resources_collected_bedwars}</Pair>
-					<Pair title="Wrapped Presents Collected">{json.wrapped_present_resources_collected_bedwars}</Pair>
 					<Pair title="Total Shop Purchases">{json._items_purchased_bedwars}</Pair>
 				</div>
 			</div>

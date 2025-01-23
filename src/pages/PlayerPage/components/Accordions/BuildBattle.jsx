@@ -117,7 +117,7 @@ export const BuildBattle = memo((props) => {
 				<div className="flex-1">
 					<Pair title="Score">{json.score}</Pair>
 					<Pair title="Title" color={titleColor}>{title}</Pair>
-					<Pair title="Coins" color="gold">{json.coins}</Pair>
+					<Pair title="Tokens" color="darkgreen">{json.coins}</Pair>
 				</div>
 				<div className="flex-1">
 					<Pair title="Wins">{json.wins}</Pair>
