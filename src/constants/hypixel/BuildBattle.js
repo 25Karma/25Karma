@@ -5,6 +5,7 @@ export const BUILDBATTLE = {
 			{id: '_teams_normal', name: 'Teams'},
 			{id: '_guess_the_build', name: 'Guess the Build'},
 			{id: '_solo_pro', name: 'Pro'},
+			{id: '_speed_builders', name: 'Speed Builders'},
 			{id: '', name: 'Overall'},
 		],
 		STARS: [
