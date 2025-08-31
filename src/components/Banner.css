@@ -5,7 +5,7 @@
 	overflow: hidden;
 	pointer-events: none;
 	transform: translateY(0);
-	transition: transform 1000ms;
+	transition: transform 500ms;
 }
 
 .banner {
