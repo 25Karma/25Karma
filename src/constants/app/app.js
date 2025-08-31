@@ -10,5 +10,4 @@ export const APP = {
 	ownerUsername: "",
 	skyblockUrl: "https://sky.shiiyu.moe",
 	suggestedPlayers: ["Technoblade", "gamerboy80", "Technoblade"],
-	supportUrl: "",
 }
