@@ -269,7 +269,7 @@ export const Arcade = memo((props) => {
 					<Pair title="Empire Kills">{json.sw_empire_kills}</Pair>
 					<Pair title="Rebel Kills">{json.sw_rebel_kills}</Pair>
 					<Pair title="Deaths">{json.sw_deaths}</Pair>
-					<Pair title="Kill/Death Ratio">{Utils.ratio(json.sw_wins, json.sw_deaths)}</Pair>
+					<Pair title="Kill/Death Ratio">{Utils.ratio(json.sw_kills, json.sw_deaths)}</Pair>
 					<Pair title="Shots Fired">{json.sw_shots_fired}</Pair>
 				</ArcadeMinigame>
 
