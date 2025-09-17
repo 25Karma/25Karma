@@ -8,6 +8,6 @@ export const APP = {
 	organizationUrl: "https://github.com/25karma",
 	ownerHypixelForumsUrl: "",
 	ownerUsername: "",
-	skyblockUrl: "https://sky.shiiyu.moe",
+	skyblockUrl: "https://sky.shiiyu.moe/stats",
 	suggestedPlayers: ["Technoblade", "gamerboy80", "Technoblade"],
 }
