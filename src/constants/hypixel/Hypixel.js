@@ -322,6 +322,7 @@ export const HYPIXEL = {
 			BEDWARS_EIGHT_TWO_UNDERWORLD: 'Underworld Doubles',
 			BEDWARS_FOUR_FOUR_UNDERWORLD: 'Underworld 4v4v4v4',
 			BEDWARS_CASTLE: 'Castle',
+			BEDWARS_EIGHT_ONE_ONEBLOCK: 'One Block',
 			BEDWARS_PRACTICE: 'Practice',
 		},
 		BUILD_BATTLE:  {

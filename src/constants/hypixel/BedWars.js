@@ -84,6 +84,7 @@ export const BEDWARS = {
 		{id: 'eight_two_underworld_', name: 'Underworld Doubles'},
 		{id: 'four_four_underworld_', name: 'Underworld 4v4v4v4'},
 		{id: 'castle_', name: 'Castle'},
+		{id: 'eight_one_oneblock_', name: 'One Block'},
 		{id: '', name: 'Overall'},
 	],
 	PRACTICEMODES: [
