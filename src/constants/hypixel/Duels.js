@@ -45,5 +45,6 @@ export const DUELS = {
 		{id: 'duel_arena', divisionId: '', name: 'Duel Arena'},
 		{id: 'bedwars_two_one_duels', divisionId: 'bedwars', name: 'Bedwars 1v1'},
 		{id: 'bedwars_two_one_duels_rush', divisionId: 'bedwars', name: 'Bedwars Rush 1v1'},
+		{id: 'quake_duel', divisionId: 'quakecraft', name: 'Quakecraft 1v1'},
 	],
 };

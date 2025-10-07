@@ -372,6 +372,7 @@ export const HYPIXEL = {
 			DUELS_DUEL_ARENA: 'Duel Arena',
 			DUELS_BEDWARS_TWO_ONE_DUELS: 'Bedwars 1v1',
 			DUELS_BEDWARS_TWO_ONE_DUELS_RUSH: 'Bedwars Rush 1v1',
+			DUELS_QUAKE_DUEL: 'Quakecraft 1v1',
 		},
 		GINGERBREAD: {},
 		HOUSING: {},
