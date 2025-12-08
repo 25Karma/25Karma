@@ -16,23 +16,21 @@
 
 ### API Installation
 
-1. Download the API repository from the [master](https://github.com/25Karma/expressapi) branch on GitHub
-1. Extract the .zip
+1. Clone the API repository from the [master](https://github.com/25Karma/expressapi) branch on GitHub
 1. Populate the missing fields in the `.env` file
 1. Run `npm install` in the root directory (where the `package.json` file is found)
 1. Run `npm run dev` in the root directory
 
 ### Client Installation
 
-1. Download the client repository from the [master](https://github.com/25Karma/25Karma/tree/master) branch on GitHub
-1. Extract the .zip
+1. Clone the client repository from the [master](https://github.com/25Karma/25Karma/tree/master) branch on GitHub
 1. Populate the missing fields in the `src/constants/app/app.js` file
 1. Run `npm install` in the root directory (where the `package.json` file is found)
 1. Run `npm run dev` in the root directory
 
 ## Contribute
 
-If you have an idea that can make 25Karma better, I encourage you to [contact me on the Hypixel Forums](https://hypixel.net/members/2249818/) or to create a pull request!
+If you have an idea that can make 25Karma better, I encourage you to contact me on the Hypixel Forums or to create a pull request!
 
 ## License
 
