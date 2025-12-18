@@ -19,7 +19,7 @@ export const Duels = memo((props) => {
 	const mostPlayedMode = getMostPlayed(consts.MODES, 
 		({id}) => Utils.add(json[`${id}_wins`], json[`${id}_losses`]));
 
-	const division = getDivision('all_modes');
+	const division = getDivision(json.wins, 'overall');
 
 	const stats = (() => {
 		let totalDeaths = 0, totalKills = 0;
@@ -45,32 +45,40 @@ export const Duels = memo((props) => {
 		ahm : Utils.ratio(json.bow_hits,json.bow_shots),
 	}
 
-	function getDivision(duelType) {
-		for (const div of consts.DIVISIONS.slice().reverse()) {
-			const dat = json[`${duelType}_${div.id}_title_prestige`];
-			if (dat !== undefined) {
-				const roman = Utils.romanize(dat);
-				return {
-					name: `${div.name} ${roman === '-' || roman === 'I' ? '' : roman}`,
-					level: roman,
-					color: div.color,
-					style: div.style,
-				};
+	function getDivision(wins, requirementType = 'default') {
+		if (!wins || wins <= 0) {
+			return {name: '-', level: '-', color: 'gray', style: ''};
+		}
+		const divisions = consts.DIVISIONS[requirementType];
+		let divIndex = 0;
+		for (let i = divisions.length - 1; i >= 0; i--) {
+			if (wins >= divisions[i].req) {
+				divIndex = i;
+				break;
 			}
 		}
-		// If the player has no division
-		return {name: '-', level: '-', color: 'gray', style: ''};
+		const div = divisions[divIndex];
+		if (div.id === 'none') {
+			return {name: '-', level: '-', color: 'gray', style: ''};
+		}
+		const remaining = wins - div.req;
+		const level = Math.min(div.max, div.step ? Math.floor(remaining / div.step) + 1 : 1);
+		const roman = Utils.romanize(level);
+		return {
+			name: `${div.name}${level > 1 ? ' ' + roman : ''}`,
+			level: roman,
+			color: div.color,
+			style: div.style,
+		};
 	}
 
 	function kills(id) {
-		// Need to combine legacy and current kills for 2v2v2v2 and 3v3v3v3 bridge modes specifically
-		// For other duels modes, _bridge_kills will have zero effect
 		return Utils.add(json[`${id}_bridge_kills`], json[`${id}${id && '_'}kills`]);
 	} 
 
 	function deaths(id) {
 		return Utils.add(json[`${id}_bridge_deaths`], json[`${id}${id && '_'}deaths`]);
-	} 
+	}
 	const header = (
 		<React.Fragment>
 			<Box title="Division">{`${division.style}${division.name}`}</Box>
@@ -101,8 +109,9 @@ export const Duels = memo((props) => {
 			</thead>
 			<tbody>
 			{
-				consts.MODES.map(({id, name, divisionId}) => {
-					const modeDivision = getDivision(divisionId);
+				consts.MODES.map(({id, name, requirement}) => {
+					const modeWins = json[`${id}_wins`] || 0;
+					const modeDivision = getDivision(modeWins, requirement);
 					if (Boolean(Utils.add(json[`${id}${id && '_'}wins`], json[`${id}${id && '_'}losses`]))) {
 						return (
 							<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
