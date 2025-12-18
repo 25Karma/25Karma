@@ -1,5 +1,6 @@
 export * from './Accordion'
 export * from './AccordionList'
+export * from './Announcement'
 export * from './Banner'
 export * from './Button'
 export * from './Card'

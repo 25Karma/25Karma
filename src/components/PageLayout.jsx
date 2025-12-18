@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 import './PageLayout.css';
-import { Banner, Footer, Navbar } from 'src/components';
+import { Announcement, Banner, Footer, Navbar } from 'src/components';
 
 /**
  * Width-aware container to layout the page
@@ -17,6 +17,7 @@ export function PageLayout(props) {
 
 	return (
 		<React.Fragment>
+			<Announcement />
 			<Navbar searchbar={props.searchbar} />
 			{props.top &&
 				<div className="h-flex justify-content-center pt-4 pb-2">

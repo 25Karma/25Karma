@@ -21,6 +21,9 @@ export function Footer() {
 				<Link to={`/search/${APP.ownerUsername}`} className="link">{APP.ownerUsername}</Link>.
 			</span>
 			<span className="flex-1 h-flex align-items-center justify-content-end">
+			Join our&nbsp;
+			<ExternalLink href={APP.discordUrl}>Discord</ExternalLink>
+			!
 			</span>
 		</footer>
 		);

@@ -10,4 +10,15 @@ export const APP = {
 	ownerUsername: "",
 	skyblockUrl: "https://sky.shiiyu.moe/stats",
 	suggestedPlayers: ["Technoblade", "gamerboy80", "Technoblade"],
+	discordUrl: "",
+	announcement: {
+		enabled: false,
+		text: "",
+		linkText: "",
+		linkUrl: "",
+		backgroundColor: "",
+		icon: "",
+		dismissible: true,
+		dismissCooldownDays: -1,
+	},
 }
