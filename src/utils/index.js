@@ -220,49 +220,81 @@ export function millisecondsToHmsl(d) {
 	return [hms, lDisplay].filter(n => n).join(', '); 
 }
 
+const COLOR_NAME_TO_CODE = {
+	'black': '0',
+	'darkblue': '1',
+	'darkgreen': '2',
+	'darkaqua': '3',
+	'darkred': '4',
+	'purple': '5',
+	'gold': '6',
+	'gray': '7',
+	'darkgray': '8',
+	'blue': '9',
+	'green': 'a',
+	'aqua': 'b',
+	'red': 'c',
+	'pink': 'd',
+	'yellow': 'e',
+	'white': 'f',
+	'BLACK': '0',
+	'DARK_BLUE': '1',
+	'DARK_GREEN': '2',
+	'DARK_AQUA': '3',
+	'DARK_RED': '4',
+	'DARK_PURPLE': '5',
+	'GOLD': '6',
+	'GRAY': '7',
+	'DARK_GRAY': '8',
+	'BLUE': '9',
+	'GREEN': 'a',
+	'AQUA': 'b',
+	'RED': 'c',
+	'LIGHT_PURPLE': 'd',
+	'YELLOW': 'e',
+	'WHITE': 'f',
+	'brown': 'g',
+	'rainbow': 'R',
+	'font-bold': 'l',
+};
+
+const COLOR_CODE_TO_NAME = {
+	'0': 'black',
+	'1': 'darkblue',
+	'2': 'darkgreen',
+	'3': 'darkaqua',
+	'4': 'darkred',
+	'5': 'purple',
+	'6': 'gold',
+	'7': 'gray',
+	'8': 'darkgray',
+	'9': 'blue',
+	'a': 'green',
+	'b': 'aqua',
+	'c': 'red',
+	'd': 'pink',
+	'e': 'yellow',
+	'f': 'white',
+	'g': 'brown',
+	'R': 'rainbow',
+};
+
 /**
  * Converts a color string into its corresponding Minecraft color code
  *
  * @param {string} str    Name of the color
- * @returns {string}      Color code character, if not found defaults to white
+ * @returns {string}      Color code with § prefix, if not found defaults to white
  */
 export function toColorCode(str) {
-	const colorClasses = {
-		'black' : '0',
-		'darkblue' : '1',
-		'darkgreen' : '2',
-		'darkaqua' : '3',
-		'darkred' : '4',
-		'purple' : '5',
-		'gold' : '6',
-		'gray' : '7',
-		'darkgray' : '8',
-		'blue' : '9',
-		'green' : 'a',
-		'aqua' : 'b',
-		'red' : 'c',
-		'pink' : 'd',
-		'yellow' : 'e',
-		'white' : 'f',
-		'BLACK' : '0',
-		'DARK_BLUE' : '1',
-		'DARK_GREEN' : '2',
-		'DARK_AQUA' : '3',
-		'DARK_RED' : '4',
-		'DARK_PURPLE' : '5',
-		'GOLD' : '6',
-		'GRAY' : '7',
-		'DARK_GRAY' : '8',
-		'BLUE' : '9',
-		'GREEN' : 'a',
-		'AQUA' : 'b',
-		'RED' : 'c',
-		'LIGHT_PURPLE' : 'd',
-		'YELLOW' : 'e',
-		'WHITE' : 'f',
-		'brown' : 'g',
-		'rainbow' : 'R',
-		'font-bold': 'l',
-	}
-	return '§' + (str.split(' ').map(word => colorClasses[word] || 'f').join('§'));
+	return '§' + (str.split(' ').map(word => COLOR_NAME_TO_CODE[word] || 'f').join('§'));
+}
+
+/**
+ * Converts a Minecraft color code character to its CSS color name
+ *
+ * @param {string} code    Single color code character (e.g., 'c' for red)
+ * @returns {string}       CSS color name, if not found defaults to 'white'
+ */
+export function fromColorCode(code) {
+	return COLOR_CODE_TO_NAME[code] || 'white';
 }
