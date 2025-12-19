@@ -19,6 +19,14 @@ export const Duels = memo((props) => {
 	const mostPlayedMode = getMostPlayed(consts.MODES, 
 		({id}) => Utils.add(json[`${id}_wins`], json[`${id}_losses`]));
 
+	// sum wins by divisionId
+	const winsByDivisionId = {};
+	for (const mode of consts.MODES) {
+		if (!mode.divisionId) continue;
+		const wins = json[`${mode.id}_wins`] || 0;
+		winsByDivisionId[mode.divisionId] = (winsByDivisionId[mode.divisionId] || 0) + wins;
+	}
+
 	const division = getDivision(json.wins, 'overall');
 
 	const stats = (() => {
@@ -109,9 +117,9 @@ export const Duels = memo((props) => {
 			</thead>
 			<tbody>
 			{
-				consts.MODES.map(({id, name, requirement}) => {
-					const modeWins = json[`${id}_wins`] || 0;
-					const modeDivision = getDivision(modeWins, requirement);
+				consts.MODES.map(({id, name, divisionId, requirement}) => {
+					const divisionWins = winsByDivisionId[divisionId] || 0;
+					const modeDivision = getDivision(divisionWins, requirement);
 					if (Boolean(Utils.add(json[`${id}${id && '_'}wins`], json[`${id}${id && '_'}losses`]))) {
 						return (
 							<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
