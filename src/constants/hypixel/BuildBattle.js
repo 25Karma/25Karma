@@ -1,5 +1,13 @@
 export const BUILDBATTLE = {
 		TITLE: 'Build Battle',
+		EMBLEM_MAP: {
+			REMINISCENCE: '≈',
+			ALPHA: 'α',
+			OMEGA: 'Ω',
+			RICH: '$',
+			PODIUM: 'π',
+			FLORIN: 'ƒ',
+		},
 		MODES: [
 			{id: '_solo_normal', name: 'Solo'},
 			{id: '_teams_normal', name: 'Teams'},
