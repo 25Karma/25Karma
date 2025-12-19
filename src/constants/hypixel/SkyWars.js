@@ -1,7 +1,50 @@
-import { fromColorCode } from 'src/utils';
+const BOLD_LEVEL_REQUIREMENT = 300;
+const UNDERLINE_LEVEL_REQUIREMENT = 400;
+const STRIKETHROUGH_LEVEL_REQUIREMENT = 500;
+export { BOLD_LEVEL_REQUIREMENT, UNDERLINE_LEVEL_REQUIREMENT, STRIKETHROUGH_LEVEL_REQUIREMENT };
+
+function createUniformScheme(bracketColor, digitColor, emblemColor) {
+	digitColor = digitColor || bracketColor;
+	emblemColor = emblemColor || digitColor;
+	return function (level, bold, underline, strikethrough, emblem) {
+		const boldFormat = bold ? '§l' : '';
+		const underlineFormat = underline ? '§n' : '';
+		const strikethroughFormat = strikethrough ? '§m' : '';
+		return `${bracketColor}${underlineFormat}${strikethroughFormat}[§r${boldFormat}${digitColor}${underlineFormat}${level}${emblemColor}${underlineFormat}${emblem}§r${bracketColor}${underlineFormat}${strikethroughFormat}]§r`;
+	};
+}
+
+function createMultiDigitScheme(colors, bracketKind) {
+	bracketKind = bracketKind || 'square';
+	const leftBracket = bracketKind === 'square' ? '[' : '{';
+	const rightBracket = bracketKind === 'square' ? ']' : '}';
+
+	return function (level, bold, underline, strikethrough, emblem) {
+		const boldFormat = bold ? '§l' : '';
+		const underlineFormat = underline ? '§n' : '';
+		const strikethroughFormat = strikethrough ? '§m' : '';
+		const formattedColors = colors.map(function (color) {
+			return color + underlineFormat;
+		});
+
+		const formattedEmblem = emblem ? formattedColors[4] + emblem : '';
+		const levelStr = String(level);
+		const digits = levelStr.split('').reverse();
+		const formattedDigits = digits.map(function (digit, index) {
+			// index 0 = rightmost digit -> colors[3]
+			// index 1 -> colors[2]
+			// index 2 -> colors[1]
+			// index 3+ -> colors[1] (overflow uses first digit color)
+			const colorIndex = Math.max(1, 3 - index);
+			return formattedColors[colorIndex] + boldFormat + digit;
+		}).reverse().join('');
+
+		return `§r${formattedColors[0]}${strikethroughFormat}${leftBracket}§r${formattedDigits}${formattedEmblem}§r${formattedColors[5]}${strikethroughFormat}${rightBracket}§r`;
+	};
+}
 
 // api uses "emblem_{key}_icon" format
-const EMBLEMS = {
+export const EMBLEMS = {
 	airplane: '✈',
 	alpha: 'α',
 	angel_1: '★',
@@ -66,51 +109,7 @@ const EMBLEMS = {
 	yin_and_yang: '☯',
 };
 
-const BOLD_LEVEL_REQUIREMENT = 300;
-const UNDERLINE_LEVEL_REQUIREMENT = 400;
-const STRIKETHROUGH_LEVEL_REQUIREMENT = 500;
-
-function createUniformScheme(bracketColor, digitColor, emblemColor) {
-	digitColor = digitColor || bracketColor;
-	emblemColor = emblemColor || digitColor;
-	return function (level, bold, underline, strikethrough, emblem) {
-		const boldFormat = bold ? '§l' : '';
-		const underlineFormat = underline ? '§n' : '';
-		const strikethroughFormat = strikethrough ? '§m' : '';
-		return `${bracketColor}${underlineFormat}${strikethroughFormat}[§r${boldFormat}${digitColor}${underlineFormat}${level}${emblemColor}${underlineFormat}${emblem}§r${bracketColor}${underlineFormat}${strikethroughFormat}]§r`;
-	};
-}
-
-function createMultiDigitScheme(colors, bracketKind) {
-	bracketKind = bracketKind || 'square';
-	const leftBracket = bracketKind === 'square' ? '[' : '{';
-	const rightBracket = bracketKind === 'square' ? ']' : '}';
-
-	return function (level, bold, underline, strikethrough, emblem) {
-		const boldFormat = bold ? '§l' : '';
-		const underlineFormat = underline ? '§n' : '';
-		const strikethroughFormat = strikethrough ? '§m' : '';
-		const formattedColors = colors.map(function (color) {
-			return color + underlineFormat;
-		});
-
-		const formattedEmblem = emblem ? formattedColors[4] + emblem : '';
-		const levelStr = String(level);
-		const digits = levelStr.split('').reverse();
-		const formattedDigits = digits.map(function (digit, index) {
-			// index 0 = rightmost digit -> colors[3]
-			// index 1 -> colors[2]
-			// index 2 -> colors[1]
-			// index 3+ -> colors[1] (overflow uses first digit color)
-			const colorIndex = Math.max(1, 3 - index);
-			return formattedColors[colorIndex] + boldFormat + digit;
-		}).reverse().join('');
-
-		return `§r${formattedColors[0]}${strikethroughFormat}${leftBracket}§r${formattedDigits}${formattedEmblem}§r${formattedColors[5]}${strikethroughFormat}${rightBracket}§r`;
-	};
-}
-
-const SCHEMES = {
+export const SCHEMES = {
 	// prestige schemes
 	'stone_prestige': createUniformScheme('§7'),
 	'iron_prestige': createUniformScheme('§f'),
@@ -279,7 +278,7 @@ const SCHEMES = {
 };
 
 // prestige schemes with level requirements
-const PRESTIGE_SCHEMES = [
+export const PRESTIGE_SCHEMES = [
 	{ level: 0, id: 'stone_prestige', name: 'Stone', color: 'gray' },
 	{ level: 10, id: 'iron_prestige', name: 'Iron', color: 'white' },
 	{ level: 20, id: 'gold_prestige', name: 'Gold', color: 'gold' },
@@ -334,7 +333,7 @@ const PRESTIGE_SCHEMES = [
 ];
 
 // level requirements for default emblems (used when player hasn't selected one)
-const PRESTIGE_EMBLEMS = [
+export const PRESTIGE_EMBLEMS = [
 	{ level: 0, emblem: 'default' },
 	{ level: 50, emblem: 'carrots_for_eyes' },
 	{ level: 100, emblem: 'formerly_known' },
@@ -348,190 +347,6 @@ const PRESTIGE_EMBLEMS = [
 	{ level: 500, emblem: 'three_fourths_jam' },
 ];
 
-function findByLevel(arr, targetLevel) {
-	for (let i = arr.length - 1; i >= 0; i--) {
-		if (arr[i].level <= targetLevel) return arr[i];
-	}
-	return arr[0];
-}
-
-function parseEmblemKey(activeEmblem) {
-	if (!activeEmblem) return null;
-	return activeEmblem.replace('_icon', '').replace('emblem_', '');
-}
-
-function parseSchemeKey(activeScheme) {
-	if (!activeScheme) return null;
-	return activeScheme.replace('scheme_', '');
-}
-
-function getEmblem(activeEmblem, level) {
-	const key = parseEmblemKey(activeEmblem);
-	if (key && EMBLEMS[key]) {
-		return EMBLEMS[key];
-	}
-	const defaultEntry = findByLevel(PRESTIGE_EMBLEMS, Math.floor(level));
-	return EMBLEMS[defaultEntry.emblem];
-}
-
-function getDefaultEmblem(level) {
-	const entry = findByLevel(PRESTIGE_EMBLEMS, Math.floor(level));
-	return EMBLEMS[entry.emblem];
-}
-
-function getDefaultPrestige(level) {
-	return findByLevel(PRESTIGE_SCHEMES, Math.floor(level));
-}
-
-function getPrestige(activeScheme, level) {
-	const key = parseSchemeKey(activeScheme);
-	if (key) {
-		const prestige = PRESTIGE_SCHEMES.find(function (p) { return p.id === key; });
-		if (prestige) return prestige;
-	}
-	return findByLevel(PRESTIGE_SCHEMES, Math.floor(level));
-}
-
-function getFormattedLevel(level, activeScheme, activeEmblem, levelFormattedWithBrackets) {
-	const floorLevel = Math.floor(level);
-	const schemeKey = parseSchemeKey(activeScheme);
-	const scheme = (schemeKey && SCHEMES[schemeKey])
-		? SCHEMES[schemeKey]
-		: SCHEMES[findByLevel(PRESTIGE_SCHEMES, floorLevel).id];
-
-	const emblemKey = parseEmblemKey(activeEmblem);
-	const emblem = (emblemKey && EMBLEMS[emblemKey])
-		? EMBLEMS[emblemKey]
-		: getDefaultEmblem(floorLevel);
-
-	const isBold = levelFormattedWithBrackets ? levelFormattedWithBrackets.includes('§l') : false;
-	const isUnderline = levelFormattedWithBrackets ? levelFormattedWithBrackets.includes('§n') : false;
-	const isStrikethrough = levelFormattedWithBrackets ? levelFormattedWithBrackets.includes('§m') : false;
-
-	return scheme(floorLevel, isBold, isUnderline, isStrikethrough, emblem);
-}
-
-function getNaturalFormattedLevel(level) {
-	const floorLevel = Math.floor(level);
-	const prestigeEntry = findByLevel(PRESTIGE_SCHEMES, floorLevel);
-	const scheme = SCHEMES[prestigeEntry.id];
-	const emblem = getDefaultEmblem(floorLevel);
-
-	const bold = floorLevel >= BOLD_LEVEL_REQUIREMENT;
-	const underline = floorLevel >= UNDERLINE_LEVEL_REQUIREMENT;
-	const strikethrough = floorLevel >= STRIKETHROUGH_LEVEL_REQUIREMENT;
-
-	return scheme(floorLevel, bold, underline, strikethrough, emblem);
-}
-
-function getLevelNumberFormatted(level) {
-	const floorLevel = Math.floor(level);
-	const prestigeEntry = findByLevel(PRESTIGE_SCHEMES, floorLevel);
-	const schemeId = prestigeEntry.id;
-
-	const scheme = SCHEMES[schemeId];
-	if (!scheme) {
-		return `§7${floorLevel}`;
-	}
-
-	const testOutput = scheme(100, false, false, false, '');
-	const colorCodes = testOutput.match(/§[0-9a-f]/g) || [];
-
-	if (colorCodes.length >= 4) {
-		const digitColors = colorCodes.slice(1, 4);
-		const uniqueColors = [...new Set(digitColors)];
-
-		if (uniqueColors.length > 1) {
-			const levelStr = String(floorLevel);
-			const digits = levelStr.split('').reverse();
-			const formattedDigits = digits.map(function (digit, index) {
-				// index 0 = rightmost -> digitColors[2], index 1 -> digitColors[1], etc.
-				const colorIndex = Math.min(2, index);
-				return digitColors[2 - colorIndex] + digit;
-			}).reverse().join('');
-			return formattedDigits + '§r';
-		}
-	}
-	const digitColor = colorCodes.length >= 2 ? colorCodes[1] : '§7';
-	return digitColor + floorLevel + '§r';
-}
-
-function colorCodeToCSS(code) {
-	if (!code || code.length < 2) return 'gray';
-	return fromColorCode(code.charAt(1));
-}
-
-function getSchemeGradientColors(schemeId) {
-	const scheme = SCHEMES[schemeId];
-	if (!scheme) {
-		return ['gray', 'gray'];
-	}
-
-	const testOutput = scheme(100, false, false, false, '');
-	const colorCodes = testOutput.match(/§[0-9a-f]/g) || [];
-
-	if (colorCodes.length >= 4) {
-		const digitColors = colorCodes.slice(1, 4).map(colorCodeToCSS);
-		const uniqueColors = [...new Set(digitColors)];
-		if (uniqueColors.length > 1) {
-			return uniqueColors;
-		}
-	}
-
-	const primaryColor = colorCodes.length >= 2 ? colorCodeToCSS(colorCodes[1]) : 'gray';
-	return [primaryColor, primaryColor];
-}
-
-function getFormattedPrestigeName(level) {
-	const floorLevel = Math.floor(level);
-	const prestigeEntry = findByLevel(PRESTIGE_SCHEMES, floorLevel);
-	const schemeId = prestigeEntry.id;
-	const name = prestigeEntry.name;
-
-	const scheme = SCHEMES[schemeId];
-	if (!scheme) {
-		return '§7' + name;
-	}
-
-	const testOutput = scheme(100, false, false, false, '');
-	const colorCodes = testOutput.match(/§[0-9a-f]/g) || [];
-
-	if (colorCodes.length >= 4) {
-		const digitColors = colorCodes.slice(1, 4);
-		const uniqueColors = [...new Set(digitColors)];
-
-		if (uniqueColors.length > 1) {
-			const chars = name.split('');
-			const result = chars.map((char, i) => {
-				const colorIndex = Math.floor((i / chars.length) * uniqueColors.length);
-				return uniqueColors[Math.min(colorIndex, uniqueColors.length - 1)] + char;
-			}).join('');
-			return result + '§r';
-		}
-	}
-
-	const primaryColor = colorCodes.length >= 1 ? colorCodes[0] : '§7';
-	return primaryColor + name + '§r';
-}
-
-function getFormattedEmblem(activeEmblem, level) {
-	const floorLevel = Math.floor(level);
-	const emblemSymbol = getEmblem(activeEmblem, floorLevel);
-	const prestigeEntry = findByLevel(PRESTIGE_SCHEMES, floorLevel);
-	const schemeId = prestigeEntry.id;
-
-	const scheme = SCHEMES[schemeId];
-	if (!scheme) {
-		return '§7' + emblemSymbol + '§r';
-	}
-
-	const testOutput = scheme(100, false, false, false, 'E');
-	const match = testOutput.match(/(§[0-9a-f])E/);
-	const emblemColor = match ? match[1] : '§7';
-
-	return emblemColor + emblemSymbol + '§r';
-}
-
 export const SKYWARS = {
 	TITLE: 'SkyWars',
 	XP_TO_LEVEL: [0, 10, 25, 50, 75, 100, 250, 500, 750, 1000, 1250, 1500, 1750, 2000, 2500, 3000, 3500, 4000, 4500],
@@ -541,17 +356,9 @@ export const SKYWARS = {
 	SCHEMES,
 	PRESTIGE_SCHEMES,
 	PRESTIGE_EMBLEMS,
-	getEmblem,
-	getDefaultEmblem,
-	getDefaultPrestige,
-	getPrestige,
-	getFormattedLevel,
-	getNaturalFormattedLevel,
-	getLevelNumberFormatted,
-	getFormattedPrestigeName,
-	getFormattedEmblem,
-	getSchemeGradientColors,
-	findByLevel,
+	BOLD_LEVEL_REQUIREMENT,
+	UNDERLINE_LEVEL_REQUIREMENT,
+	STRIKETHROUGH_LEVEL_REQUIREMENT,
 	MODES: [
 		{ id: '_ranked', name: 'Ranked' },
 		{ id: '_solo_normal', name: 'Solo Normal' },

@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom';
 import { Accordion, Button, HorizontalLine, MinecraftText, PlayerHead, Tippy } from 'src/components';
 import { Box, Br, Cell, Pair, Progress, ProgressBar, Row, Table } from 'src/components/Stats';
 import { SKYWARS as consts } from 'src/constants/hypixel';
+import {
+	getFormattedEmblem,
+	getFormattedLevel,
+	getFormattedPrestigeName,
+	getLevelNumberFormatted,
+	getPrestige,
+	getSchemeGradientColors,
+} from 'src/utils/hypixel';
 import { useAPIContext, useAppContext } from 'src/hooks';
 import * as Utils from 'src/utils';
 import { HypixelLeveling, getMostPlayed } from 'src/utils/hypixel';
@@ -50,9 +58,9 @@ export const SkyWars = memo((props) => {
 	const leveling = new HypixelLeveling(xpToLevel, levelToXP,
 		Utils.default0(json.skywars_experience));
 
-	const prestige = consts.getPrestige(json.active_scheme, leveling.level);
+	const prestige = getPrestige(json.active_scheme, leveling.level);
 
-	const formattedLevel = consts.getFormattedLevel(
+	const formattedLevel = getFormattedLevel(
 		leveling.level,
 		json.active_scheme,
 		json.active_emblem,
@@ -103,12 +111,12 @@ export const SkyWars = memo((props) => {
 		);
 
 	// use default prestige colors for progress bar
-	const defaultPrestige = consts.getDefaultPrestige(leveling.level);
-	const progressGradient = consts.getSchemeGradientColors(defaultPrestige.id);
+	const defaultPrestige = getPrestige(null, leveling.level);
+	const progressGradient = getSchemeGradientColors(defaultPrestige.id);
 
 	// formatted level numbers for progress bar with no brackets or emblem
-	const floorLevelFormatted = consts.getLevelNumberFormatted(leveling.levelFloor);
-	const ceilingLevelFormatted = consts.getLevelNumberFormatted(leveling.levelCeiling);
+	const floorLevelFormatted = getLevelNumberFormatted(leveling.levelFloor);
+	const ceilingLevelFormatted = getLevelNumberFormatted(leveling.levelCeiling);
 
 	const levelProgress = (
 		<React.Fragment>
@@ -280,7 +288,7 @@ export const SkyWars = memo((props) => {
 			<div className="h-flex">
 				<div className="flex-1">
 					<Pair title="Level">{leveling.level}</Pair>
-					<Pair title="Prestige"><MinecraftText font={false} size="sm">{`${consts.getFormattedPrestigeName(leveling.level)} ${consts.getFormattedEmblem(json.active_emblem, leveling.level)}\ufe0e`}</MinecraftText></Pair>
+		<Pair title="Prestige"><MinecraftText font={false} size="sm">{`${getFormattedPrestigeName(leveling.level)} ${getFormattedEmblem(json.active_emblem, leveling.level)}\ufe0e`}</MinecraftText></Pair>
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Pair title="Tokens" color="darkgreen">{json.cosmetic_tokens}</Pair>
 					<Br/>
