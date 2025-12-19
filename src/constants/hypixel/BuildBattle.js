@@ -27,7 +27,6 @@ export const BUILDBATTLE = {
 			{value: 200000, name: 'Grandmaster', color: 'aqua'},
 			{value: 300000, name: 'Celestial', color: 'pink'},
 			{value: 400000, name: 'Divine', color: 'red'},
-			{value: 500000, name: 'Ascended', color: 'gold'},
-			{value: Infinity, name: null, color: null}
+			{value: 500000, name: 'Ascended', color: 'gold'}
 		],
 	}
