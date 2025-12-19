@@ -55,7 +55,7 @@ export const Duels = memo((props) => {
 
 	function getDivision(wins, requirementType = 'default') {
 		if (!wins || wins <= 0) {
-			return {name: '-', level: '-', color: 'gray', style: ''};
+			return {name: '-', level: '-', color: 'gray', style: '', bold: false};
 		}
 		const divisions = consts.DIVISIONS[requirementType];
 		let divIndex = 0;
@@ -67,7 +67,7 @@ export const Duels = memo((props) => {
 		}
 		const div = divisions[divIndex];
 		if (div.id === 'none') {
-			return {name: '-', level: '-', color: 'gray', style: ''};
+			return {name: '-', level: '-', color: 'gray', style: '', bold: false};
 		}
 		const remaining = wins - div.req;
 		const level = Math.min(div.max, div.step ? Math.floor(remaining / div.step) + 1 : 1);
@@ -77,7 +77,51 @@ export const Duels = memo((props) => {
 			level: roman,
 			color: div.color,
 			style: div.style,
+			bold: div.bold,
 		};
+	}
+
+	function formatDivisionTitle(div) {
+		if (div.name === '-') return '§7-';
+		
+		const iconKey = (json.active_prefix_icon || '').replace('prefix_icon_', '');
+		const schemeKey = (json.active_prefix_scheme || '').replace('prefix_scheme_', '');
+		
+		const icon = consts.ICONS[iconKey] || '';
+		const scheme = consts.SCHEMES[schemeKey] || consts.SCHEMES.default;
+		
+		const title = div.name;
+		const bold = div.bold ? '§l' : '';
+		
+		if (scheme.type === 'solid') {
+			const iconPart = icon ? `${scheme.color}${icon} ` : '';
+			return `${iconPart}${scheme.color}${bold}${title}§r`;
+		}
+		
+		if (scheme.type === 'gradient') {
+			const iconPart = icon ? `${icon} ` : '';
+			const fullText = `${iconPart}${title}`;
+			const colors = scheme.colors;
+			const chunkSize = Math.floor(fullText.length / colors.length);
+			
+			let result = '';
+			for (let i = 0; i < colors.length; i++) {
+				const start = i * chunkSize;
+				const end = i === colors.length - 1 ? fullText.length : (i + 1) * chunkSize;
+				const chunk = fullText.slice(start, end);
+				if (i === 0 && bold && iconPart) {
+					const iconLen = iconPart.length;
+					result += colors[i] + chunk.slice(0, iconLen) + bold + chunk.slice(iconLen);
+				} else {
+					result += colors[i] + (i === 0 && bold ? bold : '') + chunk;
+				}
+			}
+			return result + '§r';
+		}
+		
+		// default scheme
+		const iconPart = icon ? `${icon} ` : '';
+		return `${div.style}${iconPart}${bold}${title}§r`;
 	}
 
 	function kills(id) {
@@ -89,7 +133,7 @@ export const Duels = memo((props) => {
 	}
 	const header = (
 		<React.Fragment>
-			<Box title="Division">{`${division.style}${division.name}`}</Box>
+			<Box title="Division">{formatDivisionTitle(division)}</Box>
 			<Box title="Most Played" color="white">{mostPlayedMode.name || '§7-'}</Box>
 			<Box title="Wins">{json.wins}</Box>
 			<Box title="WL">{ratios.wl}</Box>
