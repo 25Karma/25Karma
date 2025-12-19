@@ -59,11 +59,22 @@ export const SkyWars = memo((props) => {
 		json.levelFormattedWithBrackets
 	);
 
+	// exclude mini from overall stats (kills, wins, and assists are included in api totals, but deaths/losses are not)
+	const miniWins = json.wins_mini || 0;
+	const miniKills = json.kills_mini || 0;
+	const miniAssists = json.assists_mini || 0;
+	
+	const overallKills = Utils.subtract(json.kills, miniKills);
+	const overallDeaths = json.deaths;
+	const overallWins = Utils.subtract(json.wins, miniWins);
+	const overallLosses = json.losses;
+	const overallAssists = Utils.subtract(json.assists, miniAssists);
+
 	const ratios = {
 		ahm: Utils.ratio(json.arrows_hit, json.arrows_shot),
-		kd : Utils.ratio(json.kills, json.deaths),
-		wl : Utils.ratio(json.wins, json.losses),
-		kw : Utils.ratio(json.kills, json.wins)
+		kd : Utils.ratio(overallKills, overallDeaths),
+		wl : Utils.ratio(overallWins, overallLosses),
+		kw : Utils.ratio(overallKills, overallWins)
 	}
 
 	const corruptionChance = Utils.add(
@@ -86,7 +97,7 @@ export const SkyWars = memo((props) => {
 		<React.Fragment>
 			<Box title="Level">{formattedLevel}</Box>
 			<Box title="KD">{ratios.kd}</Box>
-			<Box title="Wins">{json.wins}</Box>
+			<Box title="Wins">{overallWins}</Box>
 			<Box title="WL">{ratios.wl}</Box>
 		</React.Fragment>
 		);
@@ -154,6 +165,21 @@ export const SkyWars = memo((props) => {
 									<Cell>{wins}</Cell>
 									<Cell>{losses}</Cell>
 									<Cell>{Utils.ratio(wins, losses)}</Cell>
+								</Row>
+							);
+						}
+						// overall stats
+						if (id === '') {
+							if (!Utils.add(overallWins, overallLosses)) return null;
+							return (
+								<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
+									<Cell>{name}</Cell>
+									<Cell>{overallKills}</Cell>
+									<Cell>{overallDeaths}</Cell>
+									<Cell>{Utils.ratio(overallKills, overallDeaths)}</Cell>
+									<Cell>{overallWins}</Cell>
+									<Cell>{overallLosses}</Cell>
+									<Cell>{Utils.ratio(overallWins, overallLosses)}</Cell>
 								</Row>
 							);
 						}
@@ -267,9 +293,9 @@ export const SkyWars = memo((props) => {
 					<Pair title="Arrow Hit Accuracy" percentage>{ratios.ahm}</Pair>
 				</div>
 				<div className="flex-1">
-					<Pair title="Kills">{json.kills}</Pair>
-					<Pair title="Deaths">{json.deaths}</Pair>
-					<Pair title="Assists">{json.assists}</Pair>
+					<Pair title="Kills">{overallKills}</Pair>
+					<Pair title="Deaths">{overallDeaths}</Pair>
+					<Pair title="Assists">{overallAssists}</Pair>
 					<Pair title="Kill/Death Ratio">{ratios.kd}</Pair>
 					<Br/>
 					<Br/>
@@ -281,9 +307,9 @@ export const SkyWars = memo((props) => {
 					<Pair title="Pearls Thrown">{json.enderpearls_thrown}</Pair>
 				</div>
 				<div className="flex-1">
-					<Pair title="Wins">{json.wins}</Pair>
+					<Pair title="Wins">{overallWins}</Pair>
 					<Pair title="Lab Wins">{json.wins_lab}</Pair>
-					<Pair title="Losses">{json.losses}</Pair>
+					<Pair title="Losses">{overallLosses}</Pair>
 					<Pair title="Win/Loss Ratio">{ratios.wl}</Pair>
 					<Pair title="Kill/Win Ratio">{ratios.kw}</Pair>
 					<Br/>
