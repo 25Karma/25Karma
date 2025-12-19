@@ -102,7 +102,7 @@ export const Duels = memo((props) => {
 			const iconPart = icon ? `${icon} ` : '';
 			const fullText = `${iconPart}${title}`;
 			const colors = scheme.colors;
-			const chunkSize = Math.floor(fullText.length / colors.length);
+			const chunkSize = Math.max(1, Math.floor(fullText.length / colors.length));
 			
 			let result = '';
 			for (let i = 0; i < colors.length; i++) {

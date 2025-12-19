@@ -19,12 +19,14 @@ const generateDivisions = (multiplier = 1) => DIVISION_REQUIREMENTS.map(div => (
 	step: div.step * multiplier,
 }));
 
+const REQUIREMENT_TYPES = {
+	DEFAULT: 'default',
+	HALF: 'half',
+};
+
 export const DUELS = {
 	TITLE: 'Duels',
-	REQUIREMENT_TYPES: {
-		DEFAULT: 'default',
-		HALF: 'half',
-	},
+	REQUIREMENT_TYPES,
 	DIVISIONS: {
 		default: generateDivisions(1),
 		half: generateDivisions(0.5),
@@ -132,47 +134,47 @@ export const DUELS = {
 	},
 	MODES: [
 		// UHC
-		{ id: 'uhc_duel', divisionId: 'uhc', name: 'UHC 1v1', requirement: 'default' },
-		{ id: 'uhc_doubles', divisionId: 'uhc', name: 'UHC 2v2', requirement: 'default' },
-		{ id: 'uhc_four', divisionId: 'uhc', name: 'UHC 4v4', requirement: 'default' },
-		{ id: 'uhc_meetup', divisionId: 'uhc', name: 'UHC Deathmatch', requirement: 'default' },
+		{ id: 'uhc_duel', divisionId: 'uhc', name: 'UHC 1v1', requirement: REQUIREMENT_TYPES.DEFAULT },
+		{ id: 'uhc_doubles', divisionId: 'uhc', name: 'UHC 2v2', requirement: REQUIREMENT_TYPES.DEFAULT },
+		{ id: 'uhc_four', divisionId: 'uhc', name: 'UHC 4v4', requirement: REQUIREMENT_TYPES.DEFAULT },
+		{ id: 'uhc_meetup', divisionId: 'uhc', name: 'UHC Deathmatch', requirement: REQUIREMENT_TYPES.DEFAULT },
 		// OP
-		{ id: 'op_duel', divisionId: 'op', name: 'OP 1v1', requirement: 'default' },
-		{ id: 'op_doubles', divisionId: 'op', name: 'OP 2v2', requirement: 'default' },
+		{ id: 'op_duel', divisionId: 'op', name: 'OP 1v1', requirement: REQUIREMENT_TYPES.DEFAULT },
+		{ id: 'op_doubles', divisionId: 'op', name: 'OP 2v2', requirement: REQUIREMENT_TYPES.DEFAULT },
 		// SkyWars
-		{ id: 'sw_duel', divisionId: 'skywars', name: 'SkyWars 1v1', requirement: 'default' },
-		{ id: 'sw_doubles', divisionId: 'skywars', name: 'SkyWars 2v2', requirement: 'default' },
+		{ id: 'sw_duel', divisionId: 'skywars', name: 'SkyWars 1v1', requirement: REQUIREMENT_TYPES.DEFAULT },
+		{ id: 'sw_doubles', divisionId: 'skywars', name: 'SkyWars 2v2', requirement: REQUIREMENT_TYPES.DEFAULT },
 		// 1v1
-		{ id: 'bow_duel', divisionId: 'bow', name: 'Bow 1v1', requirement: 'default' },
-		{ id: 'blitz_duel', divisionId: 'blitz', name: 'Blitz 1v1', requirement: 'default' },
-		{ id: 'sumo_duel', divisionId: 'sumo', name: 'Sumo 1v1', requirement: 'default' },
-		{ id: 'combo_duel', divisionId: 'combo', name: 'Combo 1v1', requirement: 'default' },
-		{ id: 'quake_duel', divisionId: 'quakecraft', name: 'Quakecraft 1v1', requirement: 'default' },
+		{ id: 'bow_duel', divisionId: 'bow', name: 'Bow 1v1', requirement: REQUIREMENT_TYPES.DEFAULT },
+		{ id: 'blitz_duel', divisionId: 'blitz', name: 'Blitz 1v1', requirement: REQUIREMENT_TYPES.DEFAULT },
+		{ id: 'sumo_duel', divisionId: 'sumo', name: 'Sumo 1v1', requirement: REQUIREMENT_TYPES.DEFAULT },
+		{ id: 'combo_duel', divisionId: 'combo', name: 'Combo 1v1', requirement: REQUIREMENT_TYPES.DEFAULT },
+		{ id: 'quake_duel', divisionId: 'quakecraft', name: 'Quakecraft 1v1', requirement: REQUIREMENT_TYPES.DEFAULT },
 		// Classic
-		{ id: 'classic_duel', divisionId: 'classic', name: 'Classic 1v1', requirement: 'default' },
-		{ id: 'classic_doubles', divisionId: 'classic', name: 'Classic 2v2', requirement: 'default' },
+		{ id: 'classic_duel', divisionId: 'classic', name: 'Classic 1v1', requirement: REQUIREMENT_TYPES.DEFAULT },
+		{ id: 'classic_doubles', divisionId: 'classic', name: 'Classic 2v2', requirement: REQUIREMENT_TYPES.DEFAULT },
 		// MegaWalls (half wins)
-		{ id: 'mw_duel', divisionId: 'mega_walls', name: 'MegaWalls 1v1', requirement: 'half' },
-		{ id: 'mw_doubles', divisionId: 'mega_walls', name: 'MegaWalls 2v2', requirement: 'half' },
+		{ id: 'mw_duel', divisionId: 'mega_walls', name: 'MegaWalls 1v1', requirement: REQUIREMENT_TYPES.HALF },
+		{ id: 'mw_doubles', divisionId: 'mega_walls', name: 'MegaWalls 2v2', requirement: REQUIREMENT_TYPES.HALF },
 		// misc half wins
-		{ id: 'parkour_eight', divisionId: 'parkour', name: 'Parkour FFA', requirement: 'half' },
-		{ id: 'boxing_duel', divisionId: 'boxing', name: 'Boxing 1v1', requirement: 'half' },
-		{ id: 'potion_duel', divisionId: 'no_debuff', name: 'NoDebuff 1v1', requirement: 'half' },
+		{ id: 'parkour_eight', divisionId: 'parkour', name: 'Parkour FFA', requirement: REQUIREMENT_TYPES.HALF },
+		{ id: 'boxing_duel', divisionId: 'boxing', name: 'Boxing 1v1', requirement: REQUIREMENT_TYPES.HALF },
+		{ id: 'potion_duel', divisionId: 'no_debuff', name: 'NoDebuff 1v1', requirement: REQUIREMENT_TYPES.HALF },
 		// Bridge (half wins)
-		{ id: 'bridge_duel', divisionId: 'bridge', name: 'Bridge 1v1', requirement: 'half' },
-		{ id: 'bridge_doubles', divisionId: 'bridge', name: 'Bridge 2v2', requirement: 'half' },
-		{ id: 'bridge_threes', divisionId: 'bridge', name: 'Bridge 3v3', requirement: 'half' },
-		{ id: 'bridge_four', divisionId: 'bridge', name: 'Bridge 4v4', requirement: 'half' },
-		{ id: 'bridge_2v2v2v2', divisionId: 'bridge', name: 'Bridge 2v2v2v2', requirement: 'half' },
-		{ id: 'bridge_3v3v3v3', divisionId: 'bridge', name: 'Bridge 3v3v3v3', requirement: 'half' },
-		{ id: 'capture_threes', divisionId: 'bridge', name: 'Bridge CTF 3v3', requirement: 'half' },
+		{ id: 'bridge_duel', divisionId: 'bridge', name: 'Bridge 1v1', requirement: REQUIREMENT_TYPES.HALF },
+		{ id: 'bridge_doubles', divisionId: 'bridge', name: 'Bridge 2v2', requirement: REQUIREMENT_TYPES.HALF },
+		{ id: 'bridge_threes', divisionId: 'bridge', name: 'Bridge 3v3', requirement: REQUIREMENT_TYPES.HALF },
+		{ id: 'bridge_four', divisionId: 'bridge', name: 'Bridge 4v4', requirement: REQUIREMENT_TYPES.HALF },
+		{ id: 'bridge_2v2v2v2', divisionId: 'bridge', name: 'Bridge 2v2v2v2', requirement: REQUIREMENT_TYPES.HALF },
+		{ id: 'bridge_3v3v3v3', divisionId: 'bridge', name: 'Bridge 3v3v3v3', requirement: REQUIREMENT_TYPES.HALF },
+		{ id: 'capture_threes', divisionId: 'bridge', name: 'Bridge CTF 3v3', requirement: REQUIREMENT_TYPES.HALF },
 		// Spleef 
-		{ id: 'spleef_duel', divisionId: 'spleef', name: 'Spleef 1v1', requirement: 'default' },
-		{ id: 'bowspleef_duel', divisionId: 'spleef', name: 'Bow Spleef 1v1', requirement: 'default' },
+		{ id: 'spleef_duel', divisionId: 'spleef', name: 'Spleef 1v1', requirement: REQUIREMENT_TYPES.DEFAULT },
+		{ id: 'bowspleef_duel', divisionId: 'spleef', name: 'Bow Spleef 1v1', requirement: REQUIREMENT_TYPES.DEFAULT },
 		// BedWars
-		{ id: 'bedwars_two_one_duels', divisionId: 'bedwars', name: 'Bed Wars 1v1', requirement: 'default' },
-		{ id: 'bedwars_two_one_duels_rush', divisionId: 'bedwars', name: 'Bed Rush 1v1', requirement: 'default' },
+		{ id: 'bedwars_two_one_duels', divisionId: 'bedwars', name: 'Bed Wars 1v1', requirement: REQUIREMENT_TYPES.DEFAULT },
+		{ id: 'bedwars_two_one_duels_rush', divisionId: 'bedwars', name: 'Bed Rush 1v1', requirement: REQUIREMENT_TYPES.DEFAULT },
 		// Arena (no division)
-		{ id: 'duel_arena', divisionId: '', name: 'Duel Arena', requirement: 'default' },
+		{ id: 'duel_arena', divisionId: '', name: 'Duel Arena', requirement: REQUIREMENT_TYPES.DEFAULT },
 	],
 };
