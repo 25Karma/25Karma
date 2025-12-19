@@ -1,6 +1,6 @@
 import React, { memo, useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Accordion, Button, HorizontalLine, PlayerHead, Tippy } from 'src/components';
+import { Accordion, Button, HorizontalLine, MinecraftText, PlayerHead, Tippy } from 'src/components';
 import { Box, Br, Cell, Pair, Progress, ProgressBar, Row, Table } from 'src/components/Stats';
 import { SKYWARS as consts } from 'src/constants/hypixel';
 import { useAPIContext, useAppContext } from 'src/hooks';
@@ -14,14 +14,51 @@ import { HypixelLeveling, getMostPlayed } from 'src/utils/hypixel';
  */
 export const SkyWars = memo((props) => {
 
-	// Get the player's API data for SkyWars
 	const { player } = useAPIContext();
 	const { setBanner } = useAppContext();
 	const json = useMemo(() => Utils.traverse(player,'stats.SkyWars') || {}, [player]);
 
+	const cumulativeXP = useMemo(() => consts.XP_TO_LEVEL.reduce((acc, xp, i) => {
+		acc.push((acc[i - 1] || 0) + xp);
+		return acc;
+	}, []), []);
+	const constantLevelingXP = cumulativeXP[cumulativeXP.length - 1];
+
+	function xpToLevel(xp) {
+		if (xp >= constantLevelingXP) {
+			const xpAboveConstant = xp - constantLevelingXP;
+			const level = (xpAboveConstant / consts.RECURRING_XP) + consts.XP_TO_LEVEL.length;
+			return Math.min(level, consts.LEVEL_MAX);
+		}
+		for (let i = 0; i < cumulativeXP.length; i++) {
+			if (xp < cumulativeXP[i]) {
+				const prevXP = i > 0 ? cumulativeXP[i - 1] : 0;
+				return i + (xp - prevXP) / (cumulativeXP[i] - prevXP);
+			}
+		}
+		return consts.XP_TO_LEVEL.length;
+	}
+
+	function levelToXP(lvl) {
+		if (lvl <= 0) return 0;
+		if (lvl < cumulativeXP.length) {
+			return cumulativeXP[lvl - 1] || 0;
+		}
+		return constantLevelingXP + (lvl - consts.XP_TO_LEVEL.length) * consts.RECURRING_XP;
+	}
+
 	const leveling = new HypixelLeveling(xpToLevel, levelToXP,
 		Utils.default0(json.skywars_experience));
-	const prestige = getPrestige(leveling.level);
+
+	const prestige = consts.getPrestige(json.active_scheme, leveling.level);
+
+	const formattedLevel = consts.getFormattedLevel(
+		leveling.level,
+		json.active_scheme,
+		json.active_emblem,
+		json.levelFormattedWithBrackets
+	);
+
 	const ratios = {
 		ahm: Utils.ratio(json.arrows_hit, json.arrows_shot),
 		kd : Utils.ratio(json.kills, json.deaths),
@@ -36,7 +73,7 @@ export const SkyWars = memo((props) => {
 	)
 	
 	const opalsEarned = Utils.traverse(player, 'achievements.skywars_opal_obsession');
-	const totalOpals = Utils.add(opalsEarned, Math.max(0, consts.PRESTIGES.findIndex(n => n.name === prestige.name)-1));
+	const totalOpals = Utils.add(opalsEarned, Math.max(0, consts.PRESTIGE_SCHEMES.findIndex(n => n.name === prestige.name) - 1));
 	const totalShards = Utils.add(opalsEarned*20000, json.shard);
 
 	const mostPlayedMode = getMostPlayed(consts.MODES,
@@ -45,78 +82,40 @@ export const SkyWars = memo((props) => {
 	// State for the head collection 'View' button
 	const [headButtonState, setHeadButtonState] = useState(false);
 
-	function xpToLevel(xp) {
-		var xps = consts.INITIAL_XP;
-		if(xp >= 15000) {
-			return (xp - 15000) / consts.RECURRING_XP + 12;
-		} else {
-			for(let i = 0; i < xps.length; i++) {
-				if(xp < xps[i]) {
-					return i + (xp - xps[i-1]) / (xps[i] - xps[i-1]);
-				}
-			}
-		}
-	}
-
-	function levelToXP(lvl) {
-		let xp = 0;
-		for (let i = 0; i < lvl; i++) {
-			if (i < consts.INITIAL_XP.length) {
-				xp = consts.INITIAL_XP[i];
-			}
-			else {
-				xp += consts.RECURRING_XP;
-			}
-		}
-		return xp;
-	}
-
-	function getPrestige(level) {
-		for (const pres of consts.PRESTIGES.slice().reverse()) {
-			if (pres.level <= Math.floor(level)) return pres
-		}
-	}
-
-	const prestigeIcon = (() => {
-		const icon = json.selected_prestige_icon;
-		if (icon === undefined) {
-			return '\u22c6';
-		}
-		const icons = consts.ICONS;
-		return icons[icon];
-	})();
-
 	const header = (
 		<React.Fragment>
-			<Box title="Level">
-			{`${
-				Utils.toColorCode(prestige.b_color)}[${
-				Utils.toColorCode(prestige.color)}${leveling.levelFloor}${prestigeIcon}\ufe0e${
-				Utils.toColorCode(prestige.b_color)}]
-			`}
-			</Box>
+			<Box title="Level">{formattedLevel}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="Wins">{json.wins}</Box>
 			<Box title="WL">{ratios.wl}</Box>
 		</React.Fragment>
 		);
 
+	// use default prestige colors for progress bar
+	const defaultPrestige = consts.getDefaultPrestige(leveling.level);
+	const progressGradient = consts.getSchemeGradientColors(defaultPrestige.id);
+
+	// formatted level numbers for progress bar with no brackets or emblem
+	const floorLevelFormatted = consts.getLevelNumberFormatted(leveling.levelFloor);
+	const ceilingLevelFormatted = consts.getLevelNumberFormatted(leveling.levelCeiling);
+
 	const levelProgress = (
 		<React.Fragment>
-			<span className={`px-1 c-${getPrestige(leveling.levelFloor).color}`}>
-				{leveling.levelFloor}
+			<span className="px-1">
+				<MinecraftText font={false} size="sm">{floorLevelFormatted}</MinecraftText>
 			</span>
 			<div className="flex-1">
 				<ProgressBar 
 					dataTip={`${leveling.xpAboveLevel}/${leveling.levelTotalXP} XP`}>
 					<Progress
 						proportion={leveling.proportionAboveLevel}
-						color={prestige.color}
+						color={defaultPrestige.color}
+						gradient={progressGradient}
 						dataTip={`${leveling.xpAboveLevel}/${leveling.levelTotalXP} XP`} />
 				</ProgressBar>
 			</div>
-			<span className={`px-1 c-${getPrestige(leveling.levelCeiling).color}`}>
-				{leveling.levelCeiling}
+			<span className="px-1">
+				<MinecraftText font={false} size="sm">{ceilingLevelFormatted}</MinecraftText>
 			</span>
 		</React.Fragment>
 		);
@@ -136,18 +135,41 @@ export const SkyWars = memo((props) => {
 			</thead>
 			<tbody>
 			{
-				consts.MODES.map(({id, name}) => 
-					Boolean(Utils.add(json[`wins${id}`], json[`losses${id}`])) &&
-					<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
-						<Cell>{name}</Cell>
-						<Cell>{json[`kills${id}`]}</Cell>
-						<Cell>{json[`deaths${id}`]}</Cell>
-						<Cell>{Utils.ratio(json[`kills${id}`],json[`deaths${id}`])}</Cell>
-						<Cell>{json[`wins${id}`]}</Cell>
-						<Cell>{json[`losses${id}`]}</Cell>
-						<Cell>{Utils.ratio(json[`wins${id}`],json[`losses${id}`])}</Cell>
-					</Row>
-					)
+					consts.MODES.map(({ id, name, isMini }) => {
+						// mini is calculated differently than other modes
+						if (isMini) {
+							const wins = json.wins_mini;
+							const kills = json.kills_mini;
+							const games = json.games_mini;
+							// mini doesn't track deaths/losses - calculate from games
+							const losses = Utils.subtract(games, wins);
+							const deaths = losses;
+							if (!games) return null;
+							return (
+								<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
+									<Cell>{name}</Cell>
+									<Cell>{kills}</Cell>
+									<Cell>{deaths}</Cell>
+									<Cell>{Utils.ratio(kills, deaths)}</Cell>
+									<Cell>{wins}</Cell>
+									<Cell>{losses}</Cell>
+									<Cell>{Utils.ratio(wins, losses)}</Cell>
+								</Row>
+							);
+						}
+						return (
+							Boolean(Utils.add(json[`wins${id}`], json[`losses${id}`])) &&
+							<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
+								<Cell>{name}</Cell>
+								<Cell>{json[`kills${id}`]}</Cell>
+								<Cell>{json[`deaths${id}`]}</Cell>
+								<Cell>{Utils.ratio(json[`kills${id}`], json[`deaths${id}`])}</Cell>
+								<Cell>{json[`wins${id}`]}</Cell>
+								<Cell>{json[`losses${id}`]}</Cell>
+								<Cell>{Utils.ratio(json[`wins${id}`], json[`losses${id}`])}</Cell>
+							</Row>
+					);
+				})
 			}
 			</tbody>
 		</Table>
@@ -232,7 +254,7 @@ export const SkyWars = memo((props) => {
 			<div className="h-flex">
 				<div className="flex-1">
 					<Pair title="Level">{leveling.level}</Pair>
-					<Pair title="Prestige" color={prestige.color}>{`${prestige.name} ${prestigeIcon}\ufe0e`}</Pair>
+					<Pair title="Prestige"><MinecraftText font={false} size="sm">{`${consts.getFormattedPrestigeName(leveling.level)} ${consts.getFormattedEmblem(json.active_emblem, leveling.level)}\ufe0e`}</MinecraftText></Pair>
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
 					<Pair title="Tokens" color="darkgreen">{json.cosmetic_tokens}</Pair>
 					<Br/>
