@@ -151,8 +151,10 @@ export const DUELS = {
 		// Classic
 		{ id: 'classic_duel', divisionId: 'classic', name: 'Classic 1v1', requirement: 'default' },
 		{ id: 'classic_doubles', divisionId: 'classic', name: 'Classic 2v2', requirement: 'default' },
-		// Half wins
+		// MegaWalls (half wins)
 		{ id: 'mw_duel', divisionId: 'mega_walls', name: 'MegaWalls 1v1', requirement: 'half' },
+		{ id: 'mw_doubles', divisionId: 'mega_walls', name: 'MegaWalls 2v2', requirement: 'half' },
+		// misc half wins
 		{ id: 'parkour_eight', divisionId: 'parkour', name: 'Parkour FFA', requirement: 'half' },
 		{ id: 'boxing_duel', divisionId: 'boxing', name: 'Boxing 1v1', requirement: 'half' },
 		{ id: 'potion_duel', divisionId: 'no_debuff', name: 'NoDebuff 1v1', requirement: 'half' },
@@ -161,6 +163,9 @@ export const DUELS = {
 		{ id: 'bridge_doubles', divisionId: 'bridge', name: 'Bridge 2v2', requirement: 'half' },
 		{ id: 'bridge_threes', divisionId: 'bridge', name: 'Bridge 3v3', requirement: 'half' },
 		{ id: 'bridge_four', divisionId: 'bridge', name: 'Bridge 4v4', requirement: 'half' },
+		{ id: 'bridge_2v2v2v2', divisionId: 'bridge', name: 'Bridge 2v2v2v2', requirement: 'half' },
+		{ id: 'bridge_3v3v3v3', divisionId: 'bridge', name: 'Bridge 3v3v3v3', requirement: 'half' },
+		{ id: 'capture_threes', divisionId: 'bridge', name: 'Bridge CTF 3v3', requirement: 'half' },
 		// Spleef 
 		{ id: 'spleef_duel', divisionId: 'spleef', name: 'Spleef 1v1', requirement: 'default' },
 		{ id: 'bowspleef_duel', divisionId: 'spleef', name: 'Bow Spleef 1v1', requirement: 'default' },
