@@ -52,8 +52,8 @@ export const BuildBattle = memo((props) => {
 		const titleColorCode = toColorCode(titleObj.color);
 		const bold = titleObj.bold ? '§l' : '';
 		
-		if (emblemSymbol && emblemColor) {
-			const emblemColorCode = toColorCode(emblemColor);
+		if (emblemSymbol) {
+			const emblemColorCode = toColorCode(emblemColor ?? 'white');
 			return `${emblemColorCode}${emblemSymbol} ${titleColorCode}${bold}${titleObj.name}`;
 		}
 		return `${titleColorCode}${bold}${titleObj.name}`;
