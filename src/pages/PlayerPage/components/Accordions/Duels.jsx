@@ -210,7 +210,7 @@ export const Duels = memo((props) => {
 				</div>
 				<div className="flex-1">
 					<Pair title="Best Winstreak">{Utils.defaultUnknown(json.best_overall_winstreak)}</Pair>
-					<Pair title="Current Winstreak">{Utils.defaultUnknown(json.current_winstreak)}</Pair>
+					<Pair title="Current Winstreak">{Utils.defaultUnknown(json.currentStreak ?? json.current_winstreak)}</Pair>
 					<Pair title="Overall Division" color={division.color}>{division.name}</Pair>
 					<Br/>
 					<Pair title="Wins">{json.wins}</Pair>
