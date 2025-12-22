@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
-import { Accordion, HorizontalLine } from 'src/components';
+import { Accordion, HorizontalLine, MinecraftText } from 'src/components';
 import { Box, Br, Cell, Pair, ProgressBar, Progress, Title, Table } from 'src/components/Stats';
 import { TNTGAMES as consts } from 'src/constants/hypixel';
 import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
+import { findPrefix, colorToCode, rainbow } from 'src/utils/hypixel';
 
 /**
  * Stats accordion for TNT Games
@@ -55,9 +56,25 @@ export const TNTGames = memo((props) => {
 			);
 	}
 
+	const formatModePrefix = (prefixes, wins) => {
+		const score = Utils.default0(wins);
+		const { prefix } = findPrefix(prefixes, score);
+		if (prefix.color === 'rainbow') {
+			return rainbow(`[${score}]`);
+		}
+		const colorCode = colorToCode(prefix.color);
+		return `${colorCode}[${score}]`;
+	};
+
+	const tntRunPrefix = formatModePrefix(consts.RUN_PREFIXES, json.wins_tntrun);
+	const pvpRunPrefix = formatModePrefix(consts.RUN_PREFIXES, json.wins_pvprun);
+	const bowSpleefPrefix = formatModePrefix(consts.RUN_PREFIXES, json.wins_bowspleef);
+	const tntTagPrefix = formatModePrefix(consts.TAG_PREFIXES, json.wins_tntag);
+	const wizardsPrefix = formatModePrefix(consts.TAG_PREFIXES, json.wins_capture);
+
 	const header = (
 		<React.Fragment>
-			<Box title="Wins">{json.wins}</Box>
+			<Box title="Total Wins">{json.wins}</Box>
 		</React.Fragment>
 		);
 
@@ -88,21 +105,21 @@ export const TNTGames = memo((props) => {
 			<Pair title="Total Wins">{json.wins}</Pair>
 			<div className="h-flex mt-3">
 				<div className="flex-1">
-					<p className="font-bold font-md mb-1">TNT Run</p>
+					<p className="font-bold font-md mb-1">TNT Run <MinecraftText font={false} size="sm">{tntRunPrefix}</MinecraftText></p>
 					<Pair title="Wins">{json.wins_tntrun}</Pair>
 					<Pair title="Record Time">{Utils.secondsToHms(json.record_tntrun)}</Pair>
 					<Br />
-					<p className="font-bold font-md mb-1">PVP Run</p>
+					<p className="font-bold font-md mb-1">PVP Run <MinecraftText font={false} size="sm">{pvpRunPrefix}</MinecraftText></p>
 					<Pair title="Wins">{json.wins_pvprun}</Pair>
 					<Pair title="Kills">{json.kills_pvprun}</Pair>
 					<Pair title="Record Time">{Utils.secondsToHms(json.record_pvprun)}</Pair>
 				</div>
 				<div className="flex-1">
-					<p className="font-bold font-md mb-1">TNT Tag</p>
+					<p className="font-bold font-md mb-1">TNT Tag <MinecraftText font={false} size="sm">{tntTagPrefix}</MinecraftText></p>
 					<Pair title="Wins">{json.wins_tntag}</Pair>
 					<Pair title="Kills">{json.kills_tntag}</Pair>
 					<Br />
-					<p className="font-bold font-md mb-1">Bow Spleef</p>
+					<p className="font-bold font-md mb-1">Bow Spleef <MinecraftText font={false} size="sm">{bowSpleefPrefix}</MinecraftText></p>
 					<Pair title="Wins">{json.wins_bowspleef}</Pair>
 					<Pair title="Losses">{json.deaths_bowspleef}</Pair>
 					<Pair title="Win/Loss Ratio">{Utils.ratio(json.wins_bowspleef, json.deaths_bowspleef)}</Pair>
@@ -111,7 +128,7 @@ export const TNTGames = memo((props) => {
 
 			<HorizontalLine className="my-3" />
 
-			<Title>Wizards</Title>
+			<Title>Wizards <MinecraftText font={false} size="sm">{wizardsPrefix}</MinecraftText></Title>
 			<Pair title="Wins">{json.wins_capture}</Pair>
 			<Pair title="Kills">{json.kills_capture}</Pair>
 			<Pair title="Deaths">{json.deaths_capture}</Pair>

@@ -4,6 +4,7 @@ import { HYPIXEL } from 'src/constants/hypixel';
 export * from './HypixelLeveling';
 export * from './SkyWars';
 
+export * from './prefixes';
 /**
  * Converts network experience into network level
  *
