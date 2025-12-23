@@ -52,7 +52,7 @@ export const Walls = memo((props) => {
 			</div>
 			{!progression.isMaxed && (
 				<span className={`px-1 c-${consts.PREFIXES[findPrefix(consts.PREFIXES, wins).index + 1]?.color || 'gold'}`}>
-					[{progression.next}]
+					{progression.next}
 				</span>
 			)}
 		</React.Fragment>

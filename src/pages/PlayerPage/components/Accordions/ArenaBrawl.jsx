@@ -58,7 +58,7 @@ export const ArenaBrawl = memo((props) => {
 			</div>
 			{!progression.isMaxed && (
 				<span className={`px-1 c-${consts.PREFIXES[findPrefix(consts.PREFIXES, totalWins).index + 1]?.color === 'rainbow' ? 'gold' : consts.PREFIXES[findPrefix(consts.PREFIXES, totalWins).index + 1]?.color || 'gold'}`}>
-					[{progression.next}]
+					{progression.next}
 				</span>
 			)}
 		</React.Fragment>

@@ -60,10 +60,10 @@ export const TNTGames = memo((props) => {
 		const score = Utils.default0(wins);
 		const { prefix } = findPrefix(prefixes, score);
 		if (prefix.color === 'rainbow') {
-			return rainbow(`[${score}]`);
+			return rainbow(`${score}`);
 		}
 		const colorCode = colorToCode(prefix.color);
-		return `${colorCode}[${score}]`;
+		return `${colorCode}${score}`;
 	};
 
 	const tntRunPrefix = formatModePrefix(consts.RUN_PREFIXES, json.wins_tntrun);

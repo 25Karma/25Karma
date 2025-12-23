@@ -64,7 +64,7 @@ export const VampireZ = memo((props) => {
 			</div>
 			{!humanProgression.isMaxed && (
 				<span className={`px-1 c-${consts.HUMAN_PREFIXES[findPrefix(consts.HUMAN_PREFIXES, humanWins).index + 1]?.color === 'rainbow' ? 'gold' : consts.HUMAN_PREFIXES[findPrefix(consts.HUMAN_PREFIXES, humanWins).index + 1]?.color || 'gold'}`}>
-					[{humanProgression.next}]
+					{humanProgression.next}
 				</span>
 			)}
 		</React.Fragment>
@@ -82,7 +82,7 @@ export const VampireZ = memo((props) => {
 			</div>
 			{!vampireProgression.isMaxed && (
 				<span className={`px-1 c-${consts.VAMPIRE_PREFIXES[findPrefix(consts.VAMPIRE_PREFIXES, humanKills).index + 1]?.color === 'rainbow' ? 'gold' : consts.VAMPIRE_PREFIXES[findPrefix(consts.VAMPIRE_PREFIXES, humanKills).index + 1]?.color || 'gold'}`}>
-					[{Utils.formatNum(vampireProgression.next)}]
+					{Utils.formatNum(vampireProgression.next)}
 				</span>
 			)}
 		</React.Fragment>

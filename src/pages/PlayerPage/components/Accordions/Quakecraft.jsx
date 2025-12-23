@@ -59,7 +59,7 @@ export const Quakecraft = memo((props) => {
 			</div>
 			{!progression.isMaxed && (
 				<span className={`px-1 c-${consts.PREFIXES[findPrefix(consts.PREFIXES, cappedKills).index + 1]?.color || 'gold'}`}>
-					[{(() => { const [num, suffix] = abbreviateNumber(progression.next); return Math.floor(num) + suffix; })()}]
+					{(() => { const [num, suffix] = abbreviateNumber(progression.next); return Math.floor(num) + suffix; })()}
 				</span>
 			)}
 		</React.Fragment>
