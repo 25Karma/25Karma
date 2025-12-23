@@ -4,7 +4,7 @@ import { Box, Cell, Pair, Progress, ProgressBar, Row, Table } from 'src/componen
 import { ARENABRAWL as consts } from 'src/constants/hypixel';
 import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
-import { getMostPlayed, findPrefix, calculatePrefixProgression, colorToCode, rainbow } from 'src/utils/hypixel';
+import { getMostPlayed, findPrefix, calculatePrefixProgression, formatPrefix } from 'src/utils/hypixel';
 
 /**
  * Stats accordion for Arena Brawl
@@ -31,15 +31,11 @@ export const ArenaBrawl = memo((props) => {
 	const { prefix } = findPrefix(consts.PREFIXES, totalWins);
 	const progression = calculatePrefixProgression(consts.PREFIXES, totalWins);
 
-	const formatPrefix = (score) => {
-		if (prefix.color === 'rainbow') {
-			return rainbow(`[${score}]`);
-		}
-		const colorCode = colorToCode(prefix.color);
-		return `${colorCode}[${score}]`;
-	};
-
-	const formattedPrefix = formatPrefix(totalWins);
+	const formattedPrefix = formatPrefix({
+		prefixes: consts.PREFIXES,
+		score: totalWins,
+		trueScore: true
+	});
 
 	const header = (
 		<React.Fragment>

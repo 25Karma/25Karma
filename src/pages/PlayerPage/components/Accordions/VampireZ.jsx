@@ -4,7 +4,7 @@ import { Box, Br, Pair, Progress, ProgressBar } from 'src/components/Stats';
 import { VAMPIREZ as consts } from 'src/constants/hypixel';
 import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
-import { findPrefix, calculatePrefixProgression, colorToCode, rainbow } from 'src/utils/hypixel';
+import { findPrefix, calculatePrefixProgression, formatPrefix } from 'src/utils/hypixel';
 
 /**
  * Stats accordion for VampireZ
@@ -29,17 +29,17 @@ export const VampireZ = memo((props) => {
 	const { prefix: vampirePrefix } = findPrefix(consts.VAMPIRE_PREFIXES, humanKills);
 	const vampireProgression = calculatePrefixProgression(consts.VAMPIRE_PREFIXES, humanKills);
 
-	const formatPrefixValue = (prefix, score) => {
-		if (prefix.color === 'rainbow') {
-			return rainbow(`[${score}]`);
-		}
-		const colorCode = colorToCode(prefix.color);
-		const bold = prefix.bold ? '§l' : '';
-		return `${colorCode}${bold}[${score}]`;
-	};
+	const formattedHumanPrefix = formatPrefix({
+		prefixes: consts.HUMAN_PREFIXES,
+		score: humanWins,
+		trueScore: true
+	});
 
-	const formattedHumanPrefix = formatPrefixValue(humanPrefix, humanWins);
-	const formattedVampirePrefix = formatPrefixValue(vampirePrefix, humanKills);
+	const formattedVampirePrefix = formatPrefix({
+		prefixes: consts.VAMPIRE_PREFIXES,
+		score: humanKills,
+		trueScore: true
+	});
 
 	const header = (
 		<React.Fragment>

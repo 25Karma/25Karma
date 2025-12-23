@@ -4,7 +4,7 @@ import { Box, Br, Pair, Progress, ProgressBar } from 'src/components/Stats';
 import { WALLS as consts } from 'src/constants/hypixel';
 import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
-import { findPrefix, calculatePrefixProgression, colorToCode, rainbow } from 'src/utils/hypixel';
+import { findPrefix, calculatePrefixProgression, formatPrefix } from 'src/utils/hypixel';
 
 /**
  * Stats accordion for Walls
@@ -24,16 +24,11 @@ export const Walls = memo((props) => {
 	const { prefix } = findPrefix(consts.PREFIXES, wins);
 	const progression = calculatePrefixProgression(consts.PREFIXES, wins);
 
-	const formatPrefix = (score) => {
-		if (prefix.color === 'rainbow') {
-			return rainbow(`[${score}]`);
-		}
-		const colorCode = colorToCode(prefix.color);
-		const bold = prefix.bold ? '§l' : '';
-		return `${colorCode}${bold}[${score}]`;
-	};
-
-	const formattedPrefix = formatPrefix(wins);
+	const formattedPrefix = formatPrefix({
+		prefixes: consts.PREFIXES,
+		score: wins,
+		trueScore: true
+	});
 
 	const header = (
 		<React.Fragment>

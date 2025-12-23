@@ -4,7 +4,7 @@ import { Box, Pair, Progress, ProgressBar } from 'src/components/Stats';
 import { PAINTBALL as consts } from 'src/constants/hypixel';
 import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
-import { findPrefix, calculatePrefixProgression, colorToCode, abbreviateNumber } from 'src/utils/hypixel';
+import { findPrefix, calculatePrefixProgression, formatPrefix, abbreviateNumber } from 'src/utils/hypixel';
 
 /**
  * Stats accordion for Paintball
@@ -24,13 +24,11 @@ export const Paintball = memo((props) => {
 	const { prefix } = findPrefix(consts.PREFIXES, totalKills);
 	const progression = calculatePrefixProgression(consts.PREFIXES, totalKills);
 
-	const formatPrefix = (score) => {
-		const colorCode = colorToCode(prefix.color);
-		const abbreviated = abbreviateNumber(score);
-		return `${colorCode}[${abbreviated}]`;
-	};
-
-	const formattedPrefix = formatPrefix(totalKills);
+	const formattedPrefix = formatPrefix({
+		prefixes: consts.PREFIXES,
+		score: totalKills,
+		trueScore: true
+	});
 
 	const header = (
 		<React.Fragment>
@@ -53,7 +51,7 @@ export const Paintball = memo((props) => {
 			</div>
 			{!progression.isMaxed && (
 				<span className={`px-1 c-${consts.PREFIXES[findPrefix(consts.PREFIXES, totalKills).index + 1]?.color || 'gold'}`}>
-					[{abbreviateNumber(progression.next)}]
+					[{(() => { const [num, suffix] = abbreviateNumber(progression.next); return Math.floor(num) + suffix; })()}]
 				</span>
 			)}
 		</React.Fragment>

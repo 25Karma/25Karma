@@ -4,7 +4,7 @@ import { Box, Br, Cell, Pair, Progress, ProgressBar, Row, Table } from 'src/comp
 import { QUAKECRAFT as consts } from 'src/constants/hypixel';
 import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
-import { findPrefix, calculatePrefixProgression, colorToCode, abbreviateNumber } from 'src/utils/hypixel';
+import { findPrefix, calculatePrefixProgression, formatPrefix, abbreviateNumber } from 'src/utils/hypixel';
 
 /**
  * Stats accordion for Quakecraft
@@ -32,13 +32,11 @@ export const Quakecraft = memo((props) => {
 	const { prefix } = findPrefix(consts.PREFIXES, cappedKills);
 	const progression = calculatePrefixProgression(consts.PREFIXES, cappedKills);
 
-	const formatPrefix = (score) => {
-		const colorCode = colorToCode(prefix.color);
-		const abbreviated = abbreviateNumber(score);
-		return `${colorCode}[${abbreviated}]`;
-	};
-
-	const formattedPrefix = formatPrefix(cappedKills);
+	const formattedPrefix = formatPrefix({
+		prefixes: consts.PREFIXES,
+		score: cappedKills,
+		trueScore: true
+	});
 
 	const header = (
 		<React.Fragment>
@@ -61,7 +59,7 @@ export const Quakecraft = memo((props) => {
 			</div>
 			{!progression.isMaxed && (
 				<span className={`px-1 c-${consts.PREFIXES[findPrefix(consts.PREFIXES, cappedKills).index + 1]?.color || 'gold'}`}>
-					[{abbreviateNumber(progression.next)}]
+					[{(() => { const [num, suffix] = abbreviateNumber(progression.next); return Math.floor(num) + suffix; })()}]
 				</span>
 			)}
 		</React.Fragment>
