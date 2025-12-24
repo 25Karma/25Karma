@@ -45,12 +45,12 @@ export const VampireZ = memo((props) => {
 
 	const header = (
 		<React.Fragment>
-			<Box title="Human">{formattedHumanPrefix}</Box>
-			<Box title="Vampire">{formattedVampirePrefix}</Box>
-			<Box title="Vampire KD">{ratios.kdv}</Box>
+			<Box title="Human Prefix">{formattedHumanPrefix}</Box>
+			<Box title="Vampire Prefix">{formattedVampirePrefix}</Box>
 			<Box title="Human KD">{ratios.kdh}</Box>
-			<Box title="Vampire Wins">{json.vampire_wins}</Box>
+			<Box title="Vampire KD">{ratios.kdv}</Box>
 			<Box title="Human Wins">{json.human_wins}</Box>
+			<Box title="Vampire Wins">{json.vampire_wins}</Box>
 		</React.Fragment>
 		);
 
