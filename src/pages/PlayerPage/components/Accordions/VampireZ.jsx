@@ -79,7 +79,7 @@ export const VampireZ = memo((props) => {
 					<Progress
 						proportion={vampireProgression.progressProportion}
 						color={vampirePrefix.color === 'rainbow' ? 'gold' : vampirePrefix.color}
-						dataTip={`${humanKills}/${vampireProgression.next} Human Kils`} />
+						dataTip={`${humanKills}/${vampireProgression.next} Human Kills`} />
 				</ProgressBar>
 			</div>
 			{!vampireProgression.isMaxed && (
