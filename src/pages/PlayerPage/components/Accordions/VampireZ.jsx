@@ -32,13 +32,15 @@ export const VampireZ = memo((props) => {
 	const formattedHumanPrefix = formatPrefix({
 		prefixes: consts.HUMAN_PREFIXES,
 		score: humanWins,
-		trueScore: true
+		trueScore: true,
+		abbreviation: false
 	});
 
 	const formattedVampirePrefix = formatPrefix({
 		prefixes: consts.VAMPIRE_PREFIXES,
 		score: humanKills,
-		trueScore: true
+		trueScore: true,
+		abbreviation: false
 	});
 
 	const header = (
