@@ -3,14 +3,16 @@ import { formatNum } from 'src/utils';
 
 /**
  * §§§§§§§§§§§§§§§§§§§§§§§§§§§
- * Parses minecraft-formatted text and displays it in a minecraft font
+ * Parses minecraft-formatted text and displays it with proper styling
  *
  * @param {string} props.size          Font size, default 'md'
  * @param {string} props.className     Classes to apply - intended for padding/margin use only
  * @param {boolean} props.formatNum    Whether we should format the text if it is a number
+ * @param {boolean} props.font         Whether to use Minecraft font, default true
  * @param {string} props.children      Minecraft color-formatted text to display
  */
 export function MinecraftText(props) {
+	const useMinecraftFont = props.font !== false;
 
 	function parseMinecraftText(str) {
 		// Binds each minecraft formatting character to a css color class
@@ -96,9 +98,10 @@ export function MinecraftText(props) {
 			if (props.formatNum && !isNaN(span.text)) span.text = formatNum(Number(span.text));
 		})
 
+		const fontClass = useMinecraftFont ? 'font-minecraft ' : '';
 		return (
 			<span className={`font-${props.size || 'md'} ${props.className || ''}`}>
-				{spans.map((span, i) => <span key={i} className={`font-minecraft ${span.style}`}>{span.text}</span>)}
+				{spans.map((span, i) => <span key={i} className={`${fontClass}${span.style}`}>{span.text}</span>)}
 			</span>
 			);
 	}

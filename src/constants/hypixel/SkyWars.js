@@ -1,107 +1,387 @@
+const BOLD_LEVEL_REQUIREMENT = 300;
+const UNDERLINE_LEVEL_REQUIREMENT = 400;
+const STRIKETHROUGH_LEVEL_REQUIREMENT = 500;
+export { BOLD_LEVEL_REQUIREMENT, UNDERLINE_LEVEL_REQUIREMENT, STRIKETHROUGH_LEVEL_REQUIREMENT };
+
+function createUniformScheme(bracketColor, digitColor, emblemColor) {
+	digitColor = digitColor || bracketColor;
+	emblemColor = emblemColor || digitColor;
+	return function (level, bold, underline, strikethrough, emblem) {
+		const boldFormat = bold ? '§l' : '';
+		const underlineFormat = underline ? '§n' : '';
+		const strikethroughFormat = strikethrough ? '§m' : '';
+		return `${bracketColor}${underlineFormat}${strikethroughFormat}[§r${boldFormat}${digitColor}${underlineFormat}${level}${emblemColor}${underlineFormat}${emblem}§r${bracketColor}${underlineFormat}${strikethroughFormat}]§r`;
+	};
+}
+
+function createMultiDigitScheme(colors, bracketKind) {
+	bracketKind = bracketKind || 'square';
+	const leftBracket = bracketKind === 'square' ? '[' : '{';
+	const rightBracket = bracketKind === 'square' ? ']' : '}';
+
+	return function (level, bold, underline, strikethrough, emblem) {
+		const boldFormat = bold ? '§l' : '';
+		const underlineFormat = underline ? '§n' : '';
+		const strikethroughFormat = strikethrough ? '§m' : '';
+		const formattedColors = colors.map(function (color) {
+			return color + underlineFormat;
+		});
+
+		const formattedEmblem = emblem ? formattedColors[4] + emblem : '';
+		const levelStr = String(level);
+		const digits = levelStr.split('').reverse();
+		const formattedDigits = digits.map(function (digit, index) {
+			// index 0 = rightmost digit -> colors[3]
+			// index 1 -> colors[2]
+			// index 2 -> colors[1]
+			// index 3+ -> colors[1] (overflow uses first digit color)
+			const colorIndex = Math.max(1, 3 - index);
+			return formattedColors[colorIndex] + boldFormat + digit;
+		}).reverse().join('');
+
+		return `§r${formattedColors[0]}${strikethroughFormat}${leftBracket}§r${formattedDigits}${formattedEmblem}§r${formattedColors[5]}${strikethroughFormat}${rightBracket}§r`;
+	};
+}
+
+// api uses "emblem_{key}_icon" format
+export const EMBLEMS = {
+	airplane: '✈',
+	alpha: 'α',
+	angel_1: '★',
+	angel_2: '☆',
+	angel_3: '☼',
+	angel_4: '✶',
+	angel_5: '✳',
+	angel_6: '✴',
+	angel_7: '✷',
+	angel_8: '❋',
+	angel_9: '✼',
+	angel_10: '❂',
+	angel_11: '❁',
+	asterism: '⁂',
+	bishop: '♗',
+	bolt: '⚡',
+	carrots_for_eyes: '^_^',
+	circled_star: '⍟',
+	cloud: '☁',
+	coffin: '⚰',
+	converge_on_tongue: '>u<',
+	crossed_swords: '⚔',
+	default: '✯',
+	delta: 'δ',
+	eight_pointed_pinwheel: '✵',
+	fallen_crest: '☬',
+	floral_heart: '❦',
+	florin: 'ƒ',
+	formerly_known: '@_@',
+	four_clubs: '✥',
+	four_points: '✦',
+	greek_cross: '✙',
+	heart_exclamation: '❣',
+	heart: '❤',
+	heavy_sparkle: '❈',
+	king: '♔',
+	knight: '♞',
+	maltese_cross: '✠',
+	misaligned: 'o...0',
+	neptune: '♆',
+	no_evil: 'v-v',
+	null: '∅',
+	omega: 'Ω',
+	peace_out: '✌',
+	pencil: '✏',
+	podium: 'π',
+	queen: '♕',
+	radioactive: '☢',
+	reflex_angle_eyebrows: 'δvδ',
+	rich: '$',
+	rocket: '♝',
+	same_great_taste: 'ಠ_ಠ',
+	shadowed_star: '✰',
+	sigma: 'Σ',
+	sixteen_pointed_asterisk: '✺',
+	skull: '☠',
+	slime: '■·■',
+	small_star: '⋆',
+	stacked_asterisks: '⁑',
+	three_fourths_jam: '༼つ◕_◕༽つ',
+	two_tired: 'zz_zz',
+	yin_and_yang: '☯',
+};
+
+export const SCHEMES = {
+	// prestige schemes
+	'stone_prestige': createUniformScheme('§7'),
+	'iron_prestige': createUniformScheme('§f'),
+	'gold_prestige': createUniformScheme('§6'),
+	'diamond_prestige': createUniformScheme('§b'),
+	'ruby_prestige': createUniformScheme('§c'),
+	'crystal_prestige': createUniformScheme('§d'),
+	'amethyst_prestige': createUniformScheme('§5'),
+	'opal_prestige': createUniformScheme('§9'),
+	'topaz_prestige': createUniformScheme('§e'),
+	'jade_prestige': createUniformScheme('§a'),
+	'mythic_i_prestige': createMultiDigitScheme(['§c', '§6', '§e', '§a', '§b', '§d']),
+	'bloody_prestige': createUniformScheme('§4', '§c'),
+	'cobalt_prestige': createUniformScheme('§1'),
+	'content_prestige': createUniformScheme('§c', '§f'),
+	'crimson_prestige': createUniformScheme('§4'),
+	'firefly_prestige': createUniformScheme('§6', '§e'),
+	'emerald_prestige': createUniformScheme('§2'),
+	'abyss_prestige': createUniformScheme('§1', '§9'),
+	'sapphire_prestige': createUniformScheme('§3'),
+	'emergency_prestige': createUniformScheme('§4', '§e'),
+	'mythic_ii_prestige': createMultiDigitScheme(['§6', '§e', '§a', '§b', '§d', '§c']),
+	'mulberry_prestige': createUniformScheme('§5', '§d'),
+	'slate_prestige': createUniformScheme('§8'),
+	'blood_god_prestige': createUniformScheme('§d', '§b'),
+	'midnight_prestige': createUniformScheme('§0'),
+	'sun_prestige': createMultiDigitScheme(['§c', '§6', '§e', '§e', '§6', '§c']),
+	'bulb_prestige': createMultiDigitScheme(['§0', '§e', '§6', '§6', '§e', '§0']),
+	'twilight_prestige': createUniformScheme('§1', '§3'),
+	'natural_prestige': createMultiDigitScheme(['§a', '§2', '§a', '§e', '§a', '§2']),
+	'icile_prestige': createUniformScheme('§9', '§b'),
+	'mythic_iii_prestige': createMultiDigitScheme(['§e', '§a', '§b', '§d', '§c', '§6']),
+	'graphite_prestige': createUniformScheme('§8', '§7'),
+	'punk_prestige': createUniformScheme('§d', '§a'),
+	'meltdown_prestige': createUniformScheme('§e', '§c'),
+	'iridescent_prestige': createMultiDigitScheme(['§b', '§a', '§b', '§d', '§a', '§a']),
+	'marigold_prestige': createMultiDigitScheme(['§f', '§f', '§e', '§e', '§6', '§6']),
+	'beach_prestige': createMultiDigitScheme(['§9', '§3', '§b', '§f', '§e', '§e']),
+	'spark_prestige': createMultiDigitScheme(['§e', '§e', '§f', '§f', '§8', '§8']),
+	'target_prestige': createMultiDigitScheme(['§c', '§f', '§c', '§c', '§f', '§c']),
+	'limelight_prestige': createUniformScheme('§2', '§a'),
+	'mythic_iv_prestige': createMultiDigitScheme(['§a', '§b', '§d', '§c', '§6', '§e']),
+	'cerulean_prestige': createUniformScheme('§3', '§b'),
+	'magical_prestige': createMultiDigitScheme(['§0', '§5', '§8', '§8', '§5', '§0']),
+	'luminous_prestige': createMultiDigitScheme(['§6', '§6', '§f', '§f', '§b', '§3']),
+	'synthesis_prestige': createMultiDigitScheme(['§a', '§2', '§a', '§e', '§f', '§f']),
+	'burn_prestige': createMultiDigitScheme(['§4', '§4', '§c', '§6', '§e', '§f']),
+	'dramatic_prestige': createMultiDigitScheme(['§9', '§b', '§3', '§d', '§5', '§4']),
+	'radiant_prestige': createMultiDigitScheme(['§0', '§8', '§7', '§f', '§7', '§8']),
+	'tidal_prestige': createMultiDigitScheme(['§1', '§1', '§9', '§3', '§b', '§f']),
+	'firework_prestige': createMultiDigitScheme(['§9', '§b', '§f', '§f', '§c', '§4']),
+	'mythic_v_prestige': createMultiDigitScheme(['§b', '§d', '§c', '§6', '§e', '§a']),
+
+	// cosmetic schemes
+	'ancient': createUniformScheme('§7', '§8'),
+	'the_new_default': createUniformScheme('§6', '§7', '§6'),
+	'the_new_new_default': createUniformScheme('§b', '§7', '§b'),
+	'launch': createUniformScheme('§6', '§6', '§8'),
+	'jersey': createUniformScheme('§f', '§f', '§c'),
+	'spotlight': createUniformScheme('§0', '§f'),
+	'earth': createUniformScheme('§4', '§4', '§a'),
+	'glint': createUniformScheme('§d', '§d', '§b'),
+	'strength': createUniformScheme('§c', '§d'),
+	'adrenaline': createUniformScheme('§c', '§a'),
+	'pumpkin': createUniformScheme('§4', '§6'),
+	'seashell': createUniformScheme('§e', '§e', '§c'),
+	'obsidian': createUniformScheme('§8', '§8', '§5'),
+	'support': createUniformScheme('§f', '§c'),
+	'mahogany': createUniformScheme('§e', '§6'),
+	'spell': createMultiDigitScheme(['§d', '§d', '§d', '§e', '§e', '§e']),
+	'pillar': createUniformScheme('§f', '§6'),
+	'agile': createUniformScheme('§a', '§f'),
+	'bone': createUniformScheme('§f', '§7', '§f'),
+	'slimy': createUniformScheme('§a', '§2'),
+	'holiday': createUniformScheme('§4', '§a'),
+	'iconic': createUniformScheme('§0', '§0', '§f'),
+	'safari': createMultiDigitScheme(['§2', '§2', '§2', '§6', '§6', '§6']),
+	'gummy_worm': createMultiDigitScheme(['§c', '§c', '§c', '§b', '§b', '§b']),
+	'timetravel': createMultiDigitScheme(['§7', '§0', '§0', '§7', '§7', '§7']),
+	'horned': createUniformScheme('§c', '§8'),
+	'sandy': createMultiDigitScheme(['§6', '§e', '§f', '§e', '§6', '§e']),
+	'brutus': createMultiDigitScheme(['§9', '§9', '§8', '§8', '§f', '§f']),
+	'coinsmith': createMultiDigitScheme(['§e', '§8', '§8', '§8', '§6', '§e']),
+	'soulsmith': createMultiDigitScheme(['§7', '§b', '§b', '§f', '§f', '§f']),
+	'grand_slam': createUniformScheme('§2', '§a', '§f'),
+	'fleet': createMultiDigitScheme(['§0', '§c', '§e', '§a', '§a', '§0']),
+	'vengeance': createUniformScheme('§0', '§8', '§e'),
+	'dry': createUniformScheme('§e', '§f', '§6'),
+	'prickly': createUniformScheme('§e', '§a', '§f'),
+	'cast_iron': createMultiDigitScheme(['§7', '§7', '§8', '§8', '§3', '§3']),
+	'explosive': createMultiDigitScheme(['§c', '§c', '§e', '§e', '§6', '§6']),
+	'verdant': createMultiDigitScheme(['§2', '§a', '§a', '§e', '§6', '§e']),
+	'enchantment': createMultiDigitScheme(['§f', '§d', '§5', '§5', '§d', '§f']),
+	'void': createUniformScheme('§8', '§5', '§d'),
+	'fragile': createUniformScheme('§0', '§3', '§a'),
+	'mite': createMultiDigitScheme(['§3', '§2', '§8', '§2', '§a', '§3']),
+	'shulker': createUniformScheme('§5', '§e', '§f'),
+	'redstone': createUniformScheme('§0', '§c', '§4'),
+	'technical': createMultiDigitScheme(['§c', '§c', '§7', '§7', '§8', '§8']),
+	'melon': createMultiDigitScheme(['§a', '§2', '§a', '§2', '§e', '§a']),
+	'driftwood': createMultiDigitScheme(['§3', '§3', '§e', '§e', '§4', '§4']),
+	'river': createUniformScheme('§2', '§9', '§a'),
+	'mangrove': createMultiDigitScheme(['§4', '§4', '§c', '§c', '§2', '§2']),
+	'jeremiah': createUniformScheme('§3', '§6', '§e'),
+	'poppy': createMultiDigitScheme(['§c', '§4', '§0', '§0', '§4', '§c']),
+	'creeper': createMultiDigitScheme(['§f', '§f', '§a', '§a', '§2', '§2']),
+	'camo': createMultiDigitScheme(['§8', '§8', '§2', '§2', '§a', '§a']),
+	'first_aid': createUniformScheme('§4', '§f', '§c'),
+	'penguin': createUniformScheme('§8', '§9', '§e'),
+	'nether': createMultiDigitScheme(['§7', '§7', '§3', '§3', '§c', '§c']),
+	'wilderness': createMultiDigitScheme(['§2', '§2', '§3', '§3', '§6', '§6']),
+	'one_stone': createMultiDigitScheme(['§7', '§7', '§2', '§2', '§8', '§8']),
+	'circus': createMultiDigitScheme(['§c', '§c', '§6', '§6', '§2', '§2']),
+	'veracious': createUniformScheme('§5', '§f', '§6'),
+	'valiant': createUniformScheme('§c', '§f', '§a'),
+	'venerable': createUniformScheme('§9', '§f', '§e'),
+	'portal': createMultiDigitScheme(['§a', '§a', '§d', '§d', '§c', '§c']),
+	'sorcratic': createUniformScheme('§8', '§f', '§e'),
+	'parallel_dimension': createMultiDigitScheme(['§9', '§9', '§8', '§8', '§d', '§d']),
+	'tomb': createMultiDigitScheme(['§6', '§9', '§6', '§9', '§e', '§e']),
+	'irigation': createMultiDigitScheme(['§b', '§b', '§a', '§6', '§e', '§e']),
+	'snout': createMultiDigitScheme(['§5', '§0', '§d', '§d', '§0', '§5']),
+	'potato': createMultiDigitScheme(['§e', '§d', '§d', '§c', '§c', '§8']),
+	'royal': createMultiDigitScheme(['§9', '§9', '§6', '§6', '§c', '§c']),
+	'bubblegum': createMultiDigitScheme(['§5', '§d', '§d', '§f', '§f', '§d']),
+	'insane': createUniformScheme('§7', '§f', '§6'),
+	'smoke': createMultiDigitScheme(['§0', '§0', '§8', '§8', '§f', '§f']),
+	'scarlet': createMultiDigitScheme(['§8', '§8', '§4', '§4', '§c', '§c']),
+	'afterburn': createMultiDigitScheme(['§b', '§b', '§6', '§8', '§8', '§7']),
+	'normal': createUniformScheme('§8', '§7', '§6'),
+	'salmon': createMultiDigitScheme(['§c', '§c', '§3', '§3', '§2', '§2']),
+	'lucky': createUniformScheme('§0', '§2', '§6'),
+	'likeable': createMultiDigitScheme(['§4', '§4', '§c', '§c', '§f', '§f']),
+	'lunar': createMultiDigitScheme(['§f', '§f', '§f', '§7', '§8', '§8']),
+	'hypixel': createUniformScheme('§4', '§6', '§e'),
+	'sky': createMultiDigitScheme(['§e', '§e', '§b', '§b', '§f', '§f']),
+	'frosty': createUniformScheme('§8', '§f', '§7'),
+	'treasure': createMultiDigitScheme(['§6', '§6', '§f', '§f', '§e', '§e']),
+	'gemstone': createMultiDigitScheme(['§4', '§c', '§f', '§f', '§c', '§4']),
+	'dark_magic': createMultiDigitScheme(['§4', '§4', '§5', '§5', '§c', '§c']),
+	'reflections': createMultiDigitScheme(['§1', '§0', '§0', '§d', '§d', '§5']),
+	'brewery': createUniformScheme('§5', '§c', '§d'),
+	'leo': createMultiDigitScheme(['§e', '§e', '§e', '§6', '§4', '§4']),
+	'zebra': createMultiDigitScheme(['§7', '§8', '§7', '§8', '§f', '§8']),
+	'emit': createMultiDigitScheme(['§5', '§d', '§f', '§f', '§d', '§5']),
+	'smoldering': createUniformScheme('§0', '§4', '§c'),
+	'stormy': createMultiDigitScheme(['§e', '§e', '§f', '§f', '§7', '§7']),
+	'borealis': createMultiDigitScheme(['§d', '§d', '§b', '§b', '§a', '§a']),
+	'devil': createMultiDigitScheme(['§0', '§8', '§8', '§4', '§4', '§c']),
+	'demigod': createMultiDigitScheme(['§8', '§6', '§e', '§7', '§8', '§8'], 'curly'),
+	'laurel': createMultiDigitScheme(['§2', '§2', '§6', '§6', '§f', '§f']),
+	'uplifting': createMultiDigitScheme(['§8', '§8', '§7', '§7', '§e', '§e']),
+	'the_world_moves_on': createMultiDigitScheme(['§8', '§8', '§6', '§6', '§c', '§c']),
+	'swine': createMultiDigitScheme(['§5', '§5', '§d', '§d', '§f', '§f']),
+	'beagle': createUniformScheme('§f', '§7', '§f'),
+	'the_prestige_prestige': createMultiDigitScheme(['§7', '§f', '§6', '§b', '§c', '§d']),
+	'opalsmith': createMultiDigitScheme(['§9', '§9', '§b', '§3', '§d', '§5']),
+	'scurvy': createMultiDigitScheme(['§9', '§3', '§b', '§f', '§a', '§2']),
+	'fools_mythic': createMultiDigitScheme(['§4', '§c', '§6', '§2', '§9', '§5']),
+	'eponymous': createMultiDigitScheme(['§3', '§3', '§2', '§a', '§e', '§6']),
+	'bandage': createMultiDigitScheme(['§0', '§8', '§7', '§f', '§c', '§4']),
+	'clown': createMultiDigitScheme(['§2', '§c', '§f', '§f', '§c', '§4']),
+	'tropical': createMultiDigitScheme(['§e', '§9', '§6', '§3', '§c', '§1']),
+	'sugar_crash': createMultiDigitScheme(['§f', '§e', '§c', '§d', '§b', '§f']),
+	'ultraviolence': createMultiDigitScheme(['§2', '§a', '§f', '§f', '§d', '§5']),
+};
+
+// prestige schemes with level requirements
+export const PRESTIGE_SCHEMES = [
+	{ level: 0, id: 'stone_prestige', name: 'Stone', color: 'gray' },
+	{ level: 10, id: 'iron_prestige', name: 'Iron', color: 'white' },
+	{ level: 20, id: 'gold_prestige', name: 'Gold', color: 'gold' },
+	{ level: 30, id: 'diamond_prestige', name: 'Diamond', color: 'aqua' },
+	{ level: 40, id: 'ruby_prestige', name: 'Ruby', color: 'red' },
+	{ level: 50, id: 'crystal_prestige', name: 'Crystal', color: 'pink' },
+	{ level: 60, id: 'amethyst_prestige', name: 'Amethyst', color: 'purple' },
+	{ level: 70, id: 'opal_prestige', name: 'Opal', color: 'blue' },
+	{ level: 80, id: 'topaz_prestige', name: 'Topaz', color: 'yellow' },
+	{ level: 90, id: 'jade_prestige', name: 'Jade', color: 'green' },
+	{ level: 100, id: 'mythic_i_prestige', name: 'Mythic', color: 'red' },
+	{ level: 110, id: 'bloody_prestige', name: 'Bloody', color: 'red' },
+	{ level: 120, id: 'cobalt_prestige', name: 'Cobalt', color: 'darkblue' },
+	{ level: 130, id: 'content_prestige', name: 'Content', color: 'white' },
+	{ level: 140, id: 'crimson_prestige', name: 'Crimson', color: 'darkred' },
+	{ level: 150, id: 'firefly_prestige', name: 'Firefly', color: 'yellow' },
+	{ level: 160, id: 'emerald_prestige', name: 'Emerald', color: 'darkgreen' },
+	{ level: 170, id: 'abyss_prestige', name: 'Abyss', color: 'blue' },
+	{ level: 180, id: 'sapphire_prestige', name: 'Sapphire', color: 'darkaqua' },
+	{ level: 190, id: 'emergency_prestige', name: 'Emergency', color: 'yellow' },
+	{ level: 200, id: 'mythic_ii_prestige', name: 'Mythic II', color: 'yellow' },
+	{ level: 210, id: 'mulberry_prestige', name: 'Mulberry', color: 'pink' },
+	{ level: 220, id: 'slate_prestige', name: 'Slate', color: 'darkgray' },
+	{ level: 230, id: 'blood_god_prestige', name: 'Blood God', color: 'aqua' },
+	{ level: 240, id: 'midnight_prestige', name: 'Midnight', color: 'black' },
+	{ level: 250, id: 'sun_prestige', name: 'Sun', color: 'yellow' },
+	{ level: 260, id: 'bulb_prestige', name: 'Bulb', color: 'gold' },
+	{ level: 270, id: 'twilight_prestige', name: 'Twilight', color: 'darkaqua' },
+	{ level: 280, id: 'natural_prestige', name: 'Natural', color: 'green' },
+	{ level: 290, id: 'icile_prestige', name: 'Icicle', color: 'aqua' },
+	{ level: 300, id: 'mythic_iii_prestige', name: 'Mythic III', color: 'green' },
+	{ level: 310, id: 'graphite_prestige', name: 'Graphite', color: 'gray' },
+	{ level: 320, id: 'punk_prestige', name: 'Punk', color: 'green' },
+	{ level: 330, id: 'meltdown_prestige', name: 'Meltdown', color: 'red' },
+	{ level: 340, id: 'iridescent_prestige', name: 'Iridescent', color: 'aqua' },
+	{ level: 350, id: 'marigold_prestige', name: 'Marigold', color: 'yellow' },
+	{ level: 360, id: 'beach_prestige', name: 'Beach', color: 'aqua' },
+	{ level: 370, id: 'spark_prestige', name: 'Spark', color: 'white' },
+	{ level: 380, id: 'target_prestige', name: 'Target', color: 'red' },
+	{ level: 390, id: 'limelight_prestige', name: 'Limelight', color: 'green' },
+	{ level: 400, id: 'mythic_iv_prestige', name: 'Mythic IV', color: 'aqua' },
+	{ level: 410, id: 'cerulean_prestige', name: 'Cerulean', color: 'aqua' },
+	{ level: 420, id: 'magical_prestige', name: 'Magical', color: 'purple' },
+	{ level: 430, id: 'luminous_prestige', name: 'Luminous', color: 'white' },
+	{ level: 440, id: 'synthesis_prestige', name: 'Synthesis', color: 'green' },
+	{ level: 450, id: 'burn_prestige', name: 'Burn', color: 'red' },
+	{ level: 460, id: 'dramatic_prestige', name: 'Dramatic', color: 'darkaqua' },
+	{ level: 470, id: 'radiant_prestige', name: 'Radiant', color: 'white' },
+	{ level: 480, id: 'tidal_prestige', name: 'Tidal', color: 'darkaqua' },
+	{ level: 490, id: 'firework_prestige', name: 'Firework', color: 'white' },
+	{ level: 500, id: 'mythic_v_prestige', name: 'Mythic V', color: 'pink' },
+];
+
+// level requirements for default emblems (used when player hasn't selected one)
+export const PRESTIGE_EMBLEMS = [
+	{ level: 0, emblem: 'default' },
+	{ level: 50, emblem: 'carrots_for_eyes' },
+	{ level: 100, emblem: 'formerly_known' },
+	{ level: 150, emblem: 'reflex_angle_eyebrows' },
+	{ level: 200, emblem: 'two_tired' },
+	{ level: 250, emblem: 'slime' },
+	{ level: 300, emblem: 'same_great_taste' },
+	{ level: 350, emblem: 'misaligned' },
+	{ level: 400, emblem: 'converge_on_tongue' },
+	{ level: 450, emblem: 'no_evil' },
+	{ level: 500, emblem: 'three_fourths_jam' },
+];
+
 export const SKYWARS = {
-	TITLE : 'SkyWars',
-	INITIAL_XP: [0, 20, 70, 150, 250, 500, 1000, 2000, 3500, 6000, 10000, 15000],
-	RECURRING_XP: 10000,
-	PRESTIGES : [
-		{level: 0,  color: 'gray', b_color: 'gray', name: 'None'}, 
-		{level: 5,  color: 'white', b_color: 'white', name: 'Iron'}, 
-		{level: 10, color: 'gold', b_color: 'gold', name: 'Gold'}, 
-		{level: 15, color: 'aqua', b_color: 'aqua', name: 'Diamond'}, 
-		{level: 20, color: 'darkgreen', b_color: 'darkgreen', name: 'Emerald'}, 
-		{level: 25, color: 'darkaqua', b_color: 'darkaqua', name: 'Sapphire'}, 
-		{level: 30, color: 'darkred', b_color: 'darkred', name: 'Ruby'}, 
-		{level: 35, color: 'pink', b_color: 'pink', name: 'Crystal'}, 
-		{level: 40, color: 'blue', b_color: 'blue', name: 'Opal'}, 
-		{level: 45, color: 'purple', b_color: 'purple', name: 'Amethyst'}, 
-		{level: 50, color: 'rainbow', b_color: 'red', name: 'Rainbow'}, 
-		{level: 55, color: 'white', b_color: 'gray', name: 'First Class'}, 
-		{level: 60, color: 'red', b_color: 'darkred', name: 'Assassin'}, 
-		{level: 65, color: 'white', b_color: 'red', name: 'Veteran'}, 
-		{level: 70, color: 'gold', b_color: 'yellow', name: 'God Like'}, 
-		{level: 75, color: 'blue', b_color: 'white', name: 'Warrior'}, 
-		{level: 80, color: 'aqua', b_color: 'white', name: 'Captain'}, 
-		{level: 85, color: 'darkaqua', b_color: 'white', name: 'Soldier'}, 
-		{level: 90, color: 'darkaqua', b_color: 'green', name: 'Infantry'}, 
-		{level: 95, color: 'yellow', b_color: 'red', name: 'Sergeant'}, 
-		{level: 100, color: 'darkblue', b_color: 'blue', name: 'Lieutenant'}, 
-		{level: 105, color: 'darkred', b_color: 'gold', name: 'Admiral'}, 
-		{level: 110, color: 'aqua', b_color: 'darkblue', name: 'General'}, 
-		{level: 115, color: 'gray', b_color: 'darkgray', name: 'Villain'}, 
-		{level: 120, color: 'purple', b_color: 'pink', name: 'Skilled'}, 
-		{level: 125, color: 'yellow', b_color: 'white', name: 'Sneaky'}, 
-		{level: 130, color: 'yellow', b_color: 'red', name: 'Overlord'}, 
-		{level: 135, color: 'red', b_color: 'gold', name: 'War Chief'}, 
-		{level: 140, color: 'red', b_color: 'green', name: 'Warlock'}, 
-		{level: 145, color: 'aqua', b_color: 'green', name: 'Emperor'}, 
-		{level: 150, color: 'rainbow font-bold', b_color: 'red font-bold', name: 'Mythic'}, 
+	TITLE: 'SkyWars',
+	XP_TO_LEVEL: [0, 10, 25, 50, 75, 100, 250, 500, 750, 1000, 1250, 1500, 1750, 2000, 2500, 3000, 3500, 4000, 4500],
+	RECURRING_XP: 5000,
+	LEVEL_MAX: 10000,
+	EMBLEMS,
+	SCHEMES,
+	PRESTIGE_SCHEMES,
+	PRESTIGE_EMBLEMS,
+	BOLD_LEVEL_REQUIREMENT,
+	UNDERLINE_LEVEL_REQUIREMENT,
+	STRIKETHROUGH_LEVEL_REQUIREMENT,
+	MODES: [
+		{ id: '_ranked', name: 'Ranked' },
+		{ id: '_solo_normal', name: 'Solo Normal' },
+		{ id: '_solo_insane', name: 'Solo Insane' },
+		{ id: '_team_normal', name: 'Teams Normal' },
+		{ id: '_team_insane', name: 'Teams Insane' },
+		{ id: '_mega_normal', name: 'Mega' },
+		{ id: '_mega_doubles', name: 'Mega Doubles' },
+		// mini doesn't track deaths/losses directly
+		// losses are calculated as (games - wins), deaths equal losses
+		{ id: '_mini', name: 'Mini', isMini: true },
+		{ id: '', name: 'Overall' },
 	],
-	ICONS : {
-		default: '\u22c6', // ⋆
-		angel_1: '\u2605', // ★
-		angel_2: '\u2606', // ☆
-		angel_3: '\u2055', // ⁕
-		angel_4: '\u2736', // ✶
-		angel_5: '\u2733', // ✳
-		angel_6: '\u2734', // ✴
-		angel_7: '\u2737', // ✷
-		angel_8: '\u274b', // ❋
-		angel_9: '\u273c', // ✼
-		angel_10: '\u2742', // ❂
-		angel_11: '\u2741', // ❁
-		angel_12: '\u262c', // ☬
-		iron_prestige: '\u2719', // ✙
-		gold_prestige: '\u2764', // ❤
-		diamond_prestige: '\u2620', // ☠
-		emerald_prestige: '\u2726', // ✦
-		sapphire_prestige: '\u270c', // ✌
-		ruby_prestige: '\u2766', // ❦
-		crystal_prestige: '\u2735', // ✵
-		opal_prestige: '\u2763', // ❣
-		amethyst_prestige: '\u262f', // ☯
-		rainbow_prestige: '\u273a', // ✺
-		first_class_prestige: '\u2708', // ✈
-		assassin_prestige: '\u26b0', // ⚰
-		veteran_prestige: '\u2720', // ✠
-		god_like_prestige: '\u2655', // ♕
-		warrior_prestige: '\u26a1', // ⚡
-		captain_prestige: '\u2042', // ⁂
-		soldier_prestige: '\u2730', // ✰
-		infantry_prestige: '\u2051', // ⁑
-		sergeant_prestige: '\u2622', // ☢
-		lieutenant_prestige: '\u2725', // ✥
-		admiral_prestige: '\u265d', //♝
-		general_prestige: '\u2646', // ♆
-		villain_prestige: '\u2601', // ☁
-		skilled_prestige: '\u235f', // ⍟
-		sneaky_prestige: '\u2657', // ♗
-		overlord_prestige: '<Error icon="overlord"/>', //
-		war_chief_prestige: '\u265e', // ♞
-		warlock_prestige: '<Error icon="warlock"/>', //
-		emperor_prestige: '\u2748', // ❈
-		mythic_prestige: '\u0ca0_\u0ca0', // ಠ_ಠ
-		favor_icon: '\u2694', // ⚔
-		omega_icon: '\u03a9', // Ω
-	},
-	MODES : [
-		{id: '_ranked',       name: 'Ranked'},
-		{id: '_solo_normal',  name: 'Solo Normal'},
-		{id: '_solo_insane',  name: 'Solo Insane'},
-		{id: '_team_normal',  name: 'Teams Normal'},
-		{id: '_team_insane',  name: 'Teams Insane'},
-		{id: '_mega_normal',  name: 'Mega'},
-		{id: '_mega_doubles', name: 'Mega Doubles'},
-		{id: '', name: 'Overall'},
-	],
-	HEADS : [
-		{id: 'eww',       name: 'Eww!',      color: 'darkgray'},
-		{id: 'yucky',     name: 'Yucky!',    color: 'gray'},
-		{id: 'meh',       name: 'Meh',       color: 'white'},
-		{id: 'decent',    name: 'Decent',    color: 'yellow'},
-		{id: 'salty',     name: 'Salty',     color: 'green'},
-		{id: 'tasty',     name: 'Tasty',     color: 'darkaqua'},
-		{id: 'succulent', name: 'Succulent', color: 'pink'},
-		{id: 'sweet',     name: 'Sweet',     color: 'aqua'},
-		{id: 'divine',    name: 'Divine',    color: 'gold'},
-		{id: 'heavenly',  name: 'Heavenly',  color: 'purple'},
+	HEADS: [
+		{ id: 'eww', name: 'Eww!', color: 'darkgray' },
+		{ id: 'yucky', name: 'Yucky!', color: 'gray' },
+		{ id: 'meh', name: 'Meh', color: 'white' },
+		{ id: 'decent', name: 'Decent', color: 'yellow' },
+		{ id: 'salty', name: 'Salty', color: 'green' },
+		{ id: 'tasty', name: 'Tasty', color: 'darkaqua' },
+		{ id: 'succulent', name: 'Succulent', color: 'pink' },
+		{ id: 'sweet', name: 'Sweet', color: 'aqua' },
+		{ id: 'divine', name: 'Divine', color: 'gold' },
+		{ id: 'heavenly', name: 'Heavenly', color: 'purple' },
 	],
 }

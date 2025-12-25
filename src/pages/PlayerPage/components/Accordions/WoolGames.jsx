@@ -48,52 +48,36 @@ export const WoolGames = memo((props) => {
 	})();
 
 	function getExpReq(level) {
-		let progress = level % 100
-
-		if (level === 0) return 0;
-		else if (progress < 5) return consts.EASY_XP[progress];
-		else return consts.NORMAL_XP;
+		const progress = level % 100;
+		return progress > 4 ? 5000 : [level >= 100 ? 5000 : 0, 1000, 2000, 3000, 4000][progress];
 	}
 
 	function xpToLevel(xp) {
-		let remainingXP = xp;
-		let lvl = 1;
-		let deltaXP = getExpReq(lvl);
-		while(remainingXP > 0) {
-			deltaXP = getExpReq(lvl);
-			remainingXP -= deltaXP;
-			lvl++;
+		const prestiges = Math.floor(xp / 490000);
+		let level = prestiges * 100;
+		let rem = xp - prestiges * 490000;
+
+		for (let i = 0; i < 5; ++i) {
+			const req = getExpReq(i);
+			if (rem < req) break;
+			level++;
+			rem -= req;
 		}
-		return lvl + remainingXP/deltaXP;
+		return level + rem / getExpReq(level + 1);
 	}
 
 	function levelToXP(lvl) {
-		let xp = 0;
-		for (let i = 0; i < lvl; i++) {
-			xp += getExpReq(i);
-		}
+		let xp = Math.floor(lvl / 100) * 490000;
+		for (let i = 0; i < lvl % 100; i++) xp += getExpReq(i);
 		return xp;
 	}
 
 	function getPrestige(level) {
-		const levelFloor = Math.floor(level);
-		const prestige = (() => {
-			for (const pres of consts.PRESTIGES.slice().reverse()) {
-				if (pres.level <= levelFloor) return pres;
-			}
-		})();
-		const prestigeIcon = (() => {
-			const icon = Utils.traverse(json, 'wool_wars_prestige_icon', 'HEART');
-			return consts.ICONS[icon] || `<Error icon="${icon}"/>`;
-		})();
-
-		const tag = `[${levelFloor}${prestigeIcon}]`;
-		const coloredTag = tag.split('').map((char, index) => {
-			const color = prestige.colormap[index];
-			return color ? `§${color}${char}` : char;
-		}).join('');
-
-		return {tag: coloredTag, ...prestige};
+		const floor = Math.floor(level);
+		const emblem = consts.EMBLEMS.find(e => floor >= e.req);
+		const tag = emblem.tag ? emblem.tag(floor, emblem.icon) : `${emblem.color}[${floor}${emblem.icon}]`;
+		const prestigeData = [...consts.PRESTIGES].reverse().find(pres => pres.level <= floor) || consts.PRESTIGES[0];
+		return { tag, ...prestigeData };
 	}
 
 	function titleCase(str) {

@@ -19,7 +19,15 @@ export const Duels = memo((props) => {
 	const mostPlayedMode = getMostPlayed(consts.MODES, 
 		({id}) => Utils.add(json[`${id}_wins`], json[`${id}_losses`]));
 
-	const division = getDivision('all_modes');
+	// sum wins by divisionId
+	const winsByDivisionId = {};
+	for (const mode of consts.MODES) {
+		if (!mode.divisionId) continue;
+		const wins = json[`${mode.id}_wins`] || 0;
+		winsByDivisionId[mode.divisionId] = (winsByDivisionId[mode.divisionId] || 0) + wins;
+	}
+
+	const division = getDivision(json.wins, 'overall');
 
 	const stats = (() => {
 		let totalDeaths = 0, totalKills = 0;
@@ -45,35 +53,87 @@ export const Duels = memo((props) => {
 		ahm : Utils.ratio(json.bow_hits,json.bow_shots),
 	}
 
-	function getDivision(duelType) {
-		for (const div of consts.DIVISIONS.slice().reverse()) {
-			const dat = json[`${duelType}_${div.id}_title_prestige`];
-			if (dat !== undefined) {
-				const roman = Utils.romanize(dat);
-				return {
-					name: `${div.name} ${roman === '-' || roman === 'I' ? '' : roman}`,
-					level: roman,
-					color: div.color,
-					style: div.style,
-				};
+	function getDivision(wins, requirementType = 'default') {
+		if (!wins || wins <= 0) {
+			return {name: '-', level: '-', color: 'gray', style: '', bold: false};
+		}
+		const divisions = consts.DIVISIONS[requirementType];
+		let divIndex = 0;
+		for (let i = divisions.length - 1; i >= 0; i--) {
+			if (wins >= divisions[i].req) {
+				divIndex = i;
+				break;
 			}
 		}
-		// If the player has no division
-		return {name: '-', level: '-', color: 'gray', style: ''};
+		const div = divisions[divIndex];
+		if (div.id === 'none') {
+			return {name: '-', level: '-', color: 'gray', style: '', bold: false};
+		}
+		const remaining = wins - div.req;
+		const level = Math.min(div.max, div.step ? Math.floor(remaining / div.step) + 1 : 1);
+		const roman = Utils.romanize(level);
+		return {
+			name: `${div.name}${level > 1 ? ' ' + roman : ''}`,
+			level: roman,
+			color: div.color,
+			style: div.style,
+			bold: div.bold,
+		};
+	}
+
+	function formatDivisionTitle(div) {
+		if (div.name === '-') return '§7-';
+		
+		const iconKey = (json.active_prefix_icon || '').replace('prefix_icon_', '');
+		const schemeKey = (json.active_prefix_scheme || '').replace('prefix_scheme_', '');
+		
+		const icon = consts.ICONS[iconKey] || '';
+		const scheme = consts.SCHEMES[schemeKey] || consts.SCHEMES.default;
+		
+		const title = div.name;
+		const bold = div.bold ? '§l' : '';
+		
+		if (scheme.type === 'solid') {
+			const iconPart = icon ? `${scheme.color}${icon} ` : '';
+			return `${iconPart}${scheme.color}${bold}${title}§r`;
+		}
+		
+		if (scheme.type === 'gradient') {
+			const iconPart = icon ? `${icon} ` : '';
+			const fullText = `${iconPart}${title}`;
+			const colors = scheme.colors;
+			const chunkSize = Math.max(1, Math.floor(fullText.length / colors.length));
+			
+			let result = '';
+			for (let i = 0; i < colors.length; i++) {
+				const start = i * chunkSize;
+				const end = i === colors.length - 1 ? fullText.length : (i + 1) * chunkSize;
+				const chunk = fullText.slice(start, end);
+				if (i === 0 && bold && iconPart) {
+					const iconLen = iconPart.length;
+					result += colors[i] + chunk.slice(0, iconLen) + bold + chunk.slice(iconLen);
+				} else {
+					result += colors[i] + (i === 0 && bold ? bold : '') + chunk;
+				}
+			}
+			return result + '§r';
+		}
+		
+		// default scheme
+		const iconPart = icon ? `${icon} ` : '';
+		return `${div.style}${iconPart}${bold}${title}§r`;
 	}
 
 	function kills(id) {
-		// Need to combine legacy and current kills for 2v2v2v2 and 3v3v3v3 bridge modes specifically
-		// For other duels modes, _bridge_kills will have zero effect
 		return Utils.add(json[`${id}_bridge_kills`], json[`${id}${id && '_'}kills`]);
 	} 
 
 	function deaths(id) {
 		return Utils.add(json[`${id}_bridge_deaths`], json[`${id}${id && '_'}deaths`]);
-	} 
+	}
 	const header = (
 		<React.Fragment>
-			<Box title="Division">{`${division.style}${division.name}`}</Box>
+			<Box title="Division">{formatDivisionTitle(division)}</Box>
 			<Box title="Most Played" color="white">{mostPlayedMode.name || '§7-'}</Box>
 			<Box title="Wins">{json.wins}</Box>
 			<Box title="WL">{ratios.wl}</Box>
@@ -101,8 +161,9 @@ export const Duels = memo((props) => {
 			</thead>
 			<tbody>
 			{
-				consts.MODES.map(({id, name, divisionId}) => {
-					const modeDivision = getDivision(divisionId);
+				consts.MODES.map(({id, name, divisionId, requirement}) => {
+					const divisionWins = winsByDivisionId[divisionId] || 0;
+					const modeDivision = getDivision(divisionWins, requirement);
 					if (Boolean(Utils.add(json[`${id}${id && '_'}wins`], json[`${id}${id && '_'}losses`]))) {
 						return (
 							<Row key={id} id={id} isHighlighted={id === mostPlayedMode.id}>
@@ -149,7 +210,7 @@ export const Duels = memo((props) => {
 				</div>
 				<div className="flex-1">
 					<Pair title="Best Winstreak">{Utils.defaultUnknown(json.best_overall_winstreak)}</Pair>
-					<Pair title="Current Winstreak">{Utils.defaultUnknown(json.current_winstreak)}</Pair>
+					<Pair title="Current Winstreak">{Utils.defaultUnknown(json.currentStreak ?? json.current_winstreak)}</Pair>
 					<Pair title="Overall Division" color={division.color}>{division.name}</Pair>
 					<Br/>
 					<Pair title="Wins">{json.wins}</Pair>
