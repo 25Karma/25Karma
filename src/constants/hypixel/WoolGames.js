@@ -15,18 +15,6 @@ export const WOOLGAMES = {
 		{level: 900, colormap: 'c6eabd', color: 'rainbow', name: 'Full Rainbow'},
 		{level: 1000, colormap: '0fffff0', color: 'black text-light-shadow', name: 'Void Sheep'},
 	],
-	ICONS: {
-		HEART: '\u2764', // ❤
-		PLUS: '\u2719', // ✙
-		STAR: '\u2606', // ☆
-		PLANE: '\u2708', // ✈
-		CROSS: '\u2720', // ✠
-		CROWN: '\u2655', // ♕
-		LIGHTNING: '\u26a1', // ⚡
-		NUKE: '\u2622', // ☢
-		PENSUL: '\u270f', // ✏
-		YIN_YANG: '\u262f', // ☯
-	},
 	CLASSES: [
 		{id: 'tank', name: 'Tank', difficulty: '1'},
 		{id: 'archer', name: 'Archer', difficulty: '2'},
@@ -41,4 +29,17 @@ export const WOOLGAMES = {
 		'3': 'red',
 		'4': 'darkred',
 	},
+	EMBLEMS: [
+		{ req: 1000, icon: '\u262f', tag: (f, i) => `§0[§f${f}${i}§0]` },   // ☯
+		{ req: 900,  icon: '\u270f', tag: (f, i) => `§R[${f}${i}]` },       // ✏
+		{ req: 800,  icon: '\u2622', color: '§d' },                         // ☢
+		{ req: 700,  icon: '\u2622', color: '§5' },                         // ☢
+		{ req: 600,  icon: '\u03df', color: '§3' },                         // ϟ
+		{ req: 500,  icon: '\u2655', color: '§a' },                         // ♕
+		{ req: 400,  icon: '\u2720', color: '§e' },                         // ✠
+		{ req: 300,  icon: '\u2708', color: '§6' },                         // ✈
+		{ req: 200,  icon: '\u272b', color: '§c' },                         // ✫
+		{ req: 100,  icon: '\u2719', color: '§f' },                         // ✙
+		{ req: 0,    icon: '\u2764', color: '§7' },                         // ❤
+	],
 }

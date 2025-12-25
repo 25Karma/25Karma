@@ -32,5 +32,21 @@ export const TURBOKARTRACERS = {
 		BASIC: 'Basic',
 		SUPER: 'Super',
 		AWESOME: 'Awesome',
-	}
+	},
+	PREFIXES: [
+		{ req: 0, color: 'darkgray', emblem: '✪' },
+		{ req: 5, color: 'gray', emblem: '✪' },
+		{ req: 25, color: 'white', emblem: '✪' },
+		{ req: 50, color: 'aqua', emblem: '✪' },
+		{ req: 100, color: 'green', emblem: '✪' },
+		{ req: 200, color: 'yellow', emblem: '✪' },
+		{ req: 300, color: 'blue', emblem: '✪' },
+		{ req: 400, color: 'pink', emblem: '✪' },
+		{ req: 500, color: 'gold', emblem: '✪' },
+		{ req: 750, color: 'darkgreen', emblem: '✪' },
+		{ req: 1000, color: 'darkblue', emblem: '✪' },
+		{ req: 2500, color: 'purple', emblem: '✪' },
+		{ req: 5000, color: 'darkred', emblem: '✪' },
+		{ req: 10000, color: 'black', emblem: '✪' },
+	],
 }

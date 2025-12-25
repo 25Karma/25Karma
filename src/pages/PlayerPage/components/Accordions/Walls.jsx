@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
 import { Accordion } from 'src/components';
-import { Box, Br, Pair } from 'src/components/Stats';
+import { Box, Br, Pair, Progress, ProgressBar } from 'src/components/Stats';
 import { WALLS as consts } from 'src/constants/hypixel';
 import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
+import { findPrefix, calculatePrefixProgression, formatPrefix } from 'src/utils/hypixel';
 
 /**
  * Stats accordion for Walls
@@ -19,8 +20,19 @@ export const Walls = memo((props) => {
 		wl: Utils.ratio(json.wins, json.losses),
 	}
 
+	const wins = Utils.default0(json.wins);
+	const { prefix } = findPrefix(consts.PREFIXES, wins);
+	const progression = calculatePrefixProgression(consts.PREFIXES, wins);
+
+	const formattedPrefix = formatPrefix({
+		prefixes: consts.PREFIXES,
+		score: wins,
+		trueScore: true
+	});
+
 	const header = (
 		<React.Fragment>
+			<Box title="Prefix">{formattedPrefix}</Box>
 			<Box title="Kills">{json.kills}</Box>
 			<Box title="KD">{ratios.kd}</Box>
 			<Box title="Wins">{json.wins}</Box>
@@ -28,10 +40,34 @@ export const Walls = memo((props) => {
 		</React.Fragment>
 		);
 
+	const prefixProgress = (
+		<React.Fragment>
+			<div className="flex-1">
+				<ProgressBar dataTip={`${wins}/${progression.next} Wins`}>
+					<Progress
+						proportion={progression.progressProportion}
+						color={prefix.color === 'rainbow' ? 'gold' : prefix.color}
+						dataTip={`${wins}/${progression.next} Wins`} />
+				</ProgressBar>
+			</div>
+			{!progression.isMaxed && (
+				<span className={`px-1 c-${consts.PREFIXES[findPrefix(consts.PREFIXES, wins).index + 1]?.color || 'gold'}`}>
+					{progression.next}
+				</span>
+			)}
+		</React.Fragment>
+	);
+
 	return Utils.isEmpty(json) ?
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
+			<div className="mb-3">
+				<div className="mb-1 font-bold">Prefix Progress</div>
+				<div className="h-flex">
+					{prefixProgress}
+				</div>
+			</div>
 			<Pair title="Coins" color="gold">{json.coins}</Pair>
 			<Br />
 			<Pair title="Kills">{json.kills}</Pair>

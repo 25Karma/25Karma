@@ -276,6 +276,7 @@ kbd {
 .c-bold { font-weight: bold; }
 .c-strikethrough { text-decoration: line-through; }
 .c-underline { text-decoration: underline; }
+.c-strikethrough.c-underline { text-decoration: line-through underline; } /* used so strikethrough and underline can be combined */
 .c-italic { font-style: italic; }
 span.c-reset { color: #fff; font-weight: normal; text-decoration: none currentcolor solid; font-style: normal; }
 

@@ -4,6 +4,7 @@ import { Box, Cell, Pair, Progress, ProgressBar, Row, Table } from 'src/componen
 import { BUILDBATTLE as consts } from 'src/constants/hypixel';
 import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
+import { toColorCode } from 'src/utils';
 import { HypixelLeveling } from 'src/utils/hypixel';
 
 /**
@@ -18,7 +19,7 @@ export const BuildBattle = memo((props) => {
 	const json = Utils.traverse(player,'stats.BuildBattle') || {};
 	const losses = Utils.default0(json.games_played) - Utils.default0(json.wins);
 	const leveling = new HypixelLeveling(scoreToStar, starToScore, Utils.default0(json.score));
-	if (leveling.levelCeiling > 12) leveling.levelCeiling = 12;
+	if (leveling.levelCeiling > 19) leveling.levelCeiling = 19;
 	const title = getTitle(leveling.levelFloor).name;
 	const titleColor = getTitle(leveling.levelFloor).color;
 
@@ -38,13 +39,31 @@ export const BuildBattle = memo((props) => {
 	function getTitle(star) {
 		return {
 			name: consts.STARS[star-1].name,
-			color: consts.STARS[star-1].color
+			color: consts.STARS[star-1].color,
+			bold: star >= 15,
 		}
 	}
 
+	function formatTitleWithEmblem(titleObj) {
+		const emblemColor = json.emblem?.selected_color;
+		const emblemIcon = json.emblem?.selected_icon;
+		const emblemSymbol = consts.EMBLEM_MAP[emblemIcon];
+		
+		const titleColorCode = toColorCode(titleObj.color);
+		const bold = titleObj.bold ? '§l' : '';
+		
+		if (emblemSymbol) {
+			const emblemColorCode = toColorCode(emblemColor ?? 'white');
+			return `${emblemColorCode}${emblemSymbol} ${titleColorCode}${bold}${titleObj.name}`;
+		}
+		return `${titleColorCode}${bold}${titleObj.name}`;
+	}
+
+	const formattedTitle = formatTitleWithEmblem(getTitle(leveling.levelFloor));
+
 	const header = (
 		<React.Fragment>
-			<Box title="Title" color={titleColor}>{title}</Box>
+			<Box title="Title">{formattedTitle}</Box>
 			<Box title="Wins">{json.wins}</Box>
 		</React.Fragment>
 		);
@@ -55,11 +74,11 @@ export const BuildBattle = memo((props) => {
 			color: titleColor,
 			dataTip: `${Utils.formatNum(leveling.xp)}/${Utils.formatNum(starToScore(leveling.levelCeiling))} Score`
 		}
-		if (leveling.levelFloor === 12) {
+		if (leveling.levelFloor === 19) {
 			levelingProgressProps = {
 					proportion: 1,
 					color: titleColor,
-					dataTip: `${Utils.formatNum(leveling.xp)}/${Utils.formatNum(starToScore(12))} Score`
+					dataTip: `${Utils.formatNum(leveling.xp)}/${Utils.formatNum(starToScore(19))} Score`
 				}
 		}
 		return (

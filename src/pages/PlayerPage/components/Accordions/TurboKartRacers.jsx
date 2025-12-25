@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
 import { Accordion, HorizontalLine } from 'src/components';
-import { Box, Br, Pair, Title } from 'src/components/Stats';
+import { Box, Br, Pair, Progress, ProgressBar, Title } from 'src/components/Stats';
 import { TURBOKARTRACERS as consts } from 'src/constants/hypixel';
 import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
+import { findPrefix, calculatePrefixProgression, colorToCode } from 'src/utils/hypixel';
 
 /**
  * Stats accordion for Turbo Kart Racers
@@ -70,7 +71,6 @@ export const TurboKartRacers = memo((props) => {
 		return data;
 	}
 	
-	// Adds quotation marks to the TKR parts JSON string so that we can apply JSON.parse() to it
 	function addQuotes(str) {
 		if (str === undefined) return '{}';
 		const bank = ['{','}','[',']',',',':'];
@@ -95,18 +95,54 @@ export const TurboKartRacers = memo((props) => {
 			);
 	}
 
+	const goldTrophies = Utils.default0(json.gold_trophy);
+	const { prefix } = findPrefix(consts.PREFIXES, goldTrophies);
+	const progression = calculatePrefixProgression(consts.PREFIXES, goldTrophies);
+
+	const formatPrefix = (score) => {
+		const colorCode = colorToCode(prefix.color);
+		return `${colorCode}[${score}${prefix.emblem}]`;
+	};
+
+	const formattedPrefix = formatPrefix(goldTrophies);
+
 	const header = (
 		<React.Fragment>
+			<Box title="Prefix">{formattedPrefix}</Box>
 			<Box title="Gold" color="gold">{trophies.gold}</Box>
 			<Box title="Silver" color="white">{trophies.silver}</Box>
 			<Box title="Bronze" color="brown">{trophies.bronze}</Box>
 		</React.Fragment>
-		);
+	);
+
+	const prefixProgress = (
+		<React.Fragment>
+			<div className="flex-1">
+				<ProgressBar dataTip={`${goldTrophies}/${progression.next} Gold Trophies`}>
+					<Progress
+						proportion={progression.progressProportion}
+						color={prefix.color}
+						dataTip={`${goldTrophies}/${progression.next} Gold Trophies`} />
+				</ProgressBar>
+			</div>
+			{!progression.isMaxed && (
+				<span className={`px-1 c-${consts.PREFIXES[findPrefix(consts.PREFIXES, goldTrophies).index + 1]?.color || 'gold'}`}>
+					{progression.next}
+				</span>
+			)}
+		</React.Fragment>
+	);
 
 	return Utils.isEmpty(json) ?
 		<Accordion title={consts.TITLE} index={props.index} />
 		:
 		<Accordion title={consts.TITLE} header={header} index={props.index}>
+			<div className="mb-3">
+				<div className="mb-1 font-bold">Prefix Progress</div>
+				<div className="h-flex">
+					{prefixProgress}
+				</div>
+			</div>
 			<div className="h-flex">
 				<div className="flex-1">
 					<Pair title="Coins" color="gold">{json.coins}</Pair>
