@@ -15,7 +15,7 @@ export function AchievementsHeadline() {
 			<ExternalLink href={`${APP.namemcUrl}${mojang.uuid}`}>
 				<PlayerHead uuid={mojang.uuid} shadow />
 			</ExternalLink>
-			<h1 className="text-shadow pl-2">
+			<h1 className="pl-2">
 				<Link to={`/player/${mojang.username}`}>
 					<PlayerName username={mojang.username} player={player} size="xl" />
 				</Link>

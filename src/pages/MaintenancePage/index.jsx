@@ -13,7 +13,7 @@ export function MaintenancePage() {
     return (
         <PageLayout
         top={
-            <MinecraftText className="text-shadow" size="xl">
+            <MinecraftText size="xl">
                 §d25Karma §cis under maintenance.
             </MinecraftText>
         }
