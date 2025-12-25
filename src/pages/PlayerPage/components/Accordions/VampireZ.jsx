@@ -32,23 +32,25 @@ export const VampireZ = memo((props) => {
 	const formattedHumanPrefix = formatPrefix({
 		prefixes: consts.HUMAN_PREFIXES,
 		score: humanWins,
-		trueScore: true
+		trueScore: true,
+		abbreviation: false
 	});
 
 	const formattedVampirePrefix = formatPrefix({
 		prefixes: consts.VAMPIRE_PREFIXES,
 		score: humanKills,
-		trueScore: true
+		trueScore: true,
+		abbreviation: false
 	});
 
 	const header = (
 		<React.Fragment>
-			<Box title="Human">{formattedHumanPrefix}</Box>
-			<Box title="Vampire">{formattedVampirePrefix}</Box>
-			<Box title="Vampire KD">{ratios.kdv}</Box>
+			<Box title="Human Prefix">{formattedHumanPrefix}</Box>
+			<Box title="Vampire Prefix">{formattedVampirePrefix}</Box>
 			<Box title="Human KD">{ratios.kdh}</Box>
-			<Box title="Vampire Wins">{json.vampire_wins}</Box>
+			<Box title="Vampire KD">{ratios.kdv}</Box>
 			<Box title="Human Wins">{json.human_wins}</Box>
+			<Box title="Vampire Wins">{json.vampire_wins}</Box>
 		</React.Fragment>
 		);
 
@@ -77,7 +79,7 @@ export const VampireZ = memo((props) => {
 					<Progress
 						proportion={vampireProgression.progressProportion}
 						color={vampirePrefix.color === 'rainbow' ? 'gold' : vampirePrefix.color}
-						dataTip={`${humanKills}/${vampireProgression.next} Human Kils`} />
+						dataTip={`${humanKills}/${vampireProgression.next} Human Kills`} />
 				</ProgressBar>
 			</div>
 			{!vampireProgression.isMaxed && (
