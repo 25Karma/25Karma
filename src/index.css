@@ -266,24 +266,23 @@ kbd {
 .c-brown { color: #963; }
 
 /* text shadows */
-.c-darkred.c-shadow, .c-DARK_RED.c-shadow { text-shadow: 3px 3px #2a0000; }
-.c-red.c-shadow, .c-RED.c-shadow { text-shadow: 3px 3px #3f1515; }
-.c-gold.c-shadow, .c-GOLD.c-shadow { text-shadow: 3px 3px #2a2a00; }
-.c-yellow.c-shadow, .c-YELLOW.c-shadow { text-shadow: 3px 3px #3f3f15; }
-.c-darkgreen.c-shadow, .c-DARK_GREEN.c-shadow { text-shadow: 3px 3px #002a00; }
-.c-green.c-shadow, .c-GREEN.c-shadow { text-shadow: 3px 3px #153f15; }
-.c-aqua.c-shadow, .c-AQUA.c-shadow { text-shadow: 3px 3px #153f3f; }
-.c-darkaqua.c-shadow, .c-DARK_AQUA.c-shadow { text-shadow: 3px 3px #002a2a; }
-.c-darkblue.c-shadow, .c-DARK_BLUE.c-shadow { text-shadow: 3px 3px #00002a; }
-.c-blue.c-shadow, .c-BLUE.c-shadow { text-shadow: 3px 3px #15153f; }
-.c-pink.c-shadow, .c-LIGHT_PURPLE.c-shadow { text-shadow: 3px 3px #3f153f; }
-.c-purple.c-shadow, .c-DARK_PURPLE.c-shadow { text-shadow: 3px 3px #2a002a; }
-.c-white.c-shadow, .c-WHITE.c-shadow { text-shadow: 3px 3px #3f3f3f; }
-.c-gray.c-shadow, .c-GRAY.c-shadow { text-shadow: 3px 3px #2a2a2a; }
-.c-darkgray.c-shadow, .c-DARK_GRAY.c-shadow { text-shadow: 3px 3px #151515; }
-.c-black.c-shadow, .c-BLACK.c-shadow { text-shadow: 3px 3px #000000; }
-.c-brown.c-shadow { text-shadow: 3px 3px #251910; }
-.c-rainbow.c-shadow { text-shadow: 3px 3px #2a002a; }
+.c-darkred.c-shadow, .c-DARK_RED.c-shadow { text-shadow: 0.1em 0.1em #2a0000; }
+.c-red.c-shadow, .c-RED.c-shadow { text-shadow: 0.1em 0.1em #3f1515; }
+.c-gold.c-shadow, .c-GOLD.c-shadow { text-shadow: 0.1em 0.1em #2a2a00; }
+.c-yellow.c-shadow, .c-YELLOW.c-shadow { text-shadow: 0.1em 0.1em #3f3f15; }
+.c-darkgreen.c-shadow, .c-DARK_GREEN.c-shadow { text-shadow: 0.1em 0.1em #002a00; }
+.c-green.c-shadow, .c-GREEN.c-shadow { text-shadow: 0.1em 0.1em #153f15; }
+.c-aqua.c-shadow, .c-AQUA.c-shadow { text-shadow: 0.1em 0.1em #153f3f; }
+.c-darkaqua.c-shadow, .c-DARK_AQUA.c-shadow { text-shadow: 0.1em 0.1em #002a2a; }
+.c-darkblue.c-shadow, .c-DARK_BLUE.c-shadow { text-shadow: 0.1em 0.1em #00002a; }
+.c-blue.c-shadow, .c-BLUE.c-shadow { text-shadow: 0.1em 0.1em #15153f; }
+.c-pink.c-shadow, .c-LIGHT_PURPLE.c-shadow { text-shadow: 0.1em 0.1em #3f153f; }
+.c-purple.c-shadow, .c-DARK_PURPLE.c-shadow { text-shadow: 0.1em 0.1em #2a002a; }
+.c-white.c-shadow, .c-WHITE.c-shadow { text-shadow: 0.1em 0.1em #3f3f3f; }
+.c-gray.c-shadow, .c-GRAY.c-shadow { text-shadow: 0.1em 0.1em #2a2a2a; }
+.c-darkgray.c-shadow, .c-DARK_GRAY.c-shadow { text-shadow: 0.1em 0.1em #151515; }
+.c-black.c-shadow, .c-BLACK.c-shadow { text-shadow: 0.1em 0.1em #000000; }
+.c-brown.c-shadow { text-shadow: 0.1em 0.1em #251910; }
 .c-rainbow { 
 	background-image: linear-gradient(to left, #a0a, #f5f, #5ff, #5f5, #ff5, #fa0, #f55);   
 	background-clip: text;
