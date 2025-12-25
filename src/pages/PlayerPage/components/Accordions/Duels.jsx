@@ -109,11 +109,11 @@ export const Duels = memo((props) => {
 				const start = i * chunkSize;
 				const end = i === colors.length - 1 ? fullText.length : (i + 1) * chunkSize;
 				const chunk = fullText.slice(start, end);
-				if (i === 0 && bold && iconPart) {
+				if (i === 0 && iconPart) {
 					const iconLen = iconPart.length;
-					result += colors[i] + chunk.slice(0, iconLen) + bold + chunk.slice(iconLen);
+					result += colors[i] + chunk.slice(0, iconLen) + colors[i] + bold + chunk.slice(iconLen);
 				} else {
-					result += colors[i] + (i === 0 && bold ? bold : '') + chunk;
+					result += colors[i] + bold + chunk;
 				}
 			}
 			return result + '§r';
