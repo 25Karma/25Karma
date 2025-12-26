@@ -1,6 +1,6 @@
 export const PIT = {
 	TITLE: 'Pit',
-	MAXPRESTIGE: 40,
+	MAXPRESTIGE: 50,
 	MAXLEVEL: 120,
 	PRESTIGE_MULTIPLIERS: [
 		{"Multiplier": 1, "SumXp": 65950},
@@ -95,6 +95,9 @@ export const PIT = {
 		{prestige: '25', color: 'pink'},
 		{prestige: '30', color: 'white'},
 		{prestige: '35', color: 'aqua'},
-		{prestige: '40', color: 'darkblue'}
+		{prestige: '40', color: 'darkblue'},
+		{prestige: '45', color: 'black'},
+		{prestige: '48', color: 'darkred'},
+		{prestige: '50', color: 'darkgray'}
 	],
 }
