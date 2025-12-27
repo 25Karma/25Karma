@@ -1,18 +1,6 @@
-
-@font-face {
-	font-family: "Unifont";
-	src: url("/src/fonts/unifont.woff2") format("woff2"),
-	  url("/src/fonts/unifont.ttf") format("truetype");
-	font-weight: 400 700;
-	font-style: normal italic;
-	font-display: swap;
-	size-adjust: 85%;
-}
-  
 @font-face {
 	font-family: "Minecraft";
-	src: url("/src/fonts/minecraft.woff2") format("woff2"),
-		 url("/src/fonts/minecraft.ttf") format("truetype");
+	src: url("/src/fonts/minecraft.ttf") format("truetype");
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -21,8 +9,7 @@
   
 @font-face {
 	font-family: "Minecraft";
-	src: url("/src/fonts/minecraft-bold.woff2") format("woff2"),
-		 url("/src/fonts/minecraft-bold.ttf") format("truetype");
+	src: url("/src/fonts/minecraft-bold.ttf") format("truetype");
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
@@ -31,8 +18,7 @@
   
 @font-face {
 	font-family: "Minecraft";
-	src: url("/src/fonts/minecraft-italic.woff2") format("woff2"),
-		 url("/src/fonts/minecraft-italic.ttf") format("truetype");
+	src: url("/src/fonts/minecraft-italic.ttf") format("truetype");
 	font-weight: 400;
 	font-style: italic;
 	font-display: swap;
@@ -41,8 +27,7 @@
   
 @font-face {
 	font-family: "Minecraft";
-	src: url("/src/fonts/minecraft-bold-italic.woff2") format("woff2"),
-		 url("/src/fonts/minecraft-bold-italic.ttf") format("truetype");
+	src: url("/src/fonts/minecraft-bold-italic.ttf") format("truetype");
 	font-weight: 700;
 	font-style: italic;
 	font-display: swap;
@@ -191,7 +176,7 @@ kbd {
 .font-lg { font-size: 1.75rem; }
 .font-md { font-size: 1.25rem; }
 .font-minecraft { 
-	font-family: "Minecraft", "Unifont";
+	font-family: "Minecraft";
 }
 .font-sm { font-size: 1rem; }
 .font-xl { font-size: 2.5rem; }
