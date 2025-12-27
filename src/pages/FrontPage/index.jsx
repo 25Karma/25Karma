@@ -109,7 +109,7 @@ export function FrontPage(props) {
 	return (
 		<PageLayout
 			top={
-				<h1 className="text-shadow">
+				<h1>
 					<MinecraftText size="xxl">
 						{"§d"+APP.appName}
 					</MinecraftText>

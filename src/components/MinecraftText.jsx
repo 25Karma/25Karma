@@ -9,10 +9,12 @@ import { formatNum } from 'src/utils';
  * @param {string} props.className     Classes to apply - intended for padding/margin use only
  * @param {boolean} props.formatNum    Whether we should format the text if it is a number
  * @param {boolean} props.font         Whether to use Minecraft font, default true
+ * @param {boolean} props.shadow       Whether to use Minecraft text shadow, default true
  * @param {string} props.children      Minecraft color-formatted text to display
  */
 export function MinecraftText(props) {
 	const useMinecraftFont = props.font !== false;
+	const useShadow = props.shadow !== false;
 
 	function parseMinecraftText(str) {
 		// Binds each minecraft formatting character to a css color class
@@ -99,9 +101,10 @@ export function MinecraftText(props) {
 		})
 
 		const fontClass = useMinecraftFont ? 'font-minecraft ' : '';
+		const shadowClass = useShadow ? 'c-shadow ' : '';
 		return (
 			<span className={`font-${props.size || 'md'} ${props.className || ''}`}>
-				{spans.map((span, i) => <span key={i} className={`${fontClass}${span.style}`}>{span.text}</span>)}
+				{spans.map((span, i) => <span key={i} className={`${fontClass}${shadowClass}${span.style}`}>{span.text}</span>)}
 			</span>
 			);
 	}

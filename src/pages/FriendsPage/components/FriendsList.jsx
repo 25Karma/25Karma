@@ -120,7 +120,7 @@ export function FriendsList() {
 									<PlayerHead uuid={data.uuid} size="lg" shadow />
 								</ExternalLink>
 							</td>
-							<td className="text-shadow">
+							<td>
 								<Link to={`/player/${data.username}`}>
 									<PlayerName username={data.username} player={data} size="lg"></PlayerName>
 								</Link>
