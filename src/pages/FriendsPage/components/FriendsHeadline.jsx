@@ -15,7 +15,7 @@ export function FriendsHeadline() {
 			<ExternalLink href={`${APP.namemcUrl}${mojang.uuid}`}>
 				<PlayerHead uuid={mojang.uuid} shadow />
 			</ExternalLink>
-			<div className="text-shadow pl-2">
+			<div className="pl-2">
 				<Link to={`/player/${mojang.username}`}>
 					<PlayerName username={mojang.username} player={player} size="xl" />
 				</Link>

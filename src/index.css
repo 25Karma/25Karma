@@ -1,9 +1,85 @@
 @font-face {
-	font-family: Minecraft;
-	src: url('./fonts/minecraft.otf');
+	font-family: "Minecraft";
+	src: url("/src/fonts/minecraft.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+	size-adjust: 115%;
+}
+  
+@font-face {
+	font-family: "Minecraft";
+	src: url("/src/fonts/minecraft-bold.ttf") format("truetype");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+	size-adjust: 115%;
+}
+  
+@font-face {
+	font-family: "Minecraft";
+	src: url("/src/fonts/minecraft-italic.ttf") format("truetype");
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+	size-adjust: 115%;
+}
+  
+@font-face {
+	font-family: "Minecraft";
+	src: url("/src/fonts/minecraft-bold-italic.ttf") format("truetype");
+	font-weight: 700;
+	font-style: italic;
+	font-display: swap;
+	size-adjust: 115%;
 }
 
 :root {
+    /* below are a few color schemes since the original theme blends in with the gray text shadows */
+    
+    /* Dark Graphite */
+	/*
+	--theme-text: #f3f4f5;
+	--theme-text-highlighted: #d2d4d6;
+	--theme-primary: #33373b;
+	--theme-secondary: #292d31;
+	--theme-input-placeholder: #8f959b;
+	--theme-border: #1e2226;
+	--theme-border-highlighted: #f5f;
+	--theme-shadow: rgba(0, 0, 0, 0.42);
+	--theme-scrollbar-thumb: #23272b;
+	--theme-scrollbar-track: #30353a;
+	*/
+	
+	/* Graphite */
+	/*
+	--theme-text: #f6f7f8;
+	--theme-text-highlighted: #d8d9da;
+	--theme-primary: #3b3f44;
+	--theme-secondary: #2f3337;
+	--theme-input-placeholder: #9aa0a6;
+	--theme-border: #24282c;
+	--theme-border-highlighted: #f5f;
+	--theme-shadow: rgba(0, 0, 0, 0.35);
+	--theme-scrollbar-thumb: #2a2e32;
+	--theme-scrollbar-track: #3a3f44;
+	*/
+	
+	/* Soft Default (this doesn't really fix the contrast issue, but is easier on the eyes) */
+	/*
+    --theme-text: #f6f6f6;
+	--theme-text-highlighted: #d6d6d6;
+	--theme-primary: #3d3d3d;
+	--theme-secondary: #313131;
+	--theme-input-placeholder: #949494;
+	--theme-border: #242424;
+	--theme-border-highlighted: #f5f;
+	--theme-shadow: rgba(0, 0, 0, 0.5);
+	--theme-scrollbar-thumb: #2b2b2b;
+	--theme-scrollbar-track: #3a3a3a;
+	*/
+	
+	/* Default (this is the original color scheme) */
 	--theme-text: white;
 	--theme-text-highlighted: #ccc;
 	--theme-secondary: #2b2b2b;
@@ -99,7 +175,9 @@ kbd {
 .font-bold { font-weight: bold; }
 .font-lg { font-size: 1.75rem; }
 .font-md { font-size: 1.25rem; }
-.font-minecraft { font-family: Minecraft;}
+.font-minecraft { 
+	font-family: "Minecraft";
+}
 .font-sm { font-size: 1rem; }
 .font-xl { font-size: 2.5rem; }
 .font-xxl { font-size: 3.5rem; }
@@ -216,6 +294,10 @@ kbd {
 .c-darkgray, .c-DARK_GRAY { color: #555; }
 .c-black, .c-BLACK { color: #000; }
 .c-brown { color: #963; }
+
+/* text shadows */
+.c-shadow { text-shadow: 0.1em 0.1em color-mix(in srgb, currentColor 25%, #000 75%); }
+
 .c-rainbow { 
 	background-image: linear-gradient(to left, #a0a, #f5f, #5ff, #5f5, #ff5, #fa0, #f55);   
 	background-clip: text;

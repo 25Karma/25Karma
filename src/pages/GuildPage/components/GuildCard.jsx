@@ -43,7 +43,7 @@ export function GuildCard() {
 	return (
 		<Card className="p-2 pb-3">
 			{hasTag && 
-				<div className="w-100 text-center text-shadow mb-1">
+				<div className="w-100 text-center mb-1">
 					<GuildTag guild={guild} size="xl" />
 				</div> 
 			}

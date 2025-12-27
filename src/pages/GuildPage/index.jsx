@@ -22,7 +22,7 @@ export function GuildPage() {
 				searchbar
 				top={
 					<h1>
-						<MinecraftText size="xl" className="px-2 text-shadow">
+						<MinecraftText size="xl" className="px-2">
 							{`${Utils.toColorCode(guild.tagColor || 'gray')}${guild.name}`}
 						</MinecraftText>
 					</h1>
