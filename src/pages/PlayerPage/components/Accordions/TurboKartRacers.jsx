@@ -101,7 +101,7 @@ export const TurboKartRacers = memo((props) => {
 
 	const formatPrefix = (score) => {
 		const colorCode = colorToCode(prefix.color);
-		return `${colorCode}[${score}${prefix.emblem}]`;
+		return `${colorCode}[${Utils.formatNum(score)}${prefix.emblem}]`;
 	};
 
 	const formattedPrefix = formatPrefix(goldTrophies);
@@ -127,7 +127,7 @@ export const TurboKartRacers = memo((props) => {
 			</div>
 			{!progression.isMaxed && (
 				<span className={`px-1 c-${consts.PREFIXES[findPrefix(consts.PREFIXES, goldTrophies).index + 1]?.color || 'gold'}`}>
-					{progression.next}
+					{Utils.formatNum(progression.next)}
 				</span>
 			)}
 		</React.Fragment>

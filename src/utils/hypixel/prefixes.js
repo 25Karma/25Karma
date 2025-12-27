@@ -144,13 +144,13 @@ export function formatPrefix({ prefixes, score, skip = false, trueScore = false,
  }
  
 /**
- * Abbreviates a number (e.g., 1000 -> [1, "K"], 1000000 -> [1, "M"])
+ * Abbreviates a number (e.g., 1000 -> [1, "k"], 1000000 -> [1, "M"])
  * @param {number} num - The number to abbreviate
  * @returns {[number, string]} - Tuple of [abbreviated number, suffix]
  */
 export function abbreviateNumber(num) {
 	if (num === undefined || num === null) return [0, ''];
-	const abbreviation = ['', 'K', 'M', 'B', 'T'];
+	const abbreviation = ['', 'k', 'M', 'B', 'T'];
 	const base = Math.floor(num === 0 ? 0 : Math.log(num) / Math.log(1000));
 	return [+(num / Math.pow(1000, base)).toFixed(2), abbreviation[base]];
 }
