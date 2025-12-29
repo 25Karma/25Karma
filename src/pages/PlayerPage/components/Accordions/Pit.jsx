@@ -79,6 +79,8 @@ export const Pit = memo((props) => {
 					}-${
 						Utils.toColorCode(levelColor)
 					}${
+						level >= 60 ? '§l' : ''
+					}${
 						level
 					}${
 						Utils.toColorCode(prestigeColor)
