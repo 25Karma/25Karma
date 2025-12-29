@@ -40,6 +40,7 @@ export function PlayerName(props) {
 			MODERATOR : `§2[MOD] ${stats.name}`,
 			GAME_MASTER: `§2[GM] ${stats.name}`,
 			ADMIN : `§c[ADMIN] ${stats.name}`,
+			STAFF : `§c[§6ዞ§c] ${stats.name}`,
 			YOUTUBER : `§c[§fYOUTUBE§c] ${stats.name}`,
 		}
 		if (stats.prefix !== undefined) {
