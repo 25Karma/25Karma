@@ -11,7 +11,7 @@ export function NotFoundPage() {
 	return (
 			<PageLayout
 			top={
-				<span className="text-shadow">
+				<span>
 						<MinecraftText size="xxl">§cError 404</MinecraftText>
 				</span>
 			}

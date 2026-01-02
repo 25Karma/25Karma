@@ -15,7 +15,7 @@ export function PlayerHeadline() {
 			<ExternalLink href={`${APP.namemcUrl}${mojang.uuid}`}>
 				<PlayerHead uuid={mojang.uuid} shadow />
 			</ExternalLink>
-			<h1 className="text-shadow pl-2">
+			<h1 className="pl-2">
 				<PlayerName username={mojang.username} player={player} size="xl" />
 				<MinecraftText size="xl"> </MinecraftText>
 				<Link to={`/guild/${mojang.username}`}>
