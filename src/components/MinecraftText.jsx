@@ -97,7 +97,7 @@ export function MinecraftText(props) {
 
 		// If the text to display was intended to be a numerical value
 		spans.forEach(span => {
-			if (props.formatNum && !isNaN(span.text)) span.text = formatNum(Number(span.text));
+			if (props.formatNum && span.text.trim() !== '' && !isNaN(span.text)) span.text = formatNum(Number(span.text));
 		})
 
 		const fontClass = useMinecraftFont ? 'font-minecraft ' : '';

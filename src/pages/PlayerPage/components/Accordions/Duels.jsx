@@ -102,18 +102,21 @@ export const Duels = memo((props) => {
 			const iconPart = icon ? `${icon} ` : '';
 			const fullText = `${iconPart}${title}`;
 			const colors = scheme.colors;
-			const chunkSize = Math.max(1, Math.floor(fullText.length / colors.length));
 			
 			let result = '';
+			const chunkSize = Math.floor(fullText.length / colors.length);
 			for (let i = 0; i < colors.length; i++) {
 				const start = i * chunkSize;
 				const end = i === colors.length - 1 ? fullText.length : (i + 1) * chunkSize;
 				const chunk = fullText.slice(start, end);
-				if (i === 0 && iconPart) {
-					const iconLen = iconPart.length;
-					result += colors[i] + chunk.slice(0, iconLen) + colors[i] + bold + chunk.slice(iconLen);
-				} else {
-					result += colors[i] + bold + chunk;
+				
+				result += colors[i];
+				for (let j = 0; j < chunk.length; j++) {
+					const absoluteIndex = start + j;
+					if (absoluteIndex >= iconPart.length) {
+						result += bold;
+					}
+					result += chunk[j];
 				}
 			}
 			return result + '§r';
