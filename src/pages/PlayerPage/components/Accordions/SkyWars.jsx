@@ -1,6 +1,5 @@
-import React, { memo, useState, useEffect, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { Accordion, Button, HorizontalLine, MinecraftText, PlayerHead, Tippy } from 'src/components';
+import React, { memo, useMemo } from 'react';
+import { Accordion, HorizontalLine, MinecraftText } from 'src/components';
 import { Box, Br, Cell, Pair, Progress, ProgressBar, Row, Table } from 'src/components/Stats';
 import { SKYWARS as consts } from 'src/constants/hypixel';
 import {
@@ -11,7 +10,7 @@ import {
 	getPrestige,
 	getSchemeGradientColors,
 } from 'src/utils/hypixel';
-import { useAPIContext, useAppContext } from 'src/hooks';
+import { useAPIContext } from 'src/hooks';
 import * as Utils from 'src/utils';
 import { HypixelLeveling, getMostPlayed } from 'src/utils/hypixel';
 
@@ -23,7 +22,6 @@ import { HypixelLeveling, getMostPlayed } from 'src/utils/hypixel';
 export const SkyWars = memo((props) => {
 
 	const { player } = useAPIContext();
-	const { setBanner } = useAppContext();
 	const json = useMemo(() => Utils.traverse(player,'stats.SkyWars') || {}, [player]);
 
 	const cumulativeXP = useMemo(() => consts.XP_TO_LEVEL.reduce((acc, xp, i) => {
@@ -97,9 +95,6 @@ export const SkyWars = memo((props) => {
 
 	const mostPlayedMode = getMostPlayed(consts.MODES,
 		({id}) => Utils.add(json[`wins${id}`], json[`losses${id}`]));
-
-	// State for the head collection 'View' button
-	const [headButtonState, setHeadButtonState] = useState(false);
 
 	const header = (
 		<React.Fragment>
@@ -240,40 +235,6 @@ export const SkyWars = memo((props) => {
 			</ProgressBar>
 			)
 	})();
-
-	const prestigiousHeadCollection = (() => {
-		const headArray = Utils.traverse(json,'head_collection.prestigious');
-		if (headArray === undefined || headArray.length === 0) {
-			return null;
-		}
-		let imgList = [];
-		let i = 0;
-		for (const head of headArray) {
-			imgList.push(
-				<Tippy key={`head-${i++}`} content={Utils.capitalize(head.sacrifice)}>
-					<span>
-						<Link to={`/player/${head.uuid}`} target="_blank" rel="noopener noreferrer">
-							<PlayerHead uuid={head.uuid} type='head'/>
-						</Link>
-					</span>
-				</Tippy>
-				);
-		} 
-		imgList.reverse();
-		return imgList;
-	})();
-
-	useEffect(() => {
-		const headArray = Utils.traverse(json,'head_collection.prestigious');
-		if (headButtonState && (headArray === undefined || headArray.length === 0)) {
-			setBanner({
-				style: "info",
-				title: "This player has no prestigious heads. 😔",
-				expire: true
-			});
-		}
-	}, [headButtonState, json, setBanner]);
-
 	
 	return Utils.isEmpty(json) ? 
 		<Accordion title={consts.TITLE} index={props.index} /> 
@@ -353,18 +314,8 @@ export const SkyWars = memo((props) => {
 			<div className="mb-1">
 				<Pair title="Total Heads Gathered">{json.heads}</Pair>
 			</div>
-			<div className="mb-3">
+			<div>
 				{headProgress}
-			</div>
-			<div className="font-bold mb-2">Prestigious Head Collection</div>
-			<div className="h-flex flex-wrap">
-			{
-				headButtonState ?
-				prestigiousHeadCollection :
-				<Button onClick={()=>{setHeadButtonState(true)}}>
-					<span className="font-bold">View</span>
-				</Button>
-			}
 			</div>
 		</Accordion>
 });
