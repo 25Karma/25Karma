@@ -9,6 +9,7 @@ import * as Utils from 'src/utils';
 import { calculateNetworkLevel, getPlayerRank, getGuildMemberRank, getGuildMemberDailyGEXP, 
 	getGuildMemberWeeklyGEXP, calculateChallengesCompleted } from 'src/utils/hypixel';
 import { HYPIXEL } from 'src/constants/hypixel';
+import { DateTime } from 'luxon';
 
 /**
  * Displays general Hypixel stats about the player in the Hypixel Context
@@ -38,7 +39,13 @@ export function PlayerCard() {
 	})();
 	const socialMediaLinks = Utils.traverse(json, 'socialMedia.links');
 	const dailyTwoKExp = Utils.traverse(json, 'eugene.dailyTwoKExp', 0);
-	const rewardClaimed = (new Date(dailyTwoKExp)).toDateString() === (new Date()).toDateString();
+	
+	const rewardClaimed = (() => {
+		const nowEST = DateTime.now().setZone('America/New_York');
+		const lastClaimEST = DateTime.fromMillis(dailyTwoKExp).setZone('America/New_York');
+		return nowEST.hasSame(lastClaimEST, 'day');
+	})();
+
 	const giftingJson = Utils.traverse(json, 'giftingMeta', {});
 	const challengesComplete = calculateChallengesCompleted(json.challenges);
 	

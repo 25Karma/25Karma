@@ -1,5 +1,6 @@
 import * as Utils from 'src/utils';
 import { HYPIXEL } from 'src/constants/hypixel';
+import { DateTime } from 'luxon';
 
 export * from './HypixelLeveling';
 export * from './SkyWars';
@@ -195,39 +196,33 @@ export function isPet({HUNGER, THIRST, EXERCISE, experience}) {
  * @returns {number}              Number of completions
  */
 export function questCompletionsSince(period, completions) {
+	if (!completions) return 0;
+
+	const nowEST = DateTime.now().setZone('America/New_York');
 	let timestamp = null;
+
 	if (period === 'daily') {
-		// Midnight of today
-		timestamp = (new Date()).setHours(0,0,0,0);
+		timestamp = nowEST.startOf('day').toMillis();
 	}
 	else if (period === 'weekly') {
-		// Last Friday
-		// https://stackoverflow.com/a/46544455/12191708
-		let date = new Date();
-		const lastFriday = new Date(date.setDate(date.getDate() - (date.getDay() + 9)%7));
-		timestamp = lastFriday.setHours(0,0,0,0);
+		// Hypixel weekly reset is Friday 00:00 EST
+		let reset = nowEST.startOf('week').plus({ days: 4 }); // Friday
+		if (nowEST < reset) {
+			reset = reset.minus({ weeks: 1 });
+		}
+		timestamp = reset.toMillis();
 	}
 	else if (period === 'monthly') {
-		// Beginning of the month
-		// https://stackoverflow.com/a/13572682/12191708
-		const date = new Date();
-		timestamp = new Date(date.getFullYear(), date.getMonth(), 1);
+		timestamp = nowEST.startOf('month').toMillis();
 	}
 	else if (period === 'yearly') {
-		// Beginning of the year
-		timestamp = new Date((new Date()).getFullYear(), 0, 1);
+		timestamp = nowEST.startOf('year').toMillis();
 	}
 	else if (period === 'total') {
-		// All time
 		timestamp = 0;
 	}
 	
-	if (!completions) {
-		return 0;
-	}
-	else {
-		return completions.filter(c => c.time > timestamp).length;
-	}
+	return completions.filter(c => c.time >= timestamp).length;
 }
 
 
