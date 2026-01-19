@@ -66,9 +66,9 @@ export const UHC = memo((props) => {
 
 	const progressBar = (() => {
 		let levelingProgressProps = {
-			proportion: leveling.xp / starToScore(leveling.levelCeiling),
+			proportion: leveling.proportionAboveLevel,
 			color: titleColor,
-			dataTip: `${Utils.formatNum(leveling.xp)}/${Utils.formatNum(starToScore(leveling.levelCeiling))} Score`
+			dataTip: `${leveling.xpAboveLevel}/${leveling.levelTotalXP} Score`
 		}
 		if (leveling.levelFloor === 15) {
 			levelingProgressProps = {
