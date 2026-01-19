@@ -29,22 +29,10 @@ export const Duels = memo((props) => {
 
 	const division = getDivision(json.wins, 'overall');
 
-	const stats = (() => {
-		let totalDeaths = 0, totalKills = 0;
-		// Ignores Bridge deaths and kills
-		for (const [k,v] of Object.entries(json)) {
-			if (k.includes('deaths') && k!=='deaths' && !k.includes('bridge')) {
-				totalDeaths += v;
-			}
-			else if (k.includes('kills') && k!=='kills' && !k.includes('bridge')) {
-				totalKills += v;
-			}
-		}
-		return {
-			kills : Utils.default0(totalKills),
-			deaths : Utils.default0(totalDeaths),
-		}
-	})();
+	const stats = {
+		kills: Utils.default0(json.kills),
+		deaths: Utils.default0(json.deaths),
+	};
 
 	const ratios = {
 		kd : Utils.ratio(stats.kills,stats.deaths),
