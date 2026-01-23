@@ -17,9 +17,9 @@ export const TurboKartRacers = memo((props) => {
 	const json = Utils.traverse(player, 'stats.GingerBread') || {};
 
 	const trophies = {
-		gold : `${Utils.formatNum(json.gold_trophy)}🏆\uFE0E`,
-		silver : `${Utils.formatNum(json.silver_trophy)}🏆\uFE0E`,
-		bronze : `${Utils.formatNum(json.bronze_trophy)}🏆\uFE0E`,
+		gold : `${Utils.formatNum(json.gold_trophy)}🏆`,
+		silver : `${Utils.formatNum(json.silver_trophy)}🏆`,
+		bronze : `${Utils.formatNum(json.bronze_trophy)}🏆`,
 	}
 	const kart = {
 		Engine : getPartData(json.engine_active),
