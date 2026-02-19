@@ -65,16 +65,11 @@ export const SkyWars = memo((props) => {
 		json.levelFormattedWithBrackets
 	);
 
-	// exclude mini from overall stats (kills, wins, and assists are included in api totals, but deaths/losses are not)
-	const miniWins = json.wins_mini || 0;
-	const miniKills = json.kills_mini || 0;
-	const miniAssists = json.assists_mini || 0;
-	
-	const overallKills = Utils.subtract(json.kills, miniKills);
+	const overallKills = json.kills;
 	const overallDeaths = json.deaths;
-	const overallWins = Utils.subtract(json.wins, miniWins);
+	const overallWins = json.wins;
 	const overallLosses = json.losses;
-	const overallAssists = Utils.subtract(json.assists, miniAssists);
+	const overallAssists = json.assists;
 
 	const ratios = {
 		ahm: Utils.ratio(json.arrows_hit, json.arrows_shot),
