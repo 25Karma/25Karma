@@ -17,6 +17,8 @@ export const Arcade = memo((props) => {
 	const { player } = useAPIContext();
 	const json = Utils.traverse(player, 'stats.Arcade', {});
 	const dropperJson = Utils.traverse(json, 'dropper', {});
+	const disastersJson = Utils.traverse(json, 'disasters.stats', {});
+	const totalDisasterSurvivals = Utils.add(...Object.values(Utils.traverse(disastersJson, 'survived', {})));
 
 	const pixelPartyJson = Utils.traverse(json, 'pixel_party', {});
 	consts.PIXELPARTYMODES.forEach(({id}) => {
@@ -231,6 +233,15 @@ export const Arcade = memo((props) => {
 				<ArcadeMinigame title="Dragon Wars">
 					<Pair title="Wins">{json.wins_dragonwars2}</Pair>
 					<Pair title="Kills">{json.kills_dragonwars2}</Pair>
+				</ArcadeMinigame>
+
+				<ArcadeMinigame title="Disasters">
+					<Pair title="Wins">{disastersJson.wins}</Pair>
+					<Pair title="Losses">{disastersJson.losses}</Pair>
+					<Pair title="Win/Loss Ratio">{Utils.ratio(disastersJson.wins, disastersJson.losses)}</Pair>
+					<Pair title="Games Played">{disastersJson.games_played}</Pair>
+					<Pair title="Time Survived">{Utils.secondsToHms(disastersJson.time_survived)}</Pair>
+					<Pair title="Survivals">{totalDisasterSurvivals}</Pair>
 				</ArcadeMinigame>
 
 				<ArcadeMinigame title="Dropper">

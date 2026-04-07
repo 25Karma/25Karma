@@ -222,6 +222,7 @@ export const HYPIXEL = {
 		'stats.Arcade.wins_mini_walls',
 		'stats.Arcade.wins_zombies',
 		'stats.Arcade.pixel_party.wins',
+		'stats.Arcade.disasters.stats.wins',
 		'stats.Arena.wins_1v1',
 		'stats.Arena.wins_2v2',
 		'stats.Arena.wins_4v4',
