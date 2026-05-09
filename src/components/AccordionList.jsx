@@ -36,7 +36,16 @@ export function AccordionList({ cookie, accordionModule }) {
 			}
 		}
 		else {
-			const {list, showLine} = JSON.parse(json);
+			let list, showLine;
+			try {
+				({list, showLine} = JSON.parse(json));
+				if (!Array.isArray(list)) throw new Error('Invalid accordion cookie');
+				list = [...list];
+			} catch {
+				Cookies.remove(cookie);
+				return getCookie();
+			}
+
 			// Add any Accordions that were not found in the cookie data
 			let accordionNames = [...Object.keys(accordionModule), 'HorizontalLine'];
 			for (const name of accordionNames) {

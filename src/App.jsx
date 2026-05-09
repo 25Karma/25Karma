@@ -15,11 +15,11 @@ function App() {
 				<Router basename={import.meta.env.BASE_URL}>
 					{MAINTENANCE.enabled ?
 						<Routes>
-							<Route default element={<MaintenancePage />}></Route>
+							<Route path="*" element={<MaintenancePage />}></Route>
 						</Routes>
 						:
 						<Routes>
-							<Route exact path="/" element={<Navigate replace to={pinnedPlayer ? `/search/${pinnedPlayer}` : '/frontpage'} />}></Route>
+							<Route path="/" element={<Navigate replace to={pinnedPlayer ? `/search/${pinnedPlayer}` : '/frontpage'} />}></Route>
 							{PAGES.map(p => <Route key={p.path} path={`/${p.path}/:slug`} element={<p.component />}></Route>)}
 							<Route path="/frontpage" element={<FrontPage />}></Route>
 							<Route path="/search/:slug" element={<SearchPage />}></Route>

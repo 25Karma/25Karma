@@ -2,6 +2,23 @@ import Cookies from 'js-cookie';
 import { COOKIES } from 'src/constants/app';
 import { default0 } from './index';
 
+export function getRecentSearches() {
+	let cookie = Cookies.get(COOKIES.recentSearches);
+	if (cookie === undefined) {
+		return [];
+	}
+
+	try {
+		const array = JSON.parse(cookie);
+		if (Array.isArray(array)) return array;
+	} catch {
+		// Fall through and reset the bad cookie below.
+	}
+
+	Cookies.remove(COOKIES.recentSearches);
+	return [];
+}
+
 /**
  * Adds commas to a large number and strips decimal places to user preference
  *
@@ -24,11 +41,7 @@ export function formatNum(num) {
  */
 export function pushToRecentSearches(ele) {
 	const str = String(ele);
-	let cookie = Cookies.get(COOKIES.recentSearches);
-	if (cookie === undefined) {
-		cookie = '[]';
-	}
-	const array = JSON.parse(cookie);
+	const array = getRecentSearches();
 	const maxLength = 40;
 	
 	// The new player name is put at the front of the queue

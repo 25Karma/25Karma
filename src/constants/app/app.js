@@ -8,7 +8,7 @@ export const APP = {
 	organizationUrl: "https://github.com/25karma",
 	ownerHypixelForumsUrl: "",
 	ownerUsername: "",
-	skyblockUrl: "https://sky.shiiyu.moe/stats",
+	skyblockUrl: "https://sky.shiiiyu.moe/stats",
 	suggestedPlayers: ["Technoblade", "gamerboy80", "Technoblade"],
 	discordUrl: "",
 	announcement: {
