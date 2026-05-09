@@ -1,20 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Cookies from 'js-cookie';
 import { MdMoreHoriz } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { Button, MinecraftText, ReactIcon, Tippy } from 'src/components';
-import { APP, COOKIES } from 'src/constants/app';
+import { APP } from 'src/constants/app';
+import { getRecentSearches } from 'src/utils';
 
 /**
  * Renders JSX containing recent searches if there are any
  * If there are none, renders a suggestion
  */
 export function RecentSearches() {
-	let cookie = Cookies.get(COOKIES.recentSearches);
-	if (cookie === undefined) {
-		cookie = '[]';
-	}
-	const array = JSON.parse(cookie);
+	const array = getRecentSearches();
 
 	// Stores whether to show all recent searches or only the first line
 	const [showAllRecents, setShowAllRecents] = useState(false);

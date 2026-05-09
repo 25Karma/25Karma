@@ -12,31 +12,46 @@ import { getClientHeaders, httpGet } from 'src/utils';
  */
 export function useAPIContext(slug, type) {
 	const { APIData, setAPIData } = useContext(APIContext);
-	// Monitors the state of the API fetch, if a slug is provided
-	const [fetchStatus, setFetchStatus] = useState(false);
+	const requestKey = slug ? `${type}/${slug}` : null;
+	const [loadedRequestKey, setLoadedRequestKey] = useState(null);
+
 	useEffect(() => {
+		if (!slug) return;
+
+		let ignore = false;
+
 		async function fetchFromAPI() {
-			const href = window.location.href;
 			const url = `${APP.apiUrl}/${type}/${slug}`;
-			return httpGet(url, { headers: await getClientHeaders() })
-				.then((response) => response.json())
-				.then((json) => {
-					if(window.location.href === href) {
-						setAPIData(json);
-						setFetchStatus(true);
-					}
-				});
-		}
-		if (slug) {
+
 			setAPIData({});
-			fetchFromAPI();
+			setLoadedRequestKey(null);
+
+			try {
+				const response = await httpGet(url, { headers: await getClientHeaders() });
+				const json = await response.json();
+				if (!ignore) {
+					setAPIData(json);
+					setLoadedRequestKey(requestKey);
+				}
+			} catch {
+				if (!ignore) {
+					setAPIData({ success: false, reason: 'UNKNOWN', slug });
+					setLoadedRequestKey(requestKey);
+				}
+			}
 		}
-	}, [slug, type, setAPIData])
+
+		fetchFromAPI();
+
+		return () => {
+			ignore = true;
+		};
+	}, [slug, type, requestKey, setAPIData])
 	
 	// If we are fetching new data from the API, we don't want to return the old data from the context
 	// We return an empty JS object until the new data has been fetched
 	if (slug) {
-		return fetchStatus ? APIData : {};
+		return loadedRequestKey === requestKey ? APIData : {};
 	}
 	else {
 		return APIData;
